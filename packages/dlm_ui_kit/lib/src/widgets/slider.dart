@@ -146,46 +146,48 @@ class _DlmSliderState extends State<DlmSlider> {
             final width = constraints.hasBoundedWidth
                 ? constraints.maxWidth
                 : 200.0;
-            return GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTapDown: _enabled
-                  ? (d) {
-                      setState(() => _dragging = true);
-                      _fromDx(d.localPosition.dx, width, radius);
-                    }
-                  : null,
-              onTapUp: _enabled
-                  ? (_) {
-                      setState(() => _dragging = false);
-                      widget.onChangeEnd?.call(widget.value);
-                    }
-                  : null,
-              onTapCancel: _enabled
-                  ? () => setState(() => _dragging = false)
-                  : null,
-              onHorizontalDragStart: _enabled
-                  ? (_) => setState(() => _dragging = true)
-                  : null,
-              onHorizontalDragUpdate: _enabled
-                  ? (d) => _fromDx(d.localPosition.dx, width, radius)
-                  : null,
-              onHorizontalDragEnd: _enabled
-                  ? (_) {
-                      setState(() => _dragging = false);
-                      widget.onChangeEnd?.call(widget.value);
-                    }
-                  : null,
-              child: theme.components.slider(
-                context,
-                fraction: fraction,
-                width: width,
-                thumbRadius: radius,
-                states: DlmStates(
-                  hovered: _enabled && _hovered,
-                  pressed: _enabled && _dragging,
-                  focused: _focused,
-                  focusVisible: _focused && _focusVisible,
-                  disabled: !_enabled,
+            return ExcludeSemantics(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTapDown: _enabled
+                    ? (d) {
+                        setState(() => _dragging = true);
+                        _fromDx(d.localPosition.dx, width, radius);
+                      }
+                    : null,
+                onTapUp: _enabled
+                    ? (_) {
+                        setState(() => _dragging = false);
+                        widget.onChangeEnd?.call(widget.value);
+                      }
+                    : null,
+                onTapCancel: _enabled
+                    ? () => setState(() => _dragging = false)
+                    : null,
+                onHorizontalDragStart: _enabled
+                    ? (_) => setState(() => _dragging = true)
+                    : null,
+                onHorizontalDragUpdate: _enabled
+                    ? (d) => _fromDx(d.localPosition.dx, width, radius)
+                    : null,
+                onHorizontalDragEnd: _enabled
+                    ? (_) {
+                        setState(() => _dragging = false);
+                        widget.onChangeEnd?.call(widget.value);
+                      }
+                    : null,
+                child: theme.components.slider(
+                  context,
+                  fraction: fraction,
+                  width: width,
+                  thumbRadius: radius,
+                  states: DlmStates(
+                    hovered: _enabled && _hovered,
+                    pressed: _enabled && _dragging,
+                    focused: _focused,
+                    focusVisible: _focused && _focusVisible,
+                    disabled: !_enabled,
+                  ),
                 ),
               ),
             );

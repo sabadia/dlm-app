@@ -8,6 +8,9 @@ class AdwaitaComponents extends DlmBaseComponents {
   /// Creates the Adwaita component set.
   const AdwaitaComponents();
 
+  @override
+  double get iconStrokeWidth => 1.75;
+
   Color _tint(DlmThemeData t, DlmStates s, {double rest = 0.08}) {
     final a = s.pressed ? rest * 2 : (s.hovered ? rest * 1.5 : rest);
     return t.colors.textPrimary.withValues(alpha: a);

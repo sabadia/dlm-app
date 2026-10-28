@@ -147,37 +147,39 @@ class _DlmSplitViewState extends State<DlmSplitView> {
             },
             onShowHoverHighlight: (v) => setState(() => _hovered = v),
             onShowFocusHighlight: (v) => setState(() => _focused = v),
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onDoubleTap: widget.initialSize == null
-                  ? null
-                  : () => _set(widget.initialSize!, total),
-              onHorizontalDragStart: horizontal
-                  ? (_) => setState(() => _dragging = true)
-                  : null,
-              onHorizontalDragUpdate: horizontal
-                  ? (d) => _set(size + d.delta.dx * sign * flip, total)
-                  : null,
-              onHorizontalDragEnd: horizontal
-                  ? (_) => setState(() => _dragging = false)
-                  : null,
-              onVerticalDragStart: horizontal
-                  ? null
-                  : (_) => setState(() => _dragging = true),
-              onVerticalDragUpdate: horizontal
-                  ? null
-                  : (d) => _set(size + d.delta.dy * sign, total),
-              onVerticalDragEnd: horizontal
-                  ? null
-                  : (_) => setState(() => _dragging = false),
-              child: theme.components.splitDivider(
-                context,
-                axis: widget.axis,
-                states: DlmStates(
-                  hovered: _hovered,
-                  pressed: _dragging,
-                  focused: _focused,
-                  focusVisible: _focused,
+            child: ExcludeSemantics(
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onDoubleTap: widget.initialSize == null
+                    ? null
+                    : () => _set(widget.initialSize!, total),
+                onHorizontalDragStart: horizontal
+                    ? (_) => setState(() => _dragging = true)
+                    : null,
+                onHorizontalDragUpdate: horizontal
+                    ? (d) => _set(size + d.delta.dx * sign * flip, total)
+                    : null,
+                onHorizontalDragEnd: horizontal
+                    ? (_) => setState(() => _dragging = false)
+                    : null,
+                onVerticalDragStart: horizontal
+                    ? null
+                    : (_) => setState(() => _dragging = true),
+                onVerticalDragUpdate: horizontal
+                    ? null
+                    : (d) => _set(size + d.delta.dy * sign, total),
+                onVerticalDragEnd: horizontal
+                    ? null
+                    : (_) => setState(() => _dragging = false),
+                child: theme.components.splitDivider(
+                  context,
+                  axis: widget.axis,
+                  states: DlmStates(
+                    hovered: _hovered,
+                    pressed: _dragging,
+                    focused: _focused,
+                    focusVisible: _focused,
+                  ),
                 ),
               ),
             ),

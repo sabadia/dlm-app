@@ -9,6 +9,9 @@ class FluentComponents extends DlmBaseComponents {
   /// Creates the Fluent component set.
   const FluentComponents();
 
+  @override
+  double get iconStrokeWidth => 1.25;
+
   /// A box with a uniform one-pixel outline and a separate, possibly thicker
   /// bottom edge. (Flutter cannot round the corners of a border whose sides
   /// differ, so the bottom edge is a line inside a clipped box.)

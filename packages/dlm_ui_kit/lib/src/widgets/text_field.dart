@@ -48,6 +48,7 @@ class DlmTextField extends StatefulWidget {
   final String? placeholder;
 
   /// Accessible name; always provide one when there is no visible label.
+  /// Defaults to the [placeholder].
   final String? semanticLabel;
 
   /// Whether the field accepts input.
@@ -202,47 +203,50 @@ class _DlmTextFieldState extends State<DlmTextField> {
       ],
     );
     final hasError = widget.errorText != null;
-    return Semantics(
-      container: true,
-      label: widget.semanticLabel,
-      textField: true,
-      enabled: widget.enabled,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          MouseRegion(
-            cursor: widget.enabled
-                ? SystemMouseCursors.text
-                : SystemMouseCursors.basic,
-            onEnter: (_) => setState(() => _hovered = true),
-            onExit: (_) => setState(() => _hovered = false),
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTapDown: widget.enabled ? (_) => _focus.requestFocus() : null,
-              child: theme.components.textFieldFrame(
-                context,
-                states: states,
-                hasError: hasError,
-                multiline: multiline,
-                child: row,
-              ),
-            ),
-          ),
-          if (hasError)
-            Padding(
-              padding: EdgeInsets.only(top: theme.metrics.spacing.xs),
-              child: Semantics(
-                container: true,
-                liveRegion: true,
-                child: Text(
-                  widget.errorText!,
-                  style: theme.typography.caption.copyWith(color: c.danger),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // The editor is its own semantics boundary; merging it with the
+        // label gives the field a single named node.
+        MergeSemantics(
+          child: Semantics(
+            label: widget.semanticLabel ?? widget.placeholder,
+            textField: true,
+            enabled: widget.enabled,
+            child: MouseRegion(
+              cursor: widget.enabled
+                  ? SystemMouseCursors.text
+                  : SystemMouseCursors.basic,
+              onEnter: (_) => setState(() => _hovered = true),
+              onExit: (_) => setState(() => _hovered = false),
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTapDown: widget.enabled ? (_) => _focus.requestFocus() : null,
+                child: theme.components.textFieldFrame(
+                  context,
+                  states: states,
+                  hasError: hasError,
+                  multiline: multiline,
+                  child: row,
                 ),
               ),
             ),
-        ],
-      ),
+          ),
+        ),
+        if (hasError)
+          Padding(
+            padding: EdgeInsets.only(top: theme.metrics.spacing.xs),
+            child: Semantics(
+              container: true,
+              liveRegion: true,
+              child: Text(
+                widget.errorText!,
+                style: theme.typography.caption.copyWith(color: c.danger),
+              ),
+            ),
+          ),
+      ],
     );
   }
 }

@@ -7,6 +7,9 @@ class BreezeComponents extends DlmBaseComponents {
   /// Creates the Breeze component set.
   const BreezeComponents();
 
+  @override
+  double get iconStrokeWidth => 1.25;
+
   Color _frame(DlmThemeData t, DlmStates s) {
     final c = t.colors;
     if (s.disabled) return c.textPrimary.withValues(alpha: 0.2);

@@ -118,10 +118,10 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F2.5 GNOME skin: Adwaita — Header bars (CSD), split view, preferences rows, toast overlay, dialogs, portal colour-scheme and accent, rounded window with shadow on Wayland/X11.
 - [ ] F2.6 KDE skin: Breeze — Breeze controls, toolbars, System-Settings-style pages, colours and fonts from kdeglobals, system icon theme, server-side title bar.
 - [ ] F2.7 Window chrome layer — Title bar styles, minimum size, restore, fullscreen, translucency toggle per OS in dlm_platform.
-- [ ] F2.8 OS/DE detection, live theme sync, user override — Dark/light, accent, high contrast, reduce motion, text scale; Preferences: Native/Light/Dark, accent, skin override for testing.
-- [ ] F2.9 Semantic icon system and app icons — Per-skin icon map with licence audit; app icon set.
+- [x] F2.8 OS/DE detection, live theme sync, user override — Dark/light, accent, high contrast, reduce motion, text scale; Preferences: Native/Light/Dark, accent, skin override for testing.
+- [x] F2.9 Semantic icon system and app icons — Per-skin icon map with licence audit; app icon set.
 - [ ] F2.10 Kit gallery app and golden tests — Every component x 4 skins x light/dark/high-contrast.
-- [ ] F2.11 Kit accessibility and keyboard specification — Semantics, focus order, keyboard map, tested.
+- [x] F2.11 Kit accessibility and keyboard specification — Semantics, focus order, keyboard map, tested.
 
 ### M3 Core experience
 

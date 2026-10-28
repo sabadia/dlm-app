@@ -139,3 +139,38 @@ class _DisplaySectionState extends State<DisplaySection> {
 }
 
 void _noop() {}
+
+/// Every built-in glyph with its name.
+class IconsSection extends StatelessWidget {
+  /// Creates the section.
+  const IconsSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = DlmTheme.of(context);
+    return Wrap(
+      spacing: theme.metrics.spacing.lg,
+      runSpacing: theme.metrics.spacing.md,
+      children: [
+        for (final name in DlmIconName.values)
+          SizedBox(
+            width: 84,
+            child: Column(
+              children: [
+                DlmIcon(name, size: 24, color: theme.colors.textPrimary),
+                SizedBox(height: theme.metrics.spacing.xs),
+                Text(
+                  name.name,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: theme.typography.caption.copyWith(
+                    color: theme.colors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}

@@ -26,6 +26,7 @@ void main() {
     await p.set(UiPrefs.density, Density.compact);
     await p.set(UiPrefs.theme, ThemeChoice.dark);
     await p.set(UiPrefs.skinOverride, 'fluent');
+    await p.set(UiPrefs.accent, 0xFF30D158);
     await p.set(UiPrefs.unitSystem, UnitSystem.si);
     await p.dispose();
 
@@ -33,6 +34,7 @@ void main() {
     expect(again.get(UiPrefs.density), Density.compact);
     expect(again.get(UiPrefs.theme), ThemeChoice.dark);
     expect(again.get(UiPrefs.skinOverride), 'fluent');
+    expect(again.get(UiPrefs.accent), 0xFF30D158);
     expect(again.get(UiPrefs.unitSystem), UnitSystem.si);
     await again.reset(UiPrefs.skinOverride);
     expect(again.get(UiPrefs.skinOverride), isNull);

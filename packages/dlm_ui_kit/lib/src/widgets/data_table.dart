@@ -795,12 +795,14 @@ class _HeaderCell<T> extends StatelessWidget {
             decreasedValue: '${(width - 8).round()}',
             onIncrease: () => onResize!(width + 8),
             onDecrease: () => onResize!(width - 8),
-            child: MouseRegion(
-              cursor: SystemMouseCursors.resizeColumn,
-              child: GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onHorizontalDragUpdate: (d) => onResize!(width + d.delta.dx),
-                child: const SizedBox.expand(),
+            child: ExcludeSemantics(
+              child: MouseRegion(
+                cursor: SystemMouseCursors.resizeColumn,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onHorizontalDragUpdate: (d) => onResize!(width + d.delta.dx),
+                  child: const SizedBox.expand(),
+                ),
               ),
             ),
           ),
