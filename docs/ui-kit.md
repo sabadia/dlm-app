@@ -63,6 +63,22 @@ Conventions the widgets follow, and callers rely on:
 Known gap, to be closed where the app has localisation (F4.11): the cut/copy/paste
 context menu of text inputs. Keyboard shortcuts and selection work.
 
+## Window chrome and backdrop effects (F2.3, F2.7)
+
+`dlm_platform` owns the native window behind the `WindowChrome` interface (`apply`,
+`capabilities`, `setBackdropRegion`). On macOS a small Swift plugin
+(`packages/dlm_platform/macos`, Swift package with a podspec fallback) makes the title
+bar transparent and puts an `NSGlassEffectView` (macOS 26+) or `NSVisualEffectView`
+behind a *region* of the Flutter view. Flutter draws the tint and all content; the
+native view only provides the blur Flutter cannot.
+
+- The app calls `apply` after the first frame and reads what is in force. If the effect is
+  unavailable it reports reduce-transparency, and the kit makes every material opaque.
+- `BackdropRegion` wraps the sidebar and keeps the native region in step with it.
+- `DlmThemeData.windowBackground` is transparent only while a backdrop can show through;
+  content areas paint their own opaque colour, so the desktop never shows through them.
+- `DlmThemeData.titleBarInset` is the height the traffic lights cover.
+
 ## Adding a skin
 
 Implement `DlmSkin` in its package, return tokens from `tokens(appearance)` (use

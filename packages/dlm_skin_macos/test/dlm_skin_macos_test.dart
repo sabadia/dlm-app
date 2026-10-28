@@ -35,4 +35,14 @@ void main() {
     final m = skin.tokens(const DlmAppearance()).metrics;
     expect(m.controlHeightSmall, greaterThanOrEqualTo(24));
   });
+
+  test('the title bar inset covers the traffic lights', () {
+    final theme = DlmThemeData.resolve(skin, const DlmAppearance());
+    expect(theme.titleBarInset, 28);
+    expect(
+      theme.windowBackground.a,
+      0,
+      reason: 'the sidebar shows the backdrop',
+    );
+  });
 }

@@ -169,6 +169,20 @@ void main() {
     expect(seen!.brightness, Brightness.light, reason: 'old source ignored');
   });
 
+  testWidgets('the window background is transparent only while a backdrop '
+      'effect can show through', (tester) async {
+    await tester.pumpWidget(app(AppearanceOverride.none));
+    expect(seen!.windowBackground.a, 0);
+    source.update(const DlmAppearance(reduceTransparency: true));
+    await tester.pump();
+    expect(seen!.windowBackground, seen!.colors.window);
+  });
+
+  testWidgets('titleBarInset follows the shell pattern', (tester) async {
+    await tester.pumpWidget(app(AppearanceOverride.none));
+    expect(seen!.titleBarInset, 0, reason: 'the test skin has a system bar');
+  });
+
   testWidgets('maybeOf is null without a scope', (tester) async {
     DlmThemeData? found = _sentinel;
     await tester.pumpWidget(

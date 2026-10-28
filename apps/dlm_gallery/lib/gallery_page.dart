@@ -1,5 +1,6 @@
 import 'package:dlm_gallery/gallery_app.dart';
 import 'package:dlm_gallery/sections/sections.dart';
+import 'package:dlm_platform/dlm_platform.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,6 +19,7 @@ class GalleryPage extends StatefulWidget {
   const GalleryPage({
     required this.skins,
     required this.settings,
+    required this.chrome,
     required this.onChanged,
     super.key,
   });
@@ -27,6 +29,9 @@ class GalleryPage extends StatefulWidget {
 
   /// The current settings.
   final GallerySettings settings;
+
+  /// Where the sidebar's backdrop region is reported.
+  final WindowChrome chrome;
 
   /// Called with changed settings.
   final ValueChanged<GallerySettings> onChanged;
@@ -49,7 +54,7 @@ class _GalleryPageState extends State<GalleryPage> {
   Widget build(BuildContext context) {
     final theme = DlmTheme.of(context);
     return ColoredBox(
-      color: theme.colors.window,
+      color: theme.windowBackground,
       child: DlmToastHost(
         controller: _toasts,
         child: DlmSplitView(
@@ -59,11 +64,22 @@ class _GalleryPageState extends State<GalleryPage> {
           initialSize: 280,
           dividerLabel: 'Resize control panel',
           onResized: (v) => setState(() => _panel = v),
-          primary: _controls(context, theme),
+          primary: BackdropRegion(
+            chrome: widget.chrome,
+            child: theme.components.sidebarSurface(
+              context,
+              child: _controls(context, theme),
+            ),
+          ),
           secondary: ColoredBox(
             color: theme.colors.content,
             child: ListView(
-              padding: EdgeInsets.all(theme.metrics.spacing.xl),
+              padding: EdgeInsets.fromLTRB(
+                theme.metrics.spacing.xl,
+                theme.metrics.spacing.xl + theme.titleBarInset,
+                theme.metrics.spacing.xl,
+                theme.metrics.spacing.xl,
+              ),
               children: [
                 for (final (title, body) in gallerySections(context, _toasts))
                   if (widget.settings.section == null ||
@@ -89,7 +105,12 @@ class _GalleryPageState extends State<GalleryPage> {
     final gap = SizedBox(height: theme.metrics.spacing.md);
     void set(GallerySettings next) => widget.onChanged(next);
     return ListView(
-      padding: EdgeInsets.all(theme.metrics.spacing.lg),
+      padding: EdgeInsets.fromLTRB(
+        theme.metrics.spacing.lg,
+        theme.metrics.spacing.lg + theme.titleBarInset,
+        theme.metrics.spacing.lg,
+        theme.metrics.spacing.lg,
+      ),
       children: [
         Text('dlm UI kit', style: theme.typography.headline),
         gap,

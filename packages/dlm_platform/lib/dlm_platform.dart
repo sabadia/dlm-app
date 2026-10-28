@@ -6,3 +6,5 @@ export 'src/daemon/daemon_locator.dart';
 export 'src/daemon/daemon_supervisor.dart';
 export 'src/daemon/runtime_info.dart';
 export 'src/secret_store.dart';
+export 'src/window/backdrop_region.dart';
+export 'src/window/window_chrome.dart';

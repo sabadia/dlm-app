@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:dlm_gallery/gallery_page.dart';
+import 'package:dlm_platform/dlm_platform.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 
@@ -17,6 +20,7 @@ class GallerySettings {
     this.reduceMotion = false,
     this.reduceTransparency = false,
     this.section,
+    this.effect = WindowEffect.glass,
   });
 
   /// Index into the skin list.
@@ -43,6 +47,9 @@ class GallerySettings {
   /// Reduce transparency.
   final bool reduceTransparency;
 
+  /// The window backdrop effect to request.
+  final WindowEffect effect;
+
   /// Title of the only section to show; null shows all.
   final String? section;
 
@@ -59,6 +66,7 @@ class GallerySettings {
     bool? reduceTransparency,
     String? section,
     bool clearSection = false,
+    WindowEffect? effect,
   }) => GallerySettings(
     skinIndex: skinIndex ?? this.skinIndex,
     dark: dark ?? this.dark,
@@ -69,15 +77,16 @@ class GallerySettings {
     reduceMotion: reduceMotion ?? this.reduceMotion,
     reduceTransparency: reduceTransparency ?? this.reduceTransparency,
     section: clearSection ? null : (section ?? this.section),
+    effect: effect ?? this.effect,
   );
 
   /// The system appearance these settings stand for.
-  DlmAppearance get appearance => DlmAppearance(
+  DlmAppearance appearanceFor({required bool windowHasEffect}) => DlmAppearance(
     brightness: dark ? Brightness.dark : Brightness.light,
     contrast: highContrast ? DlmContrast.high : DlmContrast.standard,
     accent: accent,
     reduceMotion: reduceMotion,
-    reduceTransparency: reduceTransparency,
+    reduceTransparency: reduceTransparency || !windowHasEffect,
     textScale: textScale,
   );
 }
@@ -89,6 +98,7 @@ class GalleryApp extends StatefulWidget {
   const GalleryApp({
     required this.skins,
     this.initial = const GallerySettings(),
+    this.chrome = const UnsupportedWindowChrome(),
     super.key,
   });
 
@@ -98,19 +108,63 @@ class GalleryApp extends StatefulWidget {
   /// The settings the gallery starts with.
   final GallerySettings initial;
 
+  /// The native window chrome (macOS glass); a no-op elsewhere.
+  final WindowChrome chrome;
+
   @override
   State<GalleryApp> createState() => _GalleryAppState();
 }
 
 class _GalleryAppState extends State<GalleryApp> {
   late GallerySettings _settings = widget.initial;
+  WindowChromeResult _chrome = WindowChromeResult.none;
   late final ManualAppearanceSource _source = ManualAppearanceSource(
-    _settings.appearance,
+    _settings.appearanceFor(windowHasEffect: false),
   );
 
+  DlmSkin get _skin =>
+      widget.skins[_settings.skinIndex.clamp(0, widget.skins.length - 1)];
+
+  @override
+  void initState() {
+    super.initState();
+    // The window exists after the first frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _applyChrome());
+  }
+
+  Future<void> _applyChrome() async {
+    final shell = _skin.shell;
+    try {
+      final result = await widget.chrome.apply(
+        WindowChromeConfig(
+          transparentTitleBar:
+              shell.titleBar == DlmTitleBarStyle.unifiedTransparent,
+          effect: _settings.effect,
+          brightness: _settings.dark ? Brightness.dark : Brightness.light,
+        ),
+      );
+      if (!mounted) return;
+      _chrome = result;
+      _source.update(
+        _settings.appearanceFor(
+          windowHasEffect: result.effect != WindowEffect.none,
+        ),
+      );
+    } on WindowChromeException {
+      // The window was not ready; keep the opaque look.
+    }
+  }
+
   void _update(GallerySettings next) {
+    final restyle =
+        next.dark != _settings.dark ||
+        next.effect != _settings.effect ||
+        next.skinIndex != _settings.skinIndex;
     setState(() => _settings = next);
-    _source.update(next.appearance);
+    _source.update(
+      next.appearanceFor(windowHasEffect: _chrome.effect != WindowEffect.none),
+    );
+    if (restyle) unawaited(_applyChrome());
   }
 
   @override
@@ -121,8 +175,6 @@ class _GalleryAppState extends State<GalleryApp> {
 
   @override
   Widget build(BuildContext context) {
-    final skin =
-        widget.skins[_settings.skinIndex.clamp(0, widget.skins.length - 1)];
     return WidgetsApp(
       color: const Color(0xFF000000),
       debugShowCheckedModeBanner: false,
@@ -131,7 +183,7 @@ class _GalleryAppState extends State<GalleryApp> {
         pageBuilder: (context, _, _) => builder(context),
       ),
       builder: (context, navigator) => DlmThemeScope(
-        skin: skin,
+        skin: _skin,
         source: _source,
         userOverride: AppearanceOverride(density: _settings.density),
         child: navigator!,
@@ -139,6 +191,7 @@ class _GalleryAppState extends State<GalleryApp> {
       home: GalleryPage(
         skins: widget.skins,
         settings: _settings,
+        chrome: widget.chrome,
         onChanged: _update,
       ),
     );

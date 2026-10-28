@@ -83,6 +83,25 @@ class DlmThemeData extends DlmTokenValue {
   /// The skin's component builders.
   final DlmComponents components;
 
+  /// The fill behind the whole window. Transparent when the skin uses
+  /// translucent materials and the window provides a backdrop effect (the app
+  /// reports reduce-transparency when it does not); the window colour
+  /// otherwise. Regions that are not translucent paint their own opaque
+  /// colour on top.
+  Color get windowBackground =>
+      appearance.reduceTransparency ||
+          !materials.all.any((m) => m.isTranslucent)
+      ? colors.window
+      : const Color(0x00000000);
+
+  /// Height at the top of the content that the window controls cover (the
+  /// macOS traffic lights over a transparent title bar); zero when the system
+  /// draws the title bar outside the content.
+  double get titleBarInset =>
+      shell.titleBar == DlmTitleBarStyle.unifiedTransparent
+      ? metrics.titleBarHeight
+      : 0;
+
   /// Light or dark.
   Brightness get brightness => colors.brightness;
 
