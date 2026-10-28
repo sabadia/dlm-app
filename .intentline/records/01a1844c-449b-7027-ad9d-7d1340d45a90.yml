@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1844c-449b-7027-ad9d-7d1340d45a90
+status: draft
+created_at: '2026-10-28T20:55:53Z'
+updated_at: '2026-10-28T20:55:53Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.2 (part 3): progress, badge/chip, list row, empty/error/loading states, skeleton, banner, tooltip and toast host'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/widgets/toast.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/widgets/tooltip.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

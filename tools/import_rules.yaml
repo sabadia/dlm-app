@@ -12,6 +12,13 @@ packages:
   dlm_skin_fluent: [dlm_ui_kit]
   dlm_skin_adwaita: [dlm_ui_kit]
   dlm_skin_breeze: [dlm_ui_kit]
+  dlm_gallery:
+    - dlm_ui_kit
+    - dlm_platform
+    - dlm_skin_macos
+    - dlm_skin_fluent
+    - dlm_skin_adwaita
+    - dlm_skin_breeze
   dlm_app:
     - dlm_api
     - dlm_core
@@ -27,3 +34,4 @@ packages:
 # registry that picks the skin at startup. Features never import a skin.
 skin_registry:
   - apps/dlm_app/lib/src/skin_registry.dart
+  - apps/dlm_gallery/lib/skins.dart

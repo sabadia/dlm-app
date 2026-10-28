@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18455-fbe6-74e6-bd37-f7597225f16b
+status: draft
+created_at: '2026-10-28T21:06:29Z'
+updated_at: '2026-10-28T21:06:29Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.2 (part 6): virtualized data table with sortable resizable columns, modifier selection and keyboard model; double-click detector that does not delay single clicks'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/widgets/data_table.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/behavior/double_click.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
