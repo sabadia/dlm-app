@@ -1,0 +1,38 @@
+schema_version: 1
+id: 01a183a8-62d9-7ea3-a42c-bed749626472
+status: draft
+created_at: '2026-10-28T17:56:53Z'
+updated_at: '2026-10-28T17:56:53Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Pin the Flutter toolchain and set up the workspace, strict analysis, dependency-rule checker, conventions and ADRs for dlm-app
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: pubspec.yaml
+  start_line: null
+  end_line: null
+- path: analysis_options.yaml
+  start_line: null
+  end_line: null
+- path: tools/dlm_tools/lib/import_rules.dart
+  start_line: null
+  end_line: null
+- path: docs/CONVENTIONS.md
+  start_line: null
+  end_line: null
+- path: docs/adr/0001-skin-architecture.md
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

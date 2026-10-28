@@ -1,0 +1,7 @@
+name: dlm_workspace
+description: Pub workspace root of the dlm desktop app. Not a package that is published or built.
+publish_to: none
+environment:
+  sdk: ^3.13.0
+workspace:
+  - tools/dlm_tools

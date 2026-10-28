@@ -92,7 +92,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 - [x] F0.1 Create the dlm-app repository — Public repo `sabadia/dlm-app`, Apache-2.0, NOTICE, README, SECURITY, CODEOWNERS, issue and PR templates; protect `main` (pull requests, linear history, squash-only; required checks are added with F0.4).
 - [x] F0.2 GitHub Project board, labels, milestones and issues — Project `dlm-app` (Backlog/Ready/In progress/In review/Done), labels (`area/*`, `type/*`, `os/*`), milestones M0-M8, an issue for every task in docs/PLAN.md; backend enablers P13.x created in dlm-server and cross-linked.
-- [ ] F0.3 Toolchain pin, workspace, lints, conventions and ADRs — Pin Flutter 3.47.x / Dart 3.13 (`.fvmrc`, re-verify versions), pub workspace, strict analysis options, formatter, import-rule lint for the package dependency rules, intentline hook, CONVENTIONS.md, ADR-001 (skin architecture), ADR-002 (state and models).
+- [x] F0.3 Toolchain pin, workspace, lints, conventions and ADRs — Pin Flutter 3.47.x / Dart 3.13 (`.fvmrc`, re-verify versions), pub workspace, strict analysis options, formatter, import-rule lint for the package dependency rules, intentline hook, CONVENTIONS.md, ADR-001 (skin architecture), ADR-002 (state and models).
 - [ ] F0.4 CI: analyze, test, goldens, builds, dependency hygiene — Analyze + test on ubuntu/macos/windows, golden job in a pinned Linux container with pinned fonts, debug builds per OS, caching, Dependabot, licence check, SBOM; then add the checks as required on `main`.
 - [x] F0.5 Commit the plan; contribution and design docs skeleton — `docs/PLAN.md` is the authoritative plan; CONTRIBUTING and docs skeleton.
 
