@@ -1,4 +1,11 @@
 # Dependencies whose licence the checker cannot classify (or classifies as
 # copyleft) but that were reviewed and accepted. Each entry needs a reason; an
 # empty list is the goal.
-packages: {}
+packages:
+  dbus: >-
+    MPL-2.0 (Canonical). File-level copyleft: it only obliges sharing changes to
+    the package's own files, which we do not modify, and is on the accepted list
+    in docs/CONVENTIONS.md. Used by xdg_desktop_portal on Linux.
+  xdg_desktop_portal: >-
+    MPL-2.0 (Canonical), same reasoning as dbus. Reads the desktop settings
+    portal (colour scheme, accent) for the GNOME skin; Linux only.

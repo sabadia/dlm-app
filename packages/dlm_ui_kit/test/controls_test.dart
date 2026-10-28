@@ -218,6 +218,28 @@ void main() {
   });
 
   group('DlmRadio', () {
+    testWidgets(
+      'a selected radio is enabled and choosing it again is a no-op',
+      (tester) async {
+        var calls = 0;
+        await pumpKit(
+          tester,
+          DlmRadio<String>(
+            value: 'a',
+            groupValue: 'a',
+            label: 'Option a',
+            onChanged: (_) => calls++,
+          ),
+        );
+        await tester.tap(find.text('Option a'));
+        expect(calls, 0);
+        expect(
+          tester.widget<DlmInteractive>(find.byType(DlmInteractive)).onTap,
+          isNotNull,
+        );
+      },
+    );
+
     testWidgets('chooses its value and reports checked', (tester) async {
       String? group = 'a';
       late StateSetter set;
@@ -252,6 +274,9 @@ void main() {
           isChecked: true,
           isInMutuallyExclusiveGroup: true,
           hasEnabledState: true,
+          isEnabled: true,
+          hasTapAction: true,
+          isFocusable: true,
         ),
       );
       handle.dispose();

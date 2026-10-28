@@ -3,6 +3,8 @@ import 'dart:ui' show Brightness;
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/painting.dart';
 
+import 'fluent_components.dart';
+
 /// The Windows skin: Fluent tokens (Segoe UI Variable, 32 px controls, 4/8 px radii),
 /// a NavigationView sidebar, a command bar and a custom caption title bar.
 /// Mica or Acrylic is applied by the window (`dlm_platform`); Flutter draws the tint.
@@ -15,6 +17,9 @@ class FluentSkin extends DlmSkin {
 
   @override
   String get id => 'fluent';
+
+  @override
+  DlmComponents get components => const FluentComponents();
 
   @override
   DlmShellPattern get shell => const DlmShellPattern(

@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a184a9-d633-7ef1-9d32-819d411e174b
+status: draft
+created_at: '2026-10-28T22:38:05Z'
+updated_at: '2026-10-28T22:38:05Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Tick F2.10 (gallery and goldens complete) and document the golden workflow
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: docs/ui-kit.md
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

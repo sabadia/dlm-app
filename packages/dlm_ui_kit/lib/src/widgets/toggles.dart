@@ -166,12 +166,18 @@ class DlmRadio<T> extends StatelessWidget {
       checked: selected,
       semanticLabel: semanticLabel ?? label,
       focusNode: focusNode,
-      onTap: onChanged == null || selected ? null : () => onChanged!(value),
+      // A selected radio stays enabled (it is not drawn or announced as
+      // disabled); choosing it again changes nothing.
+      onTap: onChanged == null
+          ? null
+          : () {
+              if (!selected) onChanged!(value);
+            },
       builder: (context, states) => _labelled(
         context,
         theme.components.radio(context, selected: selected, states: states),
         label,
-        states.disabled && !selected,
+        states.disabled,
       ),
     );
   }

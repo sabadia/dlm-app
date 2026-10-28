@@ -345,6 +345,11 @@ class DlmBaseComponents extends DlmComponents {
     );
   }
 
+  /// Stroke width of the built-in glyphs on their 16 x 16 grid; skins change
+  /// it to match their icon weight.
+  @protected
+  double get iconStrokeWidth => 1.5;
+
   @override
   Widget icon(
     BuildContext context,
@@ -353,7 +358,9 @@ class DlmBaseComponents extends DlmComponents {
     required Color color,
   }) => SizedBox.square(
     dimension: size,
-    child: CustomPaint(painter: DlmIconPainter(name, color)),
+    child: CustomPaint(
+      painter: DlmIconPainter(name, color, strokeWidth: iconStrokeWidth),
+    ),
   );
 
   @override

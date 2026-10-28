@@ -127,6 +127,99 @@ enum DlmIconName {
 
   /// Arrow pointing down for descending sort.
   sortDescending,
+
+  /// Arrow into a tray.
+  download,
+
+  /// Arrow out of a tray.
+  upload,
+
+  /// Two vertical bars.
+  pause,
+
+  /// A right-pointing triangle.
+  play,
+
+  /// A square.
+  stop,
+
+  /// Counter-clockwise arrow.
+  restart,
+
+  /// Clockwise arrow.
+  refresh,
+
+  /// A bin.
+  trash,
+
+  /// A folder.
+  folder,
+
+  /// A page with a folded corner.
+  file,
+
+  /// Two chain links.
+  link,
+
+  /// Two overlapping sheets.
+  copy,
+
+  /// A gear.
+  settings,
+
+  /// A list with bullets.
+  queue,
+
+  /// A clock.
+  schedule,
+
+  /// A label.
+  tag,
+
+  /// A funnel.
+  filter,
+
+  /// A gauge.
+  speed,
+
+  /// Axes with bars.
+  chart,
+
+  /// A plug.
+  plugin,
+
+  /// A globe.
+  globe,
+
+  /// A key.
+  key,
+
+  /// Arrow into a bar.
+  importIcon,
+
+  /// Arrow out of a bar.
+  exportIcon,
+
+  /// A pencil.
+  edit,
+
+  /// A padlock.
+  lock,
+
+  /// A bell.
+  bell,
+
+  /// A window with a left pane.
+  sidebar,
+
+  /// A window with a right pane.
+  inspector,
+
+  /// Arrow leaving a box.
+  externalLink,
+
+  /// Three horizontal lines.
+  menu,
 }
 
 /// The visual builders a skin supplies for the kit's components.

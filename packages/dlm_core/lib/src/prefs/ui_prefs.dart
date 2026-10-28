@@ -105,6 +105,10 @@ abstract final class UiPrefs {
   /// skin of this operating system.
   static const skinOverride = Pref<String?>.plain('ui.skin', null);
 
+  /// Accent colour as an ARGB value; null follows the system accent (or the
+  /// skin's own when the system has none).
+  static const accent = Pref<int?>.plain('ui.accent', null);
+
   /// Row density.
   static final density = enumPref(
     'ui.density',
