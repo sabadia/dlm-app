@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18493-3cf9-7bc6-86b7-853386b20406
+status: draft
+created_at: '2026-10-28T22:13:24Z'
+updated_at: '2026-10-28T22:13:24Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.4-F2.6 part 2: skin-specific control drawing so Fluent, Adwaita and Breeze look like their platforms, not like the shared default'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_skin_adwaita/lib/src/adwaita_components.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_skin_breeze/lib/src/breeze_components.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_skin_fluent/lib/src/fluent_components.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

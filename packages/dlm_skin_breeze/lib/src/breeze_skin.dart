@@ -3,6 +3,8 @@ import 'dart:ui' show Brightness;
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/painting.dart';
 
+import 'breeze_components.dart';
+
 /// The KDE skin: Breeze tokens (Noto Sans 10 pt, 30 px controls, 5 px radii),
 /// a list-pane sidebar, a tool bar and System-Settings-style pages. The window
 /// manager draws the title bar.
@@ -15,6 +17,9 @@ class BreezeSkin extends DlmSkin {
 
   @override
   String get id => 'breeze';
+
+  @override
+  DlmComponents get components => const BreezeComponents();
 
   @override
   DlmShellPattern get shell => const DlmShellPattern(

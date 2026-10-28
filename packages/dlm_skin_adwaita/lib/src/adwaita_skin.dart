@@ -3,6 +3,8 @@ import 'dart:ui' show Brightness;
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/painting.dart';
 
+import 'adwaita_components.dart';
+
 /// The GNOME skin: libadwaita tokens (Adwaita Sans/Cantarell, 34 px buttons,
 /// 6/12 px radii), header bars, a split-view sidebar and preferences rows.
 /// All surfaces are opaque, as in libadwaita.
@@ -15,6 +17,9 @@ class AdwaitaSkin extends DlmSkin {
 
   @override
   String get id => 'adwaita';
+
+  @override
+  DlmComponents get components => const AdwaitaComponents();
 
   @override
   DlmShellPattern get shell => const DlmShellPattern(
