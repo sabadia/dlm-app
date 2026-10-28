@@ -1,0 +1,119 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: analyze
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Format
+        run: dart format --output=none --set-exit-if-changed .
+      - name: Analyze
+        run: dart analyze --fatal-infos
+      - name: Dependency rules between packages
+        run: dart run dlm_tools:check_imports
+
+  test:
+    name: test (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Linux desktop build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libsecret-1-dev libayatana-appindicator3-dev
+      - name: Tests (golden images run in their own job)
+        run: dart run dlm_tools:test_all --exclude-tags golden
+
+  goldens:
+    name: golden images
+    # One pinned OS image, with the fonts the tests bundle, so renders are
+    # reproducible. Tests tagged `golden` appear with the UI kit (F2.10).
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Golden tests
+        run: dart run dlm_tools:test_all --tags golden
+      - name: Keep the failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: golden-failures
+          path: "**/failures/**"
+          if-no-files-found: ignore
+
+  build:
+    name: build (${{ matrix.os }})
+    needs: [analyze, test]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, target: linux}
+          - {os: macos-latest, target: macos}
+          - {os: windows-latest, target: windows}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Linux desktop build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libsecret-1-dev libayatana-appindicator3-dev
+      - name: Debug build of the app
+        id: app
+        shell: bash
+        run: |
+          if [ -f apps/dlm_app/pubspec.yaml ]; then
+            cd apps/dlm_app && flutter build ${{ matrix.target }} --debug
+          else
+            echo "the app does not exist yet (F1.1): nothing to build"
+          fi
+
+  licenses:
+    name: licences and SBOM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Dependency licences are compatible with Apache-2.0
+        run: dart run dlm_tools:check_licenses
+      - name: SBOM (CycloneDX)
+        run: dart run dlm_tools:sbom "${{ github.sha }}" > sbom.cdx.json
+      - uses: actions/upload-artifact@v7
+        with:
+          name: sbom
+          path: sbom.cdx.json
+
+  intent:
+    name: intent record
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: astral-sh/setup-uv@v10.3.1
+      - name: intentline check
+        run: uvx intentline==0.1.0 check --range "origin/${{ github.base_ref }}..HEAD"

@@ -1,0 +1,23 @@
+name: Set up Flutter
+description: Installs the Flutter version pinned in .fvmrc, enables desktop, resolves the workspace.
+runs:
+  using: composite
+  steps:
+    - name: Read the pinned version
+      id: pin
+      shell: bash
+      run: |
+        v=$(sed -n 's/.*"flutter"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' .fvmrc)
+        test -n "$v" || { echo "no flutter version in .fvmrc"; exit 1; }
+        echo "version=$v" >> "$GITHUB_OUTPUT"
+    - uses: subosito/flutter-action@v2.23.0
+      with:
+        flutter-version: ${{ steps.pin.outputs.version }}
+        channel: stable
+        cache: true
+    - name: Enable desktop and resolve dependencies
+      shell: bash
+      run: |
+        flutter config --enable-macos-desktop --enable-windows-desktop --enable-linux-desktop
+        flutter --version
+        flutter pub get
