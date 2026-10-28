@@ -1,0 +1,3 @@
+tags:
+  golden:
+    # Golden images are only valid on the pinned CI image (see goldens.yml).
