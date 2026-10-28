@@ -1,0 +1,38 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+coverage/
+*.g.dart.bak
+pubspec_overrides.yaml
+.flutter-plugins
+.flutter-plugins-dependencies
+# FVM keeps the SDK here; the version is pinned in .fvmrc
+.fvm/flutter_sdk
+# Generated platform files
+**/ephemeral/
+**/Pods/
+**/.symlinks/
+**/xcuserdata/
+*.xcworkspace/xcuserdata/
+**/DerivedData/
+# Test output
+**/failures/
+# IDEs and OS
+.idea/
+.vscode/
+.DS_Store
+# Secrets and signing material must never be committed
+*.p12
+*.pfx
+*.pem
+*.key
+*.keystore
+.env
+.env.*
+# Local
+/tmp/
+/dist/
+/.claude/worktrees/

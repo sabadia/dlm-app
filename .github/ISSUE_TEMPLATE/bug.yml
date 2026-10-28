@@ -1,0 +1,33 @@
+name: Bug report
+description: Something does not work or does not look native
+labels: ["type/bug"]
+body:
+  - type: input
+    id: version
+    attributes:
+      label: App and daemon version
+      description: Settings → About
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [macOS, Windows 10, Windows 11, Linux (GNOME), Linux (KDE Plasma), Linux (other)]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+  - type: textarea
+    id: diag
+    attributes:
+      label: Diagnostics
+      description: Settings → Diagnostics → Copy diagnostics (secrets are removed)

@@ -1,0 +1,24 @@
+name: Task
+description: A planned piece of work from docs/PLAN.md
+labels: ["type/feature"]
+body:
+  - type: input
+    id: plan
+    attributes:
+      label: Plan task
+      description: The id in docs/PLAN.md (for example F3.2)
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      value: |
+        - [ ] Matches the plan section for this task
+        - [ ] Analyze clean; tests pass; goldens updated for all skins and themes
+        - [ ] Keyboard and screen-reader behaviour checked
+        - [ ] Plan checkbox ticked in the same PR
