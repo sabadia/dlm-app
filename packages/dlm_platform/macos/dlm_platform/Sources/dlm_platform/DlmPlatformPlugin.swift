@@ -95,8 +95,12 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
     }
   }
 
+  // NSGlassEffectView exists in the macOS 26 SDK (Swift 6.2 toolchains and
+  // newer); older SDKs compile without it and always use vibrancy.
   private var glassAvailable: Bool {
-    if #available(macOS 26.0, *) { return true }
+    #if compiler(>=6.2)
+      if #available(macOS 26.0, *) { return true }
+    #endif
     return false
   }
 
@@ -155,9 +159,7 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
     var applied = "none"
     if requested != "none" {
       let view: NSView
-      if requested == "glass", #available(macOS 26.0, *) {
-        let glass = NSGlassEffectView()
-        glass.style = .regular
+      if requested == "glass", glassAvailable, let glass = makeGlassView() {
         view = glass
         applied = "glass"
       } else {
@@ -183,6 +185,17 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
       controller.backgroundColor = .windowBackgroundColor
     }
     result(["transparentTitleBar": transparentTitleBar, "effect": applied])
+  }
+
+  private func makeGlassView() -> NSView? {
+    #if compiler(>=6.2)
+      if #available(macOS 26.0, *) {
+        let glass = NSGlassEffectView()
+        glass.style = .regular
+        return glass
+      }
+    #endif
+    return nil
   }
 
   private func layoutEffect() {
