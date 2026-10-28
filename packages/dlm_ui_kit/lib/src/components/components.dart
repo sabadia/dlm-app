@@ -206,4 +206,63 @@ abstract class DlmComponents {
     required double thumbRadius,
     required DlmStates states,
   });
+
+  /// A progress bar drawn at the width it is given. [value] is 0..1, or null
+  /// for indeterminate, in which case [phase] (0..1, repeating) places the
+  /// moving segment.
+  Widget progressBar(
+    BuildContext context, {
+    required double? value,
+    required double phase,
+    required DlmTone tone,
+  });
+
+  /// A circular progress indicator of edge length [size]; see [progressBar]
+  /// for [value] and [phase].
+  Widget progressRing(
+    BuildContext context, {
+    required double? value,
+    required double phase,
+    required DlmTone tone,
+    required double size,
+  });
+
+  /// A small status pill around its [content].
+  Widget badge(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  });
+
+  /// A selectable or removable chip around its [content].
+  Widget chip(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  });
+
+  /// One row of a list around its [content]: hover, selection and the
+  /// separator.
+  Widget listRow(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  });
+
+  /// An inline message box around its [content].
+  Widget banner(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  });
+
+  /// A transient floating message around its [content].
+  Widget toast(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  });
+
+  /// The bubble of a tooltip around its [content].
+  Widget tooltipBubble(BuildContext context, {required Widget content});
 }

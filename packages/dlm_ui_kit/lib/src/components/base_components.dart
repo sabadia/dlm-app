@@ -457,6 +457,348 @@ class DlmBaseComponents extends DlmComponents {
       ),
     );
   }
+
+  /// The colour of [tone].
+  @protected
+  Color toneColor(DlmColors c, DlmTone tone) => switch (tone) {
+    DlmTone.neutral => c.textSecondary,
+    DlmTone.accent => c.accent,
+    DlmTone.success => c.success,
+    DlmTone.warning => c.warning,
+    DlmTone.danger => c.danger,
+    DlmTone.info => c.info,
+  };
+
+  @override
+  Widget progressBar(
+    BuildContext context, {
+    required double? value,
+    required double phase,
+    required DlmTone tone,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final color = tone == DlmTone.neutral ? c.accent : toneColor(c, tone);
+    const height = 6.0;
+    return SizedBox(
+      height: height,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: c.border.withValues(alpha: 0.35),
+          borderRadius: BorderRadius.circular(height),
+        ),
+        child: LayoutBuilder(
+          builder: (context, box) {
+            final w = box.maxWidth;
+            final double left;
+            final double width;
+            if (value == null) {
+              width = w * 0.3;
+              left = (w + width) * phase - width;
+            } else {
+              width = w * value.clamp(0, 1);
+              left = 0;
+            }
+            return ClipRRect(
+              borderRadius: BorderRadius.circular(height),
+              child: Stack(
+                children: [
+                  Positioned(
+                    left: left,
+                    width: width,
+                    top: 0,
+                    bottom: 0,
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        color: color,
+                        borderRadius: BorderRadius.circular(height),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget progressRing(
+    BuildContext context, {
+    required double? value,
+    required double phase,
+    required DlmTone tone,
+    required double size,
+  }) {
+    final c = DlmTheme.of(context).colors;
+    final color = tone == DlmTone.neutral ? c.accent : toneColor(c, tone);
+    return SizedBox.square(
+      dimension: size,
+      child: CustomPaint(
+        painter: _RingPainter(
+          value: value,
+          phase: phase,
+          color: color,
+          track: c.border.withValues(alpha: 0.35),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget badge(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final bg = tone == DlmTone.neutral
+        ? c.controlFillHover
+        : Color.alphaBlend(
+            toneColor(c, tone).withValues(alpha: 0.16),
+            c.content,
+          );
+    final fg = tone == DlmTone.neutral
+        ? c.textSecondary
+        : ensureContrast(toneColor(c, tone), bg);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: bg,
+        borderRadius: BorderRadius.circular(m.radii.small + 6),
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: m.spacing.sm,
+          vertical: m.spacing.xxs,
+        ),
+        child: DefaultTextStyle.merge(
+          style: t.typography.caption.copyWith(color: fg),
+          child: IconTheme.merge(
+            data: IconThemeData(color: fg, size: m.iconSmall),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget chip(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final fill = states.selected
+        ? c.accentSubtle
+        : states.pressed
+        ? c.controlFillPressed
+        : states.hovered
+        ? c.controlFillHover
+        : c.controlFill;
+    final text = states.disabled ? c.textDisabled : c.textPrimary;
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.controlHeightSmall / 2,
+      child: Container(
+        height: m.controlHeightSmall,
+        padding: EdgeInsets.symmetric(horizontal: m.spacing.md),
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: BorderRadius.circular(m.controlHeightSmall / 2),
+          border: Border.all(
+            color: states.selected ? c.accent : c.border,
+            width: m.borderWidth,
+          ),
+        ),
+        child: DefaultTextStyle.merge(
+          style: t.typography.label.copyWith(color: text),
+          child: IconTheme.merge(
+            data: IconThemeData(color: text, size: m.iconSmall),
+            child: Center(widthFactor: 1, child: content),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget listRow(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final fill = states.selected
+        ? (states.focused ? c.selection : c.selectionInactive)
+        : states.hovered
+        ? c.rowHover
+        : const Color(0x00000000);
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.radii.control,
+      child: Container(
+        constraints: BoxConstraints(minHeight: m.rowHeight),
+        padding: EdgeInsets.symmetric(
+          horizontal: m.spacing.md,
+          vertical: m.spacing.xs,
+        ),
+        decoration: BoxDecoration(
+          color: fill,
+          border: Border(
+            bottom: BorderSide(color: c.separator, width: m.borderWidth),
+          ),
+        ),
+        child: DefaultTextStyle.merge(
+          style: t.typography.body.copyWith(
+            color: states.disabled ? c.textDisabled : c.textPrimary,
+          ),
+          child: content,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget banner(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final color = toneColor(c, tone);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: Color.alphaBlend(color.withValues(alpha: 0.12), c.content),
+        borderRadius: BorderRadius.circular(m.radii.container),
+        border: Border.all(color: color, width: m.borderWidth),
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(m.spacing.md),
+        child: DefaultTextStyle.merge(
+          style: t.typography.body.copyWith(color: c.textPrimary),
+          child: IconTheme.merge(
+            data: IconThemeData(color: color, size: m.icon),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget toast(
+    BuildContext context, {
+    required DlmTone tone,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final color = toneColor(c, tone);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: c.overlay,
+        borderRadius: BorderRadius.circular(m.radii.container),
+        border: Border.all(color: c.separator, width: m.borderWidth),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x33000000),
+            blurRadius: 16,
+            offset: Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(m.spacing.md),
+        child: DefaultTextStyle.merge(
+          style: t.typography.body.copyWith(color: c.textPrimary),
+          child: IconTheme.merge(
+            data: IconThemeData(color: color, size: m.icon),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget tooltipBubble(BuildContext context, {required Widget content}) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: c.overlay,
+        borderRadius: BorderRadius.circular(m.radii.small),
+        border: Border.all(color: c.border, width: m.borderWidth),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x26000000),
+            blurRadius: 8,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: m.spacing.sm,
+          vertical: m.spacing.xs,
+        ),
+        child: DefaultTextStyle.merge(
+          style: t.typography.caption.copyWith(color: c.textPrimary),
+          child: content,
+        ),
+      ),
+    );
+  }
+}
+
+class _RingPainter extends CustomPainter {
+  const _RingPainter({
+    required this.value,
+    required this.phase,
+    required this.color,
+    required this.track,
+  });
+
+  final double? value;
+  final double phase;
+  final Color color;
+  final Color track;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final stroke = size.shortestSide / 8;
+    final rect = (Offset.zero & size).deflate(stroke / 2);
+    final base = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = stroke
+      ..strokeCap = StrokeCap.round;
+    canvas.drawArc(rect, 0, 6.2831853, false, base..color = track);
+    final sweep = value == null
+        ? 6.2831853 * 0.28
+        : 6.2831853 * value!.clamp(0, 1);
+    final start = value == null ? -1.5707963 + 6.2831853 * phase : -1.5707963;
+    canvas.drawArc(rect, start, sweep, false, base..color = color);
+  }
+
+  @override
+  bool shouldRepaint(_RingPainter old) =>
+      old.value != value ||
+      old.phase != phase ||
+      old.color != color ||
+      old.track != track;
 }
 
 class _MarkPainter extends CustomPainter {
