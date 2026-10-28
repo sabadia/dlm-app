@@ -62,11 +62,18 @@ final _cancelKey = Object();
 /// cancel them from outside.
 class DlmApi {
   /// Creates a client for [endpoint].
-  DlmApi(DlmEndpoint endpoint) : _dio = _buildDio(endpoint) {
+  DlmApi(DlmEndpoint endpoint) {
+    _dio = _buildDio(endpoint, _etags);
     rest = RestClient(_dio);
   }
 
-  final Dio _dio;
+  late final Dio _dio;
+  final _etags = <String, String>{};
+
+  /// The `ETag` the daemon last sent for [path] (for example `/v1/settings`).
+  /// The generated operations return bodies only; send this as `If-Match` to
+  /// make an update fail with 412 when somebody else changed the resource.
+  String? etagFor(String path) => _etags[path];
 
   /// The generated operations, grouped by tag (`rest.tasks.getTask(...)`).
   late final RestClient rest;
@@ -82,7 +89,7 @@ class DlmApi {
   /// Releases the connections.
   void close({bool force = false}) => _dio.close(force: force);
 
-  static Dio _buildDio(DlmEndpoint e) {
+  static Dio _buildDio(DlmEndpoint e, Map<String, String> etags) {
     final dio = Dio(
       BaseOptions(
         baseUrl: e.baseUrl,
@@ -103,6 +110,13 @@ class DlmApi {
           }
           options.cancelToken ??= Zone.current[_cancelKey] as CancelToken?;
           handler.next(options);
+        },
+        onResponse: (response, handler) {
+          final etag = response.headers.value('etag');
+          if (etag != null && response.requestOptions.method == 'GET') {
+            etags[response.requestOptions.path] = etag;
+          }
+          handler.next(response);
         },
         onError: (err, handler) {
           handler.reject(

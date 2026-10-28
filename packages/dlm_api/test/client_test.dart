@@ -207,4 +207,14 @@ void main() {
     );
     expect(token.isCancelled, isTrue);
   });
+
+  test('remembers the ETag of GET responses by path', () async {
+    final (_, api) = await serve((r) {
+      r.response.headers.set('ETag', '"abc"');
+      json(r, 200, healthBody);
+    });
+    expect(api.etagFor('/v1/health'), isNull);
+    await guard(() => api.rest.system.getHealth());
+    expect(api.etagFor('/v1/health'), '"abc"');
+  });
 }
