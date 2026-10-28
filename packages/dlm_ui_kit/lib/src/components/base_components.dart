@@ -1027,10 +1027,15 @@ class DlmBaseComponents extends DlmComponents {
         height: axis == Axis.vertical ? (active ? 2 : 1) : null,
       ),
     );
+    // Opaque backing: with a transparent window background (a backdrop effect
+    // behind the sidebar) an unpainted gap would show the desktop.
     return SizedBox(
       width: axis == Axis.horizontal ? 8 : null,
       height: axis == Axis.vertical ? 8 : null,
-      child: Center(child: line),
+      child: ColoredBox(
+        color: c.window,
+        child: Center(child: line),
+      ),
     );
   }
 

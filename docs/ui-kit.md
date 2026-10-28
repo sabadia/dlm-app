@@ -79,6 +79,15 @@ native view only provides the blur Flutter cannot.
   content areas paint their own opaque colour, so the desktop never shows through them.
 - `DlmThemeData.titleBarInset` is the height the traffic lights cover.
 
+## System appearance (F2.8, macOS part)
+
+`SystemAppearanceReader` (in `dlm_platform`) reports what Flutter does not: the accent colour
+and the increase-contrast, reduce-motion and reduce-transparency options, and pushes
+changes (macOS: `NSColor.controlAccentColor`, `NSWorkspace` accessibility options and
+the colour-change notifications). `dlm_platform` and the kit know nothing about each other,
+so the app merges `FlutterAppearanceSource` with this reader into one `AppearanceSource`
+(the gallery shows how). Other platforms report nothing until their readers land.
+
 ## Adding a skin
 
 Implement `DlmSkin` in its package, return tokens from `tokens(appearance)` (use

@@ -11,18 +11,68 @@ import FlutterMacOS
 ///  - `apply` {transparentTitleBar: bool, effect: "none"|"vibrancy"|"glass",
 ///    brightness: "light"|"dark"|null} -> {transparentTitleBar, effect}: what
 ///    was actually applied
+///  - `dlm/system_appearance`: `read` -> {accent: ARGB int?, highContrast,
+///    reduceMotion, reduceTransparency}; pushes `changed` with the same map
 ///  - `region` {x, y, width, height} in Flutter coordinates (top-left origin)
 ///    or null for the whole window
 public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
   private static let effectIdentifier = NSUserInterfaceItemIdentifier("dlm.window.effect")
 
   private let registrar: FlutterPluginRegistrar
+  private let appearanceChannel: FlutterMethodChannel
   private var effectView: NSView?
   private var region: NSRect?
 
-  init(registrar: FlutterPluginRegistrar) {
+  init(registrar: FlutterPluginRegistrar, appearanceChannel: FlutterMethodChannel) {
     self.registrar = registrar
+    self.appearanceChannel = appearanceChannel
     super.init()
+    observeAppearance()
+  }
+
+  deinit {
+    NSWorkspace.shared.notificationCenter.removeObserver(self)
+    NotificationCenter.default.removeObserver(self)
+    DistributedNotificationCenter.default().removeObserver(self)
+  }
+
+  // MARK: System appearance
+
+  /// Accent colour and the accessibility display options, which Flutter does
+  /// not report. Sent on `dlm/system_appearance` `read` and pushed as
+  /// `changed` whenever the system changes them.
+  private func systemAppearance() -> [String: Any] {
+    var accent: Int? = nil
+    if let c = NSColor.controlAccentColor.usingColorSpace(.sRGB) {
+      let a = Int((c.alphaComponent * 255).rounded())
+      let r = Int((c.redComponent * 255).rounded())
+      let g = Int((c.greenComponent * 255).rounded())
+      let b = Int((c.blueComponent * 255).rounded())
+      accent = (a << 24) | (r << 16) | (g << 8) | b
+    }
+    let workspace = NSWorkspace.shared
+    return [
+      "accent": accent as Any,
+      "highContrast": workspace.accessibilityDisplayShouldIncreaseContrast,
+      "reduceMotion": workspace.accessibilityDisplayShouldReduceMotion,
+      "reduceTransparency": workspace.accessibilityDisplayShouldReduceTransparency,
+    ]
+  }
+
+  private func observeAppearance() {
+    let push: (Notification) -> Void = { [weak self] _ in
+      guard let self = self else { return }
+      self.appearanceChannel.invokeMethod("changed", arguments: self.systemAppearance())
+    }
+    NSWorkspace.shared.notificationCenter.addObserver(
+      forName: NSWorkspace.accessibilityDisplayOptionsDidChangeNotification,
+      object: nil, queue: .main, using: push)
+    NotificationCenter.default.addObserver(
+      forName: NSColor.systemColorsDidChangeNotification,
+      object: nil, queue: .main, using: push)
+    DistributedNotificationCenter.default().addObserver(
+      forName: NSNotification.Name("AppleColorPreferencesChangedNotification"),
+      object: nil, queue: .main, using: push)
   }
 
   public static func register(with registrar: FlutterPluginRegistrar) {
@@ -30,8 +80,19 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
       name: "dlm/window_chrome",
       binaryMessenger: registrar.messenger
     )
-    let instance = DlmPlatformPlugin(registrar: registrar)
+    let appearance = FlutterMethodChannel(
+      name: "dlm/system_appearance",
+      binaryMessenger: registrar.messenger
+    )
+    let instance = DlmPlatformPlugin(registrar: registrar, appearanceChannel: appearance)
     registrar.addMethodCallDelegate(instance, channel: channel)
+    appearance.setMethodCallHandler { call, result in
+      if call.method == "read" {
+        result(instance.systemAppearance())
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
   }
 
   private var glassAvailable: Bool {

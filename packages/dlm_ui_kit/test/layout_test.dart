@@ -418,6 +418,19 @@ void main() {
       handle.dispose();
     });
 
+    testWidgets('the divider paints an opaque backing', (tester) async {
+      await pumpSplit(tester);
+      final backing = tester.widget<ColoredBox>(
+        find
+            .descendant(
+              of: find.byType(FocusableActionDetector),
+              matching: find.byType(ColoredBox),
+            )
+            .first,
+      );
+      expect(backing.color.a, 1);
+    });
+
     testWidgets('a size outside the limits is clamped when shown', (
       tester,
     ) async {

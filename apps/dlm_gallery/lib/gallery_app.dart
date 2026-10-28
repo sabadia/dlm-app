@@ -21,6 +21,7 @@ class GallerySettings {
     this.reduceTransparency = false,
     this.section,
     this.effect = WindowEffect.glass,
+    this.useSystemAccent = false,
   });
 
   /// Index into the skin list.
@@ -50,6 +51,9 @@ class GallerySettings {
   /// The window backdrop effect to request.
   final WindowEffect effect;
 
+  /// Use the operating system's accent colour instead of [accent].
+  final bool useSystemAccent;
+
   /// Title of the only section to show; null shows all.
   final String? section;
 
@@ -67,6 +71,7 @@ class GallerySettings {
     String? section,
     bool clearSection = false,
     WindowEffect? effect,
+    bool? useSystemAccent,
   }) => GallerySettings(
     skinIndex: skinIndex ?? this.skinIndex,
     dark: dark ?? this.dark,
@@ -78,15 +83,22 @@ class GallerySettings {
     reduceTransparency: reduceTransparency ?? this.reduceTransparency,
     section: clearSection ? null : (section ?? this.section),
     effect: effect ?? this.effect,
+    useSystemAccent: useSystemAccent ?? this.useSystemAccent,
   );
 
   /// The system appearance these settings stand for.
-  DlmAppearance appearanceFor({required bool windowHasEffect}) => DlmAppearance(
+  DlmAppearance appearanceFor({
+    required bool windowHasEffect,
+    SystemAppearance system = SystemAppearance.none,
+  }) => DlmAppearance(
     brightness: dark ? Brightness.dark : Brightness.light,
-    contrast: highContrast ? DlmContrast.high : DlmContrast.standard,
-    accent: accent,
-    reduceMotion: reduceMotion,
-    reduceTransparency: reduceTransparency || !windowHasEffect,
+    contrast: highContrast || system.highContrast
+        ? DlmContrast.high
+        : DlmContrast.standard,
+    accent: useSystemAccent ? system.accent : accent,
+    reduceMotion: reduceMotion || system.reduceMotion,
+    reduceTransparency:
+        reduceTransparency || system.reduceTransparency || !windowHasEffect,
     textScale: textScale,
   );
 }
@@ -99,6 +111,7 @@ class GalleryApp extends StatefulWidget {
     required this.skins,
     this.initial = const GallerySettings(),
     this.chrome = const UnsupportedWindowChrome(),
+    this.system = const UnsupportedSystemAppearance(),
     super.key,
   });
 
@@ -111,6 +124,9 @@ class GalleryApp extends StatefulWidget {
   /// The native window chrome (macOS glass); a no-op elsewhere.
   final WindowChrome chrome;
 
+  /// The system accent and accessibility options.
+  final SystemAppearanceReader system;
+
   @override
   State<GalleryApp> createState() => _GalleryAppState();
 }
@@ -118,8 +134,15 @@ class GalleryApp extends StatefulWidget {
 class _GalleryAppState extends State<GalleryApp> {
   late GallerySettings _settings = widget.initial;
   WindowChromeResult _chrome = WindowChromeResult.none;
+  SystemAppearance _system = SystemAppearance.none;
+  StreamSubscription<SystemAppearance>? _systemSub;
   late final ManualAppearanceSource _source = ManualAppearanceSource(
     _settings.appearanceFor(windowHasEffect: false),
+  );
+
+  DlmAppearance _appearance() => _settings.appearanceFor(
+    windowHasEffect: _chrome.effect != WindowEffect.none,
+    system: _system,
   );
 
   DlmSkin get _skin =>
@@ -130,6 +153,17 @@ class _GalleryAppState extends State<GalleryApp> {
     super.initState();
     // The window exists after the first frame.
     WidgetsBinding.instance.addPostFrameCallback((_) => _applyChrome());
+    _systemSub = widget.system.changes.listen((s) {
+      _system = s;
+      _source.update(_appearance());
+    });
+    unawaited(
+      widget.system.read().then((s) {
+        if (!mounted) return;
+        _system = s;
+        _source.update(_appearance());
+      }),
+    );
   }
 
   Future<void> _applyChrome() async {
@@ -145,11 +179,7 @@ class _GalleryAppState extends State<GalleryApp> {
       );
       if (!mounted) return;
       _chrome = result;
-      _source.update(
-        _settings.appearanceFor(
-          windowHasEffect: result.effect != WindowEffect.none,
-        ),
-      );
+      _source.update(_appearance());
     } on WindowChromeException {
       // The window was not ready; keep the opaque look.
     }
@@ -161,16 +191,50 @@ class _GalleryAppState extends State<GalleryApp> {
         next.effect != _settings.effect ||
         next.skinIndex != _settings.skinIndex;
     setState(() => _settings = next);
-    _source.update(
-      next.appearanceFor(windowHasEffect: _chrome.effect != WindowEffect.none),
-    );
+    _source.update(_appearance());
     if (restyle) unawaited(_applyChrome());
   }
 
   @override
   void dispose() {
+    unawaited(_systemSub?.cancel());
     _source.dispose();
     super.dispose();
+  }
+
+  /// The system-provided macOS menus (localised by macOS itself); empty where
+  /// the platform has none. The app's own menus come with F5.9.
+  List<PlatformMenuItem> _menus() {
+    List<PlatformProvidedMenuItem> provided(
+      List<PlatformProvidedMenuItemType> types,
+    ) => [
+      for (final t in types)
+        if (PlatformProvidedMenuItem.hasMenu(t))
+          PlatformProvidedMenuItem(type: t),
+    ];
+    final app = provided(const [PlatformProvidedMenuItemType.about]);
+    final hide = provided(const [
+      PlatformProvidedMenuItemType.hide,
+      PlatformProvidedMenuItemType.hideOtherApplications,
+    ]);
+    final quit = provided(const [PlatformProvidedMenuItemType.quit]);
+    final window = provided(const [
+      PlatformProvidedMenuItemType.minimizeWindow,
+      PlatformProvidedMenuItemType.zoomWindow,
+      PlatformProvidedMenuItemType.toggleFullScreen,
+    ]);
+    if (app.isEmpty && quit.isEmpty) return const [];
+    return [
+      PlatformMenu(
+        label: 'dlm gallery',
+        menus: [
+          ...app,
+          if (hide.isNotEmpty) PlatformMenuItemGroup(members: hide),
+          ...quit,
+        ],
+      ),
+      if (window.isNotEmpty) PlatformMenu(label: 'Window', menus: window),
+    ];
   }
 
   @override
@@ -182,12 +246,18 @@ class _GalleryAppState extends State<GalleryApp> {
         settings: settings,
         pageBuilder: (context, _, _) => builder(context),
       ),
-      builder: (context, navigator) => DlmThemeScope(
-        skin: _skin,
-        source: _source,
-        userOverride: AppearanceOverride(density: _settings.density),
-        child: navigator!,
-      ),
+      builder: (context, navigator) {
+        final scoped = DlmThemeScope(
+          skin: _skin,
+          source: _source,
+          userOverride: AppearanceOverride(density: _settings.density),
+          child: navigator!,
+        );
+        final menus = _menus();
+        return menus.isEmpty
+            ? scoped
+            : PlatformMenuBar(menus: menus, child: scoped);
+      },
       home: GalleryPage(
         skins: widget.skins,
         settings: _settings,

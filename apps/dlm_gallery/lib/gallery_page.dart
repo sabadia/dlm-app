@@ -238,14 +238,24 @@ class _GalleryPageState extends State<GalleryPage> {
                 spacing: theme.metrics.spacing.sm,
                 runSpacing: theme.metrics.spacing.sm,
                 children: [
+                  DlmChip(
+                    label: 'System',
+                    selected: s.useSystemAccent,
+                    onSelected: (_) => set(
+                      s.copyWith(useSystemAccent: true, clearAccent: true),
+                    ),
+                  ),
                   for (final (name, color) in _accents)
                     DlmChip(
                       label: name,
-                      selected: s.accent == color,
+                      selected: !s.useSystemAccent && s.accent == color,
                       onSelected: (_) => set(
                         color == null
-                            ? s.copyWith(clearAccent: true)
-                            : s.copyWith(accent: color),
+                            ? s.copyWith(
+                                clearAccent: true,
+                                useSystemAccent: false,
+                              )
+                            : s.copyWith(accent: color, useSystemAccent: false),
                       ),
                     ),
                 ],

@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18478-4368-7303-bd01-664ed718c031
+status: draft
+created_at: '2026-10-28T21:43:56Z'
+updated_at: '2026-10-28T21:43:56Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.3 complete on macOS: system accent and accessibility options reader, system-provided menu bar in the gallery, opaque divider backing; startup crash fixed (reader created before the binding)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_platform/lib/src/window/system_appearance.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_gallery/lib/gallery_app.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
