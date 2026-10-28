@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18440-b0e1-7824-99c6-b79b1910abfb
+status: draft
+created_at: '2026-10-28T20:43:14Z'
+updated_at: '2026-10-28T20:43:14Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.1: design tokens, DlmSkin contract and theme-sync service so four skins share one kit (ADR-001)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/theme/skin.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/theme/theme.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/theme/validation.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
