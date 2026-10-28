@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18449-d2a5-7065-a835-d4e642a0a2c1
+status: draft
+created_at: '2026-10-28T20:53:12Z'
+updated_at: '2026-10-28T20:53:12Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F2.2 (part 2): built-in icon set, text/search/password/parsed/number inputs and slider with skin frame builders'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/widgets/text_field.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/widgets/slider.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

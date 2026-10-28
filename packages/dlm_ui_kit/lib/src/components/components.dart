@@ -41,6 +41,85 @@ enum DlmCheckState {
   mixed,
 }
 
+/// The meaning of a badge, banner, toast or progress bar.
+enum DlmTone {
+  /// No particular meaning.
+  neutral,
+
+  /// Brand or selection.
+  accent,
+
+  /// Completed or healthy.
+  success,
+
+  /// Needs attention.
+  warning,
+
+  /// An error.
+  danger,
+
+  /// Plain information.
+  info,
+}
+
+/// The built-in glyphs the kit draws itself. A skin's icon builder may
+/// replace any of them (F2.9); features use these names, never raw glyphs.
+enum DlmIconName {
+  /// Arrow pointing right.
+  chevronRight,
+
+  /// Arrow pointing down.
+  chevronDown,
+
+  /// Arrow pointing up.
+  chevronUp,
+
+  /// Arrow pointing left.
+  chevronLeft,
+
+  /// An X.
+  close,
+
+  /// A magnifier.
+  search,
+
+  /// An open eye.
+  eye,
+
+  /// A crossed-out eye.
+  eyeOff,
+
+  /// A tick.
+  check,
+
+  /// A horizontal bar.
+  minus,
+
+  /// A plus sign.
+  plus,
+
+  /// An i in a circle.
+  info,
+
+  /// An exclamation in a triangle.
+  warning,
+
+  /// An exclamation in a circle.
+  error,
+
+  /// A tick in a circle.
+  success,
+
+  /// Three dots in a row.
+  more,
+
+  /// Arrow pointing up for ascending sort.
+  sortAscending,
+
+  /// Arrow pointing down for descending sort.
+  sortDescending,
+}
+
 /// The visual builders a skin supplies for the kit's components.
 ///
 /// The kit's widgets own behaviour (focus, keyboard, hit target, semantics,
@@ -98,5 +177,33 @@ abstract class DlmComponents {
     BuildContext context, {
     required DlmStates states,
     required Widget content,
+  });
+
+  /// A built-in glyph of [name] at [size] in [color].
+  Widget icon(
+    BuildContext context,
+    DlmIconName name, {
+    required double size,
+    required Color color,
+  });
+
+  /// The frame (fill, border, padding) of a text input around its [child].
+  Widget textFieldFrame(
+    BuildContext context, {
+    required DlmStates states,
+    required bool hasError,
+    required bool multiline,
+    required Widget child,
+  });
+
+  /// A slider drawn at [width]: the track filled up to [fraction] (0..1) and
+  /// a thumb of radius [thumbRadius]. The kit maps pointer and keys to the
+  /// value; the skin only draws.
+  Widget slider(
+    BuildContext context, {
+    required double fraction,
+    required double width,
+    required double thumbRadius,
+    required DlmStates states,
   });
 }

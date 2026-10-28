@@ -7,6 +7,7 @@ import '../theme/contrast.dart';
 import '../theme/metrics.dart';
 import '../theme/theme.dart';
 import 'components.dart';
+import 'icon_painter.dart';
 
 /// Draws every component from the theme's tokens. Skins extend this and
 /// override the builders they draw differently.
@@ -337,6 +338,122 @@ class DlmBaseComponents extends DlmComponents {
             child: Center(widthFactor: 1, child: content),
           ),
         ),
+      ),
+    );
+  }
+
+  @override
+  Widget icon(
+    BuildContext context,
+    DlmIconName name, {
+    required double size,
+    required Color color,
+  }) => SizedBox.square(
+    dimension: size,
+    child: CustomPaint(painter: DlmIconPainter(name, color)),
+  );
+
+  @override
+  Widget textFieldFrame(
+    BuildContext context, {
+    required DlmStates states,
+    required bool hasError,
+    required bool multiline,
+    required Widget child,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final border = hasError
+        ? c.danger
+        : states.focused
+        ? c.focusRing
+        : c.border;
+    return AnimatedContainer(
+      duration: t.motion.fast,
+      constraints: BoxConstraints(minHeight: m.controlHeight),
+      padding: EdgeInsets.symmetric(
+        horizontal: m.spacing.md,
+        vertical: multiline ? m.spacing.sm : 0,
+      ),
+      decoration: BoxDecoration(
+        color: states.disabled
+            ? c.controlFillDisabled
+            : (states.hovered && !states.focused
+                  ? c.controlFillHover
+                  : c.controlFill),
+        borderRadius: BorderRadius.circular(m.radii.control),
+        border: Border.all(
+          color: border,
+          width: states.focused || hasError ? m.focusRingWidth : m.borderWidth,
+        ),
+      ),
+      child: child,
+    );
+  }
+
+  @override
+  Widget slider(
+    BuildContext context, {
+    required double fraction,
+    required double width,
+    required double thumbRadius,
+    required DlmStates states,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    const trackHeight = 4.0;
+    final usable = width - thumbRadius * 2;
+    final x = thumbRadius + usable * fraction.clamp(0, 1);
+    final active = states.disabled ? c.textDisabled : c.accent;
+    return SizedBox(
+      width: width,
+      height: m.controlHeight,
+      child: Stack(
+        alignment: Alignment.centerLeft,
+        children: [
+          Positioned(
+            left: thumbRadius,
+            right: thumbRadius,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: c.border.withValues(alpha: 0.5),
+                borderRadius: BorderRadius.circular(trackHeight),
+              ),
+              child: const SizedBox(height: trackHeight),
+            ),
+          ),
+          Positioned(
+            left: thumbRadius,
+            width: x - thumbRadius,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: active,
+                borderRadius: BorderRadius.circular(trackHeight),
+              ),
+              child: const SizedBox(height: trackHeight),
+            ),
+          ),
+          Positioned(
+            left: x - thumbRadius,
+            child: DlmFocusRing(
+              visible: states.focusVisible,
+              radius: thumbRadius,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: states.disabled ? c.controlFillDisabled : c.content,
+                  border: Border.all(
+                    color: active,
+                    width: states.pressed ? thumbRadius / 2 : m.focusRingWidth,
+                  ),
+                ),
+                child: SizedBox.square(dimension: thumbRadius * 2),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
