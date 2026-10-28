@@ -98,16 +98,16 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 ### M1 Foundations
 
-- [ ] F1.1 Package skeleton with enforced dependency rules — Workspace packages dlm_api, dlm_core, dlm_ui_kit, dlm_skin_*, dlm_platform, dlm_l10n and the app; a CI lint fails on forbidden imports (features never import a skin).
-- [ ] F1.2 API client: generator spike, generated models, typed wrapper *(needs P13.11)* — Spike swagger_parser vs openapi-generator dart-dio vs hand-written client over generated models (criteria: OpenAPI 3.0, nullable/optional handling, sealed event unions). Wrapper adds auth, timeouts, cancellation, problem decoding. Contract test against the pinned daemon spec.
-- [ ] F1.3 SSE client and EventHub — Last-Event-ID resume, `reset` event -> refetch, heartbeat timeout, backoff, filters, backpressure; deterministic tests with a fake server.
-- [ ] F1.4 Connection profiles: local (managed) and remote *(needs P13.11, P13.12)* — Secure token storage (Keychain / Credential Manager / libsecret), TLS pinning with a trust-on-first-use dialog, API-version compatibility gate.
-- [ ] F1.5 Daemon supervisor *(needs P13.1)* — Locate the bundled binary, start `dlm serve --home <app data> --address 127.0.0.1:0`, read runtime.json, wait healthy, crash-restart with backoff and a visible reason, graceful quit or keep-running, daemon update after app update, single instance.
+- [x] F1.1 Package skeleton with enforced dependency rules — Workspace packages dlm_api, dlm_core, dlm_ui_kit, dlm_skin_*, dlm_platform, dlm_l10n and the app; a CI lint fails on forbidden imports (features never import a skin).
+- [x] F1.2 API client: generator spike, generated models, typed wrapper *(needs P13.11)* — Spike swagger_parser vs openapi-generator dart-dio vs hand-written client over generated models (criteria: OpenAPI 3.0, nullable/optional handling, sealed event unions). Wrapper adds auth, timeouts, cancellation, problem decoding. Contract test against the pinned daemon spec.
+- [x] F1.3 SSE client and EventHub — Last-Event-ID resume, `reset` event -> refetch, heartbeat timeout, backoff, filters, backpressure; deterministic tests with a fake server.
+- [x] F1.4 Connection profiles: local (managed) and remote *(needs P13.11, P13.12)* — Secure token storage (Keychain / Credential Manager / libsecret), TLS pinning with a trust-on-first-use dialog, API-version compatibility gate.
+- [x] F1.5 Daemon supervisor *(needs P13.1)* — Locate the bundled binary, start `dlm serve --home <app data> --address 127.0.0.1:0`, read runtime.json, wait healthy, crash-restart with backoff and a visible reason, graceful quit or keep-running, daemon update after app update, single instance.
 - [ ] F1.6 Domain layer: repositories and controllers — Tasks (windowed, patched by events), queues, settings (layered + provenance), categories, cookies, credentials, webhooks, plugins, stats, browser; optimistic updates with rollback; normalised entity cache.
-- [ ] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
-- [ ] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
-- [ ] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
-- [ ] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
+- [x] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
+- [x] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
+- [x] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
+- [x] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
 
 ### M2 UI kit and skins
 

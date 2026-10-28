@@ -1,0 +1,25 @@
+name: dlm_app
+description: "dlm download manager for the desktop."
+publish_to: none
+version: 0.1.0+1
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+dependencies:
+  dlm_api: any
+  dlm_core: any
+  dlm_l10n: any
+  dlm_platform: any
+  dlm_skin_adwaita: any
+  dlm_skin_breeze: any
+  dlm_skin_fluent: any
+  dlm_skin_macos: any
+  dlm_ui_kit: any
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: false

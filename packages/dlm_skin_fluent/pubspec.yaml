@@ -1,0 +1,14 @@
+name: dlm_skin_fluent
+description: "Windows (Fluent, Mica) skin of the UI kit."
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+dependencies:
+  dlm_ui_kit: any
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
