@@ -65,3 +65,22 @@ String? problemMessage(
     _ => null,
   };
 }
+
+/// How long ago something happened, in words. [kind] is the name of a
+/// `RelativeKind` of dlm_core (`justNow`, `minutes`, `hours`, `yesterday`,
+/// `days`, `date`); [date] writes the date for `date` (and unknown kinds).
+String relativeTimeText(
+  AppLocalizations l, {
+  required String kind,
+  required int count,
+  required String Function() date,
+}) {
+  return switch (kind) {
+    'justNow' => l.relativeJustNow,
+    'minutes' => l.relativeMinutesAgo(count),
+    'hours' => l.relativeHoursAgo(count),
+    'yesterday' => l.relativeYesterday,
+    'days' => l.relativeDaysAgo(count),
+    _ => date(),
+  };
+}

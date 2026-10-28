@@ -357,6 +357,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong.'**
   String get problem_unknown;
+
+  /// No description provided for @relativeJustNow.
+  ///
+  /// In en, this message translates to:
+  /// **'just now'**
+  String get relativeJustNow;
+
+  /// No description provided for @relativeMinutesAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 minute ago} other{{count} minutes ago}}'**
+  String relativeMinutesAgo(int count);
+
+  /// No description provided for @relativeHoursAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 hour ago} other{{count} hours ago}}'**
+  String relativeHoursAgo(int count);
+
+  /// No description provided for @relativeYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'yesterday'**
+  String get relativeYesterday;
+
+  /// No description provided for @relativeDaysAgo.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day ago} other{{count} days ago}}'**
+  String relativeDaysAgo(int count);
 }
 
 class _AppLocalizationsDelegate

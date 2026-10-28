@@ -32,4 +32,18 @@ void main() {
   test('missing parameters do not crash', () async {
     expect(problemMessage(await english(), 'task.duplicate', {}), isNotEmpty);
   });
+
+  test('relative times read naturally and pluralise', () async {
+    final l = await english();
+    String t(String kind, [int n = 0]) =>
+        relativeTimeText(l, kind: kind, count: n, date: () => '2026-10-01');
+    expect(t('justNow'), 'just now');
+    expect(t('minutes', 1), '1 minute ago');
+    expect(t('minutes', 5), '5 minutes ago');
+    expect(t('hours', 3), '3 hours ago');
+    expect(t('yesterday'), 'yesterday');
+    expect(t('days', 2), '2 days ago');
+    expect(t('date'), '2026-10-01');
+    expect(t('something-new'), '2026-10-01');
+  });
 }

@@ -67,5 +67,31 @@
   "problem_connection_lost": "The download service cannot be reached.",
   "problem_connection_timeout": "The download service did not answer in time.",
   "problem_connection_certificate": "The certificate of the download service changed or is not trusted. Do not continue unless you expect this.",
-  "problem_unknown": "Something went wrong."
+  "problem_unknown": "Something went wrong.",
+  "relativeJustNow": "just now",
+  "relativeMinutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@relativeMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeHoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@relativeHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeYesterday": "yesterday",
+  "relativeDaysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+  "@relativeDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
