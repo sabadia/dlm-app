@@ -20,7 +20,7 @@ several screens that share the same entities, and many forms with optimistic upd
 - **Writes:** commands go through repositories; controllers apply the change optimistically,
   and roll back with a visible, localised error if the daemon refuses (problem `code`).
 - **Models:** `dlm_api` holds the generated transport models (from the daemon's
-  OpenAPI 3.0 document, committed so CI does not need the generator). `dlm_core` maps them to
+  OpenAPI 3.0 document, committed so CI does not need the generator). `dlm_core` uses them as its entities where they are already immutable value classes (the app imports `dlm_api` for these types only) and maps them to
   immutable domain entities; unions (events, task status, errors) are Dart 3 `sealed` classes
   so `switch` is exhaustive. Boilerplate (`copyWith`, equality) uses `freezed` unless the
   F1.6 review shows hand-written value classes are simpler; the choice is made once there.

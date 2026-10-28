@@ -13,6 +13,7 @@ packages:
   dlm_skin_adwaita: [dlm_ui_kit]
   dlm_skin_breeze: [dlm_ui_kit]
   dlm_app:
+    - dlm_api
     - dlm_core
     - dlm_ui_kit
     - dlm_platform

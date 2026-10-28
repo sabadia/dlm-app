@@ -1,0 +1,71 @@
+{
+  "@@locale": "en",
+  "problem_task_not_found": "That download does not exist (any more).",
+  "problem_queue_not_found": "That queue does not exist (any more).",
+  "problem_category_not_found": "That category does not exist (any more).",
+  "problem_webhook_not_found": "That webhook does not exist (any more).",
+  "problem_credential_not_found": "That login does not exist (any more).",
+  "problem_plugin_not_found": "That plugin does not exist (any more).",
+  "problem_cookie_not_found": "That cookie does not exist (any more).",
+  "problem_engine_not_found": "That download engine does not exist (any more).",
+  "problem_browser_profile_not_found": "That browser profile does not exist (any more).",
+  "problem_browser_result_not_found": "That page result does not exist (any more).",
+  "problem_browser_candidate_not_found": "That download candidate does not exist (any more).",
+  "problem_refresh_attempt_not_found": "That link refresh does not exist (any more).",
+  "problem_resolve_result_not_found": "That link check does not exist (any more).",
+  "problem_queue_name_taken": "A queue with that name already exists.",
+  "problem_category_name_taken": "A category with that name already exists.",
+  "problem_queue_not_empty": "The queue still has downloads. Move or delete them first.",
+  "problem_task_duplicate": "This file is already in your downloads ({status}).",
+  "@problem_task_duplicate": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_task_file_exists": "A file with that name already exists in the target folder.",
+  "problem_task_invalid_state": "This download cannot be {operation} while it is {status}.",
+  "@problem_task_invalid_state": {
+    "placeholders": {
+      "operation": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_task_invalid_transition": "This download cannot change to that state right now.",
+  "problem_task_locked": "This download is busy. Try again in a moment.",
+  "problem_task_state_changed": "This download changed while you were working on it. Check its state and try again.",
+  "problem_browser_running": "The browser is in use. Close its pages first.",
+  "problem_category_bad_dir": "That folder is not allowed for a category.",
+  "problem_settings_invalid": "Some settings are not valid. Check the highlighted fields.",
+  "problem_validation_failed": "Some values are not valid. Check the highlighted fields.",
+  "problem_invalid_argument": "Those values are not valid.",
+  "problem_settings_changed": "The settings were changed somewhere else. The latest settings have been loaded; review your change and apply it again.",
+  "problem_browser_unavailable": "No browser is available. Install Chrome, Chromium, Edge or Brave, or allow downloading one in the settings.",
+  "problem_origin_failed": "The server of the file did not answer properly ({code}).",
+  "@problem_origin_failed": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_request_cancelled": "The request was cancelled.",
+  "problem_service_unavailable": "The download service is not ready yet. Try again in a moment.",
+  "problem_bad_request": "The request was not understood.",
+  "problem_unauthorized": "The access token was rejected. Check the token of this connection.",
+  "problem_forbidden": "You are not allowed to do that.",
+  "problem_not_found": "That does not exist (any more).",
+  "problem_conflict": "That conflicts with the current state. Refresh and try again.",
+  "problem_precondition_failed": "That was changed somewhere else. Refresh and try again.",
+  "problem_too_many_requests": "Too many requests. Wait a moment.",
+  "problem_server_error": "The download service had an internal problem.",
+  "problem_connection_lost": "The download service cannot be reached.",
+  "problem_connection_timeout": "The download service did not answer in time.",
+  "problem_connection_certificate": "The certificate of the download service changed or is not trusted. Do not continue unless you expect this.",
+  "problem_unknown": "Something went wrong."
+}
