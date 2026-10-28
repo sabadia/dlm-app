@@ -1,0 +1,13 @@
+name: dlm_platform
+description: "OS integration behind interfaces: window chrome, tray, notifications, daemon supervisor."
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+  flutter: ">=3.47.0"
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

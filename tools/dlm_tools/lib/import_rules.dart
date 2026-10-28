@@ -127,7 +127,9 @@ List<Violation> _checkPackage(
     for (final m in _importRe.allMatches(text)) {
       final dep = m.group(1)!;
       checkUse(dep, relFile, 'import');
-      if (_isSkin(dep) && !rules.skinRegistry.contains(relFile)) {
+      if (_isSkin(dep) &&
+          dep != name &&
+          !rules.skinRegistry.contains(relFile)) {
         out.add(
           Violation(
             relFile,

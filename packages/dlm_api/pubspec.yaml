@@ -1,0 +1,9 @@
+name: dlm_api
+description: "Typed client of the dlm daemon REST API and its event stream."
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+dependencies: {}
+dev_dependencies:
+  test: ">=1.25.0"

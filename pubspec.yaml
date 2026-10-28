@@ -5,3 +5,13 @@ environment:
   sdk: ^3.13.0
 workspace:
   - tools/dlm_tools
+  - apps/dlm_app
+  - packages/dlm_api
+  - packages/dlm_core
+  - packages/dlm_ui_kit
+  - packages/dlm_platform
+  - packages/dlm_l10n
+  - packages/dlm_skin_macos
+  - packages/dlm_skin_fluent
+  - packages/dlm_skin_adwaita
+  - packages/dlm_skin_breeze
