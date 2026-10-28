@@ -1,0 +1,58 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
+
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
+
+import '../models/schema.dart';
+import '../models/settings.dart';
+
+part 'settings_client.g.dart';
+
+@RestApi()
+abstract class SettingsClient {
+  factory SettingsClient(Dio dio, {String? baseUrl}) = _SettingsClient;
+
+  /// Get the global settings.
+  ///
+  /// Returns the stored global settings layer; unset fields inherit the defaults (see get-default-settings).
+  @GET('/v1/settings')
+  Future<Settings> getSettings();
+
+  /// Patch the global settings.
+  ///
+  /// Applies an RFC 7396 JSON merge patch to the global settings layer (null unsets a field). Accepts application/json and application/merge-patch+json.
+  ///
+  /// [ifMatch] - ETag of the settings last read; the update fails with 412 (settings.changed) if they changed since.
+  ///
+  /// [body] - RFC 7396 JSON merge patch of a Settings layer: absent fields are kept, null unsets a field (it inherits from the next lower level again), retry and refresh merge recursively, every other value replaces the field as a whole.
+  @PATCH('/v1/settings')
+  Future<Settings> patchSettings({
+    @Body() required dynamic body,
+    @Header('If-Match') String? ifMatch,
+  });
+
+  /// Replace the global settings.
+  ///
+  /// Replaces the global settings layer as a whole.
+  ///
+  /// [ifMatch] - ETag of the settings last read; the update fails with 412 (settings.changed) if they changed since.
+  @PUT('/v1/settings')
+  Future<Settings> replaceSettings({
+    @Body() required Settings body,
+    @Header('If-Match') String? ifMatch,
+  });
+
+  /// Get the default settings.
+  ///
+  /// Returns the built-in lowest settings layer.
+  @GET('/v1/settings/defaults')
+  Future<Settings> getDefaultSettings();
+
+  /// Describe the settings fields.
+  ///
+  /// Returns one entry per settings field with its type, group, unit, numeric bounds, accepted values and the levels (default, global, queue, task) that may set it, for building generic settings forms.
+  @GET('/v1/settings/schema')
+  Future<Schema> getSettingsSchema();
+}

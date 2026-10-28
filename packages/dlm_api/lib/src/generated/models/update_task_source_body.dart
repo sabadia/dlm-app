@@ -1,0 +1,79 @@
+// coverage:ignore-file
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
+
+import 'package:json_annotation/json_annotation.dart';
+
+import 'update_task_source_body_on_mismatch.dart';
+import 'update_task_source_body_resolver_kind.dart';
+
+part 'update_task_source_body.g.dart';
+
+@JsonSerializable()
+class UpdateTaskSourceBody {
+  const UpdateTaskSourceBody({
+    required this.currentUrl,
+    this.schema,
+    this.body,
+    this.cookieDomains,
+    this.headers,
+    this.mediaHint,
+    this.method,
+    this.mirrors,
+    this.onMismatch,
+    this.originalUrl,
+    this.pageUrl,
+    this.referrer,
+    this.resolverKind,
+    this.userAgent,
+  });
+
+  factory UpdateTaskSourceBody.fromJson(Map<String, Object?> json) =>
+      _$UpdateTaskSourceBodyFromJson(json);
+
+  /// A URL to the JSON Schema for this object.
+  /// Incorrect name has been replaced. Original name: `$schema`.
+  @JsonKey(name: '\$schema')
+  final String? schema;
+
+  /// Request body (base64).
+  final String? body;
+
+  /// Domains whose stored cookies apply.
+  final List<String>? cookieDomains;
+
+  /// Absolute URL to download.
+  final String currentUrl;
+
+  /// Request headers captured with the link.
+  final Map<String, String>? headers;
+
+  /// Manifest pattern or variant hint for streams.
+  final String? mediaHint;
+
+  /// HTTP method (default GET).
+  final String? method;
+
+  /// Other http(s) links to the same file. A ranged download spreads its connections over the mirrors that serve a file of the same size and supports ranges; the others are ignored.
+  final List<String>? mirrors;
+
+  /// What to do when the new link serves different content than the one downloaded so far: restart discards the partial data, fail rejects the link. Default: the task's effective refresh.onMismatch (ask counts as fail).
+  final UpdateTaskSourceBodyOnMismatch? onMismatch;
+
+  /// URL the user started from (defaults to currentUrl); used for link refresh.
+  final String? originalUrl;
+
+  /// Web page the link was found on.
+  final String? pageUrl;
+
+  /// Referer header to send.
+  final String? referrer;
+
+  /// How the link was obtained (default direct).
+  final UpdateTaskSourceBodyResolverKind? resolverKind;
+
+  /// User agent captured with the link.
+  final String? userAgent;
+
+  Map<String, Object?> toJson() => _$UpdateTaskSourceBodyToJson(this);
+}
