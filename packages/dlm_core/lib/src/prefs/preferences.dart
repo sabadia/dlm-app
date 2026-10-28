@@ -67,8 +67,9 @@ class PreferencesStore {
     if (file.existsSync()) {
       try {
         final json = jsonDecode(await file.readAsString());
-        if (json is! Map<String, Object?>)
+        if (json is! Map<String, Object?>) {
           throw const FormatException('not an object');
+        }
         final stored = json['version'];
         final data = json['values'];
         if (stored is! int || data is! Map<String, Object?>) {
