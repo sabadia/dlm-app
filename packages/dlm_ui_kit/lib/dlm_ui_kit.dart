@@ -1,6 +1,7 @@
 /// Design tokens, skin contract, behaviour layer and component API.
 library;
 
+export 'src/behavior/double_click.dart';
 export 'src/behavior/focus_ring.dart';
 export 'src/behavior/interactive.dart';
 export 'src/behavior/states.dart';
@@ -23,6 +24,7 @@ export 'src/theme/validation.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/banner.dart';
 export 'src/widgets/button.dart';
+export 'src/widgets/chart_frame.dart';
 export 'src/widgets/data_table.dart';
 export 'src/widgets/dialog.dart';
 export 'src/widgets/dropdown.dart';
@@ -32,6 +34,7 @@ export 'src/widgets/list_row.dart';
 export 'src/widgets/menu.dart';
 export 'src/widgets/popover.dart';
 export 'src/widgets/progress.dart';
+export 'src/widgets/schedule_grid.dart';
 export 'src/widgets/segmented.dart';
 export 'src/widgets/sidebar.dart';
 export 'src/widgets/slider.dart';
@@ -42,3 +45,4 @@ export 'src/widgets/toast.dart';
 export 'src/widgets/toggles.dart';
 export 'src/widgets/toolbar.dart';
 export 'src/widgets/tooltip.dart';
+export 'src/widgets/tree.dart';
