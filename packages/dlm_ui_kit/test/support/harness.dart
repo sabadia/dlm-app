@@ -34,12 +34,13 @@ Future<ManualAppearanceSource> pumpKit(
         settings: settings,
         pageBuilder: (context, _, _) => builder(context),
       ),
-      home: DlmThemeScope(
+      builder: (context, navigator) => DlmThemeScope(
         skin: const TestSkin(),
         source: source,
         userOverride: override,
-        child: Align(alignment: Alignment.topLeft, child: child),
+        child: navigator!,
       ),
+      home: Align(alignment: Alignment.topLeft, child: child),
     ),
   );
   return source;

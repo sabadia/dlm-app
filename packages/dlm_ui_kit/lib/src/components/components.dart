@@ -41,6 +41,15 @@ enum DlmCheckState {
   mixed,
 }
 
+/// How a modal surface is presented.
+enum DlmDialogKind {
+  /// Centred over a dimmed window.
+  dialog,
+
+  /// Attached to an edge of the window.
+  sheet,
+}
+
 /// The meaning of a badge, banner, toast or progress bar.
 enum DlmTone {
   /// No particular meaning.
@@ -265,4 +274,33 @@ abstract class DlmComponents {
 
   /// The bubble of a tooltip around its [content].
   Widget tooltipBubble(BuildContext context, {required Widget content});
+
+  /// The floating surface of a popover (free-form content).
+  Widget popoverSurface(BuildContext context, {required Widget child});
+
+  /// The floating surface of a menu around its items.
+  Widget menuSurface(BuildContext context, {required Widget child});
+
+  /// One menu item around its [content]; [checked] draws a check mark slot
+  /// when non-null.
+  Widget menuItem(
+    BuildContext context, {
+    required DlmStates states,
+    required bool destructive,
+    required Widget content,
+  });
+
+  /// The closed state of a dropdown around its [content] (value and arrow).
+  Widget dropdownTrigger(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  });
+
+  /// The modal surface of a dialog or sheet around its content.
+  Widget dialogSurface(
+    BuildContext context, {
+    required DlmDialogKind kind,
+    required Widget child,
+  });
 }

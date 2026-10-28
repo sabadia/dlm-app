@@ -762,6 +762,116 @@ class DlmBaseComponents extends DlmComponents {
       ),
     );
   }
+
+  Widget _floating(BuildContext context, Widget child, {double? pad}) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: c.overlay,
+        borderRadius: BorderRadius.circular(m.radii.container),
+        border: Border.all(color: c.separator, width: m.borderWidth),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x33000000),
+            blurRadius: 20,
+            offset: Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsets.all(pad ?? m.spacing.xs),
+        child: child,
+      ),
+    );
+  }
+
+  @override
+  Widget popoverSurface(BuildContext context, {required Widget child}) =>
+      _floating(context, child, pad: DlmTheme.of(context).metrics.spacing.md);
+
+  @override
+  Widget menuSurface(BuildContext context, {required Widget child}) =>
+      _floating(context, child);
+
+  @override
+  Widget menuItem(
+    BuildContext context, {
+    required DlmStates states,
+    required bool destructive,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final active = states.hovered || states.focusVisible || states.pressed;
+    final fill = active
+        ? (destructive ? c.danger : c.accent)
+        : const Color(0x00000000);
+    final text = states.disabled
+        ? c.textDisabled
+        : active
+        ? onColor(fill)
+        : (destructive ? c.danger : c.textPrimary);
+    return Container(
+      height: m.controlHeight,
+      padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
+      decoration: BoxDecoration(
+        color: fill,
+        borderRadius: BorderRadius.circular(m.radii.small),
+      ),
+      child: DefaultTextStyle.merge(
+        style: t.typography.body.copyWith(color: text),
+        child: IconTheme.merge(
+          data: IconThemeData(color: text, size: m.icon),
+          child: content,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget dropdownTrigger(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  }) => textFieldFrame(
+    context,
+    states: states,
+    hasError: false,
+    multiline: false,
+    child: content,
+  );
+
+  @override
+  Widget dialogSurface(
+    BuildContext context, {
+    required DlmDialogKind kind,
+    required Widget child,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final radius = kind == DlmDialogKind.dialog
+        ? BorderRadius.circular(m.radii.container)
+        : BorderRadius.vertical(bottom: Radius.circular(m.radii.container));
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: c.overlay,
+        borderRadius: radius,
+        border: Border.all(color: c.separator, width: m.borderWidth),
+        boxShadow: const [
+          BoxShadow(
+            color: Color(0x40000000),
+            blurRadius: 32,
+            offset: Offset(0, 12),
+          ),
+        ],
+      ),
+      child: Padding(padding: EdgeInsets.all(m.spacing.xl), child: child),
+    );
+  }
 }
 
 class _RingPainter extends CustomPainter {
