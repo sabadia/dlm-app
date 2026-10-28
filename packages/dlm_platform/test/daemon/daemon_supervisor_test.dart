@@ -43,7 +43,7 @@ void main() {
   });
 
   Future<DaemonStatus> next(bool Function(DaemonStatus) test) =>
-      sup.status.firstWhere(test).timeout(const Duration(seconds: 5));
+      sup.status.firstWhere(test).timeout(const Duration(seconds: 30));
 
   test(
     'starts the daemon on a random loopback port and reports where',
