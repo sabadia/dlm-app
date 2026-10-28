@@ -1,0 +1,11 @@
+name: dlm_tools
+description: Repository tooling for the dlm-app workspace (architecture lints).
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+dependencies:
+  path: ^1.9.1
+  yaml: ^3.1.4
+dev_dependencies:
+  test: ^1.33.0

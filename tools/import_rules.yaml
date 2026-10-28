@@ -1,0 +1,28 @@
+# The dependency rules of the workspace (docs/CONVENTIONS.md, ADR-001).
+# Each package lists the dlm_* packages it may depend on and import. A dlm_*
+# package that is not listed here is an error: add it with its rule.
+# Checked by `dart run dlm_tools:check_imports` (CI).
+packages:
+  dlm_api: []
+  dlm_l10n: []
+  dlm_platform: []
+  dlm_ui_kit: []
+  dlm_core: [dlm_api]
+  dlm_skin_macos: [dlm_ui_kit]
+  dlm_skin_fluent: [dlm_ui_kit]
+  dlm_skin_adwaita: [dlm_ui_kit]
+  dlm_skin_breeze: [dlm_ui_kit]
+  dlm_app:
+    - dlm_core
+    - dlm_ui_kit
+    - dlm_platform
+    - dlm_l10n
+    - dlm_skin_macos
+    - dlm_skin_fluent
+    - dlm_skin_adwaita
+    - dlm_skin_breeze
+
+# Skins may be named only here (paths relative to the repository root): the
+# registry that picks the skin at startup. Features never import a skin.
+skin_registry:
+  - apps/dlm_app/lib/src/skin_registry.dart
