@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 import '../theme/theme.dart';
+import 'double_click.dart';
 import 'states.dart';
 
 /// What assistive technology announces a control as.
@@ -171,8 +172,11 @@ class _DlmInteractiveState extends State<DlmInteractive> {
       onTapUp: enabled ? (_) => _set(() => _pressed = false) : null,
       onTapCancel: enabled ? () => _set(() => _pressed = false) : null,
       onTap: enabled ? widget.onTap : null,
-      onDoubleTap: enabled ? widget.onDoubleTap : null,
       onSecondaryTap: enabled ? widget.onSecondaryTap : null,
+      child: child,
+    );
+    child = DlmDoubleClick(
+      onDoubleClick: enabled ? widget.onDoubleTap : null,
       child: child,
     );
     child = FocusableActionDetector(

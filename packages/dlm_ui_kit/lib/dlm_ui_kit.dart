@@ -23,6 +23,7 @@ export 'src/theme/validation.dart';
 export 'src/widgets/badge.dart';
 export 'src/widgets/banner.dart';
 export 'src/widgets/button.dart';
+export 'src/widgets/data_table.dart';
 export 'src/widgets/dialog.dart';
 export 'src/widgets/dropdown.dart';
 export 'src/widgets/form.dart';

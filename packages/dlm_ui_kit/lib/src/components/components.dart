@@ -336,4 +336,31 @@ abstract class DlmComponents {
     required Axis axis,
     required DlmStates states,
   });
+
+  /// The header band of a data table around its column headers.
+  Widget tableHeader(BuildContext context, {required Widget child});
+
+  /// One column header around its [content]; [sorted] is the sort direction
+  /// when this column is the sort column (true ascending), null otherwise.
+  Widget tableHeaderCell(
+    BuildContext context, {
+    required DlmStates states,
+    required bool? sorted,
+    required Widget content,
+  });
+
+  /// One data row around its cells; [odd] allows striping.
+  Widget tableRow(
+    BuildContext context, {
+    required DlmStates states,
+    required bool odd,
+    required Widget content,
+  });
+
+  /// One cell of the weekday x time grid.
+  Widget scheduleCell(
+    BuildContext context, {
+    required bool on,
+    required DlmStates states,
+  });
 }

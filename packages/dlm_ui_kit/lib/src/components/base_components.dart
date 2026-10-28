@@ -1030,6 +1030,118 @@ class DlmBaseComponents extends DlmComponents {
       child: Center(child: line),
     );
   }
+
+  @override
+  Widget tableHeader(BuildContext context, {required Widget child}) {
+    final t = DlmTheme.of(context);
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: t.colors.raised,
+        border: Border(
+          bottom: BorderSide(
+            color: t.colors.separator,
+            width: t.metrics.borderWidth,
+          ),
+        ),
+      ),
+      child: SizedBox(height: t.metrics.controlHeight, child: child),
+    );
+  }
+
+  @override
+  Widget tableHeaderCell(
+    BuildContext context, {
+    required DlmStates states,
+    required bool? sorted,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.radii.small,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
+        alignment: Alignment.centerLeft,
+        color: states.pressed
+            ? c.controlFillPressed
+            : (states.hovered ? c.controlFillHover : const Color(0x00000000)),
+        child: DefaultTextStyle.merge(
+          style: t.typography.label.copyWith(
+            color: c.textSecondary,
+            fontWeight: sorted == null ? null : FontWeight.w600,
+          ),
+          child: IconTheme.merge(
+            data: IconThemeData(color: c.textSecondary, size: m.iconSmall),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget tableRow(
+    BuildContext context, {
+    required DlmStates states,
+    required bool odd,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final fill = states.selected
+        ? (states.focused ? c.selection : c.selectionInactive)
+        : states.hovered
+        ? c.rowHover
+        : const Color(0x00000000);
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.radii.small,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: fill,
+          border: Border(
+            bottom: BorderSide(color: c.separator, width: m.borderWidth),
+          ),
+        ),
+        child: DefaultTextStyle.merge(
+          style: t.typography.body.copyWith(color: c.textPrimary),
+          child: IconTheme.merge(
+            data: IconThemeData(color: c.textSecondary, size: m.icon),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget scheduleCell(
+    BuildContext context, {
+    required bool on,
+    required DlmStates states,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.radii.small,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: on
+              ? (states.hovered
+                    ? feedback(c.accent, states, dark: false)
+                    : c.accent)
+              : (states.hovered ? c.controlFillHover : c.controlFill),
+          border: Border.all(color: c.separator, width: m.borderWidth),
+          borderRadius: BorderRadius.circular(m.radii.small / 2),
+        ),
+      ),
+    );
+  }
 }
 
 class _RingPainter extends CustomPainter {
