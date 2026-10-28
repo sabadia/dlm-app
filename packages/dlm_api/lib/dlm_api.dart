@@ -6,3 +6,4 @@ export 'src/generated/export.dart';
 export 'src/problem.dart';
 export 'src/sse/event_hub.dart';
 export 'src/sse/sse_parser.dart';
+export 'src/tls_pinning.dart';

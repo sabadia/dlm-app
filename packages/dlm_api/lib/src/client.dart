@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 
 import 'generated/rest_client.dart';
 import 'problem.dart';
+import 'tls_pinning.dart';
 
 /// Where and how to reach one daemon.
 class DlmEndpoint {
@@ -16,6 +17,20 @@ class DlmEndpoint {
     this.userAgent = 'dlm-app',
     this.adapter,
   });
+
+  /// An endpoint that trusts exactly the certificate with [pin] (see
+  /// [pinnedAdapter]).
+  factory DlmEndpoint.pinned({
+    required String baseUrl,
+    required String pin,
+    String? token,
+    String userAgent = 'dlm-app',
+  }) => DlmEndpoint(
+    baseUrl: baseUrl,
+    token: token,
+    userAgent: userAgent,
+    adapter: pinnedAdapter(pin),
+  );
 
   /// Base URL, for example `http://127.0.0.1:50321`.
   final String baseUrl;
