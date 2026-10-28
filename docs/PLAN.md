@@ -107,7 +107,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
 - [x] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
 - [x] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
-- [ ] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
+- [x] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
 
 ### M2 UI kit and skins
 
