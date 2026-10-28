@@ -8,6 +8,9 @@ environment:
   flutter: ">=3.47.0"
 dependencies:
   dlm_platform: any
+  dlm_skin_adwaita: any
+  dlm_skin_breeze: any
+  dlm_skin_fluent: any
   dlm_skin_macos: any
   dlm_ui_kit: any
   flutter:

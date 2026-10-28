@@ -168,12 +168,17 @@ class _GalleryAppState extends State<GalleryApp> {
 
   Future<void> _applyChrome() async {
     final shell = _skin.shell;
+    final translucent = _skin
+        .tokens(_settings.appearanceFor(windowHasEffect: true))
+        .materials
+        .all
+        .any((m) => m.isTranslucent);
     try {
       final result = await widget.chrome.apply(
         WindowChromeConfig(
           transparentTitleBar:
               shell.titleBar == DlmTitleBarStyle.unifiedTransparent,
-          effect: _settings.effect,
+          effect: translucent ? _settings.effect : WindowEffect.none,
           brightness: _settings.dark ? Brightness.dark : Brightness.light,
         ),
       );
