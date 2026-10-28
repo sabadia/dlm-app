@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/widgets.dart';
 
+import '../components/components.dart';
 import 'appearance.dart';
 import 'appearance_source.dart';
 import 'colors.dart';
@@ -25,6 +26,7 @@ class DlmThemeData extends DlmTokenValue {
     required this.metrics,
     required this.materials,
     required this.motion,
+    required this.components,
   });
 
   /// Builds the theme of [skin] for [appearance] and [density]: the skin's
@@ -47,6 +49,7 @@ class DlmThemeData extends DlmTokenValue {
           ? DlmMaterials.opaque
           : tokens.materials,
       motion: appearance.reduceMotion ? DlmMotion.reduced : tokens.motion,
+      components: skin.components,
     );
   }
 
@@ -77,7 +80,10 @@ class DlmThemeData extends DlmTokenValue {
   /// Motion.
   final DlmMotion motion;
 
-  /// Brightness.
+  /// The skin's component builders.
+  final DlmComponents components;
+
+  /// Light or dark.
   Brightness get brightness => colors.brightness;
 
   @override
@@ -91,6 +97,7 @@ class DlmThemeData extends DlmTokenValue {
     metrics,
     materials,
     motion,
+    components,
   ];
 }
 

@@ -1,3 +1,5 @@
+import '../components/base_components.dart';
+import '../components/components.dart';
 import 'appearance.dart';
 import 'shell.dart';
 import 'tokens.dart';
@@ -5,7 +7,6 @@ import 'tokens.dart';
 /// A complete look: tokens for every appearance and the shell pattern.
 ///
 /// Implemented by `dlm_skin_macos`, `_fluent`, `_adwaita` and `_breeze`.
-/// Component builders are added to this contract by F2.2.
 abstract class DlmSkin {
   /// Creates a [DlmSkin].
   const DlmSkin();
@@ -16,6 +17,10 @@ abstract class DlmSkin {
 
   /// How the window is arranged and what its chrome looks like.
   DlmShellPattern get shell;
+
+  /// The visual builders of the kit's components. The default draws them all
+  /// from the tokens; a skin overrides what it must draw differently.
+  DlmComponents get components => const DlmBaseComponents();
 
   /// The tokens for [appearance] (brightness, contrast, accent).
   ///

@@ -11,6 +11,14 @@ double contrastRatio(Color a, Color b) {
   return (lighter + 0.05) / (darker + 0.05);
 }
 
+/// Black or white, whichever reads better on the opaque [fill] (at least
+/// 4.5:1 for any fill).
+Color onColor(Color fill) =>
+    contrastRatio(const Color(0xFFFFFFFF), fill) >=
+        contrastRatio(const Color(0xFF000000), fill)
+    ? const Color(0xFFFFFFFF)
+    : const Color(0xFF000000);
+
 /// Returns [foreground], moved toward black or white in small steps of
 /// lightness until it reaches [minRatio] against [background].
 ///
