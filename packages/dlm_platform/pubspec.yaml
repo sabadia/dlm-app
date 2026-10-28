@@ -9,6 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_secure_storage: ^11.2.0
+  win32_registry: ^3.0.3
+  xdg_desktop_portal: ^0.1.15
 dev_dependencies:
   flutter_test:
     sdk: flutter

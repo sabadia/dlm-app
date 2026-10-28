@@ -3,6 +3,10 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 
+import 'kde_appearance.dart';
+import 'portal_appearance.dart';
+import 'windows_appearance.dart';
+
 /// What the operating system reports beyond what Flutter already knows
 /// (brightness, text scale): the accent colour and the accessibility display
 /// options. Everything is optional; a platform that cannot report a value
@@ -11,17 +15,31 @@ class SystemAppearance {
   /// Creates a snapshot.
   const SystemAppearance({
     this.accent,
+    this.brightness,
     this.highContrast = false,
     this.reduceMotion = false,
     this.reduceTransparency = false,
+    this.fontFamily,
+    this.fontPointSize,
   });
 
   /// Decodes the map the native side sends.
   factory SystemAppearance.fromMap(Map<Object?, Object?>? map) {
     if (map == null) return none;
     final accent = map['accent'];
+    final brightness = map['brightness'];
+    final font = map['fontPointSize'];
     return SystemAppearance(
       accent: accent is int ? Color(accent) : null,
+      brightness: switch (brightness) {
+        'dark' => Brightness.dark,
+        'light' => Brightness.light,
+        _ => null,
+      },
+      fontFamily: map['fontFamily'] is String
+          ? map['fontFamily']! as String
+          : null,
+      fontPointSize: font is num ? font.toDouble() : null,
       highContrast: map['highContrast'] == true,
       reduceMotion: map['reduceMotion'] == true,
       reduceTransparency: map['reduceTransparency'] == true,
@@ -34,6 +52,10 @@ class SystemAppearance {
   /// The system accent colour, or null when the OS has none.
   final Color? accent;
 
+  /// The colour scheme the user chose (dark or light), when the platform
+  /// reports it; null leaves it to Flutter's own platform brightness.
+  final Brightness? brightness;
+
   /// Increase-contrast is on.
   final bool highContrast;
 
@@ -43,17 +65,34 @@ class SystemAppearance {
   /// Reduce-transparency is on.
   final bool reduceTransparency;
 
+  /// The interface font family the user chose (KDE, Windows), if reported.
+  final String? fontFamily;
+
+  /// The interface font size in points, if reported (10 is the usual
+  /// default on KDE).
+  final double? fontPointSize;
+
   @override
   bool operator ==(Object other) =>
       other is SystemAppearance &&
       other.accent == accent &&
+      other.brightness == brightness &&
       other.highContrast == highContrast &&
       other.reduceMotion == reduceMotion &&
-      other.reduceTransparency == reduceTransparency;
+      other.reduceTransparency == reduceTransparency &&
+      other.fontFamily == fontFamily &&
+      other.fontPointSize == fontPointSize;
 
   @override
-  int get hashCode =>
-      Object.hash(accent, highContrast, reduceMotion, reduceTransparency);
+  int get hashCode => Object.hash(
+    accent,
+    brightness,
+    highContrast,
+    reduceMotion,
+    reduceTransparency,
+    fontFamily,
+    fontPointSize,
+  );
 }
 
 /// Reads the system appearance and reports changes.
@@ -136,7 +175,19 @@ class MethodChannelSystemAppearance implements SystemAppearanceReader {
   }
 }
 
-/// The system appearance reader of the running platform.
-SystemAppearanceReader platformSystemAppearance() => Platform.isMacOS
-    ? MethodChannelSystemAppearance()
-    : const UnsupportedSystemAppearance();
+/// The system appearance reader of the running platform: the macOS plugin,
+/// the registry on Windows, `kdeglobals` on KDE, the settings portal on other
+/// Linux desktops (GNOME), nothing elsewhere.
+SystemAppearanceReader platformSystemAppearance() {
+  if (Platform.isMacOS) return MethodChannelSystemAppearance();
+  if (Platform.isWindows) return WindowsAppearanceReader();
+  if (Platform.isLinux) {
+    final desktops = (Platform.environment['XDG_CURRENT_DESKTOP'] ?? '')
+        .toUpperCase()
+        .split(':');
+    return desktops.contains('KDE')
+        ? KdeAppearanceReader()
+        : PortalAppearanceReader(XdgPortalSettings());
+  }
+  return const UnsupportedSystemAppearance();
+}
