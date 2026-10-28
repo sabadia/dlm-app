@@ -88,6 +88,19 @@ the colour-change notifications). `dlm_platform` and the kit know nothing about 
 so the app merges `FlutterAppearanceSource` with this reader into one `AppearanceSource`
 (the gallery shows how). Other platforms report nothing until their readers land.
 
+## Gallery and goldens (F2.10)
+
+`apps/dlm_gallery` shows every component under every skin with live controls. Its tests render
+each section under each skin in light, dark and high contrast, and compare them with golden images
+(`apps/dlm_gallery/test/golden/goldens/<skin>/<section>_<mode>.png`, tag `golden`). Roboto is
+registered under every font family the skins ask for, so the images are identical on any machine and show
+layout, colour and shape rather than each platform's typeface. Goldens are only valid on the
+pinned CI image: after a UI change run the *Update goldens* workflow on your branch (Actions tab),
+which regenerates and commits them; the golden job compares on every push.
+
+Reviewing the CI images is how the Windows, GNOME and KDE looks are checked without those machines;
+real-machine review is still needed before a beta.
+
 ## Adding a skin
 
 Implement `DlmSkin` in its package, return tokens from `tokens(appearance)` (use

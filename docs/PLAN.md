@@ -120,7 +120,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F2.7 Window chrome layer — Title bar styles, minimum size, restore, fullscreen, translucency toggle per OS in dlm_platform.
 - [x] F2.8 OS/DE detection, live theme sync, user override — Dark/light, accent, high contrast, reduce motion, text scale; Preferences: Native/Light/Dark, accent, skin override for testing.
 - [x] F2.9 Semantic icon system and app icons — Per-skin icon map with licence audit; app icon set.
-- [ ] F2.10 Kit gallery app and golden tests — Every component x 4 skins x light/dark/high-contrast.
+- [x] F2.10 Kit gallery app and golden tests — Every component x 4 skins x light/dark/high-contrast.
 - [x] F2.11 Kit accessibility and keyboard specification — Semantics, focus order, keyboard map, tested.
 
 ### M3 Core experience
