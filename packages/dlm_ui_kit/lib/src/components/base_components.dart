@@ -872,6 +872,164 @@ class DlmBaseComponents extends DlmComponents {
       child: Padding(padding: EdgeInsets.all(m.spacing.xl), child: child),
     );
   }
+
+  @override
+  Widget sidebarSurface(BuildContext context, {required Widget child}) {
+    final t = DlmTheme.of(context);
+    final material = t.materials.sidebar;
+    final color = material.isTranslucent
+        ? t.colors.sidebar.withValues(alpha: material.tintOpacity)
+        : t.colors.sidebar;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: color,
+        border: Border(
+          right: BorderSide(
+            color: t.colors.separator,
+            width: t.metrics.borderWidth,
+          ),
+        ),
+      ),
+      child: child,
+    );
+  }
+
+  @override
+  Widget sidebarItem(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    final fill = states.selected
+        ? c.selection
+        : states.pressed
+        ? c.controlFillPressed
+        : states.hovered
+        ? c.rowHover
+        : const Color(0x00000000);
+    final text = states.disabled ? c.textDisabled : c.textPrimary;
+    return DlmFocusRing(
+      visible: states.focusVisible,
+      radius: m.radii.control,
+      child: Container(
+        height: m.controlHeight,
+        padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
+        decoration: BoxDecoration(
+          color: fill,
+          borderRadius: BorderRadius.circular(m.radii.control),
+        ),
+        child: DefaultTextStyle.merge(
+          style: (states.selected ? t.typography.bodyStrong : t.typography.body)
+              .copyWith(color: text),
+          child: IconTheme.merge(
+            data: IconThemeData(
+              color: states.selected ? c.accent : c.textSecondary,
+              size: m.icon,
+            ),
+            child: content,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget toolbar(BuildContext context, {required Widget child}) {
+    final t = DlmTheme.of(context);
+    final material = t.materials.toolbar;
+    final color = material.isTranslucent
+        ? t.colors.window.withValues(alpha: material.tintOpacity)
+        : t.colors.window;
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        color: color,
+        border: Border(
+          bottom: BorderSide(
+            color: t.colors.separator,
+            width: t.metrics.borderWidth,
+          ),
+        ),
+      ),
+      child: SizedBox(
+        height: t.metrics.toolbarHeight,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: t.metrics.spacing.md),
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget formGroup(
+    BuildContext context, {
+    required Widget rows,
+    Widget? title,
+    Widget? footer,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final m = t.metrics;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (title != null)
+          Padding(
+            padding: EdgeInsets.only(left: m.spacing.xs, bottom: m.spacing.xs),
+            child: DefaultTextStyle.merge(
+              style: t.typography.subtitle,
+              child: title,
+            ),
+          ),
+        DecoratedBox(
+          decoration: BoxDecoration(
+            color: c.raised,
+            borderRadius: BorderRadius.circular(m.radii.container),
+            border: Border.all(color: c.separator, width: m.borderWidth),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(m.radii.container),
+            child: rows,
+          ),
+        ),
+        if (footer != null)
+          Padding(
+            padding: EdgeInsets.only(left: m.spacing.xs, top: m.spacing.xs),
+            child: DefaultTextStyle.merge(
+              style: t.typography.caption.copyWith(color: c.textSecondary),
+              child: footer,
+            ),
+          ),
+      ],
+    );
+  }
+
+  @override
+  Widget splitDivider(
+    BuildContext context, {
+    required Axis axis,
+    required DlmStates states,
+  }) {
+    final t = DlmTheme.of(context);
+    final c = t.colors;
+    final active = states.hovered || states.pressed || states.focusVisible;
+    final line = DecoratedBox(
+      decoration: BoxDecoration(color: active ? c.accent : c.separator),
+      child: SizedBox(
+        width: axis == Axis.horizontal ? (active ? 2 : 1) : null,
+        height: axis == Axis.vertical ? (active ? 2 : 1) : null,
+      ),
+    );
+    return SizedBox(
+      width: axis == Axis.horizontal ? 8 : null,
+      height: axis == Axis.vertical ? 8 : null,
+      child: Center(child: line),
+    );
+  }
 }
 
 class _RingPainter extends CustomPainter {

@@ -303,4 +303,37 @@ abstract class DlmComponents {
     required DlmDialogKind kind,
     required Widget child,
   });
+
+  /// The sidebar background around its [child] (sections and items). A
+  /// translucent material is drawn as a tinted colour; the native window
+  /// provides the blur behind it.
+  Widget sidebarSurface(BuildContext context, {required Widget child});
+
+  /// One sidebar item around its [content].
+  Widget sidebarItem(
+    BuildContext context, {
+    required DlmStates states,
+    required Widget content,
+  });
+
+  /// The toolbar background (title-bar unified, command bar, header bar or
+  /// tool bar, per the shell pattern) around its [child].
+  Widget toolbar(BuildContext context, {required Widget child});
+
+  /// A titled group of settings rows around its [rows]; [title] and [footer]
+  /// are optional captions.
+  Widget formGroup(
+    BuildContext context, {
+    required Widget rows,
+    Widget? title,
+    Widget? footer,
+  });
+
+  /// The draggable divider between two panes; [axis] is the direction the
+  /// panes are laid out in.
+  Widget splitDivider(
+    BuildContext context, {
+    required Axis axis,
+    required DlmStates states,
+  });
 }
