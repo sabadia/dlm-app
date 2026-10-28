@@ -57,7 +57,7 @@ this file covers *how* code is written. Architecture decisions are in `docs/adr/
 - `flutter_test`; table-driven where it helps; no network, no real clock, no real
   filesystem outside `Directory.systemTemp`. Fakes over mocks for the daemon API.
 - Goldens run only in the pinned Linux container with pinned fonts, so they are
-  reproducible; update them with the golden tool added in F0.4.
+  reproducible; update them by running the *Update goldens* workflow on your branch (Actions tab), which regenerates them on the CI image and commits them.
 - Integration tests run against a real `dlm` daemon started on port 0 with a temporary home.
 - A bug fix includes a test that fails without it.
 

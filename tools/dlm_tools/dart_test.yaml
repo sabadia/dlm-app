@@ -1,0 +1,3 @@
+tags:
+  golden:
+    description: Golden-image tests; they only run in the pinned Linux CI job.

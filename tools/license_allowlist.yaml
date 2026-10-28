@@ -1,0 +1,4 @@
+# Dependencies whose licence the checker cannot classify (or classifies as
+# copyleft) but that were reviewed and accepted. Each entry needs a reason; an
+# empty list is the goal.
+packages: {}
