@@ -37,7 +37,9 @@ class DlmBadge extends StatelessWidget {
         children: [
           ?icon,
           if (icon != null) SizedBox(width: theme.metrics.spacing.xs),
-          Text(label),
+          Flexible(
+            child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis),
+          ),
         ],
       ),
     );

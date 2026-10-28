@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'contrast.dart';
 import 'token_value.dart';
 
 /// Semantic colour roles. Widgets use roles, never literal colours.
@@ -41,6 +42,72 @@ class DlmColors extends DlmTokenValue {
     required this.danger,
     required this.info,
   });
+
+  /// Builds a complete palette from the handful of colours a skin actually
+  /// decides, deriving the rest (hover and pressed fills, separators,
+  /// selection, status colours) so every skin treats them the same way.
+  ///
+  /// [text] is the primary text colour; [window] and [content] are opaque.
+  /// Surfaces left null reuse [content] (or [window] for the sidebar). Status
+  /// colours are moved until they reach 3:1 on [content] (4.5:1 in high
+  /// contrast). [accent] is the already derived palette (see
+  /// `AccentPalette.derive`).
+  factory DlmColors.derive({
+    required Brightness brightness,
+    required bool highContrast,
+    required Color window,
+    required Color content,
+    required Color text,
+    required Color textSecondary,
+    required Color textDisabled,
+    required AccentPalette accent,
+    required Color border,
+    Color? raised,
+    Color? sidebar,
+    Color? overlay,
+    Color? separator,
+    Color success = const Color(0xFF2E9B4F),
+    Color warning = const Color(0xFFB36B00),
+    Color danger = const Color(0xFFD13438),
+    Color info = const Color(0xFF0A5FCC),
+  }) {
+    final dark = brightness == Brightness.dark;
+    final controlFill = content;
+    Color tint(Color base, double a) =>
+        Color.alphaBlend(text.withValues(alpha: a), base);
+    final graphics = highContrast ? 4.5 : 3.0;
+    return DlmColors(
+      brightness: brightness,
+      highContrast: highContrast,
+      window: window,
+      content: content,
+      raised: raised ?? content,
+      sidebar: sidebar ?? window,
+      overlay: overlay ?? content,
+      textPrimary: text,
+      textSecondary: textSecondary,
+      textDisabled: textDisabled,
+      textOnAccent: accent.onAccent,
+      textLink: accent.accentText,
+      accent: accent.accent,
+      accentSubtle: accent.accentSubtle,
+      separator: separator ?? text.withValues(alpha: highContrast ? 0.6 : 0.12),
+      border: border,
+      focusRing: accent.accentText,
+      controlFill: controlFill,
+      controlFillHover: tint(controlFill, 0.06),
+      controlFillPressed: tint(controlFill, 0.12),
+      controlFillDisabled: tint(window, 0.04),
+      rowHover: text.withValues(alpha: 0.05),
+      selection: accent.accentSubtle,
+      selectionInactive: text.withValues(alpha: 0.14),
+      scrim: Color(dark ? 0x8C000000 : 0x66000000),
+      success: ensureContrast(success, content, minRatio: graphics),
+      warning: ensureContrast(warning, content, minRatio: graphics),
+      danger: ensureContrast(danger, content, minRatio: graphics),
+      info: ensureContrast(info, content, minRatio: graphics),
+    );
+  }
 
   /// Light or dark.
   final Brightness brightness;

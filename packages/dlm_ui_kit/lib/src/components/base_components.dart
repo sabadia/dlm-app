@@ -44,6 +44,7 @@ class DlmBaseComponents extends DlmComponents {
     required DlmControlSize size,
     required DlmStates states,
     required Widget content,
+    bool square = false,
   }) {
     final t = DlmTheme.of(context);
     final c = t.colors;
@@ -57,7 +58,9 @@ class DlmBaseComponents extends DlmComponents {
         duration: t.motion.fast,
         curve: t.motion.standard,
         height: heightOf(m, size),
-        padding: EdgeInsets.symmetric(horizontal: m.spacing.md),
+        padding: square
+            ? EdgeInsets.zero
+            : EdgeInsets.symmetric(horizontal: m.spacing.md),
         decoration: BoxDecoration(
           color: fill,
           borderRadius: BorderRadius.circular(m.radii.control),

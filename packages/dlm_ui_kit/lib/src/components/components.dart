@@ -139,13 +139,15 @@ abstract class DlmComponents {
   /// Creates the component set.
   const DlmComponents();
 
-  /// The surface of a button around its [content] (label and icon).
+  /// The surface of a button around its [content] (label and icon). A
+  /// [square] button holds only an icon and has no horizontal padding.
   Widget button(
     BuildContext context, {
     required DlmButtonVariant variant,
     required DlmControlSize size,
     required DlmStates states,
     required Widget content,
+    bool square = false,
   });
 
   /// The track and thumb of a switch.

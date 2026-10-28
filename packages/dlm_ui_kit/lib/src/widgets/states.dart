@@ -13,7 +13,9 @@ Widget _centered(BuildContext context, List<Widget> children) {
       constraints: const BoxConstraints(maxWidth: 420),
       child: Padding(
         padding: EdgeInsets.all(theme.metrics.spacing.xl),
-        child: Column(mainAxisSize: MainAxisSize.min, children: children),
+        child: SingleChildScrollView(
+          child: Column(mainAxisSize: MainAxisSize.min, children: children),
+        ),
       ),
     ),
   );

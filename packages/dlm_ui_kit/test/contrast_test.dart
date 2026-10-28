@@ -87,12 +87,36 @@ void main() {
         minTextContrast: 7,
         minOnAccentContrast: 7,
       );
-      expect(normal.accent, accent);
+      expect(normal.onAccent, white);
+      expect(
+        contrastRatio(normal.onAccent, normal.accent),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        normal.accent.computeLuminance(),
+        lessThan(accent.computeLuminance()),
+      );
       expect(
         contrastRatio(high.onAccent, high.accent),
         greaterThanOrEqualTo(7),
       );
-      expect(high.accent, isNot(accent));
+      expect(
+        high.accent.computeLuminance(),
+        lessThan(normal.accent.computeLuminance()),
+      );
+    });
+
+    test('light accents get black text and keep their colour', () {
+      const yellow = Color(0xFFFFD60A);
+      final p = AccentPalette.derive(yellow, surface: white);
+      expect(p.onAccent, black);
+      expect(p.accent, yellow);
+    });
+
+    test('blue gets white text on a slightly darkened fill', () {
+      final p = AccentPalette.derive(const Color(0xFF007AFF), surface: white);
+      expect(p.onAccent, white);
+      expect(p.accent, isNot(const Color(0xFF007AFF)));
     });
 
     test('drops the alpha of the given accent', () {

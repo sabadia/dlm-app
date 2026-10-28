@@ -58,8 +58,9 @@ class AccentPalette {
   /// [surface].
   ///
   /// - [accent] is the fill of selected and primary controls, as given.
-  /// - [onAccent] is black or white, whichever reads better on [accent]
-  ///   (at least 4.5:1 for any accent).
+  /// - [onAccent] is white, or black for very light accents; the accent is
+  ///   darkened (or lightened for black text) just enough to reach
+  ///   [minOnAccentContrast].
   /// - When [minOnAccentContrast] is higher than the accent allows (7 in
   ///   high contrast), the accent fill is moved toward black or white until
   ///   [onAccent] reaches it; otherwise the accent is returned as given.
@@ -77,9 +78,11 @@ class AccentPalette {
     final given = accent.withValues(alpha: 1);
     const white = Color(0xFFFFFFFF);
     const black = Color(0xFF000000);
-    final onAccent = contrastRatio(white, given) >= contrastRatio(black, given)
-        ? white
-        : black;
+    // White text on a (slightly darkened) fill looks right for most accents;
+    // black is used only when the accent is so light that black reads clearly
+    // better (yellow, orange, light green).
+    final lightAccent = contrastRatio(black, given) >= 7;
+    final onAccent = lightAccent ? black : white;
     final opaque = ensureContrast(
       given,
       onAccent,

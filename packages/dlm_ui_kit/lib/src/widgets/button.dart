@@ -124,6 +124,7 @@ class DlmIconButton extends StatelessWidget {
           size: size,
           states: states,
           content: icon,
+          square: true,
         ),
       ),
     );

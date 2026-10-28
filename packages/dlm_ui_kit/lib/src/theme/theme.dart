@@ -129,7 +129,9 @@ class DlmTheme extends InheritedWidget {
 ///
 /// It also sets the text scaler and the animation preference of the
 /// `MediaQuery` below it from the resolved appearance, so the user's text
-/// scale and reduce-motion override apply to every widget.
+/// scale and reduce-motion override apply to every widget, and provides the
+/// default text style and icon theme so plain `Text` and icons follow the
+/// skin.
 class DlmThemeScope extends StatefulWidget {
   /// Creates a [DlmThemeScope].
   const DlmThemeScope({
@@ -204,7 +206,19 @@ class _DlmThemeScopeState extends State<DlmThemeScope> {
         textScaler: TextScaler.linear(_data.appearance.textScale),
         disableAnimations: _data.appearance.reduceMotion,
       ),
-      child: DlmTheme(data: _data, child: widget.child),
+      child: DlmTheme(
+        data: _data,
+        child: DefaultTextStyle(
+          style: _data.typography.body,
+          child: IconTheme(
+            data: IconThemeData(
+              color: _data.colors.textSecondary,
+              size: _data.metrics.icon,
+            ),
+            child: widget.child,
+          ),
+        ),
+      ),
     );
   }
 }
