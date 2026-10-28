@@ -123,6 +123,17 @@ sdks:
         'golden',
       ]);
       expect(testCommand(ms[1], []), ['dart', 'test']);
+      expect(testCommand(ms[1], ['--update-goldens', '--tags', 'golden']), [
+        'dart',
+        'test',
+        '--tags',
+        'golden',
+      ]);
+      expect(testCommand(ms[0], ['--update-goldens']), [
+        'flutter',
+        'test',
+        '--update-goldens',
+      ]);
     });
   });
 }

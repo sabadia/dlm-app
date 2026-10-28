@@ -54,10 +54,14 @@ List<Member> workspaceMembers(String root) {
   return members;
 }
 
+/// Arguments only `flutter test` understands.
+const _flutterOnly = {'--update-goldens'};
+
 /// The command that runs the tests of [m] with the extra [args]
-/// (for example `--exclude-tags golden`).
+/// (for example `--exclude-tags golden`). Flutter-only arguments are
+/// dropped for plain Dart packages.
 List<String> testCommand(Member m, List<String> args) => [
   if (m.usesFlutter) 'flutter' else 'dart',
   'test',
-  ...args,
+  ...args.where((a) => m.usesFlutter || !_flutterOnly.contains(a)),
 ];

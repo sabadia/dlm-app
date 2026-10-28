@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-flutter
       - name: Regenerate
-        run: dart run dlm_tools:test_all --tags golden --update-goldens
+        run: dart run dlm_tools:test_all --allow-empty --tags golden --update-goldens
       - name: Commit the images
         run: |
           git config user.name "github-actions[bot]"
