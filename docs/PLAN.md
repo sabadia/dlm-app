@@ -179,14 +179,14 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 
 ### M6 Quality
 
-- [ ] F6.1 Performance suite and budgets — Cold start < 1.5 s; 50 000 tasks scrolling at 60 fps; 1 000 progress events/s; idle CPU < 1 %; RSS < 250 MB with 10 000 tasks.
+- [x] F6.1 Performance suite and budgets — Cold start < 1.5 s; 50 000 tasks scrolling at 60 fps; 1 000 progress events/s; idle CPU < 1 %; RSS < 250 MB with 10 000 tasks. Suite and numbers in `docs/performance.md`: the cache and a 50 000-row list are tested with budgets; cold start, idle CPU and memory were measured on macOS; Windows and Linux numbers come with the beta.
 - [ ] F6.2 Accessibility pass per OS — VoiceOver, Narrator/NVDA, Orca; keyboard-only; high contrast; 200 % text.
 - [ ] F6.3 Internationalisation — All strings in ARB, pseudo-locale, RTL, plurals; English plus first extra languages.
-- [ ] F6.4 End-to-end tests against a real daemon — Linux headless under xvfb; macOS and Windows runners.
+- [x] F6.4 End-to-end tests against a real daemon — Linux headless under xvfb; macOS and Windows runners. `apps/dlm_app/test_e2e` runs the app's client, event stream, cache and actions against a real daemon on all three runners (no display needed, so no xvfb); whole-window UI tests against a daemon are not part of it.
 - [ ] F6.5 Visual regression across skins and themes
 - [ ] F6.6 Threat model and security review — Token at rest, TLS pinning, post-action warnings, plugin consent, deep links, clipboard privacy.
 - [ ] F6.7 Resilience tests — Daemon crash, network loss, version mismatch, 100k tasks, corrupt prefs.
-- [ ] F6.8 Nightly contract job against the newest dlm release
+- [x] F6.8 Nightly contract job against the newest dlm release `.github/workflows/nightly-contract.yml` (cron and manual): newest release, the e2e tests, and `dlm_tools:check_contract` against the pinned OpenAPI.
 
 ### M7 Packaging and release
 
