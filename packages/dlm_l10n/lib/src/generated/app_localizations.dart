@@ -2788,6 +2788,12 @@ abstract class AppLocalizations {
   /// **'That torrent file is too large (16 MiB at most).'**
   String get add_torrent_too_big;
 
+  /// No description provided for @add_torrent_unreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'That torrent file could not be read.'**
+  String get add_torrent_unreadable;
+
   /// No description provided for @add_torrent_remove.
   ///
   /// In en, this message translates to:

@@ -115,6 +115,25 @@ forward and every two seconds. It offers the first http, https, ftp, magnet
 or ed2k link, and skips a link it has already offered. The clipboard text is
 not written to the log.
 
+## Opening a link or a torrent
+
+A second launch hands its arguments to the instance already running, over a
+loopback port stored in the app's data directory, and then exits. The port file
+holds a port number and never the link, and the link is not written to the log.
+An empty hand-off only brings the window forward.
+
+The app accepts `magnet:`, `ed2k:`, `http`, `https` and `ftp` links, a
+`.torrent` file (a path or a `file:` URL), and a `dlm:` link. `dlm:` is either
+`dlm:` plus one of those URLs (`dlm:https://example.com/a.bin`,
+`dlm:magnet:?xt=urn:btih:abc`) or `dlm://add?url=` with that URL
+percent-encoded. A `.torrent` file is read (16 MiB at most) and offered in the
+add dialog; a link is filled into the same dialog.
+
+macOS delivers an open to the running app as an Apple event, and the app bundle
+declares the `magnet`, `ed2k` and `dlm` schemes plus the torrent document type.
+Linux and Windows start a second process, which hands off the same way. The
+installer registers those schemes with the system (F7).
+
 ## What is waiting for the daemon
 
 These need backend phase 13 and are not worked around in the app: sorting by name or size,

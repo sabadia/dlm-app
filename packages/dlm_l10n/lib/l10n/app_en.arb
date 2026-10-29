@@ -979,6 +979,7 @@
   "add_checksum_invalid": "Not a valid value for this algorithm.",
   "add_torrent": "Torrent file…",
   "add_torrent_too_big": "That torrent file is too large (16 MiB at most).",
+  "add_torrent_unreadable": "That torrent file could not be read.",
   "add_torrent_remove": "Remove {name}",
   "@add_torrent_remove": {
     "placeholders": {

@@ -1654,6 +1654,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'That torrent file is too large (16 MiB at most).';
 
   @override
+  String get add_torrent_unreadable => 'That torrent file could not be read.';
+
+  @override
   String add_torrent_remove(String name) {
     return 'Remove $name';
   }
