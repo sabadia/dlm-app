@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a18801-d5f1-7d52-a68f-1e2ff5265bd5
+status: draft
+created_at: '2026-10-29T14:13:04Z'
+updated_at: '2026-10-29T14:13:04Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.14 part 1: filled borderless inputs with a soft focus glow, rounded tinted selection with an accent edge for rows and sidebar items'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/components/base_components.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

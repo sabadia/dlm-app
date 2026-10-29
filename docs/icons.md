@@ -5,11 +5,19 @@ active skin draws it; they never reference a glyph file or a platform icon font.
 
 ## Set
 
-About 50 glyphs on a 16 x 16 grid: navigation (chevrons, sidebar, inspector, menu), actions
+About 60 glyphs on a 16 x 16 grid: navigation (chevrons, sidebar, inspector, menu), actions
 (add, close, check, edit, copy, link, search, filter, sort, refresh, restart, import, export,
-external link), transfer (download, upload, play, pause, stop, queue, schedule, speed, chart),
+external link, view options, group, columns, cards, magnet, wand, cookie, server), transfer (download, upload, play, pause, stop, queue, schedule, speed, chart),
 objects (file, folder, tag, plugin, globe, key, lock, bell, trash, settings), and status
 (info, warning, error, success, eye).
+
+## App icon and brand mark
+
+The DLM mark (a download arrow inside an open progress ring on an indigo-to-blue rounded square)
+is drawn by `DlmBrandMarkPainter` in the kit, so the About page and the icon files come from one
+source. `apps/dlm_app/tool/gen_icons.sh` renders it at 1024 px and writes every size: the
+`assets/icon/dlm_*.png` set, the macOS `AppIcon.appiconset`, the Windows `app_icon.ico` and the
+monochrome `tray_template.png` the macOS menu bar uses. Run it on macOS after changing the painter.
 
 ## Per-skin weight
 

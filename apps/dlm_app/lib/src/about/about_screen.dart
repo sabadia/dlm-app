@@ -65,7 +65,13 @@ class AboutScreen extends ConsumerWidget {
     return ListView(
       padding: EdgeInsets.all(theme.metrics.spacing.lg),
       children: [
-        Text(l.ab_title, style: theme.typography.title),
+        Row(
+          children: [
+            const DlmBrandMark(size: 56),
+            SizedBox(width: theme.metrics.spacing.md),
+            Text(l.ab_title, style: theme.typography.title),
+          ],
+        ),
         SizedBox(height: theme.metrics.spacing.xs),
         Text(
           l.ab_blurb,

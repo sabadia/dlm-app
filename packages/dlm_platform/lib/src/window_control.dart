@@ -21,6 +21,9 @@ abstract interface class WindowControl {
   /// Hides the window; the app keeps running.
   Future<void> hide();
 
+  /// Whether the window is showing now.
+  Future<bool> isVisible();
+
   /// Closes the window for good, which ends the app.
   Future<void> quit();
 
@@ -68,6 +71,9 @@ class UnsupportedWindowControl implements WindowControl {
 
   @override
   Future<void> hide() async {}
+
+  @override
+  Future<bool> isVisible() async => false;
 
   @override
   Future<void> quit() async {}
@@ -145,6 +151,9 @@ class WindowManagerControl with WindowListener implements WindowControl {
 
   @override
   Future<void> hide() => windowManager.hide();
+
+  @override
+  Future<bool> isVisible() => windowManager.isVisible();
 
   @override
   Future<void> quit() async {

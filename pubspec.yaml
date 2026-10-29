@@ -16,3 +16,4 @@ workspace:
   - packages/dlm_skin_fluent
   - packages/dlm_skin_adwaita
   - packages/dlm_skin_breeze
+  - packages/hotkey_manager_macos

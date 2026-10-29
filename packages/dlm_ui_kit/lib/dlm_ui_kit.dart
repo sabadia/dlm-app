@@ -5,6 +5,7 @@ export 'src/behavior/double_click.dart';
 export 'src/behavior/focus_ring.dart';
 export 'src/behavior/interactive.dart';
 export 'src/behavior/states.dart';
+export 'src/brand/brand_mark.dart';
 export 'src/components/base_components.dart';
 export 'src/components/components.dart';
 export 'src/components/icon_painter.dart';

@@ -424,6 +424,11 @@ void main() {
         scrollable: pageScroll(),
       );
       expect(find.text('http://127.0.0.1:1/mcp'), findsOneWidget);
+      await tester.scrollUntilVisible(
+        find.textContaining('claude mcp add --transport http dlm'),
+        300,
+        scrollable: pageScroll(),
+      );
       expect(
         find.textContaining('claude mcp add --transport http dlm'),
         findsOneWidget,

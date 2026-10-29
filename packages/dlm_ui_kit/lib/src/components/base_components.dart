@@ -374,11 +374,22 @@ class DlmBaseComponents extends DlmComponents {
     final t = DlmTheme.of(context);
     final c = t.colors;
     final m = t.metrics;
+    // Filled and borderless until focused: a soft ring and glow, not a hard
+    // outline. High contrast keeps a visible border.
+    final idle = c.highContrast ? c.border : const Color(0x00000000);
     final border = hasError
         ? c.danger
         : states.focused
         ? c.focusRing
-        : c.border;
+        : idle;
+    final fill = states.disabled
+        ? c.controlFillDisabled
+        : Color.alphaBlend(
+            c.textPrimary.withValues(
+              alpha: states.focused ? 0.03 : (states.hovered ? 0.085 : 0.06),
+            ),
+            c.content,
+          );
     return AnimatedContainer(
       duration: t.motion.fast,
       constraints: BoxConstraints(minHeight: m.controlHeight),
@@ -387,16 +398,22 @@ class DlmBaseComponents extends DlmComponents {
         vertical: multiline ? m.spacing.sm : 0,
       ),
       decoration: BoxDecoration(
-        color: states.disabled
-            ? c.controlFillDisabled
-            : (states.hovered && !states.focused
-                  ? c.controlFillHover
-                  : c.controlFill),
+        color: fill,
         borderRadius: BorderRadius.circular(m.radii.control),
         border: Border.all(
           color: border,
-          width: states.focused || hasError ? m.focusRingWidth : m.borderWidth,
+          width: states.focused || hasError
+              ? m.focusRingWidth
+              : (c.highContrast ? m.borderWidth : 0),
         ),
+        boxShadow: states.focused && !hasError && !c.highContrast
+            ? [
+                BoxShadow(
+                  color: c.focusRing.withValues(alpha: 0.22),
+                  blurRadius: 8,
+                ),
+              ]
+            : null,
       ),
       child: child,
     );
@@ -655,23 +672,24 @@ class DlmBaseComponents extends DlmComponents {
     return DlmFocusRing(
       visible: states.focusVisible,
       radius: m.radii.control,
-      child: Container(
-        constraints: BoxConstraints(minHeight: m.rowHeight),
-        padding: EdgeInsets.symmetric(
-          horizontal: m.spacing.md,
-          vertical: m.spacing.xs,
-        ),
-        decoration: BoxDecoration(
-          color: fill,
-          border: Border(
-            bottom: BorderSide(color: c.separator, width: m.borderWidth),
+      child: dlmSelectionSurface(
+        context,
+        fill: fill,
+        radius: m.radii.control,
+        edge: states.selected ? c.accent : null,
+        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 1),
+        child: Container(
+          constraints: BoxConstraints(minHeight: m.rowHeight),
+          padding: EdgeInsets.symmetric(
+            horizontal: m.spacing.md,
+            vertical: m.spacing.xs,
           ),
-        ),
-        child: DefaultTextStyle.merge(
-          style: t.typography.body.copyWith(
-            color: states.disabled ? c.textDisabled : c.textPrimary,
+          child: DefaultTextStyle.merge(
+            style: t.typography.body.copyWith(
+              color: states.disabled ? c.textDisabled : c.textPrimary,
+            ),
+            child: content,
           ),
-          child: content,
         ),
       ),
     );
@@ -924,22 +942,25 @@ class DlmBaseComponents extends DlmComponents {
     return DlmFocusRing(
       visible: states.focusVisible,
       radius: m.radii.control,
-      child: Container(
-        height: m.controlHeight,
-        padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
-        decoration: BoxDecoration(
-          color: fill,
-          borderRadius: BorderRadius.circular(m.radii.control),
-        ),
-        child: DefaultTextStyle.merge(
-          style: (states.selected ? t.typography.bodyStrong : t.typography.body)
-              .copyWith(color: text),
-          child: IconTheme.merge(
-            data: IconThemeData(
-              color: states.selected ? c.accent : c.textSecondary,
-              size: m.icon,
+      child: dlmSelectionSurface(
+        context,
+        fill: fill,
+        radius: m.radii.control,
+        edge: states.selected ? c.accent : null,
+        child: Container(
+          height: m.controlHeight,
+          padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
+          child: DefaultTextStyle.merge(
+            style:
+                (states.selected ? t.typography.bodyStrong : t.typography.body)
+                    .copyWith(color: text),
+            child: IconTheme.merge(
+              data: IconThemeData(
+                color: states.selected ? c.accent : c.textSecondary,
+                size: m.icon,
+              ),
+              child: content,
             ),
-            child: content,
           ),
         ),
       ),
@@ -1114,18 +1135,25 @@ class DlmBaseComponents extends DlmComponents {
     return DlmFocusRing(
       visible: states.focusVisible,
       radius: m.radii.small,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: fill,
-          border: Border(
-            bottom: BorderSide(color: c.separator, width: m.borderWidth),
+      child: dlmSelectionSurface(
+        context,
+        fill: fill,
+        radius: m.radii.small,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: states.selected ? const Color(0x00000000) : c.separator,
+                width: m.borderWidth,
+              ),
+            ),
           ),
-        ),
-        child: DefaultTextStyle.merge(
-          style: t.typography.body.copyWith(color: c.textPrimary),
-          child: IconTheme.merge(
-            data: IconThemeData(color: c.textSecondary, size: m.icon),
-            child: content,
+          child: DefaultTextStyle.merge(
+            style: t.typography.body.copyWith(color: c.textPrimary),
+            child: IconTheme.merge(
+              data: IconThemeData(color: c.textSecondary, size: m.icon),
+              child: content,
+            ),
           ),
         ),
       ),
@@ -1227,4 +1255,42 @@ class _MarkPainter extends CustomPainter {
   @override
   bool shouldRepaint(_MarkPainter old) =>
       old.color != color || old.dash != dash;
+}
+
+/// A row or item background: transparent, or a rounded tint, with a slim
+/// accent edge on the leading side when [edge] is set.
+Widget dlmSelectionSurface(
+  BuildContext context, {
+  required Color fill,
+  required double radius,
+  required Widget child,
+  Color? edge,
+  EdgeInsetsGeometry margin = EdgeInsets.zero,
+}) {
+  final shape = BorderRadius.circular(radius);
+  return Padding(
+    padding: margin,
+    child: DecoratedBox(
+      decoration: BoxDecoration(color: fill, borderRadius: shape),
+      child: edge == null
+          ? child
+          : Stack(
+              children: [
+                child,
+                PositionedDirectional(
+                  start: 0,
+                  top: 8,
+                  bottom: 8,
+                  width: 3,
+                  child: DecoratedBox(
+                    decoration: BoxDecoration(
+                      color: edge,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+    ),
+  );
 }

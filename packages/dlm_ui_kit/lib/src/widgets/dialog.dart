@@ -8,13 +8,15 @@ import 'button.dart';
 /// Shows [builder]'s content as a modal dialog or sheet over the window and
 /// returns what it was closed with. Escape and clicking the dimmed area close
 /// it unless [barrierDismissible] is false; focus is kept inside and restored
-/// afterwards.
+/// afterwards. [maxWidth] widens the dialog for content such as a two-pane
+/// window.
 Future<T?> showDlmDialog<T>(
   BuildContext context, {
   required WidgetBuilder builder,
   required String semanticLabel,
   DlmDialogKind kind = DlmDialogKind.dialog,
   bool barrierDismissible = true,
+  double maxWidth = 520,
 }) {
   final theme = DlmTheme.of(context);
   return Navigator.of(context, rootNavigator: true).push<T>(
@@ -65,7 +67,7 @@ Future<T?> showDlmDialog<T>(
                     ? Alignment.topCenter
                     : Alignment.center,
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 520),
+                  constraints: BoxConstraints(maxWidth: maxWidth),
                   child: Padding(
                     padding: EdgeInsets.all(
                       kind == DlmDialogKind.sheet

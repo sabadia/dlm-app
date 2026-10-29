@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18810-c820-7a5d-8a87-050e66546c4f
+status: draft
+created_at: '2026-10-29T14:29:23Z'
+updated_at: '2026-10-29T14:29:23Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.16: one gear button with a menu opens a large settings window with its own page list; the sidebar loses Tools, Manage and Settings; manage/settings routes become links into the window'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/shell/settings_hub.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1882e-9105-7527-9e43-abe018c8f519
+status: draft
+created_at: '2026-10-29T15:01:55Z'
+updated_at: '2026-10-29T15:01:55Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.7: global hotkeys (show/hide, add from clipboard) on macOS/Windows/X11 via hotkey_manager behind GlobalHotkeys; off by default, absent on Wayland'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_platform/lib/src/global_hotkeys.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/global_hotkey_binder.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

@@ -71,11 +71,12 @@ void main() {
           profileStoreProvider.overrideWithValue(profiles),
           localDaemonProvider.overrideWithValue(daemon),
           windowChromeProvider.overrideWithValue(platformWindowChrome()),
+          globalHotkeysProvider.overrideWithValue(HotkeyManagerGlobalHotkeys()),
           loginItemProvider.overrideWithValue(login),
           trayProvider.overrideWithValue(TrayManagerController()),
           windowControlProvider.overrideWithValue(WindowManagerControl()),
           notifierProvider.overrideWithValue(
-            LocalDesktopNotifier(appName: 'dlm'),
+            LocalDesktopNotifier(appName: 'DLM'),
           ),
           startedAtLoginProvider.overrideWithValue(atLogin),
           awakeLockProvider.overrideWithValue(PlatformAwakeLock()),

@@ -29,3 +29,4 @@ flutter:
   uses-material-design: false
   assets:
     - assets/icon/dlm_32.png
+    - assets/icon/tray_template.png

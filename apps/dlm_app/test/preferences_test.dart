@@ -184,4 +184,20 @@ void main() {
     await settle(tester);
     expect(service.calls, ['status', 'install', 'uninstall']);
   });
+
+  appTest('a stored colour that is not in the list shows as custom', (
+    tester,
+  ) async {
+    final h = await open(tester);
+    // Real file I/O never completes inside the test's fake-async zone.
+    unawaited(h.container.read(accentProvider.notifier).set(0xFF123456));
+    await settle(tester);
+    expect(
+      tester.widget<DlmDropdown<String?>>(dropdown('Accent colour')).value,
+      'custom',
+    );
+    await tester.tap(dropdown('Accent colour'));
+    await settle(tester);
+    expect(find.text('Custom colour'), findsWidgets);
+  });
 }

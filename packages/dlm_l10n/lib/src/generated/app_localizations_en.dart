@@ -220,7 +220,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get app_name => 'dlm';
+  String get app_name => 'DLM';
 
   @override
   String get nav_label => 'Navigation';
@@ -298,7 +298,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu_help => 'Help';
 
   @override
-  String get menu_about => 'About dlm';
+  String get menu_about => 'About DLM';
 
   @override
   String command_go_to(String destination) {
@@ -1410,6 +1410,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get view_all_engines => 'All engines';
+
+  @override
+  String get view_sort => 'Sort by';
+
+  @override
+  String get view_sort_default => 'Default order';
+
+  @override
+  String get view_sort_added => 'Date added';
+
+  @override
+  String get view_sort_name => 'Name';
+
+  @override
+  String get view_sort_size => 'Size';
+
+  @override
+  String get view_sort_completed => 'Date completed';
+
+  @override
+  String get view_sort_asc => 'Ascending';
+
+  @override
+  String get view_sort_desc => 'Descending';
 
   @override
   String get view_group => 'Group by';
@@ -2645,7 +2669,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tr_format_urls => 'One link per line';
 
   @override
-  String get tr_format_json => 'dlm JSON';
+  String get tr_format_json => 'DLM JSON';
 
   @override
   String get tr_format_aria2 => 'aria2 input file';
@@ -3118,6 +3142,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pref_accent_default => 'The system\'s';
 
   @override
+  String get pref_accent_indigo => 'DLM indigo';
+
+  @override
+  String get pref_accent_custom => 'Custom colour';
+
+  @override
   String get pref_accent_blue => 'Blue';
 
   @override
@@ -3171,10 +3201,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Off deletes at once, keeping the files on disk.';
 
   @override
-  String get tray_tooltip => 'dlm';
+  String get tray_tooltip => 'DLM';
 
   @override
-  String get tray_show => 'Show dlm';
+  String get tray_show => 'Show DLM';
 
   @override
   String get tray_pause_all => 'Pause all';
@@ -3186,7 +3216,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tray_add => 'Add downloads…';
 
   @override
-  String get tray_quit => 'Quit dlm';
+  String get tray_quit => 'Quit DLM';
 
   @override
   String get notif_completed => 'Download finished';
@@ -3269,6 +3299,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pref_shortcuts => 'Shortcuts';
 
   @override
+  String get pref_global => 'Global shortcuts';
+
+  @override
+  String get pref_global_desc =>
+      'Work while another program has the focus. Off until you set a chord; a chord needs Ctrl, Alt, Shift or the system key.';
+
+  @override
+  String get pref_global_unsupported =>
+      'Not available here: a Wayland session does not let apps claim keys for the whole desktop.';
+
+  @override
+  String get cmd_global_toggle => 'Show or hide DLM';
+
+  @override
+  String get cmd_global_clipboard => 'Add the link on the clipboard';
+
+  @override
+  String get pref_shortcuts_clear => 'Clear';
+
+  @override
+  String get pref_shortcuts_none => 'Not set';
+
+  @override
   String get pref_shortcuts_change => 'Change';
 
   @override
@@ -3342,7 +3395,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nav_manage_about => 'About';
 
   @override
-  String get ab_title => 'dlm';
+  String get ab_title => 'DLM';
 
   @override
   String get ab_blurb =>
@@ -3415,7 +3468,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ab_licences_desc =>
-      'dlm is built from open-source packages. Their licences are listed here.';
+      'DLM is built from open-source packages. Their licences are listed here.';
 
   @override
   String get ab_licences_none => 'No licences are registered in this build.';
@@ -3433,6 +3486,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nav_tools => 'Tools';
+
+  @override
+  String get hub_button => 'Tools, manage and settings';
+
+  @override
+  String get hub_close => 'Close';
 
   @override
   String add_category(String name, String dir) {

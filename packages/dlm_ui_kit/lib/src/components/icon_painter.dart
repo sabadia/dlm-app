@@ -374,6 +374,57 @@ class DlmIconPainter extends CustomPainter {
           )
           ..drawPath(pts([9, 2.5, 13.5, 2.5, 13.5, 7]), stroke)
           ..drawLine(const Offset(13.5, 2.5), const Offset(7.5, 8.5), stroke);
+      case DlmIconName.viewOptions:
+        canvas
+          ..drawLine(const Offset(2.5, 5), const Offset(13.5, 5), stroke)
+          ..drawLine(const Offset(2.5, 11), const Offset(13.5, 11), stroke)
+          ..drawCircle(const Offset(10, 5), 1.9, fill)
+          ..drawCircle(const Offset(6, 11), 1.9, fill);
+      case DlmIconName.group:
+        canvas
+          ..drawRRect(box(2.5, 2.5, 13.5, 6.5, 1.4), stroke)
+          ..drawRRect(box(2.5, 9.5, 13.5, 13.5, 1.4), stroke);
+      case DlmIconName.columns:
+        canvas
+          ..drawRRect(box(2, 3, 14, 13, 1.8), stroke)
+          ..drawLine(const Offset(6, 3), const Offset(6, 13), stroke)
+          ..drawLine(const Offset(10, 3), const Offset(10, 13), stroke);
+      case DlmIconName.cards:
+        canvas
+          ..drawRRect(box(2.5, 2.5, 13.5, 7, 1.6), stroke)
+          ..drawRRect(box(2.5, 9, 13.5, 13.5, 1.6), stroke)
+          ..drawCircle(const Offset(5, 4.75), 0.8, fill)
+          ..drawCircle(const Offset(5, 11.25), 0.8, fill);
+      case DlmIconName.magnet:
+        canvas
+          ..drawArc(const Rect.fromLTWH(4, 4, 8, 8), 0, math.pi, false, stroke)
+          ..drawLine(const Offset(4, 8), const Offset(4, 2.5), stroke)
+          ..drawLine(const Offset(12, 8), const Offset(12, 2.5), stroke)
+          ..drawLine(const Offset(2.5, 5.5), const Offset(5.5, 5.5), stroke)
+          ..drawLine(const Offset(10.5, 5.5), const Offset(13.5, 5.5), stroke);
+      case DlmIconName.wand:
+        canvas
+          ..drawLine(const Offset(2.5, 13.5), const Offset(9, 7), stroke)
+          ..drawLine(const Offset(11.5, 2), const Offset(11.5, 6.5), stroke)
+          ..drawLine(
+            const Offset(9.25, 4.25),
+            const Offset(13.75, 4.25),
+            stroke,
+          )
+          ..drawCircle(const Offset(4.5, 4.5), 0.9, fill)
+          ..drawCircle(const Offset(13, 10.5), 0.9, fill);
+      case DlmIconName.cookie:
+        canvas
+          ..drawCircle(const Offset(8, 8), 6, stroke)
+          ..drawCircle(const Offset(6, 6.3), 0.9, fill)
+          ..drawCircle(const Offset(10.2, 8.5), 0.9, fill)
+          ..drawCircle(const Offset(6.8, 10.6), 0.9, fill);
+      case DlmIconName.server:
+        canvas
+          ..drawRRect(box(2.5, 2.5, 13.5, 6.5, 1.4), stroke)
+          ..drawRRect(box(2.5, 9.5, 13.5, 13.5, 1.4), stroke)
+          ..drawCircle(const Offset(5, 4.5), 0.8, fill)
+          ..drawCircle(const Offset(5, 11.5), 0.8, fill);
       case DlmIconName.menu:
         for (final y in const [4.0, 8.0, 12.0]) {
           canvas.drawLine(Offset(2.5, y), Offset(13.5, y), stroke);

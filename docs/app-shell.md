@@ -25,13 +25,18 @@ survives a reconnect.
 ## Pages
 
 `go_router` with one `ShellRoute`: `/downloads/<filter>` (all, active, queued, paused,
-completed, failed) and `/queues/<id>`. The shell is the sidebar (a translucent glass pane on
-macOS), the toolbar (title, selection actions, search, command palette, details toggle), the
+completed, failed) and `/queues/<id>`. The sidebar (a translucent glass pane on
+macOS) lists the downloads filters, queues and categories; a gear button at its foot opens a menu
+(Tools, Manage, Settings) and each opens a large window with its own list of pages
+(`SettingsHub`). `/manage/<page>` and `/settings/<group>` are links into that window: it opens and
+the page behind returns to the downloads. The shell is also the toolbar (title, selection actions, search, command palette, details toggle), the
 page, and the details pane. Panels resize by dragging or with the keyboard and remember their
 width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
 map (Command on macOS, Control elsewhere, overridable per command). A chord
 already used by another command is refused, and reset restores the built-in
-ones. Global hotkeys are not part of this map. Preferences also choose the size
+ones. Two more commands, Show or hide DLM and Add the link on the clipboard, work from any program on
+macOS, Windows and X11 (`hotkey_manager`; on Linux it needs `libkeybinder-3.0`); they are off until a
+chord is set, need a modifier, and are not offered on Wayland. Preferences also choose the size
 units and the language. Sizes are drawn through one `DlmFormat` above the
 window, so a change redraws every count. The language follows the system
 unless a supported language is chosen. About can check GitHub releases of
@@ -41,8 +46,11 @@ packaged updater.
 
 ## Downloads list
 
-A virtualized `DlmDataTable` over `taskListProvider`: pages in 100 rows at a time, follows the
-daemon's events, and every cell watches only its own task so a progress tick repaints one row.
+A virtualized `DlmDataTable` in card mode (`rowBuilder` + `rowExtent`, so no header and no sideways
+scrolling) over `taskListProvider`: pages in 100 rows at a time, follows the daemon's events, and
+every `TaskCard` watches only its own task so a progress tick repaints one card. A card shows the
+name and status, a progress bar, and size, speed, ETA, engine, queue and category as chips. Sorting
+and grouping are in the Display menu.
 Filters and queues map to daemon queries; search is the daemon's text filter. Selection is
 shared (`selectionProvider`); Pause/Resume/Delete act on it from the toolbar, the right-click
 menu, or the keyboard (Delete). Pause and resume offer Undo; delete asks first (the files stay

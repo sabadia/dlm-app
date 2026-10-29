@@ -1,7 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
-/// One in-app shortcut. Global hotkeys are a later decision (F5.7).
+/// One shortcut chord, in-app or (for the `global.*` commands) system-wide.
 class AppShortcut {
   /// Creates a chord.
   const AppShortcut({
@@ -109,6 +109,12 @@ class AppShortcut {
     return mac ? '${mods.join()}$text' : [...mods, text].join('+');
   }
 }
+
+/// The commands that work from any program (off until the user sets a chord).
+const List<String> globalShortcutIds = [
+  'global.toggleWindow',
+  'global.addFromClipboard',
+];
 
 /// Built-in chords. `primary` follows the platform. An override replaces one.
 final Map<String, String> defaultShortcutCodes = {

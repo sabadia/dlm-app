@@ -12,7 +12,6 @@ import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
 import '../shell/queue_commands.dart';
 import '../shell/shell_state.dart';
-import 'task_cells.dart';
 
 /// What the downloads list is divided into headed groups by.
 enum ListGrouping {
@@ -91,29 +90,6 @@ final savedViewsProvider =
       () => PrefNotifier(UiPrefs.savedViews),
     );
 
-/// The columns of the downloads table the user chose to show; empty shows the
-/// default set.
-final downloadColumnsProvider =
-    NotifierProvider<PrefNotifier<List<String>>, List<String>>(
-      () => PrefNotifier(UiPrefs.columns('downloads')),
-    );
-
-/// The sort key of a table column, or null when the column cannot be sorted.
-Sort? sortOfColumn(String columnId) => switch (columnId) {
-  'name' => Sort.name,
-  'size' => Sort.size,
-  'added' => Sort.created,
-  _ => null,
-};
-
-/// The column a sort key belongs to, or null for the daemon's order.
-String? columnOfSort(Sort sort) => switch (sort) {
-  Sort.name => 'name',
-  Sort.size => 'size',
-  Sort.created => 'added',
-  _ => null,
-};
-
 /// The engines a download can run on, as the daemon names them.
 const List<String> engineChoices = [
   'http',
@@ -126,16 +102,10 @@ const List<String> engineChoices = [
   'browser',
 ];
 
-/// The entries of the display menu: row height and which columns show.
+/// The entries of the display menu: row height, grouping and sorting.
 List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
   final l = AppLocalizations.of(context);
   final density = ref.read(densityProvider);
-  final chosen = ref.read(downloadColumnsProvider);
-  final columns = [
-    for (final c in taskColumns(l))
-      if (c.id != 'name') c,
-  ];
-  bool shown(String id) => chosen.isEmpty || chosen.contains(id);
   return [
     DlmMenuHeader(l.view_density),
     DlmMenuItem(
@@ -167,25 +137,37 @@ List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
             .set(ref.read(listOptionsProvider).copyWith(grouping: g)),
       ),
     const DlmMenuSeparator(),
-    DlmMenuHeader(l.view_columns),
-    for (final c in columns)
+    DlmMenuHeader(l.view_sort),
+    for (final (sort, label) in [
+      (Sort.position, l.view_sort_default),
+      (Sort.created, l.view_sort_added),
+      (Sort.name, l.view_sort_name),
+      (Sort.size, l.view_sort_size),
+      (Sort.completed, l.view_sort_completed),
+    ])
       DlmMenuItem(
-        label: c.label,
-        checked: shown(c.id),
-        onPressed: () {
-          final now = {
-            for (final other in columns)
-              if (shown(other.id)) other.id,
-          };
-          shown(c.id) ? now.remove(c.id) : now.add(c.id);
-          unawaited(
-            ref.read(downloadColumnsProvider.notifier).set([
-              for (final other in columns)
-                if (now.contains(other.id)) other.id,
-            ]),
-          );
-        },
+        label: label,
+        checked: ref.read(listOptionsProvider).sort == sort,
+        onPressed: () => ref
+            .read(listOptionsProvider.notifier)
+            .set(ref.read(listOptionsProvider).copyWith(sort: sort)),
       ),
+    if (ref.read(listOptionsProvider).sort != Sort.position) ...[
+      DlmMenuItem(
+        label: l.view_sort_asc,
+        checked: !ref.read(listOptionsProvider).descending,
+        onPressed: () => ref
+            .read(listOptionsProvider.notifier)
+            .set(ref.read(listOptionsProvider).copyWith(descending: false)),
+      ),
+      DlmMenuItem(
+        label: l.view_sort_desc,
+        checked: ref.read(listOptionsProvider).descending,
+        onPressed: () => ref
+            .read(listOptionsProvider.notifier)
+            .set(ref.read(listOptionsProvider).copyWith(descending: true)),
+      ),
+    ],
   ];
 }
 

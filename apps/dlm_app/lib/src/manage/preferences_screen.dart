@@ -10,11 +10,14 @@ import '../connection/connection_controller.dart';
 import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
 import '../shell/feedback.dart';
+import '../shell/shortcuts.dart';
 import '../skin_registry.dart';
 import 'shortcut_editor.dart';
 
-/// The accent colours offered, by name; the app's own accent is the default.
+/// The accent colours offered, by name. With none chosen the accent follows
+/// the operating system (the brand accent when it reports none).
 const Map<String, int> accentChoices = {
+  'indigo': 0xFF4F5BD5,
   'blue': 0xFF0A84FF,
   'green': 0xFF30D158,
   'orange': 0xFFFF9F0A,
@@ -31,6 +34,7 @@ class PreferencesScreen extends ConsumerWidget {
   const PreferencesScreen({super.key});
 
   String _accentName(AppLocalizations l, String id) => switch (id) {
+    'indigo' => l.pref_accent_indigo,
     'blue' => l.pref_accent_blue,
     'green' => l.pref_accent_green,
     'orange' => l.pref_accent_orange,
@@ -177,10 +181,14 @@ class PreferencesScreen extends ConsumerWidget {
     final skin = ref.watch(skinOverrideProvider);
     final density = ref.watch(densityProvider);
     final confirm = ref.watch(confirmDeleteProvider);
-    final accentId = accentChoices.entries
-        .where((e) => e.value == accent)
-        .map((e) => e.key)
-        .firstOrNull;
+    // A colour stored by an earlier version or another tool is not one of the
+    // names, but it is not "the system's" either.
+    final accentId =
+        accentChoices.entries
+            .where((e) => e.value == accent)
+            .map((e) => e.key)
+            .firstOrNull ??
+        (accent == null ? null : 'custom');
     final gap = SizedBox(height: theme.metrics.spacing.lg);
 
     return ListView(
@@ -233,12 +241,18 @@ class PreferencesScreen extends ConsumerWidget {
                     DlmChoice(value: null, label: l.pref_accent_default),
                     for (final id in accentChoices.keys)
                       DlmChoice(value: id, label: _accentName(l, id)),
+                    if (accentId == 'custom')
+                      DlmChoice(value: 'custom', label: l.pref_accent_custom),
                   ],
-                  onChanged: (id) => unawaited(
-                    ref
-                        .read(accentProvider.notifier)
-                        .set(id == null ? null : accentChoices[id]),
-                  ),
+                  onChanged: (id) {
+                    // Keeping "custom" keeps the stored colour.
+                    if (id == 'custom') return;
+                    unawaited(
+                      ref
+                          .read(accentProvider.notifier)
+                          .set(id == null ? null : accentChoices[id]),
+                    );
+                  },
                 ),
               ),
             ),
@@ -335,6 +349,17 @@ class PreferencesScreen extends ConsumerWidget {
         DlmFormGroup(
           title: l.pref_shortcuts,
           children: const [ShortcutEditor()],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.pref_global,
+          footer: ref.watch(globalHotkeysProvider).supported
+              ? l.pref_global_desc
+              : l.pref_global_unsupported,
+          children: [
+            if (ref.watch(globalHotkeysProvider).supported)
+              const ShortcutEditor(ids: globalShortcutIds, clearable: true),
+          ],
         ),
         gap,
         DlmFormGroup(

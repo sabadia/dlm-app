@@ -289,7 +289,7 @@ class FluentComponents extends DlmBaseComponents {
     final m = t.metrics;
     final edge = states.disabled
         ? c.textPrimary.withValues(alpha: 0.06)
-        : _edge(t, alpha: 0.12);
+        : _edge(t, alpha: 0.07);
     final bottom = hasError
         ? c.danger
         : states.focused

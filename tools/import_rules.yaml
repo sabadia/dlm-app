@@ -7,6 +7,9 @@ packages:
   dlm_l10n: []
   dlm_platform: []
   dlm_ui_kit: []
+  # The DLM build of the macOS hotkey plugin (a workspace member that replaces
+  # the hosted package of the same name); it uses no other workspace package.
+  hotkey_manager_macos: []
   dlm_core: [dlm_api]
   dlm_skin_macos: [dlm_ui_kit]
   dlm_skin_fluent: [dlm_ui_kit]

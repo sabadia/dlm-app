@@ -13,12 +13,12 @@ import 'appearance.dart';
 import 'connection/connection_gate.dart';
 import 'format/dlm_format.dart';
 import 'manage/manage_screen.dart';
+import 'platform/global_hotkey_binder.dart';
 import 'platform/integration_binder.dart';
 import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
 import 'screens/downloads_screen.dart';
 import 'screens/queue_screen.dart';
-import 'settings/settings_screen.dart';
 import 'shell/app_shell.dart';
 import 'skin_registry.dart';
 
@@ -91,14 +91,16 @@ final routerProvider = Provider<GoRouter>((ref) {
                 : homePath,
             pageBuilder: (context, state) => NoTransitionPage(
               key: ValueKey(state.uri.path),
-              child: ManageScreen(page: state.pathParameters['page']!),
+              // A link into the settings window (see AppShell): the page
+              // behind it is the downloads.
+              child: const DownloadsScreen(filter: DownloadsFilter.all),
             ),
           ),
           GoRoute(
             path: '/settings/:group',
             pageBuilder: (context, state) => NoTransitionPage(
               key: ValueKey(state.uri.path),
-              child: SettingsScreen(group: state.pathParameters['group']!),
+              child: const DownloadsScreen(filter: DownloadsFilter.all),
             ),
           ),
           GoRoute(
@@ -156,7 +158,9 @@ class DlmApp extends ConsumerWidget {
             accent: accent == null ? null : Color(accent),
           ),
           child: _WindowChromeBinder(
-            child: IntegrationBinder(child: ConnectionGate(child: child!)),
+            child: IntegrationBinder(
+              child: GlobalHotkeyBinder(child: ConnectionGate(child: child!)),
+            ),
           ),
         ),
       ),

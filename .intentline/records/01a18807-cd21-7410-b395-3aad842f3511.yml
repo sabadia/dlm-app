@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a18807-cd21-7410-b395-3aad842f3511
+status: draft
+created_at: '2026-10-29T14:19:35Z'
+updated_at: '2026-10-29T14:19:35Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.15: distinct toolbar glyphs: view options for the Display menu, plus group, columns and cards'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/components/icon_painter.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

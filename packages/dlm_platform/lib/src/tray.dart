@@ -164,7 +164,10 @@ class TrayManagerController implements TrayController {
   }) async {
     final icon = _icon ?? TrayIcon.create();
     if (icon == null) return;
-    icon.icon = ImageAsset.fromAsset(iconAsset);
+    // A monochrome template image takes the menu bar's colour on macOS.
+    icon
+      ..isIconTemplate = iconAsset.contains('template')
+      ..icon = ImageAsset.fromAsset(iconAsset);
     _icon = icon;
     await update(menu: menu, tooltip: tooltip, title: title);
     icon.setVisible(true);

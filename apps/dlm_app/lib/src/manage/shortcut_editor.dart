@@ -23,6 +23,8 @@ String shortcutCommandLabel(AppLocalizations l, String id) => switch (id) {
   'download.add' => l.cmd_add,
   'window.focusSearch' => l.command_focus_search,
   'window.commandPalette' => l.toolbar_palette,
+  'global.toggleWindow' => l.cmd_global_toggle,
+  'global.addFromClipboard' => l.cmd_global_clipboard,
   _ => id,
 };
 
@@ -31,8 +33,20 @@ bool get _mac => defaultTargetPlatform == TargetPlatform.macOS;
 /// One shortcut row: the chord, a button that records the next key, and a
 /// conflict when that chord is already taken.
 class ShortcutEditor extends ConsumerStatefulWidget {
-  /// Creates the editor.
-  const ShortcutEditor({super.key});
+  /// Creates the editor of [ids]. With [clearable] a command can be left
+  /// without a chord (the global ones start so); the reset button is for the
+  /// in-app list.
+  const ShortcutEditor({
+    this.ids = editableShortcutIds,
+    this.clearable = false,
+    super.key,
+  });
+
+  /// The commands listed.
+  final List<String> ids;
+
+  /// Whether a chord can be removed.
+  final bool clearable;
 
   @override
   ConsumerState<ShortcutEditor> createState() => _ShortcutEditorState();
@@ -111,14 +125,14 @@ class _ShortcutEditorState extends ConsumerState<ShortcutEditor> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          for (final id in editableShortcutIds)
+          for (final id in widget.ids)
             DlmFormRow(
               label: shortcutCommandLabel(l, id),
               description: _listening == id ? l.pref_shortcuts_press : null,
               control: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(chords[id]?.label(mac: _mac) ?? ''),
+                  Text(chords[id]?.label(mac: _mac) ?? l.pref_shortcuts_none),
                   SizedBox(width: theme.metrics.spacing.sm),
                   DlmButton(
                     label: l.pref_shortcuts_change,
@@ -128,6 +142,18 @@ class _ShortcutEditorState extends ConsumerState<ShortcutEditor> {
                       _problem = null;
                     }),
                   ),
+                  if (widget.clearable && chords[id] != null)
+                    DlmButton(
+                      label: l.pref_shortcuts_clear,
+                      variant: DlmButtonVariant.plain,
+                      onPressed: () {
+                        final stored = {...ref.read(shortcutsProvider)}
+                          ..remove(id);
+                        unawaited(
+                          ref.read(shortcutsProvider.notifier).set(stored),
+                        );
+                      },
+                    ),
                 ],
               ),
             ),
@@ -139,20 +165,28 @@ class _ShortcutEditorState extends ConsumerState<ShortcutEditor> {
               ),
             ),
           SizedBox(height: theme.metrics.spacing.sm),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: DlmButton(
-              label: l.pref_shortcuts_reset,
-              variant: DlmButtonVariant.plain,
-              onPressed: () {
-                setState(() {
-                  _listening = null;
-                  _problem = null;
-                });
-                unawaited(ref.read(shortcutsProvider.notifier).set(const {}));
-              },
+          if (!widget.clearable)
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: DlmButton(
+                label: l.pref_shortcuts_reset,
+                variant: DlmButtonVariant.plain,
+                onPressed: () {
+                  setState(() {
+                    _listening = null;
+                    _problem = null;
+                  });
+                  // The global chords are not part of this list.
+                  final stored = ref.read(shortcutsProvider);
+                  unawaited(
+                    ref.read(shortcutsProvider.notifier).set({
+                      for (final e in stored.entries)
+                        if (globalShortcutIds.contains(e.key)) e.key: e.value,
+                    }),
+                  );
+                },
+              ),
             ),
-          ),
         ],
       ),
     );

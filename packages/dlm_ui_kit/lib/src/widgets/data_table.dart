@@ -152,6 +152,9 @@ class DlmDataTable<T> extends StatefulWidget {
     this.groupHeader,
     this.acceptRowDrop,
     this.onRowDrop,
+    this.rowBuilder,
+    this.rowExtent,
+    this.groupHeaderExtent = 36,
     this.scrollController,
     this.emptyState,
     super.key,
@@ -227,6 +230,20 @@ class DlmDataTable<T> extends StatefulWidget {
 
   /// Called when [data] is dropped on the row at [index].
   final void Function(int index, T row, Object data)? onRowDrop;
+
+  /// Draws each row itself, as a card for instance, instead of as cells of
+  /// [columns]. The table then has no header and never scrolls sideways;
+  /// selection, keyboard, drag and drop and group headings work as before.
+  /// Needs [rowExtent].
+  final Widget Function(BuildContext context, T row, DlmStates states)?
+  rowBuilder;
+
+  /// The fixed height of a row drawn by [rowBuilder] (the theme's row height
+  /// otherwise).
+  final double? rowExtent;
+
+  /// The height of a group heading when [rowBuilder] is set.
+  final double groupHeaderExtent;
 
   /// Controls the vertical scroll position.
   final ScrollController? scrollController;
@@ -337,11 +354,28 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
     _ensureVisible(clamped);
   }
 
+  double _rowHeight(DlmThemeData theme) =>
+      widget.rowExtent ?? theme.metrics.rowHeight;
+
+  /// The height of row [index]: headings differ from rows in card mode.
+  double _extentAt(int index, double rowHeight) {
+    if (widget.rowBuilder == null || widget.isGroupHeader == null) {
+      return rowHeight;
+    }
+    final row = widget.itemAt(index);
+    return row != null && widget.isGroupHeader!(row)
+        ? widget.groupHeaderExtent
+        : rowHeight;
+  }
+
   void _ensureVisible(int index) {
     if (!_scroll.hasClients) return;
-    final rowHeight = DlmTheme.of(context).metrics.rowHeight;
-    final top = index * rowHeight;
-    final bottom = top + rowHeight;
+    final rowHeight = _rowHeight(DlmTheme.of(context));
+    var top = 0.0;
+    for (var i = 0; i < index; i++) {
+      top += _extentAt(i, rowHeight);
+    }
+    final bottom = top + _extentAt(index, rowHeight);
     final pos = _scroll.position;
     if (top < pos.pixels) {
       _scroll.jumpTo(top);
@@ -351,7 +385,7 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
   }
 
   int get _pageRows {
-    final rowHeight = DlmTheme.of(context).metrics.rowHeight;
+    final rowHeight = _rowHeight(DlmTheme.of(context));
     if (!_scroll.hasClients) return 10;
     return (_scroll.position.viewportDimension / rowHeight).floor().clamp(
       1,
@@ -395,8 +429,18 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
   @override
   Widget build(BuildContext context) {
     final theme = DlmTheme.of(context);
-    final rowHeight = theme.metrics.rowHeight;
+    final rowHeight = _rowHeight(theme);
     final cursorIsRoot = widget.itemCount == 0;
+    if (widget.rowBuilder != null) {
+      return Semantics(
+        container: true,
+        explicitChildNodes: true,
+        label: widget.semanticLabel,
+        child: cursorIsRoot
+            ? (widget.emptyState ?? const SizedBox.shrink())
+            : _body(context, theme, rowHeight),
+      );
+    }
     return Semantics(
       container: true,
       explicitChildNodes: true,
@@ -404,27 +448,21 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
       child: LayoutBuilder(
         builder: (context, box) {
           final width = _totalWidth < box.maxWidth ? box.maxWidth : _totalWidth;
-          return RawScrollbar(
+          return SingleChildScrollView(
             controller: _hScroll,
-            thumbColor: theme.colors.border,
-            radius: const Radius.circular(4),
-            thickness: 6,
-            child: SingleChildScrollView(
-              controller: _hScroll,
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: width,
-                height: box.maxHeight.isFinite ? box.maxHeight : null,
-                child: Column(
-                  children: [
-                    _header(context, theme),
-                    Expanded(
-                      child: cursorIsRoot
-                          ? (widget.emptyState ?? const SizedBox.shrink())
-                          : _body(context, theme, rowHeight),
-                    ),
-                  ],
-                ),
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: width,
+              height: box.maxHeight.isFinite ? box.maxHeight : null,
+              child: Column(
+                children: [
+                  _header(context, theme),
+                  Expanded(
+                    child: cursorIsRoot
+                        ? (widget.emptyState ?? const SizedBox.shrink())
+                        : _body(context, theme, rowHeight),
+                  ),
+                ],
               ),
             ),
           );
@@ -534,7 +572,13 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
       },
       child: ListView.builder(
         controller: _scroll,
-        itemExtent: rowHeight,
+        itemExtent: widget.rowBuilder == null || widget.isGroupHeader == null
+            ? rowHeight
+            : null,
+        itemExtentBuilder:
+            widget.rowBuilder == null || widget.isGroupHeader == null
+            ? null
+            : (index, _) => _extentAt(index, rowHeight),
         itemCount: widget.itemCount,
         itemBuilder: (context, index) => _buildRow(context, theme, index),
       ),
@@ -544,7 +588,12 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
   Widget _buildRow(BuildContext context, DlmThemeData theme, int index) {
     final row = widget.itemAt(index);
     if (row == null) {
-      return _SkeletonRow(columns: widget.columns, widthOf: _widthOf);
+      return widget.rowBuilder != null
+          ? Padding(
+              padding: EdgeInsets.all(theme.metrics.spacing.sm),
+              child: const DlmSkeleton(height: 48),
+            )
+          : _SkeletonRow(columns: widget.columns, widthOf: _widthOf);
     }
     if (_isHeader(row) && widget.groupHeader != null) {
       return Semantics(header: true, child: widget.groupHeader!(context, row));
@@ -581,28 +630,30 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
               if (_selectable && !selected) _select(index);
               widget.onRowSecondaryTap!(index, row, pos);
             },
-      builder: (context, states) => theme.components.tableRow(
-        context,
-        states: states,
-        odd: index.isOdd,
-        content: Row(
-          children: [
-            for (final c in widget.columns)
-              SizedBox(
-                width: _widthOf(c),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: theme.metrics.spacing.sm,
-                  ),
-                  child: Align(
-                    alignment: c.alignment,
-                    child: c.cell(context, row),
-                  ),
-                ),
+      builder: (context, states) => widget.rowBuilder != null
+          ? widget.rowBuilder!(context, row, states)
+          : theme.components.tableRow(
+              context,
+              states: states,
+              odd: index.isOdd,
+              content: Row(
+                children: [
+                  for (final c in widget.columns)
+                    SizedBox(
+                      width: _widthOf(c),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: theme.metrics.spacing.sm,
+                        ),
+                        child: Align(
+                          alignment: c.alignment,
+                          child: c.cell(context, row),
+                        ),
+                      ),
+                    ),
+                ],
               ),
-          ],
-        ),
-      ),
+            ),
     );
     final onDrop = widget.onRowDrop;
     if (onDrop == null) return frame;

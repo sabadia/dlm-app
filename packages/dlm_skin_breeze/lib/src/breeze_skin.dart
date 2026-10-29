@@ -12,8 +12,8 @@ class BreezeSkin extends DlmSkin {
   /// Creates the KDE Breeze skin.
   const BreezeSkin();
 
-  /// The accent used when the system reports none.
-  static const Color defaultAccent = Color(0xFF1F7FC4);
+  /// The accent used when the OS reports none: the brand accent.
+  static const Color defaultAccent = dlmBrandAccent;
 
   @override
   String get id => 'breeze';

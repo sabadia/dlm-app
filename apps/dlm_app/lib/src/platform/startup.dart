@@ -67,3 +67,8 @@ final notifierProvider = Provider<DesktopNotifier>(
 
 /// Whether the system started this run at login; `main` sets it.
 final startedAtLoginProvider = Provider<bool>((ref) => false);
+
+/// System-wide hotkeys; `main` overrides it with the platform's.
+final globalHotkeysProvider = Provider<GlobalHotkeys>(
+  (ref) => const UnsupportedGlobalHotkeys(),
+);

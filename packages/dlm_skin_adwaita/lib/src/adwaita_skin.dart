@@ -12,8 +12,8 @@ class AdwaitaSkin extends DlmSkin {
   /// Creates the GNOME Adwaita skin.
   const AdwaitaSkin();
 
-  /// The accent used when the system reports none.
-  static const Color defaultAccent = Color(0xFF3584E4);
+  /// The accent used when the OS reports none: the brand accent.
+  static const Color defaultAccent = dlmBrandAccent;
 
   @override
   String get id => 'adwaita';
