@@ -213,6 +213,15 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 - [x] F8.4 Beta programme and feedback templates `docs/beta.md`; issue forms for beta feedback and native-look reports next to the bug form.
 - [x] F8.5 1.0 criteria and release checklist `docs/release-checklist.md`: what 1.0 requires and how a release is cut and verified.
 
+### M9 Browser extension *(added 2026-10-30)*
+
+The dlm-extension browser extension (Chrome/Chromium and Firefox; plan: https://github.com/sabadia/dlm-extension/blob/main/docs/PLAN.md) pairs with this app through the daemon's Native Messaging host. The app needs the pairing approval, a list of paired extensions, and upkeep of the host registration. Backend work is Phase 14 in dlm-server.
+
+- [ ] F9.1 Pairing approval and paired extensions list (#113) *(needs P14.1 #137, P14.3 #139)* — A dialog when the daemon reports `pairing.requested`: browser, name and the 6-digit code to compare, Allow / Deny. On the Access page replace the free-text extension-id field with a list of paired extensions (browser, version, last used, Revoke) and a browser chooser for the native host.
+- [ ] F9.2 Native-host upkeep (#114) *(needs P14.3 #139)* — Register the host for the chosen browsers using the built-in ids (Chrome `gfjgahdobbldpjiijaakihgmmjemdalg`, Firefox `dlm-extension@sabadia.github.io`); re-register on start when the launcher path is stale (app moved or reinstalled); remove on uninstall (Inno Setup uninstall step, nfpm postrm, cask uninstall).
+- [ ] F9.3 Waiting-for-a-new-link banner (#115) *(needs P14.6 #142)* — A banner and a notification for a task in `awaiting_link` with "Open the page in your browser" (uses the stored page URL).
+- [ ] F9.4 Setup row, docs and generated pairing client (#116) *(needs P14.1 #137)* — Setup dialog row "browser extension paired (n)" with a link to the extension download; regenerate the API client for the pairing and capture changes; user guide, README, threat-model and manual-test updates.
+
 **Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 (F5.1, F5.2, F5.3, F5.5, F5.10 and the in-app part of F5.7 are pulled ahead to finish F3.7/F4.11/F4.12) → P13.x as each screen needs them → M5 → M5b → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
 
 ## Working rules (same discipline as the backend)
