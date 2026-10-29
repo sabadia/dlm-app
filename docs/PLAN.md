@@ -104,7 +104,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F1.3 SSE client and EventHub — Last-Event-ID resume, `reset` event -> refetch, heartbeat timeout, backoff, filters, backpressure; deterministic tests with a fake server.
 - [x] F1.4 Connection profiles: local (managed) and remote *(needs P13.11, P13.12)* — Secure token storage (Keychain / Credential Manager / libsecret), TLS pinning with a trust-on-first-use dialog, API-version compatibility gate.
 - [x] F1.5 Daemon supervisor *(needs P13.1)* — Locate the bundled binary, start `dlm serve --home <app data> --address 127.0.0.1:0`, read runtime.json, wait healthy, crash-restart with backoff and a visible reason, graceful quit or keep-running, daemon update after app update, single instance.
-- [ ] F1.6 Domain layer: repositories and controllers — Tasks (windowed, patched by events), queues, settings (layered + provenance), categories, cookies, credentials, webhooks, plugins, stats, browser; optimistic updates with rollback; normalised entity cache.
+- [x] F1.6 Domain layer: repositories and controllers — Tasks (windowed, patched by events), queues, settings (layered + provenance), categories, cookies, credentials, webhooks, plugins, stats, browser; optimistic updates with rollback; normalised entity cache.
 - [x] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
 - [x] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
 - [x] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
