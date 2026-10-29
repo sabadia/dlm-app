@@ -4,9 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:win32_registry/win32_registry.dart';
 import 'package:xdg_desktop_portal/xdg_desktop_portal.dart';
 
-/// The argument a login item starts the app with, so the app knows it was
-/// started by the system and may keep its window hidden.
-const String backgroundFlag = '--background';
+/// The argument a login item starts the app with. The plan names it
+/// `--minimised`: the app was started by the system and may keep its window
+/// hidden. macOS cannot pass arguments through `SMAppService`, so there the
+/// launch event is read as well.
+const String minimisedFlag = '--minimised';
 
 /// Whether the app starts when the user logs in.
 abstract interface class LoginItem {
@@ -87,7 +89,7 @@ class XdgAutostartLoginItem implements LoginItem {
     return '[Desktop Entry]\n'
         'Type=Application\n'
         'Name=$name\n'
-        'Exec="$exec" $backgroundFlag\n'
+        'Exec="$exec" $minimisedFlag\n'
         'X-GNOME-Autostart-enabled=true\n'
         'Terminal=false\n';
   }
@@ -108,7 +110,7 @@ class XdgAutostartLoginItem implements LoginItem {
 
   @override
   Future<bool> startedAtLogin(List<String> args) async =>
-      args.contains(backgroundFlag);
+      args.contains(minimisedFlag);
 }
 
 /// Linux inside Flatpak: the sandbox cannot write the autostart file, so the
@@ -134,7 +136,7 @@ class PortalLoginItem implements LoginItem {
       final result = await client.background
           .requestBackground(
             autostart: enabled,
-            commandLine: [...commandLine, backgroundFlag],
+            commandLine: [...commandLine, minimisedFlag],
           )
           .first;
       if (result.autostart != enabled) {
@@ -153,7 +155,7 @@ class PortalLoginItem implements LoginItem {
 
   @override
   Future<bool> startedAtLogin(List<String> args) async =>
-      args.contains(backgroundFlag);
+      args.contains(minimisedFlag);
 }
 
 /// Reads and writes values of the current user's `Run` key, behind an
@@ -239,7 +241,7 @@ class RegistryLoginItem implements LoginItem {
   final String _executable;
 
   /// The command the system runs at login.
-  String get command => '"$_executable" $backgroundFlag';
+  String get command => '"$_executable" $minimisedFlag';
 
   @override
   Future<bool> isEnabled() async => _run.read(name) != null;
@@ -255,7 +257,7 @@ class RegistryLoginItem implements LoginItem {
 
   @override
   Future<bool> startedAtLogin(List<String> args) async =>
-      args.contains(backgroundFlag);
+      args.contains(minimisedFlag);
 }
 
 /// macOS: `SMAppService.mainApp` in `DlmPlatformPlugin` (Swift). The system
@@ -284,7 +286,7 @@ class MethodChannelLoginItem implements LoginItem {
 
   @override
   Future<bool> startedAtLogin(List<String> args) async =>
-      args.contains(backgroundFlag) ||
+      args.contains(minimisedFlag) ||
       (await _channel.invokeMethod<bool>('startedAtLogin') ?? false);
 }
 

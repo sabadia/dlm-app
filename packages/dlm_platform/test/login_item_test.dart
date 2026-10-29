@@ -38,7 +38,7 @@ void main() {
       expect(await item.isEnabled(), isTrue);
       final text = File('${dir.path}/autostart/io.github.sabadia.dlm.desktop')
           .readAsStringSync();
-      expect(text, contains('Exec="/opt/my apps/dlm" --background'));
+      expect(text, contains('Exec="/opt/my apps/dlm" --minimised'));
       expect(text, startsWith('[Desktop Entry]'));
       await item.setEnabled(enabled: false);
       expect(await item.isEnabled(), isFalse);
@@ -49,7 +49,7 @@ void main() {
     });
 
     test('knows a start at login by the flag', () async {
-      expect(await item.startedAtLogin(['--background']), isTrue);
+      expect(await item.startedAtLogin(['--minimised']), isTrue);
       expect(await item.startedAtLogin(const []), isFalse);
     });
 
@@ -69,7 +69,7 @@ void main() {
     final run = _FakeRun();
     final item = RegistryLoginItem(run: run, executable: r'C:\Apps\dlm.exe');
     await item.setEnabled(enabled: true);
-    expect(run.values['dlm'], r'"C:\Apps\dlm.exe" --background');
+    expect(run.values['dlm'], r'"C:\Apps\dlm.exe" --minimised');
     expect(await item.isEnabled(), isTrue);
     await item.setEnabled(enabled: false);
     expect(await item.isEnabled(), isFalse);
@@ -125,6 +125,7 @@ void main() {
     test('knows a login start from the launch event', () async {
       final item = MethodChannelLoginItem();
       expect(await item.startedAtLogin(const []), isFalse);
+      expect(await item.startedAtLogin(const ['--minimised']), isTrue);
       loginLaunch = true;
       expect(await item.startedAtLogin(const []), isTrue);
     });

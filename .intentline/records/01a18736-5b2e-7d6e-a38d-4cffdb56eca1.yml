@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a18736-5b2e-7d6e-a38d-4cffdb56eca1
+status: draft
+created_at: '2026-10-29T10:30:48Z'
+updated_at: '2026-10-29T10:30:48Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F5.3: start the app at login with --minimised, and keep the daemon''s own dlm service entry separate'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_platform/lib/src/login_item.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

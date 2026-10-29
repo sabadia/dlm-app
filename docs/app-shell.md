@@ -81,7 +81,10 @@ On the first start with the app's own download service a dialog shows the downlo
 programs the daemon found (ffmpeg, yt-dlp, browser). It is also in the command palette as
 "Setup and health check". It offers start at login and shows whether the browser
 extension is paired. When this system has no menu-bar icon, it says that closing
-the window quits.
+the window quits. The login item starts the app with `--minimised` (on macOS the
+launch event is used, because the system cannot pass arguments). A separate
+preference installs the daemon's own `dlm service` entry, which keeps downloads
+running without the app.
 
 ## Tray and notifications
 
