@@ -74,8 +74,11 @@ class FlutterAppearanceSource
   FlutterAppearanceSource({
     PlatformDispatcher? dispatcher,
     WidgetsBinding? binding,
-  }) : _dispatcher = dispatcher ?? PlatformDispatcher.instance,
-       _binding = binding ?? WidgetsBinding.instance {
+  }) : _binding = binding ?? WidgetsBinding.instance,
+       // The binding's dispatcher, which a test can override.
+       _dispatcher =
+           dispatcher ??
+           (binding ?? WidgetsBinding.instance).platformDispatcher {
     _current = _read();
     _binding.addObserver(this);
   }
