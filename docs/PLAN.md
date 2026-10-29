@@ -125,11 +125,11 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 ### M3 Core experience
 
-- [ ] F3.1 App shell and navigation — Information architecture, sidebar (All, Active, Queued, Paused, Completed, Failed, Queues, Categories, Tools), toolbar, inspector pane, responsive widths, command palette (Cmd/Ctrl+K).
-- [ ] F3.2 Downloads list *(needs P13.5)* — Virtualized; columns (name, status, progress, size, speed, ETA, queue, category, added, engine); densities, grouping, sort/filter/search, saved views.
-- [ ] F3.3 Selection, bulk operations, context menus, drag and drop *(needs P13.5)* — Bulk pause/resume/delete/move/priority/restart/refresh, drag reorder and drop onto a queue, confirm-with-undo for destructive actions.
-- [ ] F3.4 Task inspector *(needs P13.4)* — Overview, Files (tree + selection), Speed graph, Segments map, Source and refresh (edit URL, await link, history), per-task settings overrides, Events/errors.
-- [ ] F3.5 Add-download flow *(needs P13.6)* — Paste/many/pattern with preview, .torrent/.txt/JSON/aria2 files, magnet/ed2k, resolve preview with file tree, duplicate warning with 'add anyway', category preview, queue/dir/name, mirrors, checksum, headers/referrer, cookies/login helpers, yt-dlp/browser modes, batch result sheet.
+- [x] F3.1 App shell and navigation — Information architecture, sidebar (All, Active, Queued, Paused, Completed, Failed, Queues, Categories, Tools), toolbar, inspector pane, responsive widths, command palette (Cmd/Ctrl+K).
+- [x] F3.2 Downloads list *(needs P13.5)* — Virtualized; columns (name, status, progress, size, speed, ETA, queue, category, added, engine); densities, grouping, sort/filter/search, saved views.
+- [x] F3.3 Selection, bulk operations, context menus, drag and drop *(needs P13.5)* — Bulk pause/resume/delete/move/priority/restart/refresh, drag reorder and drop onto a queue, confirm-with-undo for destructive actions.
+- [x] F3.4 Task inspector *(needs P13.4)* — Overview, Files (tree + selection), Speed graph, Segments map, Source and refresh (edit URL, await link, history), per-task settings overrides, Events/errors.
+- [x] F3.5 Add-download flow *(needs P13.6)* — Paste/many/pattern with preview, .torrent/.txt/JSON/aria2 files, magnet/ed2k, resolve preview with file tree, duplicate warning with 'add anyway', category preview, queue/dir/name, mirrors, checksum, headers/referrer, cookies/login helpers, yt-dlp/browser modes, batch result sheet.
 - [x] F3.6 Queues UI — CRUD, start/stop, order, counts, schedule editor, speed profiles, quota, post-queue action with countdown/cancel.
 - [ ] F3.7 First-run onboarding and health checks — Download folder, tools (ffmpeg/yt-dlp), start at login, tray, browser extension.
 - [x] F3.8 Status bar and quick controls *(needs P13.7, P13.8)* — Down/up speed, active/queued, turbo toggle, pause/resume all, quota meter, connection state.

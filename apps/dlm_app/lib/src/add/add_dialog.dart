@@ -11,6 +11,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../inspector/files_tab.dart';
+import '../manage/credential_draft.dart';
+import '../manage/logins_screen.dart';
 import '../shell/feedback.dart';
 import 'add_advanced.dart';
 import 'add_input.dart';
@@ -102,8 +104,11 @@ class _Busy extends _Lookup {
 }
 
 class _One extends _Lookup {
-  const _One(this.result);
+  const _One(this.result, [this.category]);
   final ResolveResult result;
+
+  /// The category the finished file would be sorted into, if any.
+  final Category? category;
 }
 
 class _Many extends _Lookup {
@@ -209,7 +214,16 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     _Lookup found;
     try {
       if (links.length == 1 && !isPattern(links.single)) {
-        found = _One(await repo.resolve(links.single, queueId: _queueId));
+        final result = await repo.resolve(links.single, queueId: _queueId);
+        Category? category;
+        try {
+          category = await ref
+              .read(categoriesProvider.notifier)
+              .match(name: result.name);
+        } on Object {
+          // A preview only: the add works without it.
+        }
+        found = _One(result, category);
       } else {
         var count = 0;
         final sample = <String>[];
@@ -563,6 +577,74 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     );
   }
 
+  /// Says whether a login and cookies are stored for the site of the link, and
+  /// offers to add a login.
+  Widget _siteHelpers(
+    AppLocalizations l,
+    DlmThemeData theme,
+    ResolveResult result,
+  ) {
+    final host = Uri.tryParse(result.source.currentUrl)?.host ?? '';
+    if (host.isEmpty) return const SizedBox.shrink();
+    final logins = ref.watch(credentialsProvider).value ?? const <Credential>[];
+    final cookies = ref.watch(cookiesProvider).value ?? const <CookieInfo>[];
+    bool loginFor(Credential c) =>
+        c.host == host ||
+        (c.host.startsWith('*.') && host.endsWith(c.host.substring(1)));
+    bool cookieFor(CookieInfo c) {
+      final d = c.domain.startsWith('.') ? c.domain.substring(1) : c.domain;
+      return host == d || host.endsWith('.$d');
+    }
+
+    final hasLogin = logins.any(loginFor);
+    final cookieCount = cookies.where(cookieFor).length;
+    final caption = theme.typography.caption.copyWith(
+      color: theme.colors.textSecondary,
+    );
+    return Padding(
+      padding: EdgeInsets.only(top: theme.metrics.spacing.xs),
+      child: Wrap(
+        spacing: theme.metrics.spacing.sm,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        children: [
+          if (hasLogin)
+            Text(l.add_login_stored(host), style: caption)
+          else ...[
+            Text(l.add_login_none(host), style: caption),
+            DlmButton(
+              label: l.add_login_add,
+              icon: const DlmIcon(DlmIconName.key),
+              variant: DlmButtonVariant.plain,
+              onPressed: () => unawaited(_addLogin(host)),
+            ),
+          ],
+          Text(
+            cookieCount > 0
+                ? l.add_cookies_stored(cookieCount)
+                : l.add_cookies_none,
+            style: caption,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _addLogin(String host) async {
+    final l = AppLocalizations.of(context);
+    final draft = await showDlmDialog<CredentialDraft>(
+      context,
+      semanticLabel: l.login_add_title,
+      builder: (_) => LoginDialog(initialHost: host),
+    );
+    if (draft == null || !mounted) return;
+    try {
+      await ref.read(credentialsProvider.notifier).create(draft.toCreate());
+      if (mounted) showNotice(context, ref, l.login_saved);
+    } on Object catch (e) {
+      if (mounted) showFailure(context, ref, e);
+    }
+  }
+
   Widget _summary(AppLocalizations l, DlmThemeData theme) {
     final caption = theme.typography.caption.copyWith(
       color: theme.colors.textSecondary,
@@ -584,7 +666,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
               ? l.toast_failure_unknown
               : text,
         );
-      case _One(:final result):
+      case _One(:final result, :final category):
         final files = result.resource.files?.length ?? 0;
         final size = result.resource.size >= 0
             ? formatBytes(result.resource.size)
@@ -601,6 +683,9 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
               ].join(' · '),
               style: caption,
             ),
+            if (category != null && _dir.text.trim().isEmpty)
+              Text(l.add_category(category.name, category.dir), style: caption),
+            _siteHelpers(l, theme, result),
             if (result.duplicateOf != null) ...[
               SizedBox(height: theme.metrics.spacing.sm),
               DlmBanner(
@@ -725,6 +810,8 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
                       controller: _dir,
                       semanticLabel: l.add_folder,
                       placeholder: defaultDir ?? l.add_folder_default,
+                      // The category preview depends on the folder being empty.
+                      onChanged: (_) => setState(() {}),
                     ),
                   ),
                   SizedBox(width: theme.metrics.spacing.xs),

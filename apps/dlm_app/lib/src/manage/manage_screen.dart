@@ -13,7 +13,10 @@ import 'statistics_screen.dart';
 import 'transfer_screen.dart';
 import 'webhooks_screen.dart';
 
-/// The management pages of the sidebar, by their path segment.
+/// The pages under Tools in the sidebar: things to do rather than to set up.
+const List<String> toolPages = ['browser', 'transfer', 'statistics'];
+
+/// Every page behind `/manage/<page>`, by its path segment.
 const List<String> managePages = [
   'categories',
   'logins',
@@ -27,6 +30,13 @@ const List<String> managePages = [
   'access',
   'preferences',
   'about',
+];
+
+/// The pages under Manage in the sidebar: what the app and the daemon are set
+/// up with.
+final List<String> setupPages = [
+  for (final p in managePages)
+    if (!toolPages.contains(p)) p,
 ];
 
 /// One management page.

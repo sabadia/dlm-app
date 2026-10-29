@@ -148,6 +148,10 @@ class DlmDataTable<T> extends StatefulWidget {
     this.onRowSecondaryTap,
     this.dragData,
     this.dragFeedback,
+    this.isGroupHeader,
+    this.groupHeader,
+    this.acceptRowDrop,
+    this.onRowDrop,
     this.scrollController,
     this.emptyState,
     super.key,
@@ -210,6 +214,20 @@ class DlmDataTable<T> extends StatefulWidget {
   /// The picture that follows the pointer while a row is dragged.
   final Widget Function(BuildContext context, Object data)? dragFeedback;
 
+  /// Whether a row is a group heading: it is drawn by [groupHeader], cannot be
+  /// selected and is skipped by the keyboard.
+  final bool Function(T row)? isGroupHeader;
+
+  /// Draws the heading row of a group.
+  final Widget Function(BuildContext context, T row)? groupHeader;
+
+  /// Whether a dragged [data] may be dropped on the row at [index]; with
+  /// [onRowDrop] makes every row a drop target that shows an insertion line.
+  final bool Function(int index, T row, Object data)? acceptRowDrop;
+
+  /// Called when [data] is dropped on the row at [index].
+  final void Function(int index, T row, Object data)? onRowDrop;
+
   /// Controls the vertical scroll position.
   final ScrollController? scrollController;
 
@@ -262,12 +280,15 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
 
   T? _row(int i) => (i < 0 || i >= widget.itemCount) ? null : widget.itemAt(i);
 
+  bool _isHeader(T? row) =>
+      row != null && (widget.isGroupHeader?.call(row) ?? false);
+
   void _emit(Set<Object> next) => widget.onSelectionChanged?.call(next);
 
   void _select(int index, {bool toggle = false, bool range = false}) {
     if (!_selectable) return;
     final row = _row(index);
-    if (row == null) return;
+    if (row == null || _isHeader(row)) return;
     final id = widget.rowId(row);
     final multi = widget.selectionMode == DlmSelectionMode.multiple;
     if (range && multi && _anchor != null) {
@@ -276,7 +297,7 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
       final next = <Object>{if (toggle) ...widget.selectedIds};
       for (var i = lo; i <= hi; i++) {
         final r = _row(i);
-        if (r != null) next.add(widget.rowId(r));
+        if (r != null && !_isHeader(r)) next.add(widget.rowId(r));
       }
       _emit(next);
     } else if (toggle && multi) {
@@ -293,7 +314,14 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
 
   void _moveCursor(int to, {required bool extend}) {
     if (widget.itemCount == 0) return;
-    final clamped = to.clamp(0, widget.itemCount - 1);
+    var clamped = to.clamp(0, widget.itemCount - 1);
+    // Group headings are passed over, in the direction of the movement.
+    final step = clamped >= _cursor.value ? 1 : -1;
+    while (_isHeader(_row(clamped))) {
+      final next = clamped + step;
+      if (next < 0 || next >= widget.itemCount) return;
+      clamped = next;
+    }
     if (extend && _selectable) {
       _anchor ??= _cursor.value;
       _select(clamped, range: true);
@@ -341,7 +369,7 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
     final all = <Object>{};
     for (var i = 0; i < widget.itemCount; i++) {
       final r = _row(i);
-      if (r != null) all.add(widget.rowId(r));
+      if (r != null && !_isHeader(r)) all.add(widget.rowId(r));
     }
     _emit(all);
   }
@@ -518,9 +546,12 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
     if (row == null) {
       return _SkeletonRow(columns: widget.columns, widthOf: _widthOf);
     }
+    if (_isHeader(row) && widget.groupHeader != null) {
+      return Semantics(header: true, child: widget.groupHeader!(context, row));
+    }
     final id = widget.rowId(row);
     final selected = widget.selectedIds.contains(id);
-    return _RowFrame(
+    final frame = _RowFrame(
       index: index,
       hover: _hover,
       cursor: _cursor,
@@ -571,6 +602,44 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
               ),
           ],
         ),
+      ),
+    );
+    final onDrop = widget.onRowDrop;
+    if (onDrop == null) return frame;
+    return _RowDropTarget(
+      accepts: (data) => widget.acceptRowDrop?.call(index, row, data) ?? true,
+      onDrop: (data) => onDrop(index, row, data),
+      child: frame,
+    );
+  }
+}
+
+/// Makes a row accept a drag, drawing an accent line above it meanwhile.
+class _RowDropTarget extends StatelessWidget {
+  const _RowDropTarget({
+    required this.accepts,
+    required this.onDrop,
+    required this.child,
+  });
+
+  final bool Function(Object data) accepts;
+  final void Function(Object data) onDrop;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final accent = DlmTheme.of(context).colors.accent;
+    return DragTarget<Object>(
+      onWillAcceptWithDetails: (d) => accepts(d.data),
+      onAcceptWithDetails: (d) => onDrop(d.data),
+      builder: (context, candidates, _) => DecoratedBox(
+        position: DecorationPosition.foreground,
+        decoration: BoxDecoration(
+          border: candidates.isEmpty
+              ? null
+              : Border(top: BorderSide(color: accent, width: 2)),
+        ),
+        child: child,
       ),
     );
   }

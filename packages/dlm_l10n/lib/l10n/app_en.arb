@@ -787,6 +787,22 @@
   "view_menu": "View",
   "view_engine": "Engine",
   "view_all_engines": "All engines",
+  "view_group": "Group by",
+  "view_group_none": "No grouping",
+  "view_group_status": "Status",
+  "view_group_queue": "Queue",
+  "view_group_engine": "Engine",
+  "group_header": "{name} ({count})",
+  "@group_header": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "view_saved": "Saved views",
   "view_save": "Save current view…",
   "view_save_title": "Save this view",
@@ -799,6 +815,7 @@
     }
   },
   "col_engine": "Engine",
+  "col_category": "Category",
   "list_total": "{count} downloads",
   "@list_total": {
     "placeholders": {
@@ -1878,5 +1895,70 @@
         "type": "int"
       }
     }
-  }
+  },
+  "nav_tools": "Tools",
+  "add_category": "Will be sorted into {name}: {dir}",
+  "@add_category": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dir": {
+        "type": "String"
+      }
+    }
+  },
+  "add_login_stored": "A login is stored for {host}",
+  "@add_login_stored": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "add_login_add": "Add a login",
+  "add_cookies_stored": "{count, plural, one{1 cookie is stored for this site} other{{count} cookies are stored for this site}}",
+  "@add_cookies_stored": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_cookies_none": "No cookies are stored for this site",
+  "add_login_none": "No login is stored for {host}",
+  "@add_login_none": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "insp_tab_events": "Events",
+  "ev_created": "Added to the list",
+  "ev_status": "{from} → {to}",
+  "@ev_status": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "ev_refresh": "Link renewal with {strategy}: {outcome}",
+  "@ev_refresh": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "outcome": {
+        "type": "String"
+      }
+    }
+  },
+  "ev_current_error": "Failed",
+  "ev_none": "Nothing has happened to this download since the app connected.",
+  "ev_note": "This is what the app has seen since it connected; the daemon does not keep a longer history."
 }

@@ -1357,6 +1357,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get view_all_engines => 'All engines';
 
   @override
+  String get view_group => 'Group by';
+
+  @override
+  String get view_group_none => 'No grouping';
+
+  @override
+  String get view_group_status => 'Status';
+
+  @override
+  String get view_group_queue => 'Queue';
+
+  @override
+  String get view_group_engine => 'Engine';
+
+  @override
+  String group_header(String name, int count) {
+    return '$name ($count)';
+  }
+
+  @override
   String get view_saved => 'Saved views';
 
   @override
@@ -1372,6 +1392,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get col_engine => 'Engine';
+
+  @override
+  String get col_category => 'Category';
 
   @override
   String list_total(int count) {
@@ -3181,4 +3204,66 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get nav_tools => 'Tools';
+
+  @override
+  String add_category(String name, String dir) {
+    return 'Will be sorted into $name: $dir';
+  }
+
+  @override
+  String add_login_stored(String host) {
+    return 'A login is stored for $host';
+  }
+
+  @override
+  String get add_login_add => 'Add a login';
+
+  @override
+  String add_cookies_stored(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies are stored for this site',
+      one: '1 cookie is stored for this site',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get add_cookies_none => 'No cookies are stored for this site';
+
+  @override
+  String add_login_none(String host) {
+    return 'No login is stored for $host';
+  }
+
+  @override
+  String get insp_tab_events => 'Events';
+
+  @override
+  String get ev_created => 'Added to the list';
+
+  @override
+  String ev_status(String from, String to) {
+    return '$from → $to';
+  }
+
+  @override
+  String ev_refresh(String strategy, String outcome) {
+    return 'Link renewal with $strategy: $outcome';
+  }
+
+  @override
+  String get ev_current_error => 'Failed';
+
+  @override
+  String get ev_none =>
+      'Nothing has happened to this download since the app connected.';
+
+  @override
+  String get ev_note =>
+      'This is what the app has seen since it connected; the daemon does not keep a longer history.';
 }

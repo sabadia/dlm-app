@@ -154,17 +154,23 @@ class LoginsScreen extends ConsumerWidget {
 /// The add/edit dialog of a login; pops the [CredentialDraft].
 class LoginDialog extends StatefulWidget {
   /// Creates the dialog; [login] is null for a new one.
-  const LoginDialog({this.login, super.key});
+  const LoginDialog({this.login, this.initialHost, super.key});
 
   /// The login being edited.
   final Credential? login;
+
+  /// The site to start a new login with.
+  final String? initialHost;
 
   @override
   State<LoginDialog> createState() => _LoginDialogState();
 }
 
 class _LoginDialogState extends State<LoginDialog> {
-  late final CredentialDraft _draft = CredentialDraft(from: widget.login);
+  late final CredentialDraft _draft = CredentialDraft(from: widget.login)
+    ..host = widget.login == null
+        ? widget.initialHost ?? ''
+        : widget.login!.host;
   late final TextEditingController _host = TextEditingController(
     text: _draft.host,
   );

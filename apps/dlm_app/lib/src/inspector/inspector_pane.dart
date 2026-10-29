@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../screens/task_format.dart';
 import '../settings/settings_form.dart';
 import '../shell/shell_state.dart';
+import 'events_tab.dart';
 import 'files_tab.dart';
 import 'overview_tab.dart';
 import 'segments_tab.dart';
@@ -36,6 +37,9 @@ enum InspectorTab {
 
   /// The settings this download overrides.
   settings,
+
+  /// What happened to it.
+  events,
 }
 
 /// The tab the details pane is on; it stays when another download is picked.
@@ -161,6 +165,7 @@ class _TaskDetails extends ConsumerWidget {
                   value: InspectorTab.settings,
                   label: l.insp_tab_settings,
                 ),
+                DlmOption(value: InspectorTab.events, label: l.insp_tab_events),
               ],
             ),
           ),
@@ -176,6 +181,7 @@ class _TaskDetails extends ConsumerWidget {
               InspectorTab.segments => SegmentsTab(id: id),
               InspectorTab.torrent => TorrentTab(id: id),
               InspectorTab.source => SourceTab(id: id),
+              InspectorTab.events => EventsTab(id: id),
               InspectorTab.settings => SettingsForm(
                 target: SettingsTarget.task(id),
                 searchable: false,

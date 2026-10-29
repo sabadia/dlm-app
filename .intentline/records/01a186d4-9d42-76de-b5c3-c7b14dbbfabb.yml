@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a186d4-9d42-76de-b5c3-c7b14dbbfabb
+status: draft
+created_at: '2026-10-29T08:44:03Z'
+updated_at: '2026-10-29T08:44:03Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Add dialog: category preview and login/cookie helpers for the site of the link; folder edits refresh the preview (F3.5 complete)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/add/add_dialog.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

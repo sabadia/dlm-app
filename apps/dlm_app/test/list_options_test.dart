@@ -112,15 +112,15 @@ void main() {
     );
     expect(header('Engine'), findsOneWidget);
     await openViewMenu(tester, label: 'Display');
-    // The table header says "Engine" too; the menu entry comes first.
-    await tester.ensureVisible(find.text('Engine').first);
-    await tester.tap(find.text('Engine').first);
+    // The group entry of the same name comes first, then the column.
+    await tester.ensureVisible(find.text('Engine').at(1));
+    await tester.tap(find.text('Engine').at(1));
     await settle(tester);
     expect(header('Engine'), findsNothing);
     expect(header('Name'), findsOneWidget, reason: 'the name stays');
     await openViewMenu(tester, label: 'Display');
-    await tester.ensureVisible(find.text('Engine').first);
-    await tester.tap(find.text('Engine').first);
+    await tester.ensureVisible(find.text('Engine').at(1));
+    await tester.tap(find.text('Engine').at(1));
     await settle(tester);
     expect(header('Engine'), findsOneWidget);
   });
@@ -132,5 +132,17 @@ void main() {
     await tester.tap(find.text('Compact'));
     await settle(tester);
     expect(h.container.read(densityProvider), Density.compact);
+  });
+
+  appTest('grouping puts a heading with a count over each engine', (
+    tester,
+  ) async {
+    final h = await open(tester);
+    await openViewMenu(tester, label: 'Display');
+    await tester.tap(find.text('Engine').first);
+    await settle(tester);
+    expect(h.container.read(listOptionsProvider).grouping, ListGrouping.engine);
+    expect(find.text('http (2)'), findsOneWidget);
+    expect(find.text('bt (1)'), findsOneWidget);
   });
 }

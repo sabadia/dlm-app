@@ -2332,6 +2332,42 @@ abstract class AppLocalizations {
   /// **'All engines'**
   String get view_all_engines;
 
+  /// No description provided for @view_group.
+  ///
+  /// In en, this message translates to:
+  /// **'Group by'**
+  String get view_group;
+
+  /// No description provided for @view_group_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No grouping'**
+  String get view_group_none;
+
+  /// No description provided for @view_group_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get view_group_status;
+
+  /// No description provided for @view_group_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get view_group_queue;
+
+  /// No description provided for @view_group_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get view_group_engine;
+
+  /// No description provided for @group_header.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} ({count})'**
+  String group_header(String name, int count);
+
   /// No description provided for @view_saved.
   ///
   /// In en, this message translates to:
@@ -2361,6 +2397,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Engine'**
   String get col_engine;
+
+  /// No description provided for @col_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get col_category;
 
   /// No description provided for @list_total.
   ///
@@ -5361,6 +5403,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{1 licence text} other{{count} licence texts}}'**
   String ab_licences_count(int count);
+
+  /// No description provided for @nav_tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get nav_tools;
+
+  /// No description provided for @add_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be sorted into {name}: {dir}'**
+  String add_category(String name, String dir);
+
+  /// No description provided for @add_login_stored.
+  ///
+  /// In en, this message translates to:
+  /// **'A login is stored for {host}'**
+  String add_login_stored(String host);
+
+  /// No description provided for @add_login_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a login'**
+  String get add_login_add;
+
+  /// No description provided for @add_cookies_stored.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 cookie is stored for this site} other{{count} cookies are stored for this site}}'**
+  String add_cookies_stored(int count);
+
+  /// No description provided for @add_cookies_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No cookies are stored for this site'**
+  String get add_cookies_none;
+
+  /// No description provided for @add_login_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No login is stored for {host}'**
+  String add_login_none(String host);
+
+  /// No description provided for @insp_tab_events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get insp_tab_events;
+
+  /// No description provided for @ev_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to the list'**
+  String get ev_created;
+
+  /// No description provided for @ev_status.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to}'**
+  String ev_status(String from, String to);
+
+  /// No description provided for @ev_refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Link renewal with {strategy}: {outcome}'**
+  String ev_refresh(String strategy, String outcome);
+
+  /// No description provided for @ev_current_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get ev_current_error;
+
+  /// No description provided for @ev_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing has happened to this download since the app connected.'**
+  String get ev_none;
+
+  /// No description provided for @ev_note.
+  ///
+  /// In en, this message translates to:
+  /// **'This is what the app has seen since it connected; the daemon does not keep a longer history.'**
+  String get ev_note;
 }
 
 class _AppLocalizationsDelegate

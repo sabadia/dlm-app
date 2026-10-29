@@ -1,4 +1,5 @@
 import 'package:dlm_api/dlm_api.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
@@ -35,5 +36,20 @@ void main() {
     await pumpApp(tester);
     // Only the Manage entry is left.
     expect(find.text('Categories'), findsOneWidget);
+  });
+
+  appTest('Tools lists the things to do, and a click opens one', (
+    tester,
+  ) async {
+    // A tall window, so the whole sidebar is built.
+    await pumpApp(tester, size: const Size(1400, 2400));
+    expect(find.text('Tools'), findsOneWidget);
+    for (final t in ['Browser tool', 'Import and export', 'Statistics']) {
+      expect(find.text(t), findsOneWidget);
+    }
+    await tester.tap(find.text('Statistics'));
+    await settle(tester);
+    // The sidebar entry and the page title.
+    expect(find.text('Statistics'), findsNWidgets(2));
   });
 }

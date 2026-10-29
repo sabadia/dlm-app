@@ -161,6 +161,15 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
     ),
   ),
   DlmColumn<Task>(
+    id: 'category',
+    label: l.col_category,
+    width: 130,
+    cell: (context, t) => TaskCell(
+      id: t.id,
+      builder: (context, task, _) => _CategoryName(name: taskTitle(l, task)),
+    ),
+  ),
+  DlmColumn<Task>(
     id: 'added',
     label: l.col_added,
     sortable: true,
@@ -181,6 +190,37 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
     ),
   ),
 ];
+
+/// The name of the first category whose extensions list that of [fileName], or
+/// null. Rules on MIME type or URL are the daemon's to apply, so a download
+/// they would catch shows no category here.
+String? categoryOfFile(List<Category> categories, String fileName) {
+  final dot = fileName.lastIndexOf('.');
+  if (dot < 0 || dot == fileName.length - 1) return null;
+  final ext = fileName.substring(dot + 1).toLowerCase();
+  for (final c in categories) {
+    for (final e in c.extensions ?? const <String>[]) {
+      if (e.toLowerCase().replaceFirst('.', '') == ext) return c.name;
+    }
+  }
+  return null;
+}
+
+class _CategoryName extends ConsumerWidget {
+  const _CategoryName({required this.name});
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final categories = ref.watch(categoriesProvider).value ?? const [];
+    return Text(
+      categoryOfFile(categories, name) ?? '',
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+    );
+  }
+}
 
 class _QueueName extends ConsumerWidget {
   const _QueueName({required this.id});

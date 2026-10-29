@@ -211,7 +211,10 @@ class FakeTaskRepository implements TaskRepository {
   Future<Task> move(String id, String queueId) => throw UnimplementedError();
 
   @override
-  Future<Task> reorder(String id, int position) => throw UnimplementedError();
+  Future<Task> reorder(String id, int position) async {
+    calls.add('reorder:$id:$position');
+    return tasks.firstWhere((t) => t.id == id);
+  }
 
   @override
   Future<List<ItemResult>> pauseAll() async {
