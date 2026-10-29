@@ -150,6 +150,8 @@ class DlmDataTable<T> extends StatefulWidget {
     this.dragFeedback,
     this.isGroupHeader,
     this.groupHeader,
+    this.acceptRowDrop,
+    this.onRowDrop,
     this.scrollController,
     this.emptyState,
     super.key,
@@ -218,6 +220,13 @@ class DlmDataTable<T> extends StatefulWidget {
 
   /// Draws the heading row of a group.
   final Widget Function(BuildContext context, T row)? groupHeader;
+
+  /// Whether a dragged [data] may be dropped on the row at [index]; with
+  /// [onRowDrop] makes every row a drop target that shows an insertion line.
+  final bool Function(int index, T row, Object data)? acceptRowDrop;
+
+  /// Called when [data] is dropped on the row at [index].
+  final void Function(int index, T row, Object data)? onRowDrop;
 
   /// Controls the vertical scroll position.
   final ScrollController? scrollController;
@@ -542,7 +551,7 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
     }
     final id = widget.rowId(row);
     final selected = widget.selectedIds.contains(id);
-    return _RowFrame(
+    final frame = _RowFrame(
       index: index,
       hover: _hover,
       cursor: _cursor,
@@ -593,6 +602,44 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
               ),
           ],
         ),
+      ),
+    );
+    final onDrop = widget.onRowDrop;
+    if (onDrop == null) return frame;
+    return _RowDropTarget(
+      accepts: (data) => widget.acceptRowDrop?.call(index, row, data) ?? true,
+      onDrop: (data) => onDrop(index, row, data),
+      child: frame,
+    );
+  }
+}
+
+/// Makes a row accept a drag, drawing an accent line above it meanwhile.
+class _RowDropTarget extends StatelessWidget {
+  const _RowDropTarget({
+    required this.accepts,
+    required this.onDrop,
+    required this.child,
+  });
+
+  final bool Function(Object data) accepts;
+  final void Function(Object data) onDrop;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final accent = DlmTheme.of(context).colors.accent;
+    return DragTarget<Object>(
+      onWillAcceptWithDetails: (d) => accepts(d.data),
+      onAcceptWithDetails: (d) => onDrop(d.data),
+      builder: (context, candidates, _) => DecoratedBox(
+        position: DecorationPosition.foreground,
+        decoration: BoxDecoration(
+          border: candidates.isEmpty
+              ? null
+              : Border(top: BorderSide(color: accent, width: 2)),
+        ),
+        child: child,
       ),
     );
   }

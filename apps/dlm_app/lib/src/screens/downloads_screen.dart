@@ -80,6 +80,11 @@ class DownloadsScreen extends ConsumerWidget {
       options.grouping,
       queueNames: queueNames,
     );
+    final reorderable =
+        queueId != null &&
+        options.sort == Sort.position &&
+        !options.descending &&
+        options.grouping == ListGrouping.none;
     final table = DlmDataTable<Task>(
       semanticLabel: l.table_downloads_label,
       labels: DlmTableLabels(
@@ -124,6 +129,22 @@ class DownloadsScreen extends ConsumerWidget {
         }
         return rows[i];
       },
+      // Inside one queue in its own order a download can be dropped on
+      // another row to take its place.
+      acceptRowDrop: reorderable
+          ? (_, row, data) =>
+                data is TaskDragData &&
+                data.ids.length == 1 &&
+                data.ids.single != row.id &&
+                store.tasks[data.ids.single]?.queueId == queueId
+          : null,
+      onRowDrop: reorderable
+          ? (_, row, data) => unawaited(
+              ref
+                  .read(taskActionsProvider)
+                  .reorder((data as TaskDragData).ids.single, row.position),
+            )
+          : null,
       isGroupHeader: isGroupHeaderRow,
       groupHeader: (context, row) {
         final theme = DlmTheme.of(context);
