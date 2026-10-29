@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a188b9-0cb2-7e18-a92e-7f17286ef644
+status: draft
+created_at: '2026-10-29T17:33:11Z'
+updated_at: '2026-10-29T17:33:11Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Quitting stops the daemon the app started and a packaged build replaces an older running daemon, so updates (brew upgrade, Sparkle) can replace the files
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/platform/integration_binder.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/local_daemon.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

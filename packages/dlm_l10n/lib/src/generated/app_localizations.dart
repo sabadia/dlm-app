@@ -5707,6 +5707,12 @@ abstract class AppLocalizations {
   /// **'Open the release'**
   String get ab_open_release;
 
+  /// No description provided for @ab_available_brew.
+  ///
+  /// In en, this message translates to:
+  /// **'{version} is available. Installed with Homebrew: run brew upgrade dlm-app'**
+  String ab_available_brew(String version);
+
   /// No description provided for @ab_check_failed.
   ///
   /// In en, this message translates to:

@@ -3360,6 +3360,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ab_open_release => 'Open the release';
 
   @override
+  String ab_available_brew(String version) {
+    return '$version is available. Installed with Homebrew: run brew upgrade dlm-app';
+  }
+
+  @override
   String get ab_check_failed => 'The update check did not succeed.';
 
   @override

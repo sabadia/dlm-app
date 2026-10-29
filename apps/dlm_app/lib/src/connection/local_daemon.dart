@@ -19,7 +19,7 @@ abstract interface class LocalDaemon {
   /// Status changes (restarts, crashes).
   Stream<DaemonStatus> get status;
 
-  /// Stops it when the app quits.
+  /// Stops it when the app quits, if the app started it. Safe to call twice.
   Future<void> dispose();
 }
 
@@ -54,8 +54,17 @@ class SupervisedDaemon implements LocalDaemon {
   @override
   Stream<DaemonStatus> get status => supervisor.status;
 
+  var _released = false;
+
+  /// Stops the daemon this app started. One that was already running (the
+  /// user's "keep downloading" service, or another app) is left to run: it was
+  /// not ours to stop.
   @override
-  Future<void> dispose() => supervisor.dispose();
+  Future<void> dispose() async {
+    if (_released) return;
+    _released = true;
+    await supervisor.dispose(stopDaemon: !supervisor.current.adopted);
+  }
 }
 
 /// Stands in when the bundled daemon binary cannot be found, so the app shows

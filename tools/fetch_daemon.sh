@@ -4,6 +4,9 @@
 #
 #   tools/fetch_daemon.sh <tag|latest> <outdir>
 #
+# DLM_OS (linux, darwin, windows) and DLM_ARCH (amd64, arm64) fetch another
+# platform's build than the machine's own, for packaging.
+#
 # Needs the GitHub CLI (`gh`) with access to sabadia/dlm-server.
 set -euo pipefail
 tag="${1:?release tag or latest}"
@@ -15,17 +18,26 @@ if [ "$tag" = "latest" ]; then
 fi
 version="${tag#v}"
 
-case "$(uname -s)" in
-  Linux*) os=linux; ext=tar.gz ;;
-  Darwin*) os=darwin; ext=tar.gz ;;
-  MINGW*|MSYS*|CYGWIN*) os=windows; ext=zip ;;
-  *) echo "unsupported system $(uname -s)" >&2; exit 1 ;;
-esac
-case "$(uname -m)" in
-  x86_64|amd64) arch=amd64 ;;
-  arm64|aarch64) arch=arm64 ;;
-  *) echo "unsupported architecture $(uname -m)" >&2; exit 1 ;;
-esac
+if [ -n "${DLM_OS:-}" ]; then
+  os="$DLM_OS"
+else
+  case "$(uname -s)" in
+    Linux*) os=linux ;;
+    Darwin*) os=darwin ;;
+    MINGW*|MSYS*|CYGWIN*) os=windows ;;
+    *) echo "unsupported system $(uname -s)" >&2; exit 1 ;;
+  esac
+fi
+if [ "$os" = windows ]; then ext=zip; else ext=tar.gz; fi
+if [ -n "${DLM_ARCH:-}" ]; then
+  arch="$DLM_ARCH"
+else
+  case "$(uname -m)" in
+    x86_64|amd64) arch=amd64 ;;
+    arm64|aarch64) arch=arm64 ;;
+    *) echo "unsupported architecture $(uname -m)" >&2; exit 1 ;;
+  esac
+fi
 
 asset="dlm_${version}_${os}_${arch}.${ext}"
 mkdir -p "$out"
@@ -42,5 +54,8 @@ if [ "$ext" = zip ]; then unzip -oq "$asset"; else tar -xzf "$asset"; fi
 bin="$(find . -type f \( -name dlm -o -name dlm.exe \) | head -n 1)"
 test -n "$bin" || { echo "no dlm binary in $asset" >&2; exit 1; }
 chmod +x "$bin"
-echo "$(cd "$(dirname "$bin")" && pwd)/$(basename "$bin")"
+path="$(cd "$(dirname "$bin")" && pwd)/$(basename "$bin")"
+# Git Bash prints /c/... paths that Windows programs do not understand.
+if command -v cygpath >/dev/null 2>&1; then path="$(cygpath -m "$path")"; fi
+echo "$path"
 echo "dlm $version" >&2
