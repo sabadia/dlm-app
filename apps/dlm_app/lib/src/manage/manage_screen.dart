@@ -5,6 +5,7 @@ import 'categories_screen.dart';
 import 'cookies_screen.dart';
 import 'logins_screen.dart';
 import 'plugins_screen.dart';
+import 'transfer_screen.dart';
 import 'webhooks_screen.dart';
 
 /// The management pages of the sidebar, by their path segment.
@@ -15,6 +16,7 @@ const List<String> managePages = [
   'webhooks',
   'plugins',
   'browser',
+  'transfer',
 ];
 
 /// One management page.
@@ -33,6 +35,7 @@ class ManageScreen extends StatelessWidget {
     'webhooks' => const WebhooksScreen(),
     'plugins' => const PluginsScreen(),
     'browser' => const BrowserScreen(),
+    'transfer' => const TransferScreen(),
     _ => const SizedBox.shrink(),
   };
 }

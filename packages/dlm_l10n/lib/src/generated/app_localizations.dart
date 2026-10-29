@@ -4275,6 +4275,150 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Programs'**
   String get br_tools_title;
+
+  /// No description provided for @nav_manage_transfer.
+  ///
+  /// In en, this message translates to:
+  /// **'Import and export'**
+  String get nav_manage_transfer;
+
+  /// No description provided for @tr_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Add many downloads from a list, or write your downloads out as a list. Nothing is added until you have seen what would happen.'**
+  String get tr_intro;
+
+  /// No description provided for @tr_import_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a list'**
+  String get tr_import_title;
+
+  /// No description provided for @tr_list.
+  ///
+  /// In en, this message translates to:
+  /// **'The list'**
+  String get tr_list;
+
+  /// No description provided for @tr_list_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste it here, or choose a file.'**
+  String get tr_list_desc;
+
+  /// No description provided for @tr_choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a file…'**
+  String get tr_choose;
+
+  /// No description provided for @tr_format.
+  ///
+  /// In en, this message translates to:
+  /// **'Kind of list'**
+  String get tr_format;
+
+  /// No description provided for @tr_format_urls.
+  ///
+  /// In en, this message translates to:
+  /// **'One link per line'**
+  String get tr_format_urls;
+
+  /// No description provided for @tr_format_json.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm JSON'**
+  String get tr_format_json;
+
+  /// No description provided for @tr_format_aria2.
+  ///
+  /// In en, this message translates to:
+  /// **'aria2 input file'**
+  String get tr_format_aria2;
+
+  /// No description provided for @tr_default_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'The default queue'**
+  String get tr_default_queue;
+
+  /// No description provided for @tr_duplicates.
+  ///
+  /// In en, this message translates to:
+  /// **'Add duplicates too'**
+  String get tr_duplicates;
+
+  /// No description provided for @tr_duplicates_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Otherwise links that are already in the list are skipped.'**
+  String get tr_duplicates_desc;
+
+  /// No description provided for @tr_preview.
+  ///
+  /// In en, this message translates to:
+  /// **'Preview'**
+  String get tr_preview;
+
+  /// No description provided for @tr_preview_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Would add {ok}, would not add {failed}.'**
+  String tr_preview_summary(int ok, int failed);
+
+  /// No description provided for @tr_export_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Export downloads'**
+  String get tr_export_title;
+
+  /// No description provided for @tr_export_format.
+  ///
+  /// In en, this message translates to:
+  /// **'File kind to export'**
+  String get tr_export_format;
+
+  /// No description provided for @tr_export_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get tr_export_queue;
+
+  /// No description provided for @tr_all_queues.
+  ///
+  /// In en, this message translates to:
+  /// **'All queues'**
+  String get tr_all_queues;
+
+  /// No description provided for @tr_export_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Which downloads'**
+  String get tr_export_status;
+
+  /// No description provided for @tr_all_statuses.
+  ///
+  /// In en, this message translates to:
+  /// **'All of them'**
+  String get tr_all_statuses;
+
+  /// No description provided for @tr_export.
+  ///
+  /// In en, this message translates to:
+  /// **'Export'**
+  String get tr_export;
+
+  /// No description provided for @tr_export_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 download} other{{count} downloads}}'**
+  String tr_export_count(int count);
+
+  /// No description provided for @tr_export_text.
+  ///
+  /// In en, this message translates to:
+  /// **'The exported list'**
+  String get tr_export_text;
 }
 
 class _AppLocalizationsDelegate

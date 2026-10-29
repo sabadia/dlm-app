@@ -2537,4 +2537,88 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get br_tools_title => 'Programs';
+
+  @override
+  String get nav_manage_transfer => 'Import and export';
+
+  @override
+  String get tr_intro =>
+      'Add many downloads from a list, or write your downloads out as a list. Nothing is added until you have seen what would happen.';
+
+  @override
+  String get tr_import_title => 'Import a list';
+
+  @override
+  String get tr_list => 'The list';
+
+  @override
+  String get tr_list_desc => 'Paste it here, or choose a file.';
+
+  @override
+  String get tr_choose => 'Choose a file…';
+
+  @override
+  String get tr_format => 'Kind of list';
+
+  @override
+  String get tr_format_urls => 'One link per line';
+
+  @override
+  String get tr_format_json => 'dlm JSON';
+
+  @override
+  String get tr_format_aria2 => 'aria2 input file';
+
+  @override
+  String get tr_default_queue => 'The default queue';
+
+  @override
+  String get tr_duplicates => 'Add duplicates too';
+
+  @override
+  String get tr_duplicates_desc =>
+      'Otherwise links that are already in the list are skipped.';
+
+  @override
+  String get tr_preview => 'Preview';
+
+  @override
+  String tr_preview_summary(int ok, int failed) {
+    return 'Would add $ok, would not add $failed.';
+  }
+
+  @override
+  String get tr_export_title => 'Export downloads';
+
+  @override
+  String get tr_export_format => 'File kind to export';
+
+  @override
+  String get tr_export_queue => 'Queue';
+
+  @override
+  String get tr_all_queues => 'All queues';
+
+  @override
+  String get tr_export_status => 'Which downloads';
+
+  @override
+  String get tr_all_statuses => 'All of them';
+
+  @override
+  String get tr_export => 'Export';
+
+  @override
+  String tr_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get tr_export_text => 'The exported list';
 }

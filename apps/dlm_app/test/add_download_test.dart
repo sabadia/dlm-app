@@ -57,6 +57,13 @@ class FakeAdd implements AddRepository {
       );
 
   @override
+  Future<ExportedTasks> exportTasks(
+    Format2 format, {
+    String? queueId,
+    Set<String> statuses = const {},
+  }) async => ExportedTasks(content: 'x', count: 1, format: format.json ?? '');
+
+  @override
   Future<FsListing> browse(String? path) async => FsListing(
     path: path ?? '',
     parent: path == null || path == '/data' ? null : '/data',

@@ -1536,5 +1536,46 @@
   "br_state_running": "Running",
   "br_state_none": "None",
   "br_state_max": "At most at once",
-  "br_tools_title": "Programs"
+  "br_tools_title": "Programs",
+  "nav_manage_transfer": "Import and export",
+  "tr_intro": "Add many downloads from a list, or write your downloads out as a list. Nothing is added until you have seen what would happen.",
+  "tr_import_title": "Import a list",
+  "tr_list": "The list",
+  "tr_list_desc": "Paste it here, or choose a file.",
+  "tr_choose": "Choose a file…",
+  "tr_format": "Kind of list",
+  "tr_format_urls": "One link per line",
+  "tr_format_json": "dlm JSON",
+  "tr_format_aria2": "aria2 input file",
+  "tr_default_queue": "The default queue",
+  "tr_duplicates": "Add duplicates too",
+  "tr_duplicates_desc": "Otherwise links that are already in the list are skipped.",
+  "tr_preview": "Preview",
+  "tr_preview_summary": "Would add {ok}, would not add {failed}.",
+  "@tr_preview_summary": {
+    "placeholders": {
+      "ok": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "tr_export_title": "Export downloads",
+  "tr_export_format": "File kind to export",
+  "tr_export_queue": "Queue",
+  "tr_all_queues": "All queues",
+  "tr_export_status": "Which downloads",
+  "tr_all_statuses": "All of them",
+  "tr_export": "Export",
+  "tr_export_count": "{count, plural, one{1 download} other{{count} downloads}}",
+  "@tr_export_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tr_export_text": "The exported list"
 }
