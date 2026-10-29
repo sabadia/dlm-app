@@ -44,9 +44,10 @@ trap 'rm -rf "$work" packaging/linux/io.github.sabadia.dlm.metainfo.xml.rendered
 
 # .deb and .rpm
 if command -v nfpm >/dev/null 2>&1; then
-  export VERSION="$version" BUNDLE="$bundle" NFPM_ARCH=amd64
-  nfpm package -p deb -f packaging/linux/nfpm.yaml -t "$out/DLM_${version}_linux_amd64.deb"
-  nfpm package -p rpm -f packaging/linux/nfpm.yaml -t "$out/DLM_${version}_linux_x86_64.rpm"
+  sed -e "s,@ARCH@,amd64," -e "s,@VERSION@,$version," -e "s,@BUNDLE@,$bundle," \
+    packaging/linux/nfpm.yaml > "$work/nfpm.yaml"
+  nfpm package -p deb -f "$work/nfpm.yaml" -t "$out/DLM_${version}_linux_amd64.deb"
+  nfpm package -p rpm -f "$work/nfpm.yaml" -t "$out/DLM_${version}_linux_x86_64.rpm"
 else
   echo "nfpm is not installed: no .deb or .rpm" >&2
 fi

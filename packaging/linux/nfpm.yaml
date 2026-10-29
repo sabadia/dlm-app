@@ -1,9 +1,10 @@
-# .deb and .rpm of DLM, built by tools/package_linux.sh with nfpm. VERSION and
-# BUNDLE come from the environment.
+# .deb and .rpm of DLM, built by tools/package_linux.sh with nfpm. The script
+# fills in @ARCH@, @VERSION@ and @BUNDLE@ (nfpm does not expand variables in
+# the paths of its contents).
 name: dlm-app
-arch: ${NFPM_ARCH}
+arch: @ARCH@
 platform: linux
-version: ${VERSION}
+version: @VERSION@
 section: net
 priority: optional
 maintainer: sabadia <noreply@github.com>
@@ -20,7 +21,7 @@ recommends:
   - libkeybinder-3.0-0
   - ffmpeg
 contents:
-  - src: ${BUNDLE}
+  - src: @BUNDLE@
     dst: /opt/dlm
     type: tree
   - src: /opt/dlm/dlm_app

@@ -54,5 +54,8 @@ if [ "$ext" = zip ]; then unzip -oq "$asset"; else tar -xzf "$asset"; fi
 bin="$(find . -type f \( -name dlm -o -name dlm.exe \) | head -n 1)"
 test -n "$bin" || { echo "no dlm binary in $asset" >&2; exit 1; }
 chmod +x "$bin"
-echo "$(cd "$(dirname "$bin")" && pwd)/$(basename "$bin")"
+path="$(cd "$(dirname "$bin")" && pwd)/$(basename "$bin")"
+# Git Bash prints /c/... paths that Windows programs do not understand.
+if command -v cygpath >/dev/null 2>&1; then path="$(cygpath -m "$path")"; fi
+echo "$path"
 echo "dlm $version" >&2
