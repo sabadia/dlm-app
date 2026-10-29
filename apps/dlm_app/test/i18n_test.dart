@@ -1,8 +1,7 @@
-import 'dart:async';
-
 import 'package:dlm_app/src/app.dart';
 import 'package:dlm_app/src/manage/manage_screen.dart';
 import 'package:dlm_app/src/prefs/pref_providers.dart';
+import 'package:dlm_core/dlm_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,9 +21,12 @@ void main() {
         task('a', name: 'one.iso', engine: 'http', status: 'running'),
         task('b', name: 'two.iso', status: 'completed'),
       ],
+      overrides: [
+        languageProvider.overrideWith(
+          () => MemoryPref<String?>(UiPrefs.language, 'en_XA'),
+        ),
+      ],
     );
-    // Real file I/O never completes inside the test's fake-async zone.
-    unawaited(h.container.read(languageProvider.notifier).set('en_XA'));
     await settle(tester);
     return h;
   }

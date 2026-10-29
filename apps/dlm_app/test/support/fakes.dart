@@ -4,6 +4,7 @@ import 'dart:io' as io;
 
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/connection/local_daemon.dart';
+import 'package:dlm_app/src/prefs/pref_providers.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_platform/dlm_platform.dart';
 
@@ -323,4 +324,21 @@ class FakeDaemonService extends DaemonService {
     installed = false;
     return _status();
   }
+}
+
+/// A preference that lives only in memory. A test that changes a real one
+/// writes the preferences file in the background, and on Windows that file is
+/// still open when the test's folder is deleted.
+class MemoryPref<T> extends PrefNotifier<T> {
+  /// Creates the preference with [initial].
+  MemoryPref(super.pref, this.initial);
+
+  /// The value it starts with.
+  final T initial;
+
+  @override
+  T build() => initial;
+
+  @override
+  Future<void> set(T value) async => state = value;
 }

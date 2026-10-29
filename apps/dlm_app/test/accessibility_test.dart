@@ -46,13 +46,15 @@ void main() {
             task('b', name: 'movie.mkv', status: 'completed'),
             task('c', name: 'broken.zip', status: 'error'),
           ],
-          overrides: [skinProvider.overrideWithValue(skins[id]!)],
-        );
-        // Real file I/O never completes inside the test's fake-async zone.
-        unawaited(
-          h.container
-              .read(themeChoiceProvider.notifier)
-              .set(dark ? ThemeChoice.dark : ThemeChoice.light),
+          overrides: [
+            skinProvider.overrideWithValue(skins[id]!),
+            themeChoiceProvider.overrideWith(
+              () => MemoryPref(
+                UiPrefs.theme,
+                dark ? ThemeChoice.dark : ThemeChoice.light,
+              ),
+            ),
+          ],
         );
         await settle(tester);
         return h;
