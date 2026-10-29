@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io' as io;
 
 import 'package:dlm_api/dlm_api.dart';
@@ -336,30 +337,43 @@ SystemInfo systemInfo(List<ToolStatus> tools) => SystemInfo(
   version: '0.2.1',
 );
 
-/// Global settings in memory that record the patches sent to them.
+/// Global settings in memory that record the patches sent to them. A patch
+/// is applied as an RFC 7396 merge patch; [failWith] makes the next one fail.
 class FakeGlobalSettings extends GlobalSettingsController {
-  FakeGlobalSettings({String? downloadDir})
-    : _dir = downloadDir ?? '/Users/test/Downloads';
+  FakeGlobalSettings({
+    String? downloadDir,
+    Settings? stored,
+    Settings? defaults,
+    this.failWith,
+  }) : _stored =
+           stored ??
+           Settings(downloadDir: downloadDir ?? '/Users/test/Downloads'),
+       _defaults =
+           defaults ?? const Settings(downloadDir: '/Users/test/Downloads');
 
-  String _dir;
+  Settings _stored;
+  final Settings _defaults;
+  ApiProblem? failWith;
   final List<Map<String, Object?>> patches = [];
 
+  GlobalSettings get _value =>
+      GlobalSettings(settings: _stored, defaults: _defaults);
+
   @override
-  Future<GlobalSettings> build() async => GlobalSettings(
-    settings: Settings(downloadDir: _dir),
-    defaults: const Settings(downloadDir: '/Users/test/Downloads'),
-  );
+  Future<GlobalSettings> build() async => _value;
 
   @override
   Future<void> patch(Map<String, Object?> mergePatch) async {
     patches.add(mergePatch);
-    _dir = mergePatch['downloadDir']! as String;
-    state = AsyncData(
-      GlobalSettings(
-        settings: Settings(downloadDir: _dir),
-        defaults: const Settings(downloadDir: '/Users/test/Downloads'),
-      ),
-    );
+    final problem = failWith;
+    if (problem != null) {
+      failWith = null;
+      throw problem;
+    }
+    final json =
+        jsonDecode(jsonEncode(_stored.toJson())) as Map<String, Object?>;
+    _stored = Settings.fromJson(applyMergePatch(json, mergePatch));
+    state = AsyncData(_value);
   }
 }
 

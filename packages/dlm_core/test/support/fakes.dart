@@ -187,5 +187,6 @@ class FakeTaskRepository implements TaskRepository {
     String? name,
     String? dir,
     UpdateTaskBodyPriority? priority,
+    Map<String, Object?>? settings,
   }) async => task(id);
 }

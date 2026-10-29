@@ -1623,4 +1623,78 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get display_menu => 'Display';
+
+  @override
+  String get settings_search => 'Search settings';
+
+  @override
+  String get settings_save => 'Save';
+
+  @override
+  String get settings_revert => 'Revert';
+
+  @override
+  String get settings_saved => 'Settings saved';
+
+  @override
+  String get settings_unsaved => 'Unsaved changes';
+
+  @override
+  String get settings_no_match => 'No setting matches your search.';
+
+  @override
+  String get settings_changed_elsewhere =>
+      'The settings were changed somewhere else. Their version is shown now; make your changes again.';
+
+  @override
+  String get settings_level_default => 'Default';
+
+  @override
+  String get settings_level_global => 'Global';
+
+  @override
+  String get settings_level_queue => 'Queue';
+
+  @override
+  String get settings_level_task => 'This download';
+
+  @override
+  String get settings_restart => 'Needs restart';
+
+  @override
+  String get settings_unset => 'Not set';
+
+  @override
+  String settings_reset(String name) {
+    return 'Reset $name to the inherited value';
+  }
+
+  @override
+  String get settings_invalid_size => 'Not a size, such as 10 MB or 512 K.';
+
+  @override
+  String get settings_invalid_number => 'Not a number in the allowed range.';
+
+  @override
+  String get settings_invalid_duration =>
+      'Use a duration like 30s, 5m or 1h30m.';
+
+  @override
+  String get settings_leave_title => 'Leave without saving?';
+
+  @override
+  String get settings_leave_message =>
+      'You changed settings that are not saved yet.';
+
+  @override
+  String get settings_leave_confirm => 'Leave';
+
+  @override
+  String get settings_leave_stay => 'Keep editing';
+
+  @override
+  String get nav_settings => 'Settings';
+
+  @override
+  String get insp_tab_settings => 'Settings';
 }

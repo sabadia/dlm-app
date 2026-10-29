@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io' as io;
 
 import 'package:dlm_api/dlm_api.dart';
@@ -118,6 +119,7 @@ Task task(
   String? engine,
   String? dir,
   String priority = 'normal',
+  Settings settings = const Settings(),
 }) => Task(
   createdAt: DateTime.utc(2026, 10, 29),
   downloaded: downloaded,
@@ -125,7 +127,7 @@ Task task(
   position: position,
   priority: priority,
   queueId: queueId,
-  settings: const Settings(),
+  settings: settings,
   size: size,
   source: const Source(
     currentUrl: 'http://example.test/file.bin',
@@ -256,5 +258,9 @@ class FakeTaskRepository implements TaskRepository {
     String? name,
     String? dir,
     UpdateTaskBodyPriority? priority,
-  }) => throw UnimplementedError();
+    Map<String, Object?>? settings,
+  }) async {
+    if (settings != null) calls.add('settings:$id:${jsonEncode(settings)}');
+    return tasks.firstWhere((t) => t.id == id);
+  }
 }

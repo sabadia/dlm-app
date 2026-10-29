@@ -2733,6 +2733,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Display'**
   String get display_menu;
+
+  /// No description provided for @settings_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search settings'**
+  String get settings_search;
+
+  /// No description provided for @settings_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get settings_save;
+
+  /// No description provided for @settings_revert.
+  ///
+  /// In en, this message translates to:
+  /// **'Revert'**
+  String get settings_revert;
+
+  /// No description provided for @settings_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings saved'**
+  String get settings_saved;
+
+  /// No description provided for @settings_unsaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Unsaved changes'**
+  String get settings_unsaved;
+
+  /// No description provided for @settings_no_match.
+  ///
+  /// In en, this message translates to:
+  /// **'No setting matches your search.'**
+  String get settings_no_match;
+
+  /// No description provided for @settings_changed_elsewhere.
+  ///
+  /// In en, this message translates to:
+  /// **'The settings were changed somewhere else. Their version is shown now; make your changes again.'**
+  String get settings_changed_elsewhere;
+
+  /// No description provided for @settings_level_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get settings_level_default;
+
+  /// No description provided for @settings_level_global.
+  ///
+  /// In en, this message translates to:
+  /// **'Global'**
+  String get settings_level_global;
+
+  /// No description provided for @settings_level_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get settings_level_queue;
+
+  /// No description provided for @settings_level_task.
+  ///
+  /// In en, this message translates to:
+  /// **'This download'**
+  String get settings_level_task;
+
+  /// No description provided for @settings_restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs restart'**
+  String get settings_restart;
+
+  /// No description provided for @settings_unset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get settings_unset;
+
+  /// No description provided for @settings_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset {name} to the inherited value'**
+  String settings_reset(String name);
+
+  /// No description provided for @settings_invalid_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a size, such as 10 MB or 512 K.'**
+  String get settings_invalid_size;
+
+  /// No description provided for @settings_invalid_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a number in the allowed range.'**
+  String get settings_invalid_number;
+
+  /// No description provided for @settings_invalid_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a duration like 30s, 5m or 1h30m.'**
+  String get settings_invalid_duration;
+
+  /// No description provided for @settings_leave_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving?'**
+  String get settings_leave_title;
+
+  /// No description provided for @settings_leave_message.
+  ///
+  /// In en, this message translates to:
+  /// **'You changed settings that are not saved yet.'**
+  String get settings_leave_message;
+
+  /// No description provided for @settings_leave_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get settings_leave_confirm;
+
+  /// No description provided for @settings_leave_stay.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get settings_leave_stay;
+
+  /// No description provided for @nav_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get nav_settings;
+
+  /// No description provided for @insp_tab_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get insp_tab_settings;
 }
 
 class _AppLocalizationsDelegate

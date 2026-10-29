@@ -15,6 +15,7 @@ import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
 import 'screens/downloads_screen.dart';
 import 'screens/queue_screen.dart';
+import 'settings/settings_screen.dart';
 import 'shell/app_shell.dart';
 import 'skin_registry.dart';
 
@@ -77,6 +78,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                   state.pathParameters['filter'],
                 )!,
               ),
+            ),
+          ),
+          GoRoute(
+            path: '/settings/:group',
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: ValueKey(state.uri.path),
+              child: SettingsScreen(group: state.pathParameters['group']!),
             ),
           ),
           GoRoute(

@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18677-723c-7621-8c42-303307659ccd
+status: draft
+created_at: '2026-10-29T07:02:17Z'
+updated_at: '2026-10-29T07:02:17Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Settings form engine built from the daemon''s settings schema: levels, provenance chips, reset-to-inherit, 422 field errors, unsaved guard, search; used for global pages and a per-download Settings tab (F4.1)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/settings/settings_form.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/settings/settings_draft.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/settings/settings_target.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

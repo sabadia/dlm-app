@@ -19,6 +19,7 @@ import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
 import '../routing/app_routes.dart';
 import '../screens/list_views.dart';
+import '../settings/settings_form.dart';
 import 'app_commands.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
@@ -79,6 +80,13 @@ class _AppShellState extends ConsumerState<AppShell> {
     List<Category> categories,
   ) {
     final segments = widget.location.pathSegments;
+    if (segments.length >= 2 && segments.first == 'settings') {
+      final group = segments[1];
+      return (
+        sidebarId: settingsSidebarId(group),
+        title: '${l.nav_settings}: ${humaniseSetting(group)}',
+      );
+    }
     if (segments.length >= 2 && segments.first == 'categories') {
       final id = segments[1];
       final name = categories.where((c) => c.id == id).firstOrNull?.name ?? id;
@@ -143,8 +151,24 @@ class _AppShellState extends ConsumerState<AppShell> {
     final sidebar = DlmSidebar<String>(
       semanticLabel: l.nav_label,
       selected: current.sidebarId,
-      onSelected: (id) {
-        if (id.startsWith('queue:')) {
+      onSelected: (id) async {
+        // Edits that were not saved are not thrown away without asking.
+        if (ref.read(unsavedSettingsProvider)) {
+          final leave = await showDlmConfirm(
+            context,
+            title: l.settings_leave_title,
+            message: l.settings_leave_message,
+            confirmLabel: l.settings_leave_confirm,
+            cancelLabel: l.settings_leave_stay,
+            destructive: true,
+          );
+          if (!leave || !context.mounted) return;
+          ref.read(unsavedSettingsProvider.notifier).mark(dirty: false);
+        }
+        if (!context.mounted) return;
+        if (id.startsWith('settings:')) {
+          context.go(settingsPath(id.substring('settings:'.length)));
+        } else if (id.startsWith('queue:')) {
           context.go(queuePath(id.substring('queue:'.length)));
         } else if (id.startsWith('category:')) {
           context.go(categoryPath(id.substring('category:'.length)));
@@ -174,6 +198,17 @@ class _AppShellState extends ConsumerState<AppShell> {
                 label: filterLabel(l, f),
                 icon: DlmIcon(filterIcon(f)),
                 count: _positive(counts.count(statuses: f.statuses)),
+              ),
+          ],
+        ),
+        DlmSidebarSection(
+          title: l.nav_settings,
+          items: [
+            for (final g in settingsGroups)
+              DlmSidebarItem(
+                id: settingsSidebarId(g),
+                label: humaniseSetting(g),
+                icon: const DlmIcon(DlmIconName.settings),
               ),
           ],
         ),

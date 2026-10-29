@@ -966,5 +966,35 @@
   "view_density_comfortable": "Comfortable",
   "view_density_compact": "Compact",
   "view_columns": "Columns",
-  "display_menu": "Display"
+  "display_menu": "Display",
+  "settings_search": "Search settings",
+  "settings_save": "Save",
+  "settings_revert": "Revert",
+  "settings_saved": "Settings saved",
+  "settings_unsaved": "Unsaved changes",
+  "settings_no_match": "No setting matches your search.",
+  "settings_changed_elsewhere": "The settings were changed somewhere else. Their version is shown now; make your changes again.",
+  "settings_level_default": "Default",
+  "settings_level_global": "Global",
+  "settings_level_queue": "Queue",
+  "settings_level_task": "This download",
+  "settings_restart": "Needs restart",
+  "settings_unset": "Not set",
+  "settings_reset": "Reset {name} to the inherited value",
+  "@settings_reset": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_invalid_size": "Not a size, such as 10 MB or 512 K.",
+  "settings_invalid_number": "Not a number in the allowed range.",
+  "settings_invalid_duration": "Use a duration like 30s, 5m or 1h30m.",
+  "settings_leave_title": "Leave without saving?",
+  "settings_leave_message": "You changed settings that are not saved yet.",
+  "settings_leave_confirm": "Leave",
+  "settings_leave_stay": "Keep editing",
+  "nav_settings": "Settings",
+  "insp_tab_settings": "Settings"
 }
