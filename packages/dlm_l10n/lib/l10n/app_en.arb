@@ -953,5 +953,13 @@
       }
     }
   },
-  "nav_categories": "Categories"
+  "nav_categories": "Categories",
+  "drag_count": "{count, plural, one{1 download} other{{count} downloads}}",
+  "@drag_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

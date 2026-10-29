@@ -146,6 +146,8 @@ class DlmDataTable<T> extends StatefulWidget {
     this.onSelectionChanged,
     this.onRowActivated,
     this.onRowSecondaryTap,
+    this.dragData,
+    this.dragFeedback,
     this.scrollController,
     this.emptyState,
     super.key,
@@ -200,6 +202,13 @@ class DlmDataTable<T> extends StatefulWidget {
   /// index and the global position for a context menu.
   final void Function(int index, T row, Offset globalPosition)?
   onRowSecondaryTap;
+
+  /// What dragging the row at an index carries to a drop target (for example
+  /// the ids of the selection); null makes the row not draggable.
+  final Object? Function(int index, T row)? dragData;
+
+  /// The picture that follows the pointer while a row is dragged.
+  final Widget Function(BuildContext context, Object data)? dragFeedback;
 
   /// Controls the vertical scroll position.
   final ScrollController? scrollController;
@@ -531,6 +540,10 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
       onDoubleTap: widget.onRowActivated == null
           ? null
           : () => widget.onRowActivated!(row),
+      dragData: widget.dragData == null
+          ? null
+          : () => widget.dragData!(index, row),
+      dragFeedback: widget.dragFeedback,
       onSecondaryTap: widget.onRowSecondaryTap == null
           ? null
           : (pos) {
@@ -605,6 +618,8 @@ class _RowFrame extends StatefulWidget {
     required this.onDoubleTap,
     required this.onSecondaryTap,
     required this.builder,
+    this.dragData,
+    this.dragFeedback,
   });
 
   final int index;
@@ -615,6 +630,8 @@ class _RowFrame extends StatefulWidget {
   final String label;
   final bool selectable;
   final VoidCallback onTap;
+  final Object? Function()? dragData;
+  final Widget Function(BuildContext context, Object data)? dragFeedback;
   final VoidCallback? onDoubleTap;
   final void Function(Offset globalPosition)? onSecondaryTap;
   final Widget Function(BuildContext, DlmStates) builder;
@@ -666,6 +683,13 @@ class _RowFrameState extends State<_RowFrame> {
     super.dispose();
   }
 
+  /// Makes the row draggable sideways, so vertical scrolling is untouched.
+  Widget _draggable(Widget child) {
+    final data = widget.dragData?.call();
+    if (data == null) return child;
+    return _RowDrag(data: data, feedback: widget.dragFeedback, child: child);
+  }
+
   @override
   Widget build(BuildContext context) {
     final focusVisible =
@@ -691,13 +715,15 @@ class _RowFrameState extends State<_RowFrame> {
           },
           child: DlmDoubleClick(
             onDoubleClick: widget.onDoubleTap,
-            child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
-              onTap: widget.onTap,
-              onSecondaryTapUp: widget.onSecondaryTap == null
-                  ? null
-                  : (d) => widget.onSecondaryTap!(d.globalPosition),
-              child: widget.builder(context, states),
+            child: _draggable(
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: widget.onTap,
+                onSecondaryTapUp: widget.onSecondaryTap == null
+                    ? null
+                    : (d) => widget.onSecondaryTap!(d.globalPosition),
+                child: widget.builder(context, states),
+              ),
             ),
           ),
         ),
@@ -808,6 +834,31 @@ class _HeaderCell<T> extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+/// Drags [data] to a drop target when the pointer moves sideways (vertical
+/// movement is left to scrolling).
+class _RowDrag extends StatelessWidget {
+  const _RowDrag({required this.data, required this.child, this.feedback});
+
+  final Object data;
+  final Widget Function(BuildContext context, Object data)? feedback;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final picture = feedback;
+    return Draggable<Object>(
+      affinity: Axis.horizontal,
+      maxSimultaneousDrags: 1,
+      dragAnchorStrategy: pointerDragAnchorStrategy,
+      data: data,
+      feedback: picture == null
+          ? const SizedBox.shrink()
+          : IgnorePointer(child: picture(context, data)),
+      child: child,
     );
   }
 }

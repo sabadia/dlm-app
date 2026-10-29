@@ -109,6 +109,30 @@ class DownloadsScreen extends ConsumerWidget {
       onSelectionChanged: (ids) => ref.read(selectionProvider.notifier).set({
         for (final id in ids) id as String,
       }),
+      // Dragging a selected row carries the whole selection, any other row
+      // only itself.
+      dragData: (_, task) => TaskDragData(
+        selection.contains(task.id) ? selection.toList() : [task.id],
+      ),
+      dragFeedback: (context, data) {
+        final theme = DlmTheme.of(context);
+        final count = (data as TaskDragData).ids.length;
+        return DecoratedBox(
+          decoration: BoxDecoration(
+            color: theme.colors.accent,
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            child: Text(
+              l.drag_count(count),
+              style: theme.typography.body.copyWith(
+                color: theme.colors.textOnAccent,
+              ),
+            ),
+          ),
+        );
+      },
       onRowSecondaryTap: (index, task, position) => showDlmContextMenu(
         context,
         position,

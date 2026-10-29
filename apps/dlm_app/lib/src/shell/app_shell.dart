@@ -197,6 +197,12 @@ class _AppShellState extends ConsumerState<AppShell> {
                   label: q.name,
                   icon: const DlmIcon(DlmIconName.queue),
                   count: _positive(counts.open(q.id)),
+                  // Downloads dropped on a queue move to it.
+                  onDrop: (data) {
+                    if (data is! TaskDragData) return false;
+                    unawaited(moveTasksToQueue(context, ref, data.ids, q));
+                    return true;
+                  },
                 ),
             ],
           ),

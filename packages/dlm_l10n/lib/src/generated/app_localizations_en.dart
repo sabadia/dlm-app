@@ -1597,4 +1597,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nav_categories => 'Categories';
+
+  @override
+  String drag_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0';
+  }
 }

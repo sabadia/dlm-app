@@ -14,6 +14,7 @@ class DlmSidebarItem<T> {
     this.icon,
     this.count,
     this.trailing,
+    this.onDrop,
   });
 
   /// The value reported when the item is chosen.
@@ -31,6 +32,10 @@ class DlmSidebarItem<T> {
 
   /// A custom trailing widget (overrides [count]).
   final Widget? trailing;
+
+  /// Called with what was dropped on the item; returns whether it was taken.
+  /// Null makes the item no drop target.
+  final bool Function(Object data)? onDrop;
 }
 
 /// A titled group of sidebar items.
@@ -148,7 +153,7 @@ class DlmSidebar<T> extends StatelessWidget {
     final isSelected = item.id == selected;
     final gap = SizedBox(width: theme.metrics.spacing.sm);
     final count = item.count;
-    return DlmInteractive(
+    final row = DlmInteractive(
       role: DlmRole.item,
       selected: isSelected,
       semanticLabel: count == null || count == 0
@@ -175,6 +180,25 @@ class DlmSidebar<T> extends StatelessWidget {
               DlmBadge(label: count > 999 ? '999+' : '$count'),
           ],
         ),
+      ),
+    );
+    final drop = item.onDrop;
+    if (drop == null) return row;
+    return DragTarget<Object>(
+      onWillAcceptWithDetails: (_) => true,
+      onAcceptWithDetails: (d) => drop(d.data),
+      builder: (context, candidates, _) => DecoratedBox(
+        decoration: BoxDecoration(
+          // The item that would take the drop is outlined.
+          border: Border.all(
+            color: candidates.isEmpty
+                ? const Color(0x00000000)
+                : theme.colors.accent,
+            width: 2,
+          ),
+          borderRadius: BorderRadius.circular(6),
+        ),
+        child: row,
       ),
     );
   }

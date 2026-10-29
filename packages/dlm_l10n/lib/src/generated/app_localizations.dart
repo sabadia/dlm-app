@@ -2697,6 +2697,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Categories'**
   String get nav_categories;
+
+  /// No description provided for @drag_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 download} other{{count} downloads}}'**
+  String drag_count(int count);
 }
 
 class _AppLocalizationsDelegate
