@@ -1665,5 +1665,149 @@
         "type": "int"
       }
     }
-  }
+  },
+  "nav_manage_daemon": "Daemon",
+  "dm_intro": "How the download service itself starts: where it listens, its engines and programs, its logging. Most changes take effect after a restart.",
+  "dm_file": "Read from {file}",
+  "@dm_file": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_file_error": "The configuration file has a problem: {error}",
+  "@dm_file_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_pending_title": "A restart is needed",
+  "dm_pending_message": "Some saved changes are waiting for the daemon to restart.",
+  "dm_restart_now": "Restart now",
+  "dm_pending_value": "after the restart: {value}",
+  "@dm_pending_value": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_read_only": "set by a flag or the environment",
+  "dm_saved": "Configuration saved",
+  "dm_needs_restart": "These changes take effect after a restart.",
+  "dm_restart_title": "Restart the daemon?",
+  "dm_restart_message": "Downloads that are running are requeued and start again afterwards.",
+  "dm_restart_confirm": "Restart",
+  "dm_restarting": "The daemon is restarting",
+  "dm_log_title": "Log",
+  "nav_manage_access": "Access",
+  "ac_identity": "This app",
+  "ac_signed_in": "Signed in as",
+  "ac_who": "{name} ({scope}, {kind})",
+  "@ac_who": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "scope": {
+        "type": "String"
+      },
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_scope_admin": "can change everything",
+  "ac_scope_read": "read only",
+  "ac_primary": "the main token",
+  "ac_named": "a named token",
+  "ac_rotate": "Replace the main token",
+  "ac_rotate_desc": "Makes a new main token and stops the old one working at once.",
+  "ac_rotate_title": "Replace the main token?",
+  "ac_rotate_message": "Every client that uses the old token, such as a browser extension or a script, stops working until it is given the new one. This app is signed in again automatically.",
+  "ac_rotate_confirm": "Replace it",
+  "ac_rotated_title": "The new main token",
+  "ac_tokens": "Named tokens",
+  "ac_tokens_desc": "Give a dashboard, a script or another device a token of its own, and revoke it when it is no longer needed.",
+  "ac_tokens_none": "No named tokens.",
+  "ac_tokens_error": "The tokens could not be listed.",
+  "ac_add": "Add a token",
+  "ac_add_title": "Add a token",
+  "ac_name": "Name",
+  "ac_name_hint": "dashboard",
+  "ac_scope": "Can",
+  "ac_scope_desc": "A read-only token can look at everything except cookies, and change nothing.",
+  "ac_create": "Create",
+  "ac_created_title": "The token {name}",
+  "@ac_created_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_created": "created {date}",
+  "@ac_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_never_used": "never used",
+  "ac_last_used": "last used {date}",
+  "@ac_last_used": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete": "Revoke the token {name}",
+  "@ac_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete_title": "Revoke the token {name}?",
+  "@ac_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete_message": "Whatever uses it stops working.",
+  "ac_delete_confirm": "Revoke token",
+  "ac_secret_once": "This is the only time the token is shown. Copy it now and keep it somewhere safe.",
+  "ac_secret_done": "I have copied it",
+  "ac_secret_gone": "The token is not shown again",
+  "ac_nh_title": "Browser extension",
+  "ac_nh_desc": "The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.",
+  "ac_nh_origins": "Allowed extensions",
+  "ac_nh_no_origins": "None yet",
+  "ac_nh_error": "The extension host cannot be managed from here.",
+  "ac_nh_ids": "Extension IDs",
+  "ac_nh_ids_desc": "Separated by commas or spaces. Needed to install.",
+  "ac_nh_install": "Install for all browsers",
+  "ac_nh_remove": "Remove",
+  "ac_nh_done": "{count, plural, one{Done for 1 browser} other{Done for {count} browsers}}",
+  "@ac_nh_done": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ac_mcp_title": "Assistants (MCP)",
+  "ac_mcp_desc": "An AI assistant that speaks the Model Context Protocol can add and manage downloads. It signs in with a token.",
+  "ac_mcp_url": "Address",
+  "ac_mcp_claude": "Claude Code",
+  "ac_mcp_json": "Settings file (JSON)",
+  "ac_mcp_token_note": "Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything."
 }

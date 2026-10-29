@@ -30,6 +30,7 @@ export 'src/stores/entity_store.dart';
 export 'src/sync/sync_engine.dart';
 export 'src/tasks/add_repository.dart';
 export 'src/tasks/browser_repository.dart';
+export 'src/tasks/daemon_repository.dart';
 export 'src/tasks/refresh_repository.dart';
 export 'src/tasks/stats_repository.dart';
 export 'src/tasks/task_actions.dart';

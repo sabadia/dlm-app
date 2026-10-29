@@ -10,6 +10,7 @@ import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
 import 'tasks/add_repository.dart';
 import 'tasks/browser_repository.dart';
+import 'tasks/daemon_repository.dart';
 import 'tasks/refresh_repository.dart';
 import 'tasks/stats_repository.dart';
 import 'tasks/task_actions.dart';
@@ -206,6 +207,11 @@ final cookiesProvider =
 /// Download statistics (read again when invalidated).
 final statsProvider = FutureProvider<StatsBody>(
   (ref) => guard(ref.watch(apiProvider).rest.tasks.getStats),
+);
+
+/// The daemon's own configuration, log, tokens and native host.
+final daemonRepositoryProvider = Provider<DaemonRepository>(
+  (ref) => ApiDaemonRepository(ref.watch(apiProvider)),
 );
 
 /// Traffic over time and the cleanup of old downloads.

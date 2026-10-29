@@ -4641,6 +4641,414 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Removed {deleted}; {failed} could not be removed'**
   String st_cleanup_done_failed(int deleted, int failed);
+
+  /// No description provided for @nav_manage_daemon.
+  ///
+  /// In en, this message translates to:
+  /// **'Daemon'**
+  String get nav_manage_daemon;
+
+  /// No description provided for @dm_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'How the download service itself starts: where it listens, its engines and programs, its logging. Most changes take effect after a restart.'**
+  String get dm_intro;
+
+  /// No description provided for @dm_file.
+  ///
+  /// In en, this message translates to:
+  /// **'Read from {file}'**
+  String dm_file(String file);
+
+  /// No description provided for @dm_file_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The configuration file has a problem: {error}'**
+  String dm_file_error(String error);
+
+  /// No description provided for @dm_pending_title.
+  ///
+  /// In en, this message translates to:
+  /// **'A restart is needed'**
+  String get dm_pending_title;
+
+  /// No description provided for @dm_pending_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Some saved changes are waiting for the daemon to restart.'**
+  String get dm_pending_message;
+
+  /// No description provided for @dm_restart_now.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart now'**
+  String get dm_restart_now;
+
+  /// No description provided for @dm_pending_value.
+  ///
+  /// In en, this message translates to:
+  /// **'after the restart: {value}'**
+  String dm_pending_value(String value);
+
+  /// No description provided for @dm_read_only.
+  ///
+  /// In en, this message translates to:
+  /// **'set by a flag or the environment'**
+  String get dm_read_only;
+
+  /// No description provided for @dm_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Configuration saved'**
+  String get dm_saved;
+
+  /// No description provided for @dm_needs_restart.
+  ///
+  /// In en, this message translates to:
+  /// **'These changes take effect after a restart.'**
+  String get dm_needs_restart;
+
+  /// No description provided for @dm_restart_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart the daemon?'**
+  String get dm_restart_title;
+
+  /// No description provided for @dm_restart_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads that are running are requeued and start again afterwards.'**
+  String get dm_restart_message;
+
+  /// No description provided for @dm_restart_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart'**
+  String get dm_restart_confirm;
+
+  /// No description provided for @dm_restarting.
+  ///
+  /// In en, this message translates to:
+  /// **'The daemon is restarting'**
+  String get dm_restarting;
+
+  /// No description provided for @dm_log_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Log'**
+  String get dm_log_title;
+
+  /// No description provided for @nav_manage_access.
+  ///
+  /// In en, this message translates to:
+  /// **'Access'**
+  String get nav_manage_access;
+
+  /// No description provided for @ac_identity.
+  ///
+  /// In en, this message translates to:
+  /// **'This app'**
+  String get ac_identity;
+
+  /// No description provided for @ac_signed_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as'**
+  String get ac_signed_in;
+
+  /// No description provided for @ac_who.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} ({scope}, {kind})'**
+  String ac_who(String name, String scope, String kind);
+
+  /// No description provided for @ac_scope_admin.
+  ///
+  /// In en, this message translates to:
+  /// **'can change everything'**
+  String get ac_scope_admin;
+
+  /// No description provided for @ac_scope_read.
+  ///
+  /// In en, this message translates to:
+  /// **'read only'**
+  String get ac_scope_read;
+
+  /// No description provided for @ac_primary.
+  ///
+  /// In en, this message translates to:
+  /// **'the main token'**
+  String get ac_primary;
+
+  /// No description provided for @ac_named.
+  ///
+  /// In en, this message translates to:
+  /// **'a named token'**
+  String get ac_named;
+
+  /// No description provided for @ac_rotate.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the main token'**
+  String get ac_rotate;
+
+  /// No description provided for @ac_rotate_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Makes a new main token and stops the old one working at once.'**
+  String get ac_rotate_desc;
+
+  /// No description provided for @ac_rotate_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the main token?'**
+  String get ac_rotate_title;
+
+  /// No description provided for @ac_rotate_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Every client that uses the old token, such as a browser extension or a script, stops working until it is given the new one. This app is signed in again automatically.'**
+  String get ac_rotate_message;
+
+  /// No description provided for @ac_rotate_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace it'**
+  String get ac_rotate_confirm;
+
+  /// No description provided for @ac_rotated_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The new main token'**
+  String get ac_rotated_title;
+
+  /// No description provided for @ac_tokens.
+  ///
+  /// In en, this message translates to:
+  /// **'Named tokens'**
+  String get ac_tokens;
+
+  /// No description provided for @ac_tokens_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Give a dashboard, a script or another device a token of its own, and revoke it when it is no longer needed.'**
+  String get ac_tokens_desc;
+
+  /// No description provided for @ac_tokens_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No named tokens.'**
+  String get ac_tokens_none;
+
+  /// No description provided for @ac_tokens_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The tokens could not be listed.'**
+  String get ac_tokens_error;
+
+  /// No description provided for @ac_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a token'**
+  String get ac_add;
+
+  /// No description provided for @ac_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a token'**
+  String get ac_add_title;
+
+  /// No description provided for @ac_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get ac_name;
+
+  /// No description provided for @ac_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'dashboard'**
+  String get ac_name_hint;
+
+  /// No description provided for @ac_scope.
+  ///
+  /// In en, this message translates to:
+  /// **'Can'**
+  String get ac_scope;
+
+  /// No description provided for @ac_scope_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A read-only token can look at everything except cookies, and change nothing.'**
+  String get ac_scope_desc;
+
+  /// No description provided for @ac_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get ac_create;
+
+  /// No description provided for @ac_created_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The token {name}'**
+  String ac_created_title(String name);
+
+  /// No description provided for @ac_created.
+  ///
+  /// In en, this message translates to:
+  /// **'created {date}'**
+  String ac_created(String date);
+
+  /// No description provided for @ac_never_used.
+  ///
+  /// In en, this message translates to:
+  /// **'never used'**
+  String get ac_never_used;
+
+  /// No description provided for @ac_last_used.
+  ///
+  /// In en, this message translates to:
+  /// **'last used {date}'**
+  String ac_last_used(String date);
+
+  /// No description provided for @ac_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke the token {name}'**
+  String ac_delete(String name);
+
+  /// No description provided for @ac_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke the token {name}?'**
+  String ac_delete_title(String name);
+
+  /// No description provided for @ac_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Whatever uses it stops working.'**
+  String get ac_delete_message;
+
+  /// No description provided for @ac_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke token'**
+  String get ac_delete_confirm;
+
+  /// No description provided for @ac_secret_once.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the only time the token is shown. Copy it now and keep it somewhere safe.'**
+  String get ac_secret_once;
+
+  /// No description provided for @ac_secret_done.
+  ///
+  /// In en, this message translates to:
+  /// **'I have copied it'**
+  String get ac_secret_done;
+
+  /// No description provided for @ac_secret_gone.
+  ///
+  /// In en, this message translates to:
+  /// **'The token is not shown again'**
+  String get ac_secret_gone;
+
+  /// No description provided for @ac_nh_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser extension'**
+  String get ac_nh_title;
+
+  /// No description provided for @ac_nh_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.'**
+  String get ac_nh_desc;
+
+  /// No description provided for @ac_nh_origins.
+  ///
+  /// In en, this message translates to:
+  /// **'Allowed extensions'**
+  String get ac_nh_origins;
+
+  /// No description provided for @ac_nh_no_origins.
+  ///
+  /// In en, this message translates to:
+  /// **'None yet'**
+  String get ac_nh_no_origins;
+
+  /// No description provided for @ac_nh_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The extension host cannot be managed from here.'**
+  String get ac_nh_error;
+
+  /// No description provided for @ac_nh_ids.
+  ///
+  /// In en, this message translates to:
+  /// **'Extension IDs'**
+  String get ac_nh_ids;
+
+  /// No description provided for @ac_nh_ids_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Separated by commas or spaces. Needed to install.'**
+  String get ac_nh_ids_desc;
+
+  /// No description provided for @ac_nh_install.
+  ///
+  /// In en, this message translates to:
+  /// **'Install for all browsers'**
+  String get ac_nh_install;
+
+  /// No description provided for @ac_nh_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get ac_nh_remove;
+
+  /// No description provided for @ac_nh_done.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Done for 1 browser} other{Done for {count} browsers}}'**
+  String ac_nh_done(int count);
+
+  /// No description provided for @ac_mcp_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Assistants (MCP)'**
+  String get ac_mcp_title;
+
+  /// No description provided for @ac_mcp_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'An AI assistant that speaks the Model Context Protocol can add and manage downloads. It signs in with a token.'**
+  String get ac_mcp_desc;
+
+  /// No description provided for @ac_mcp_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get ac_mcp_url;
+
+  /// No description provided for @ac_mcp_claude.
+  ///
+  /// In en, this message translates to:
+  /// **'Claude Code'**
+  String get ac_mcp_claude;
+
+  /// No description provided for @ac_mcp_json.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings file (JSON)'**
+  String get ac_mcp_json;
+
+  /// No description provided for @ac_mcp_token_note.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.'**
+  String get ac_mcp_token_note;
 }
 
 class _AppLocalizationsDelegate

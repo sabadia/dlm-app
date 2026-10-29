@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 
+import 'access_screen.dart';
 import 'browser_screen.dart';
 import 'categories_screen.dart';
 import 'cookies_screen.dart';
+import 'daemon_screen.dart';
 import 'logins_screen.dart';
 import 'plugins_screen.dart';
 import 'statistics_screen.dart';
@@ -19,6 +21,8 @@ const List<String> managePages = [
   'browser',
   'transfer',
   'statistics',
+  'daemon',
+  'access',
 ];
 
 /// One management page.
@@ -39,6 +43,8 @@ class ManageScreen extends StatelessWidget {
     'browser' => const BrowserScreen(),
     'transfer' => const TransferScreen(),
     'statistics' => const StatisticsScreen(),
+    'daemon' => const DaemonScreen(),
+    'access' => const AccessScreen(),
     _ => const SizedBox.shrink(),
   };
 }

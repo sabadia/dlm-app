@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18699-1328-73f0-8e8e-dd31b6c1b61e
+status: draft
+created_at: '2026-10-29T07:39:01Z'
+updated_at: '2026-10-29T07:39:01Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Daemon page (boot config editor, restart flow, log) and Access page (tokens, rotate, native host, MCP settings) (F4.10, uses P13.2, P13.3, P13.12, P13.13)
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/manage/daemon_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/access_screen.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/daemon_repository.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

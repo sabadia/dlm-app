@@ -2766,4 +2766,246 @@ class AppLocalizationsEn extends AppLocalizations {
   String st_cleanup_done_failed(int deleted, int failed) {
     return 'Removed $deleted; $failed could not be removed';
   }
+
+  @override
+  String get nav_manage_daemon => 'Daemon';
+
+  @override
+  String get dm_intro =>
+      'How the download service itself starts: where it listens, its engines and programs, its logging. Most changes take effect after a restart.';
+
+  @override
+  String dm_file(String file) {
+    return 'Read from $file';
+  }
+
+  @override
+  String dm_file_error(String error) {
+    return 'The configuration file has a problem: $error';
+  }
+
+  @override
+  String get dm_pending_title => 'A restart is needed';
+
+  @override
+  String get dm_pending_message =>
+      'Some saved changes are waiting for the daemon to restart.';
+
+  @override
+  String get dm_restart_now => 'Restart now';
+
+  @override
+  String dm_pending_value(String value) {
+    return 'after the restart: $value';
+  }
+
+  @override
+  String get dm_read_only => 'set by a flag or the environment';
+
+  @override
+  String get dm_saved => 'Configuration saved';
+
+  @override
+  String get dm_needs_restart => 'These changes take effect after a restart.';
+
+  @override
+  String get dm_restart_title => 'Restart the daemon?';
+
+  @override
+  String get dm_restart_message =>
+      'Downloads that are running are requeued and start again afterwards.';
+
+  @override
+  String get dm_restart_confirm => 'Restart';
+
+  @override
+  String get dm_restarting => 'The daemon is restarting';
+
+  @override
+  String get dm_log_title => 'Log';
+
+  @override
+  String get nav_manage_access => 'Access';
+
+  @override
+  String get ac_identity => 'This app';
+
+  @override
+  String get ac_signed_in => 'Signed in as';
+
+  @override
+  String ac_who(String name, String scope, String kind) {
+    return '$name ($scope, $kind)';
+  }
+
+  @override
+  String get ac_scope_admin => 'can change everything';
+
+  @override
+  String get ac_scope_read => 'read only';
+
+  @override
+  String get ac_primary => 'the main token';
+
+  @override
+  String get ac_named => 'a named token';
+
+  @override
+  String get ac_rotate => 'Replace the main token';
+
+  @override
+  String get ac_rotate_desc =>
+      'Makes a new main token and stops the old one working at once.';
+
+  @override
+  String get ac_rotate_title => 'Replace the main token?';
+
+  @override
+  String get ac_rotate_message =>
+      'Every client that uses the old token, such as a browser extension or a script, stops working until it is given the new one. This app is signed in again automatically.';
+
+  @override
+  String get ac_rotate_confirm => 'Replace it';
+
+  @override
+  String get ac_rotated_title => 'The new main token';
+
+  @override
+  String get ac_tokens => 'Named tokens';
+
+  @override
+  String get ac_tokens_desc =>
+      'Give a dashboard, a script or another device a token of its own, and revoke it when it is no longer needed.';
+
+  @override
+  String get ac_tokens_none => 'No named tokens.';
+
+  @override
+  String get ac_tokens_error => 'The tokens could not be listed.';
+
+  @override
+  String get ac_add => 'Add a token';
+
+  @override
+  String get ac_add_title => 'Add a token';
+
+  @override
+  String get ac_name => 'Name';
+
+  @override
+  String get ac_name_hint => 'dashboard';
+
+  @override
+  String get ac_scope => 'Can';
+
+  @override
+  String get ac_scope_desc =>
+      'A read-only token can look at everything except cookies, and change nothing.';
+
+  @override
+  String get ac_create => 'Create';
+
+  @override
+  String ac_created_title(String name) {
+    return 'The token $name';
+  }
+
+  @override
+  String ac_created(String date) {
+    return 'created $date';
+  }
+
+  @override
+  String get ac_never_used => 'never used';
+
+  @override
+  String ac_last_used(String date) {
+    return 'last used $date';
+  }
+
+  @override
+  String ac_delete(String name) {
+    return 'Revoke the token $name';
+  }
+
+  @override
+  String ac_delete_title(String name) {
+    return 'Revoke the token $name?';
+  }
+
+  @override
+  String get ac_delete_message => 'Whatever uses it stops working.';
+
+  @override
+  String get ac_delete_confirm => 'Revoke token';
+
+  @override
+  String get ac_secret_once =>
+      'This is the only time the token is shown. Copy it now and keep it somewhere safe.';
+
+  @override
+  String get ac_secret_done => 'I have copied it';
+
+  @override
+  String get ac_secret_gone => 'The token is not shown again';
+
+  @override
+  String get ac_nh_title => 'Browser extension';
+
+  @override
+  String get ac_nh_desc =>
+      'The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.';
+
+  @override
+  String get ac_nh_origins => 'Allowed extensions';
+
+  @override
+  String get ac_nh_no_origins => 'None yet';
+
+  @override
+  String get ac_nh_error => 'The extension host cannot be managed from here.';
+
+  @override
+  String get ac_nh_ids => 'Extension IDs';
+
+  @override
+  String get ac_nh_ids_desc =>
+      'Separated by commas or spaces. Needed to install.';
+
+  @override
+  String get ac_nh_install => 'Install for all browsers';
+
+  @override
+  String get ac_nh_remove => 'Remove';
+
+  @override
+  String ac_nh_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Done for $count browsers',
+      one: 'Done for 1 browser',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ac_mcp_title => 'Assistants (MCP)';
+
+  @override
+  String get ac_mcp_desc =>
+      'An AI assistant that speaks the Model Context Protocol can add and manage downloads. It signs in with a token.';
+
+  @override
+  String get ac_mcp_url => 'Address';
+
+  @override
+  String get ac_mcp_claude => 'Claude Code';
+
+  @override
+  String get ac_mcp_json => 'Settings file (JSON)';
+
+  @override
+  String get ac_mcp_token_note =>
+      'Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.';
 }

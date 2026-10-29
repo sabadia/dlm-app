@@ -138,7 +138,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 ### M4 Management screens
 
 - [x] F4.1 Settings form engine *(needs P13.11)* — Schema-driven plus curated layouts, Global/Queue/Task levels with provenance chips, reset-to-inherit, 422 `location` to field errors, unsaved-changes guard, settings search.
-- [ ] F4.2 Global settings pages — General, Downloads, Connections, Speed, Network (proxy + rules, UA, headers, TLS), Refresh, Post-processing builder (extract, add-torrent, command, av-scan with warnings), Torrent/ed2k/yt-dlp/ffmpeg, Browser usage.
+- [x] F4.2 Global settings pages — General, Downloads, Connections, Speed, Network (proxy + rules, UA, headers, TLS), Refresh, Post-processing builder (extract, add-torrent, command, av-scan with warnings), Torrent/ed2k/yt-dlp/ffmpeg, Browser usage.
 - [x] F4.3 Categories manager — Rules, drag order, live match tester.
 - [x] F4.4 Logins and Cookies managers — Domain tree, Netscape/JSON import-export, reveal on demand.
 - [x] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
@@ -146,7 +146,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F4.7 Browser tool — Resolve a page, candidates list, download, profile cleanup, tool status.
 - [x] F4.8 Import/Export wizard *(needs P13.6)* — JSON/URL list/aria2, dry-run preview, results.
 - [x] F4.9 Statistics, history and cleanup *(needs P13.7, P13.14)* — Charts by day/engine/queue, totals, completed history search, cleanup.
-- [ ] F4.10 Daemon and server settings *(needs P13.2, P13.3, P13.12, P13.13)* — Boot-config editor with restart flow, listen/TLS/allowed origins, token rotate, native-host/extension status, MCP page with copyable configs, log viewer, tools status.
+- [x] F4.10 Daemon and server settings *(needs P13.2, P13.3, P13.12, P13.13)* — Boot-config editor with restart flow, listen/TLS/allowed origins, token rotate, native-host/extension status, MCP page with copyable configs, log viewer, tools status.
 - [ ] F4.11 App preferences — Appearance, language, density, units, notifications, tray, startup, shortcut editor, clipboard watcher, confirmations.
 - [ ] F4.12 About, updates and licences
 
