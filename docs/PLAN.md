@@ -190,6 +190,14 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 
 ### M7 Packaging and release
 
+> **Scope decision, 2026-10-30:** for now the app is released only as a **GitHub release for every OS** and
+> through **Homebrew** (F7.6). **No app store**, and the work that exists only for stores or for trust
+> prompts is **deferred, not dropped**: Developer-ID signing and notarisation, Sparkle 2, MSIX and Windows
+> signing, the Flathub submission, winget and Scoop. Until then the macOS and Windows builds are unsigned
+> (macOS: right-click, Open, or `xattr -dr com.apple.quarantine /Applications/DLM.app`; Windows: SmartScreen
+> "Run anyway") and say so in the README and the release notes. Items below keep their text; the deferred
+> parts are the ones named here. The templates in `packaging/` for the deferred channels stay as starting points.
+
 - [ ] F7.1 macOS packaging — Universal app embedding dlm, hardened runtime, Developer-ID signing, notarisation, DMG, Sparkle 2 updates (non-sandboxed; Mac App Store out of scope). The DMG is the asset the Homebrew cask points at (F7.6); the app can tell it was installed by Homebrew and then leaves updates to `brew upgrade`.
 - [ ] F7.2 Windows packaging — Signed MSIX and EXE/MSI installer, protocol handlers, autostart, winget/Scoop manifests, SmartScreen guidance.
 - [ ] F7.3 Linux packaging — Flatpak (Flathub submission, AppStream metainfo, portals), .deb/.rpm, optional AppImage, desktop entry, MIME, autostart.
@@ -214,9 +222,9 @@ One task at a time; branch `feat/<issue>-<slug>`, PR, squash-merge, card moved o
 ## What I need from you (none blocks M0–M2)
 
 1. **App identity** — decided 2026-10-29: product name DLM, an icon drawn in-repo (F5.11), accent follows the OS; Flatpak/bundle ID `io.github.sabadia.dlm`.
-2. **macOS signing** (needed by F7.1): Apple Developer Program membership → Developer ID Application certificate (.p12 + password), Team ID, and an App Store Connect API key (or app-specific password) for notarisation, plus a Sparkle EdDSA keypair (I generate it; you store the private key as a secret).
-3. **Windows signing** (F7.2): either Azure Trusted Signing (cheapest, recommended) or an OV/EV code-signing certificate; optional Microsoft Partner Center account if you want the Store later.
-4. **Linux**: a Flathub account (GitHub login) for the submission PR.
+2. **macOS signing** (deferred, see the M7 scope decision; needed by F7.1 only when signed builds are wanted): Apple Developer Program membership → Developer ID Application certificate (.p12 + password), Team ID, and an App Store Connect API key (or app-specific password) for notarisation, plus a Sparkle EdDSA keypair (I generate it; you store the private key as a secret).
+3. **Windows signing** (deferred; F7.2): either Azure Trusted Signing (cheapest, recommended) or an OV/EV code-signing certificate; optional Microsoft Partner Center account if you want the Store later.
+4. **Linux** (deferred): a Flathub account (GitHub login) for the submission PR.
    **Homebrew** (F7.6): a deploy key for `sabadia/homebrew-tap` (write access to that repository only) stored as the `HOMEBREW_TAP_DEPLOY_KEY` secret of `sabadia/dlm-app`, the same way dlm-server does it; I give the exact `ssh-keygen` and `gh` commands.
 5. **GitHub**: the existing `gh` login is enough to create the repo/board/labels/issues; secrets for signing are set later by you (I give exact commands).
 6. **Visual feedback on Windows/KDE/GNOME**: I can only run the macOS build locally. For the other skins I verify through CI screenshots (goldens, Linux under xvfb with GNOME/KDE themes, Windows runner) — but I will need you (or a tester) to look at real machines before beta and report what feels non-native.
