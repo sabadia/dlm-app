@@ -1,7 +1,7 @@
 name: Release
 
 # A tag v1.2.3 builds the packages of every platform, signs what it has secrets
-# for, and drafts a GitHub release with checksums, an SBOM and a provenance
+# for, and publishes a GitHub release with checksums, an SBOM and a provenance
 # attestation. Changes to the packaging run the same builds as a dry run, with
 # nothing published and nothing signed with a real identity.
 on:
@@ -133,7 +133,7 @@ jobs:
           path: dist/*
 
   release:
-    name: draft the release
+    name: publish the release
     if: needs.version.outputs.publish == 'true'
     needs: [version, macos, windows, linux]
     runs-on: ubuntu-latest
@@ -141,6 +141,7 @@ jobs:
       contents: write
       id-token: write
       attestations: write
+      actions: write
     steps:
       - uses: actions/checkout@v7
       - uses: ./.github/actions/setup-flutter
@@ -160,12 +161,18 @@ jobs:
           subject-path: |
             dist/DLM_*
             !dist/*.sha256
-      - name: Draft the GitHub release
+      - name: Publish the GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           pre=""
           case "${{ needs.version.outputs.version }}" in *-*) pre="--prerelease" ;; esac
-          gh release create "$GITHUB_REF_NAME" --draft $pre \
+          gh release create "$GITHUB_REF_NAME" $pre \
             --title "DLM ${{ needs.version.outputs.version }}" \
             --generate-notes dist/*
+      - name: Update the Homebrew tap
+        # A release made with the workflow token does not start the workflow
+        # that listens for `release: published`, so start it here.
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run homebrew.yml -f tag="$GITHUB_REF_NAME"
