@@ -22,7 +22,8 @@ void main() {
       ],
       tasks: [task('a', name: 'one.iso')],
     );
-    expect(find.text('Categories'), findsOneWidget);
+    // The section of categories and the Manage entry of their page.
+    expect(find.text('Categories'), findsNWidgets(2));
     await tester.tap(find.text('Media'));
     await settle(tester);
     expect(h.tasks.listCalls.last.$1.category, 'c1');
@@ -32,6 +33,7 @@ void main() {
     tester,
   ) async {
     await pumpApp(tester);
-    expect(find.text('Categories'), findsNothing);
+    // Only the Manage entry is left.
+    expect(find.text('Categories'), findsOneWidget);
   });
 }
