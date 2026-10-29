@@ -31,8 +31,9 @@ maintainer provides in `docs/PLAN.md`), and Sparkle updates.
 ## Homebrew (F7.6)
 
 `packaging/homebrew/dlm-app.rb.tmpl` is the cask; `tools/render_cask.sh <version> <sha256>` fills it.
-`.github/workflows/homebrew.yml` runs when a release is **published** (not when the tag is pushed:
-the release is a draft first, and the cask must not point at files nobody can download). It reads
+`.github/workflows/homebrew.yml` runs after the release exists (the release workflow starts it with `workflow_dispatch`, because a
+release made with the workflow token does not fire `release: published`; publishing one by hand
+does). The release is published straight away, not as a draft. It reads
 the DMG's `.sha256` from the release, renders the cask, runs `brew style`, and pushes
 `Casks/dlm-app.rb` to `sabadia/homebrew-tap` with the deploy key `HOMEBREW_TAP_DEPLOY_KEY`
 (without the secret it renders and warns, and publishes nothing). Prereleases are skipped.

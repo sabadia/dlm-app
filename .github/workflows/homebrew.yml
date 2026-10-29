@@ -1,8 +1,9 @@
 name: Homebrew
 
-# Publishing a release updates the cask in sabadia/homebrew-tap. The release is
-# a draft until you publish it, and the cask must not point at files nobody can
-# download yet, so this runs on publication rather than on the tag.
+# Updates the cask in sabadia/homebrew-tap once the release's files can be
+# downloaded. The release workflow starts it by hand (a release made with the
+# workflow token does not fire `published`); a release you publish yourself
+# does.
 # Changes to the cask run a style check with a placeholder checksum.
 on:
   release:

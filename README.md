@@ -19,6 +19,24 @@ plugins, the headless browser, statistics, import/export and diagnostics.
 > architecture and the task list are in [docs/PLAN.md](docs/PLAN.md); progress is
 > tracked on the [project board](https://github.com/users/sabadia/projects).
 
+## Install
+
+Releases are on the [releases page](https://github.com/sabadia/dlm-app/releases) for macOS
+(universal DMG), Windows (installer and portable zip) and Linux (tar.gz, deb, rpm). Each has a
+checksum, and `SHA256SUMS` covers them all. On macOS you can also use Homebrew:
+
+```
+brew install --cask sabadia/tap/dlm-app
+brew upgrade dlm-app
+```
+
+(Homebrew may ask you to trust the tap once: `brew trust --tap sabadia/tap`. The command is
+`dlm-app`; there is no `dlm@latest`, and plain `dlm` is the command-line tool.)
+
+**The builds are not signed yet.** macOS will refuse to open the app the first time: right-click
+it and choose Open, or run `xattr -dr com.apple.quarantine /Applications/DLM.app`. Windows
+SmartScreen shows "Run anyway" under "More info". Signing is planned.
+
 ## Layout (planned)
 
 ```
