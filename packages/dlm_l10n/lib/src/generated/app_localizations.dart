@@ -2703,6 +2703,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{1 download} other{{count} downloads}}'**
   String drag_count(int count);
+
+  /// No description provided for @view_density.
+  ///
+  /// In en, this message translates to:
+  /// **'Row height'**
+  String get view_density;
+
+  /// No description provided for @view_density_comfortable.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfortable'**
+  String get view_density_comfortable;
+
+  /// No description provided for @view_density_compact.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact'**
+  String get view_density_compact;
+
+  /// No description provided for @view_columns.
+  ///
+  /// In en, this message translates to:
+  /// **'Columns'**
+  String get view_columns;
+
+  /// No description provided for @display_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get display_menu;
 }
 
 class _AppLocalizationsDelegate

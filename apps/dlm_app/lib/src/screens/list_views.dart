@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
@@ -10,6 +12,7 @@ import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
 import '../shell/queue_commands.dart';
 import '../shell/shell_state.dart';
+import 'task_cells.dart';
 
 /// How the downloads list is sorted and narrowed beyond the page it is on.
 class ListOptions {
@@ -57,6 +60,13 @@ final savedViewsProvider =
       () => PrefNotifier(UiPrefs.savedViews),
     );
 
+/// The columns of the downloads table the user chose to show; empty shows the
+/// default set.
+final downloadColumnsProvider =
+    NotifierProvider<PrefNotifier<List<String>>, List<String>>(
+      () => PrefNotifier(UiPrefs.columns('downloads')),
+    );
+
 /// The sort key of a table column, or null when the column cannot be sorted.
 Sort? sortOfColumn(String columnId) => switch (columnId) {
   'name' => Sort.name,
@@ -84,6 +94,54 @@ const List<String> engineChoices = [
   'ytdlp',
   'browser',
 ];
+
+/// The entries of the display menu: row height and which columns show.
+List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
+  final l = AppLocalizations.of(context);
+  final density = ref.read(densityProvider);
+  final chosen = ref.read(downloadColumnsProvider);
+  final columns = [
+    for (final c in taskColumns(l))
+      if (c.id != 'name') c,
+  ];
+  bool shown(String id) => chosen.isEmpty || chosen.contains(id);
+  return [
+    DlmMenuHeader(l.view_density),
+    DlmMenuItem(
+      label: l.view_density_comfortable,
+      checked: density == Density.comfortable,
+      onPressed: () => unawaited(
+        ref.read(densityProvider.notifier).set(Density.comfortable),
+      ),
+    ),
+    DlmMenuItem(
+      label: l.view_density_compact,
+      checked: density == Density.compact,
+      onPressed: () =>
+          unawaited(ref.read(densityProvider.notifier).set(Density.compact)),
+    ),
+    const DlmMenuSeparator(),
+    DlmMenuHeader(l.view_columns),
+    for (final c in columns)
+      DlmMenuItem(
+        label: c.label,
+        checked: shown(c.id),
+        onPressed: () {
+          final now = {
+            for (final other in columns)
+              if (shown(other.id)) other.id,
+          };
+          shown(c.id) ? now.remove(c.id) : now.add(c.id);
+          unawaited(
+            ref.read(downloadColumnsProvider.notifier).set([
+              for (final other in columns)
+                if (now.contains(other.id)) other.id,
+            ]),
+          );
+        },
+      ),
+  ];
+}
 
 /// The entries of the view menu: the engine filter and the saved views.
 List<DlmMenuEntry> viewMenuEntries(

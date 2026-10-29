@@ -1608,4 +1608,19 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get view_density => 'Row height';
+
+  @override
+  String get view_density_comfortable => 'Comfortable';
+
+  @override
+  String get view_density_compact => 'Compact';
+
+  @override
+  String get view_columns => 'Columns';
+
+  @override
+  String get display_menu => 'Display';
 }

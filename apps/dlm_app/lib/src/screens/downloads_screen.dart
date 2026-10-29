@@ -39,6 +39,7 @@ class DownloadsScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final search = ref.watch(searchTextProvider).trim();
     final options = ref.watch(listOptionsProvider);
+    final shownColumns = ref.watch(downloadColumnsProvider);
     final query = TaskQuery(
       queueId: queueId,
       category: categoryId,
@@ -73,7 +74,13 @@ class DownloadsScreen extends ConsumerWidget {
         resizeColumn: l.table_resize_column,
         loadingRow: l.table_loading_row,
       ),
-      columns: taskColumns(l),
+      columns: [
+        for (final c in taskColumns(l))
+          if (c.id == 'name' ||
+              shownColumns.isEmpty ||
+              shownColumns.contains(c.id))
+            c,
+      ],
       sort: columnOfSort(options.sort) == null
           ? null
           : DlmSort(

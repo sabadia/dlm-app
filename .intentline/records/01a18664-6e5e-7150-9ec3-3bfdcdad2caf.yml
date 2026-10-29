@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a18664-6e5e-7150-9ec3-3bfdcdad2caf
+status: draft
+created_at: '2026-10-29T06:41:31Z'
+updated_at: '2026-10-29T06:41:31Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Downloads list: row height and column choice in a Display menu; View menu keeps engine filter and saved views (F3.2 part)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/screens/list_views.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

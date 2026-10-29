@@ -961,5 +961,10 @@
         "type": "int"
       }
     }
-  }
+  },
+  "view_density": "Row height",
+  "view_density_comfortable": "Comfortable",
+  "view_density_compact": "Compact",
+  "view_columns": "Columns",
+  "display_menu": "Display"
 }

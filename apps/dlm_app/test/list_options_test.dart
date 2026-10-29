@@ -1,5 +1,7 @@
 import 'package:dlm_api/dlm_api.dart';
+import 'package:dlm_app/src/prefs/pref_providers.dart';
 import 'package:dlm_app/src/screens/list_views.dart';
+import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -18,8 +20,15 @@ void main() {
     ],
   );
 
-  Future<void> openViewMenu(WidgetTester tester) async {
-    await tester.tap(find.byWidgetPredicate((w) => w is DlmMenuButton));
+  Future<void> openViewMenu(
+    WidgetTester tester, {
+    String label = 'View',
+  }) async {
+    await tester.tap(
+      find.byWidgetPredicate(
+        (w) => w is DlmMenuButton && w.semanticLabel == label,
+      ),
+    );
     await settle(tester);
   }
 
@@ -91,5 +100,37 @@ void main() {
     await settle(tester);
     expect(h.container.read(listOptionsProvider).engine, 'bt');
     expect(h.tasks.listCalls.last.$1.engine, 'bt');
+  });
+
+  appTest('columns can be hidden and shown again from the view menu', (
+    tester,
+  ) async {
+    await open(tester);
+    Finder header(String label) => find.descendant(
+      of: find.byType(DlmDataTable<Task>),
+      matching: find.text(label),
+    );
+    expect(header('Engine'), findsOneWidget);
+    await openViewMenu(tester, label: 'Display');
+    // The table header says "Engine" too; the menu entry comes first.
+    await tester.ensureVisible(find.text('Engine').first);
+    await tester.tap(find.text('Engine').first);
+    await settle(tester);
+    expect(header('Engine'), findsNothing);
+    expect(header('Name'), findsOneWidget, reason: 'the name stays');
+    await openViewMenu(tester, label: 'Display');
+    await tester.ensureVisible(find.text('Engine').first);
+    await tester.tap(find.text('Engine').first);
+    await settle(tester);
+    expect(header('Engine'), findsOneWidget);
+  });
+
+  appTest('the row height can be changed from the view menu', (tester) async {
+    final h = await open(tester);
+    expect(h.container.read(densityProvider), Density.comfortable);
+    await openViewMenu(tester, label: 'Display');
+    await tester.tap(find.text('Compact'));
+    await settle(tester);
+    expect(h.container.read(densityProvider), Density.compact);
   });
 }

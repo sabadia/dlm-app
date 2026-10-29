@@ -116,7 +116,9 @@ class _AppShellState extends ConsumerState<AppShell> {
     // The view menu shows the engine filter and the saved views.
     ref
       ..watch(listOptionsProvider)
-      ..watch(savedViewsProvider);
+      ..watch(savedViewsProvider)
+      ..watch(densityProvider)
+      ..watch(downloadColumnsProvider);
     final ids = [for (final t in selected) t.id];
     final chrome = ref.watch(windowChromeProvider);
     final isMac = defaultTargetPlatform == TargetPlatform.macOS;
@@ -247,6 +249,12 @@ class _AppShellState extends ConsumerState<AppShell> {
                 onPressed: () => deleteTasks(context, ref, ids),
               ),
             ],
+            DlmMenuButton(
+              icon: const DlmIcon(DlmIconName.settings),
+              semanticLabel: l.display_menu,
+              variant: DlmButtonVariant.plain,
+              entries: displayMenuEntries(context, ref),
+            ),
             DlmMenuButton(
               icon: const DlmIcon(DlmIconName.filter),
               semanticLabel: l.view_menu,
