@@ -17,8 +17,11 @@ import '../shell/shell_state.dart';
 import 'file_opener.dart';
 import 'startup.dart';
 
-/// The asset of the tray icon (a placeholder until the real icon arrives).
-const String trayIconAsset = 'assets/icon/dlm_32.png';
+/// The asset of the tray icon: a monochrome template in the macOS menu bar,
+/// the coloured mark elsewhere.
+final String trayIconAsset = defaultTargetPlatform == TargetPlatform.macOS
+    ? 'assets/icon/tray_template.png'
+    : 'assets/icon/dlm_32.png';
 
 /// Ids of the tray menu lines.
 abstract final class TrayIds {

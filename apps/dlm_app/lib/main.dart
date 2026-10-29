@@ -75,7 +75,7 @@ void main() {
           trayProvider.overrideWithValue(TrayManagerController()),
           windowControlProvider.overrideWithValue(WindowManagerControl()),
           notifierProvider.overrideWithValue(
-            LocalDesktopNotifier(appName: 'dlm'),
+            LocalDesktopNotifier(appName: 'DLM'),
           ),
           startedAtLoginProvider.overrideWithValue(atLogin),
           awakeLockProvider.overrideWithValue(PlatformAwakeLock()),

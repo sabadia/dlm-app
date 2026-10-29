@@ -10,7 +10,7 @@ import 'task_cells.dart';
 import 'task_format.dart';
 
 /// The height of a card row, and of a row in the compact density.
-double taskCardExtent({required bool compact}) => compact ? 100 : 120;
+double taskCardExtent({required bool compact}) => compact ? 88 : 100;
 
 /// A download as a card: its name and status, the progress, and the numbers as
 /// small chips. It follows the live task, so a progress tick repaints only the
@@ -36,11 +36,11 @@ class TaskCard extends StatelessWidget {
         : states.hovered
         ? Color.alphaBlend(c.textPrimary.withValues(alpha: 0.04), c.raised)
         : c.raised;
-    return DlmFocusRing(
-      visible: states.focusVisible,
-      radius: m.radii.container,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      child: DlmFocusRing(
+        visible: states.focusVisible,
+        radius: m.radii.container,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: fill,
@@ -51,11 +51,11 @@ class TaskCard extends StatelessWidget {
             ),
             boxShadow: selected || c.highContrast
                 ? null
-                : [
-                    const BoxShadow(
+                : const [
+                    BoxShadow(
                       color: Color(0x14000000),
                       blurRadius: 6,
-                      offset: const Offset(0, 1),
+                      offset: Offset(0, 1),
                     ),
                   ],
           ),
@@ -63,12 +63,14 @@ class TaskCard extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             // Never scrolls: when text is scaled up past what fits, the end of
             // the card is cut rather than overflowing.
-            child: SingleChildScrollView(
-              physics: const NeverScrollableScrollPhysics(),
-              child: TaskCell(
-                id: task.id,
-                builder: (context, live, progress) =>
-                    _CardBody(task: live, progress: progress),
+            child: Center(
+              child: SingleChildScrollView(
+                physics: const NeverScrollableScrollPhysics(),
+                child: TaskCell(
+                  id: task.id,
+                  builder: (context, live, progress) =>
+                      _CardBody(task: live, progress: progress),
+                ),
               ),
             ),
           ),

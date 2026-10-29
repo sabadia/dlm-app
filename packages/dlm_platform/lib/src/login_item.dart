@@ -55,7 +55,7 @@ class XdgAutostartLoginItem implements LoginItem {
   /// Creates the item. The arguments exist for tests.
   XdgAutostartLoginItem({
     this.appId = 'io.github.sabadia.dlm',
-    this.name = 'dlm',
+    this.name = 'DLM',
     String? executable,
     Map<String, String>? environment,
   }) : _executable = executable ?? Platform.resolvedExecutable,
