@@ -21,6 +21,7 @@ State of the ecosystem (researched Oct 2026, to be re-verified in F0.3/F1.2 befo
 - `fluent_ui` 4.17 is active (Flutter Favorite) → base for the Windows skin. `macos_ui` 2.2.2 is a year old with no Liquid Glass → *not* used as the base. `macos_window_utils` 1.9.1 (vibrancy, transparent title bar, toolbar) is usable; macOS 26 glass needs a small **own Swift plugin** (NSGlassEffectView). `native_macos` (real AppKit views) is brand new (1 star), breaks keyboard/VoiceOver reach → not for production.
 - Linux: `libadwaita` (unofficial widgets, ~121 downloads/30d) is too thin; **no Breeze/KDE widget package exists** → own Adwaita and Breeze skins. `xdg_desktop_portal` (Canonical, 0.1.x) gives colour-scheme/accent via the settings portal; KDE colours/fonts come from `kdeglobals`.
 - `flutter_acrylic` 1.1.4 (Mica/Acrylic on Windows) is ~18 months stale → spike in F2.4, fallback is a small own plugin. `auto_updater` (Sparkle/WinSparkle) is 2 years stale → own thin Sparkle 2 wrapper if it fails the spike.
+- OS integration (researched 29 Oct 2026, versions from pub.dev): tray `tray_manager` 0.8.0 (Linux uses StatusNotifierItem over D-Bus, no icon-click events; GNOME shows it only with the AppIndicator extension, which Ubuntu enables); window hide/show `window_manager` 0.5.2; notifications with actions `flutter_local_notifications` 22.3.3 (`local_notifier` is stale); login item, clipboard watcher and in-app shortcuts need no package (own code in `dlm_platform`). `hotkey_manager` 0.2.3 is stale and X11-only on Linux; Wayland global hotkeys need the GlobalShortcuts portal, which `xdg_desktop_portal` 0.1.15 lacks → decided in F5.7. All behind `dlm_platform` interfaces with fakes.
 
 ## Architecture
 
@@ -131,7 +132,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F3.4 Task inspector *(needs P13.4)* — Overview, Files (tree + selection), Speed graph, Segments map, Source and refresh (edit URL, await link, history), per-task settings overrides, Events/errors.
 - [x] F3.5 Add-download flow *(needs P13.6)* — Paste/many/pattern with preview, .torrent/.txt/JSON/aria2 files, magnet/ed2k, resolve preview with file tree, duplicate warning with 'add anyway', category preview, queue/dir/name, mirrors, checksum, headers/referrer, cookies/login helpers, yt-dlp/browser modes, batch result sheet.
 - [x] F3.6 Queues UI — CRUD, start/stop, order, counts, schedule editor, speed profiles, quota, post-queue action with countdown/cancel.
-- [ ] F3.7 First-run onboarding and health checks — Download folder, tools (ffmpeg/yt-dlp), start at login, tray, browser extension.
+- [ ] F3.7 First-run onboarding and health checks — Download folder, tools (ffmpeg/yt-dlp), start at login, tray, browser extension. *(needs F5.1, F5.3, F5.10)*
 - [x] F3.8 Status bar and quick controls *(needs P13.7, P13.8)* — Down/up speed, active/queued, turbo toggle, pause/resume all, quota meter, connection state.
 - [x] F3.9 Empty, error, offline and reconnecting states — Daemon-crashed recovery flow.
 
@@ -147,21 +148,21 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F4.8 Import/Export wizard *(needs P13.6)* — JSON/URL list/aria2, dry-run preview, results.
 - [x] F4.9 Statistics, history and cleanup *(needs P13.7, P13.14)* — Charts by day/engine/queue, totals, completed history search, cleanup.
 - [x] F4.10 Daemon and server settings *(needs P13.2, P13.3, P13.12, P13.13)* — Boot-config editor with restart flow, listen/TLS/allowed origins, token rotate, native-host/extension status, MCP page with copyable configs, log viewer, tools status.
-- [ ] F4.11 App preferences — Appearance, language, density, units, notifications, tray, startup, shortcut editor, clipboard watcher, confirmations.
-- [ ] F4.12 About, updates and licences
+- [ ] F4.11 App preferences — Appearance, language, density, units, notifications, tray, startup, shortcut editor, clipboard watcher, confirmations. *(needs F5.1, F5.2, F5.3, F5.5 and the in-app part of F5.7)* Units: a `DlmFormat` inherited widget in `DlmApp.builder` carries unit system and locale, and the ~35 `formatBytes`/`formatSpeed` calls become `context.bytes(n)`/`context.speed(n)`, so a change rebuilds dependants without global state. Language: set `WidgetsApp.locale` from the pref (null = system); the picker lists `supportedLocales` plus System (English only until F6.3).
+- [ ] F4.12 About, updates and licences — Version and compatibility, licences, update channel pref and "Check for updates" reading the channel's appcast (GitHub Releases of `sabadia/dlm-app` until F7.4 publishes appcasts; prereleases count as beta). Installing is handed to Sparkle/WinSparkle (F7.1/F7.2); on Linux the action links to the release page, as Flatpak and distro packages update through their store.
 
 ### M5 System integration
 
-- [ ] F5.1 Tray / menu-bar item — Speed, pause all, quick add, show/quit.
-- [ ] F5.2 Actionable notifications — Completed, failed, queue finished, link expired.
-- [ ] F5.3 Start at login and start minimised *(needs P13.13)* — `dlm service`, login item, Run key, autostart entry.
+- [ ] F5.1 Tray / menu-bar item — Speed, pause all, quick add, show/quit. `tray_manager` + `window_manager` (close to tray, show/hide); speed as the title on macOS; menu only on Linux. Without a tray (GNOME without the extension) closing the window quits, and onboarding says so.
+- [ ] F5.2 Actionable notifications — Completed, failed, queue finished, link expired. `flutter_local_notifications` (notification portal inside Flatpak); actions Open / Show in folder / Retry; AUMID + GUID on Windows.
+- [ ] F5.3 Start at login and start minimised *(needs P13.13)* — `dlm service`, login item, Run key, autostart entry. Own `LoginItem` in `dlm_platform`: macOS `SMAppService.mainApp` (new method in `DlmPlatformPlugin.swift`), Windows HKCU Run via `win32_registry` (MSIX `StartupTask` in F7.2), Linux XDG autostart file or the Background portal inside Flatpak; started with `--minimised`. `dlm service` is the separate daemon-only option ("keep downloading without the app").
 - [ ] F5.4 URL handlers, file associations and instance hand-off — `magnet:`, `ed2k:`, `dlm:`, `.torrent`; open-with; forward to the running instance.
-- [ ] F5.5 Drag-and-drop and clipboard watcher
+- [ ] F5.5 Drag-and-drop and clipboard watcher — Clipboard watcher: no package; `Clipboard.getData` on window focus and every 2 s while focused; opt-in, off by default; offers only links (http/https/ftp/magnet/ed2k), never logs clipboard text, skips a value already offered.
 - [ ] F5.6 Dock/taskbar progress, sleep prevention, power actions — Badges, prevent sleep while active, post-queue sleep/shutdown confirmations.
-- [ ] F5.7 Global hotkeys and shortcut map
+- [ ] F5.7 Global hotkeys and shortcut map — In-app shortcut map first (command → `SingleActivator`, stored in `UiPrefs`, read by the shell and command palette, conflict check, reset); global hotkeys decided later (`hotkey_manager` on macOS/Windows/X11 vs the GlobalShortcuts portal on Wayland).
 - [ ] F5.8 Window-state restore and multi-monitor
 - [ ] F5.9 Native menus — macOS menu bar, Windows/Linux application menu.
-- [ ] F5.10 Browser-extension pairing helpers *(needs P13.13)*
+- [ ] F5.10 Browser-extension pairing helpers *(needs P13.13)* — Onboarding and preferences rows over `GET/POST /v1/native-host` (reuse `nativeHostProvider`); local profiles only (403 `native_host.local_only`).
 
 ### M6 Quality
 
@@ -180,7 +181,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F7.2 Windows packaging — Signed MSIX and EXE/MSI installer, protocol handlers, autostart, winget/Scoop manifests, SmartScreen guidance.
 - [ ] F7.3 Linux packaging — Flatpak (Flathub submission, AppStream metainfo, portals), .deb/.rpm, optional AppImage, desktop entry, MIME, autostart.
 - [ ] F7.4 Release pipeline — Tag, build all OS, sign, publish GitHub release and update feeds, bundle a pinned dlm version with checksum verification, SBOM and provenance attestation.
-- [ ] F7.5 Update channels, rollback and compatibility matrix — Stable/beta channels; app-daemon version compatibility.
+- [ ] F7.5 Update channels, rollback and compatibility matrix — Stable/beta channels; app-daemon version compatibility; one appcast per channel, the app reads its channel's feed.
 
 ### M8 Docs and launch
 
@@ -190,7 +191,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F8.4 Beta programme and feedback templates
 - [ ] F8.5 1.0 criteria and release checklist
 
-**Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 → P13.x as each screen needs them → M5 → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
+**Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 (F5.1, F5.2, F5.3, F5.5, F5.10 and the in-app part of F5.7 are pulled ahead to finish F3.7/F4.11/F4.12) → P13.x as each screen needs them → M5 → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
 
 ## Working rules (same discipline as the backend)
 
@@ -212,6 +213,7 @@ One task at a time; branch `feat/<issue>-<slug>`, PR, squash-merge, card moved o
 - *Stale packages* (`flutter_acrylic`, `auto_updater`, `macos_window_utils` on macOS 26): isolate behind `dlm_platform` interfaces so replacing them with own small plugins is local.
 - *KDE/GNOME authenticity without toolkit widgets*: tokens read from the live system (colours, fonts, icon theme, accent), Breeze/Adwaita metrics from their published style guides; KDE is last in order so lessons from GNOME carry over.
 - *Multi-window is experimental*: single-window UX; revisit detached inspectors when the API is stable.
+- *No tray on GNOME / unpackaged Windows toasts*: GNOME needs the AppIndicator extension for the tray, so the app must work without one; unpackaged Windows toasts can't be listed or cancelled, MSIX can (F7.2).
 - *Flatpak sandbox vs bundled daemon*: daemon runs inside the sandbox with `xdg-download` + portal access; remote-daemon mode is the escape hatch; verified in F7.3.
 - *Large lists / event floods*: windowed queries, coalesced progress, per-row `select`ors, no whole-list rebuilds; budgets enforced in CI (F6.1).
 - *API drift*: generated client + nightly contract test (F6.8) + `apiVersion` gate (F1.4).
