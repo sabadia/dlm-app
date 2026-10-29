@@ -53,7 +53,20 @@ dlm daemon. The daemon's own model lives in `sabadia/dlm-server`.
 - **The instance port** accepts any local process (and on a shared machine any local user). The
   effect is limited to opening the add dialog with links that passed the filter above.
 - **Native-messaging host** registration writes files into browser directories of the current user;
-  it needs the daemon on the same machine and explicit extension ids.
+  it needs the daemon on the same machine. The published extension's ids are built in; others are
+  added only by command line. The registration is renewed on start, so the launcher always points
+  at the running app, and removed by the uninstallers.
+- **Browser extension pairing.** An extension asks the daemon (through the host) to pair; nothing is
+  issued until the user allows it in the app, which shows a code to compare with the one the
+  extension shows (defence against another program asking at the same moment). The request expires
+  after two minutes; the prompt lives in the app and in the system notification only, never in a
+  log. The token it gets has the `extension` scope (cannot change settings, manage tokens, export
+  cookies or delete data), is limited per token, is listed and revocable under Access, and is
+  stored by the extension in its own local storage. A leaked token can add downloads at the rate
+  limit and read the list, until revoked.
+- **Page addresses from the browser** (the "open the page" action of a waiting download) come from
+  web pages. They are opened only if `http` or `https`, and are handed to the system opener as one
+  argument, never through a shell (`url_opener.dart`).
 - **TLS pin rotation:** a changed certificate is refused until the user re-trusts it; there is no
   automatic rotation.
 - **Dependencies** are audited for licences, not for known vulnerabilities; add a scheduled

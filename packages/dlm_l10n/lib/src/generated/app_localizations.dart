@@ -5164,7 +5164,7 @@ abstract class AppLocalizations {
   /// No description provided for @ac_nh_install.
   ///
   /// In en, this message translates to:
-  /// **'Install for all browsers'**
+  /// **'Install'**
   String get ac_nh_install;
 
   /// No description provided for @ac_nh_remove.
@@ -6088,7 +6088,7 @@ abstract class AppLocalizations {
   /// No description provided for @ac_nh_note.
   ///
   /// In en, this message translates to:
-  /// **'The published DLM extension is always accepted; nothing has to be typed.'**
+  /// **'The published DLM extension is always accepted; nothing has to be typed. With no browser ticked, Install and Remove act on all of them.'**
   String get ac_nh_note;
 
   /// No description provided for @link_wait_title.

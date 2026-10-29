@@ -85,6 +85,21 @@ keyboard.
 - [ ] Nothing important is only a colour: failed downloads say Failed, not just red.
 - [ ] Text 200 % (system setting) and high contrast: every screen is still usable.
 
+## Browser extension
+
+- [ ] Pair Chrome: the app comes forward with the prompt and a notification; the code equals the
+      extension's; Allow → the extension connects; the token shows under *Browser extensions* with
+      browser and version.
+- [ ] Deny, and let a request expire (two minutes): the prompt closes by itself, nothing is paired.
+- [ ] Answer the request with `dlm pairing approve` instead: the open prompt closes.
+- [ ] Revoke the extension in Access: its next request is refused; pair again works.
+- [ ] Install for Chrome and Firefox in Access; the files appear; move the app and start it: the
+      registration points at the new location again.
+- [ ] Uninstall (cask zap / Windows uninstaller / `apt remove`): the registrations are gone.
+- [ ] Expire a link on purpose: *Waiting for a new link* appears with a notification; **Open the
+      page** opens the browser; downloading again there resumes the same task and the banner goes.
+- [ ] Setup shows "n extensions paired" and **Get the extension** opens the releases page.
+
 ## Both daemons
 
 - [ ] A remote daemon profile hides the login item for the daemon and the extension row.

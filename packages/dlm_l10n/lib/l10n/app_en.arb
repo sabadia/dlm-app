@@ -1838,7 +1838,7 @@
   "ac_nh_title": "Browser extension",
   "ac_nh_desc": "The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.",
   "ac_nh_error": "The extension host cannot be managed from here.",
-  "ac_nh_install": "Install for all browsers",
+  "ac_nh_install": "Install",
   "ac_nh_remove": "Remove",
   "ac_nh_done": "{count, plural, one{Done for 1 browser} other{Done for {count} browsers}}",
   "@ac_nh_done": {
@@ -2136,7 +2136,7 @@
     }
   },
   "ac_nh_browsers": "Register the extension with",
-  "ac_nh_note": "The published DLM extension is always accepted; nothing has to be typed.",
+  "ac_nh_note": "The published DLM extension is always accepted; nothing has to be typed. With no browser ticked, Install and Remove act on all of them.",
   "link_wait_title": "Waiting for a new link",
   "link_wait_message": "{name} stopped because its link expired. Open the page it came from in your browser: the extension hands the download to DLM again.",
   "@link_wait_message": {

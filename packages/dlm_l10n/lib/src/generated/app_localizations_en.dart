@@ -3065,7 +3065,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ac_nh_error => 'The extension host cannot be managed from here.';
 
   @override
-  String get ac_nh_install => 'Install for all browsers';
+  String get ac_nh_install => 'Install';
 
   @override
   String get ac_nh_remove => 'Remove';
@@ -3605,7 +3605,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ac_nh_note =>
-      'The published DLM extension is always accepted; nothing has to be typed.';
+      'The published DLM extension is always accepted; nothing has to be typed. With no browser ticked, Install and Remove act on all of them.';
 
   @override
   String get link_wait_title => 'Waiting for a new link';
@@ -6748,7 +6748,7 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
       '[Thé éxtéñšîôñ hôšt çàññôt bé màñàgéd frôm héré.~~~~~~~~~~~~~~~]';
 
   @override
-  String get ac_nh_install => '[Îñštàll fôr àll brôwšérš~~~~~~~~]';
+  String get ac_nh_install => '[Îñštàll~~~]';
 
   @override
   String get ac_nh_remove => '[Rémôvé~~]';
@@ -7296,7 +7296,7 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get ac_nh_note =>
-      '[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd.~~~~~~~~~~~~~~~~~~~~~~]';
+      '[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd. Wîth ñô brôwšér tîçkéd, Îñštàll àñd Rémôvé àçt ôñ àll ôf thém.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
 
   @override
   String get link_wait_title => '[Wàîtîñg fôr à ñéw lîñk~~~~~~~]';

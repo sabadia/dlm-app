@@ -413,11 +413,11 @@ void main() {
       final daemon = FakeDaemon();
       await open(tester, 'access', daemon);
       await tester.scrollUntilVisible(
-        find.text('Install for all browsers'),
+        find.text('Install'),
         300,
         scrollable: pageScroll(),
       );
-      await tester.tap(find.text('Install for all browsers'));
+      await tester.tap(find.text('Install'));
       await settle(tester);
       expect(daemon.calls.single, startsWith('native install'));
       expect(find.text('Done for 1 browser'), findsOneWidget);

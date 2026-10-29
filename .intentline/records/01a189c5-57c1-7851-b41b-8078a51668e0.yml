@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a189c5-57c1-7851-b41b-8078a51668e0
+status: draft
+created_at: '2026-10-29T22:26:14Z'
+updated_at: '2026-10-29T22:26:14Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Pin dlm-server v0.6.0, document the browser extension pairing in the user guide, README, threat model and manual tests
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: docs/user/browser-extension.md
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
