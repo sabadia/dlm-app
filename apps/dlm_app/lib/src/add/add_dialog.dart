@@ -87,7 +87,7 @@ Future<OpenedTorrent> readOpenedTorrent(
   final file = io.File(path);
   try {
     if (await file.length() > maxBytes) return const OpenedTorrentTooBig();
-    final name = path.split(io.Platform.pathSeparator).last;
+    final name = path.split(RegExp(r'[\\/]')).last;
     return OpenedTorrentReady(name, await file.readAsBytes());
   } on io.FileSystemException {
     return const OpenedTorrentMissing();
