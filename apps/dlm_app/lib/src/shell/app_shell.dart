@@ -213,6 +213,37 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
           ],
         ),
+        if (queues.isNotEmpty)
+          DlmSidebarSection(
+            title: l.nav_queues,
+            items: [
+              for (final q in queues)
+                DlmSidebarItem(
+                  id: queueSidebarId(q.id),
+                  label: q.name,
+                  icon: const DlmIcon(DlmIconName.queue),
+                  count: _positive(counts.open(q.id)),
+                  // Downloads dropped on a queue move to it.
+                  onDrop: (data) {
+                    if (data is! TaskDragData) return false;
+                    unawaited(moveTasksToQueue(context, ref, data.ids, q));
+                    return true;
+                  },
+                ),
+            ],
+          ),
+        if (categories.isNotEmpty)
+          DlmSidebarSection(
+            title: l.nav_categories,
+            items: [
+              for (final c in categories)
+                DlmSidebarItem(
+                  id: categorySidebarId(c.id),
+                  label: c.name,
+                  icon: const DlmIcon(DlmIconName.tag),
+                ),
+            ],
+          ),
         DlmSidebarSection(
           title: l.nav_manage,
           items: [
@@ -235,37 +266,6 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
           ],
         ),
-        if (categories.isNotEmpty)
-          DlmSidebarSection(
-            title: l.nav_categories,
-            items: [
-              for (final c in categories)
-                DlmSidebarItem(
-                  id: categorySidebarId(c.id),
-                  label: c.name,
-                  icon: const DlmIcon(DlmIconName.tag),
-                ),
-            ],
-          ),
-        if (queues.isNotEmpty)
-          DlmSidebarSection(
-            title: l.nav_queues,
-            items: [
-              for (final q in queues)
-                DlmSidebarItem(
-                  id: queueSidebarId(q.id),
-                  label: q.name,
-                  icon: const DlmIcon(DlmIconName.queue),
-                  count: _positive(counts.open(q.id)),
-                  // Downloads dropped on a queue move to it.
-                  onDrop: (data) {
-                    if (data is! TaskDragData) return false;
-                    unawaited(moveTasksToQueue(context, ref, data.ids, q));
-                    return true;
-                  },
-                ),
-            ],
-          ),
       ],
     );
 
