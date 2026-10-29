@@ -23,6 +23,7 @@ export 'src/resources/resource_list.dart';
 export 'src/session.dart';
 export 'src/settings/settings_controller.dart';
 export 'src/settings/settings_repository.dart';
+export 'src/status/limits.dart';
 export 'src/stores/entity_store.dart';
 export 'src/sync/sync_engine.dart';
 export 'src/tasks/add_repository.dart';

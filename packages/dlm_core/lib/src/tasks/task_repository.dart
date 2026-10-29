@@ -125,6 +125,13 @@ abstract interface class TaskRepository {
   /// Asks for a fresh link for several tasks (those that can renew theirs).
   Future<List<ItemResult>> refreshMany(List<String> ids);
 
+  /// Pauses everything that is queued or running, whichever tasks the app has
+  /// loaded.
+  Future<List<ItemResult>> pauseAll();
+
+  /// Resumes everything that is paused.
+  Future<List<ItemResult>> resumeAll();
+
   /// Moves several tasks to the end of another queue.
   Future<List<ItemResult>> moveMany(List<String> ids, String queueId);
 
@@ -211,6 +218,35 @@ class ApiTaskRepository implements TaskRepository {
 
   @override
   Future<Task> restart(String id) => guard(() => _tasks.restartTask(id: id));
+
+  @override
+  Future<List<ItemResult>> pauseAll() => guard(
+    () async => _items(
+      await _tasks.pauseTasks(
+        body: const TaskSelector(
+          filter: TaskSelectorFilter(
+            status: [
+              TaskSelectorFilterStatus.queued,
+              TaskSelectorFilterStatus.running,
+              TaskSelectorFilterStatus.refreshing,
+              TaskSelectorFilterStatus.awaitingLink,
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  @override
+  Future<List<ItemResult>> resumeAll() => guard(
+    () async => _items(
+      await _tasks.resumeTasks(
+        body: const TaskSelector(
+          filter: TaskSelectorFilter(status: [TaskSelectorFilterStatus.paused]),
+        ),
+      ),
+    ),
+  );
 
   @override
   Future<List<ItemResult>> restartMany(List<String> ids) => guard(

@@ -143,6 +143,18 @@ class FakeTaskRepository implements TaskRepository {
   }
 
   @override
+  Future<List<ItemResult>> pauseAll() async {
+    calls.add('pauseAll');
+    return const [];
+  }
+
+  @override
+  Future<List<ItemResult>> resumeAll() async {
+    calls.add('resumeAll');
+    return const [];
+  }
+
+  @override
   Future<List<ItemResult>> restartMany(List<String> ids) async {
     calls.add('restartMany:${ids.join(',')}');
     return [for (final id in ids) ItemResult(id: id, ok: true)];

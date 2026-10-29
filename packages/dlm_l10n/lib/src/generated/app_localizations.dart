@@ -2427,6 +2427,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{Asking for a new link for 1 download} other{Asking for new links for {count} downloads}}'**
   String toast_refreshing_many(int count);
+
+  /// No description provided for @status_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Status bar'**
+  String get status_label;
+
+  /// No description provided for @status_reconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting…'**
+  String get status_reconnecting;
+
+  /// No description provided for @status_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'↓ {down}  ↑ {up}'**
+  String status_speed(String down, String up);
+
+  /// No description provided for @status_counts.
+  ///
+  /// In en, this message translates to:
+  /// **'{active} active, {queued} waiting'**
+  String status_counts(int active, int queued);
+
+  /// No description provided for @status_quota.
+  ///
+  /// In en, this message translates to:
+  /// **'{used} of {total}'**
+  String status_quota(String used, String total);
+
+  /// No description provided for @status_quota_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Quota used'**
+  String get status_quota_label;
+
+  /// No description provided for @status_turbo.
+  ///
+  /// In en, this message translates to:
+  /// **'Turbo'**
+  String get status_turbo;
+
+  /// No description provided for @status_turbo_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Turbo on'**
+  String get status_turbo_on;
+
+  /// No description provided for @status_pause_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause all'**
+  String get status_pause_all;
+
+  /// No description provided for @status_resume_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume all'**
+  String get status_resume_all;
 }
 
 class _AppLocalizationsDelegate

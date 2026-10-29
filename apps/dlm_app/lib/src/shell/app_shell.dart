@@ -23,6 +23,7 @@ import 'app_commands.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
 import 'status_banners.dart';
+import 'status_bar.dart';
 import 'task_commands.dart';
 
 /// The window's window chrome (macOS glass); overridden with the platform's.
@@ -276,6 +277,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                 )
               : widget.child,
         ),
+        const StatusBar(),
       ],
     );
 

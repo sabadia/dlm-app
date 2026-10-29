@@ -65,6 +65,42 @@ class TaskActions {
     call: () => _repo.restart(id),
   );
 
+  /// Pauses every task that can be paused, on the daemon's whole list.
+  Future<List<ItemResult>> pauseAll() async {
+    final before = <String, Task>{};
+    for (final id in _store.tasks.ids) {
+      final t = _store.tasks[id];
+      if (t != null && t.statusKind.canPause) {
+        before[id] = t;
+        _store.tasks.put(id, t.copyWith(status: 'paused'));
+      }
+    }
+    try {
+      return await _repo.pauseAll();
+    } on Object {
+      before.forEach(_store.tasks.put);
+      rethrow;
+    }
+  }
+
+  /// Resumes every paused task, on the daemon's whole list.
+  Future<List<ItemResult>> resumeAll() async {
+    final before = <String, Task>{};
+    for (final id in _store.tasks.ids) {
+      final t = _store.tasks[id];
+      if (t != null && t.statusKind == TaskStatus.paused) {
+        before[id] = t;
+        _store.tasks.put(id, t.copyWith(status: 'queued', clearError: true));
+      }
+    }
+    try {
+      return await _repo.resumeAll();
+    } on Object {
+      before.forEach(_store.tasks.put);
+      rethrow;
+    }
+  }
+
   /// Restarts the finished or failed tasks among [ids] from the beginning.
   Future<List<ItemResult>> restartMany(List<String> ids) => _bulk(
     ids,

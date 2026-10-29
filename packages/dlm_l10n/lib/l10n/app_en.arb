@@ -847,5 +847,45 @@
         "type": "int"
       }
     }
-  }
+  },
+  "status_label": "Status bar",
+  "status_reconnecting": "Reconnecting…",
+  "status_speed": "↓ {down}  ↑ {up}",
+  "@status_speed": {
+    "placeholders": {
+      "down": {
+        "type": "String"
+      },
+      "up": {
+        "type": "String"
+      }
+    }
+  },
+  "status_counts": "{active} active, {queued} waiting",
+  "@status_counts": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "queued": {
+        "type": "int"
+      }
+    }
+  },
+  "status_quota": "{used} of {total}",
+  "@status_quota": {
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "status_quota_label": "Quota used",
+  "status_turbo": "Turbo",
+  "status_turbo_on": "Turbo on",
+  "status_pause_all": "Pause all",
+  "status_resume_all": "Resume all"
 }

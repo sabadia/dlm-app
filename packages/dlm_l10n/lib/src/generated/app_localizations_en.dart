@@ -1439,4 +1439,40 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get status_label => 'Status bar';
+
+  @override
+  String get status_reconnecting => 'Reconnecting…';
+
+  @override
+  String status_speed(String down, String up) {
+    return '↓ $down  ↑ $up';
+  }
+
+  @override
+  String status_counts(int active, int queued) {
+    return '$active active, $queued waiting';
+  }
+
+  @override
+  String status_quota(String used, String total) {
+    return '$used of $total';
+  }
+
+  @override
+  String get status_quota_label => 'Quota used';
+
+  @override
+  String get status_turbo => 'Turbo';
+
+  @override
+  String get status_turbo_on => 'Turbo on';
+
+  @override
+  String get status_pause_all => 'Pause all';
+
+  @override
+  String get status_resume_all => 'Resume all';
 }
