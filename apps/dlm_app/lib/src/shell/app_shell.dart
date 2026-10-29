@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../add/add_dialog.dart';
 import '../inspector/inspector_pane.dart';
 import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
@@ -175,6 +176,11 @@ class _AppShellState extends ConsumerState<AppShell> {
           semanticLabel: l.toolbar_label,
           title: current.title,
           actions: [
+            DlmIconButton(
+              icon: const DlmIcon(DlmIconName.plus),
+              semanticLabel: l.toolbar_add,
+              onPressed: () => showAddDownload(context, ref),
+            ),
             if (selected.isNotEmpty) ...[
               Text(
                 l.selection_count(selected.length),
@@ -253,6 +259,12 @@ class _AppShellState extends ConsumerState<AppShell> {
             openPalette,
         SingleActivator(LogicalKeyboardKey.keyF, meta: isMac, control: !isMac):
             ref.read(focusSearchProvider.notifier).request,
+        SingleActivator(
+          LogicalKeyboardKey.keyN,
+          meta: isMac,
+          control: !isMac,
+        ): () =>
+            showAddDownload(context, ref),
       },
       child: Focus(
         autofocus: true,

@@ -728,5 +728,60 @@
         "type": "String"
       }
     }
-  }
+  },
+  "add_title": "Add downloads",
+  "add_button": "Add",
+  "add_links": "Links",
+  "add_links_placeholder": "One link per line: web addresses, magnet links, or a pattern like http://host/img[1-20].jpg",
+  "add_looking": "Looking at the link…",
+  "add_files": "{count} files",
+  "@add_files": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_many": "{count} downloads",
+  "@add_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_more": "and more…",
+  "add_duplicate": "Already in the list: {name}",
+  "@add_duplicate": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_anyway": "Add it anyway",
+  "add_queue": "Queue",
+  "add_folder": "Folder",
+  "add_folder_default": "The default download folder",
+  "add_name": "Name",
+  "add_name_placeholder": "Taken from the link",
+  "add_paused": "Add without starting",
+  "add_done_one": "Added {name}",
+  "@add_done_one": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_done_many": "Added {count} downloads",
+  "@add_done_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cmd_add": "Add downloads…",
+  "toolbar_add": "Add downloads"
 }

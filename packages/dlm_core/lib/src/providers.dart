@@ -8,6 +8,7 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_repository.dart';
 import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
+import 'tasks/add_repository.dart';
 import 'tasks/refresh_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_detail_repository.dart';
@@ -39,6 +40,11 @@ final taskStoreProvider = Provider<TaskStore>((ref) {
 /// Where tasks are read from and commands go to.
 final taskRepositoryProvider = Provider<TaskRepository>(
   (ref) => ApiTaskRepository(ref.watch(apiProvider)),
+);
+
+/// Where downloads are looked at and added.
+final addRepositoryProvider = Provider<AddRepository>(
+  (ref) => ApiAddRepository(ref.watch(apiProvider)),
 );
 
 /// Where a task's link is renewed or replaced.

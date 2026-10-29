@@ -1275,4 +1275,75 @@ class AppLocalizationsEn extends AppLocalizations {
   String files_file_label(String name) {
     return 'Download $name';
   }
+
+  @override
+  String get add_title => 'Add downloads';
+
+  @override
+  String get add_button => 'Add';
+
+  @override
+  String get add_links => 'Links';
+
+  @override
+  String get add_links_placeholder =>
+      'One link per line: web addresses, magnet links, or a pattern like http://host/img[1-20].jpg';
+
+  @override
+  String get add_looking => 'Looking at the link…';
+
+  @override
+  String add_files(int count) {
+    return '$count files';
+  }
+
+  @override
+  String add_many(int count) {
+    return '$count downloads';
+  }
+
+  @override
+  String get add_more => 'and more…';
+
+  @override
+  String add_duplicate(String name) {
+    return 'Already in the list: $name';
+  }
+
+  @override
+  String get add_anyway => 'Add it anyway';
+
+  @override
+  String get add_queue => 'Queue';
+
+  @override
+  String get add_folder => 'Folder';
+
+  @override
+  String get add_folder_default => 'The default download folder';
+
+  @override
+  String get add_name => 'Name';
+
+  @override
+  String get add_name_placeholder => 'Taken from the link';
+
+  @override
+  String get add_paused => 'Add without starting';
+
+  @override
+  String add_done_one(String name) {
+    return 'Added $name';
+  }
+
+  @override
+  String add_done_many(int count) {
+    return 'Added $count downloads';
+  }
+
+  @override
+  String get cmd_add => 'Add downloads…';
+
+  @override
+  String get toolbar_add => 'Add downloads';
 }

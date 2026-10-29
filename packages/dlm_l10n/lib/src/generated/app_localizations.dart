@@ -2193,6 +2193,126 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Download {name}'**
   String files_file_label(String name);
+
+  /// No description provided for @add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add downloads'**
+  String get add_title;
+
+  /// No description provided for @add_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get add_button;
+
+  /// No description provided for @add_links.
+  ///
+  /// In en, this message translates to:
+  /// **'Links'**
+  String get add_links;
+
+  /// No description provided for @add_links_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'One link per line: web addresses, magnet links, or a pattern like http://host/img[1-20].jpg'**
+  String get add_links_placeholder;
+
+  /// No description provided for @add_looking.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking at the link…'**
+  String get add_looking;
+
+  /// No description provided for @add_files.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} files'**
+  String add_files(int count);
+
+  /// No description provided for @add_many.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} downloads'**
+  String add_many(int count);
+
+  /// No description provided for @add_more.
+  ///
+  /// In en, this message translates to:
+  /// **'and more…'**
+  String get add_more;
+
+  /// No description provided for @add_duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in the list: {name}'**
+  String add_duplicate(String name);
+
+  /// No description provided for @add_anyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Add it anyway'**
+  String get add_anyway;
+
+  /// No description provided for @add_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get add_queue;
+
+  /// No description provided for @add_folder.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder'**
+  String get add_folder;
+
+  /// No description provided for @add_folder_default.
+  ///
+  /// In en, this message translates to:
+  /// **'The default download folder'**
+  String get add_folder_default;
+
+  /// No description provided for @add_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get add_name;
+
+  /// No description provided for @add_name_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken from the link'**
+  String get add_name_placeholder;
+
+  /// No description provided for @add_paused.
+  ///
+  /// In en, this message translates to:
+  /// **'Add without starting'**
+  String get add_paused;
+
+  /// No description provided for @add_done_one.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {name}'**
+  String add_done_one(String name);
+
+  /// No description provided for @add_done_many.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {count} downloads'**
+  String add_done_many(int count);
+
+  /// No description provided for @cmd_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add downloads…'**
+  String get cmd_add;
+
+  /// No description provided for @toolbar_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add downloads'**
+  String get toolbar_add;
 }
 
 class _AppLocalizationsDelegate

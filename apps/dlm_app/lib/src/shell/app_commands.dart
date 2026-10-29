@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../add/add_dialog.dart';
 import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
@@ -55,6 +56,12 @@ List<DlmCommand> buildCommands(BuildContext context, WidgetRef ref) {
         group: l.nav_queues,
         onInvoke: () => router.go(queuePath(q.id)),
       ),
+    DlmCommand(
+      id: 'download.add',
+      label: l.cmd_add,
+      shortcut: '${mod}N',
+      onInvoke: () => showAddDownload(context, ref),
+    ),
     DlmCommand(
       id: 'queue.new',
       label: l.queue_new,

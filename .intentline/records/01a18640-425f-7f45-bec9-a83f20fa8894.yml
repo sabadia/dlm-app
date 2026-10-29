@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18640-425f-7f45-bec9-a83f20fa8894
+status: draft
+created_at: '2026-10-29T06:02:00Z'
+updated_at: '2026-10-29T06:02:00Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Add-download dialog: paste links or a pattern, look at them (resolve/expand), warn about duplicates, choose queue/folder/name (F3.5 first part, uses P13.6)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/add/add_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/add_input.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/add_repository.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
