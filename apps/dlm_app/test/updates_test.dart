@@ -34,6 +34,23 @@ void main() {
     expect(isNewerVersion('1.2.0', 'v1.2.0'), isFalse);
   });
 
+  test('a Caskroom entry for the app means Homebrew installed it', () {
+    expect(
+      installedWithHomebrew(
+        exists: (p) => p == '/opt/homebrew/Caskroom/dlm-app',
+      ),
+      isTrue,
+    );
+    expect(
+      installedWithHomebrew(
+        environment: {'HOMEBREW_PREFIX': '/custom'},
+        exists: (p) => p == '/custom/Caskroom/dlm-app',
+      ),
+      isTrue,
+    );
+    expect(installedWithHomebrew(exists: (_) => false), isFalse);
+  });
+
   appTest('checking reports a newer stable release', (tester) async {
     final h = await pumpApp(
       tester,

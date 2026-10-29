@@ -1941,6 +1941,12 @@
     }
   },
   "ab_open_release": "Open the release",
+  "ab_available_brew": "{version} is available. Installed with Homebrew: run brew upgrade dlm-app",
+  "@ab_available_brew": {
+    "placeholders": {
+      "version": {"type": "String"}
+    }
+  },
   "ab_check_failed": "The update check did not succeed.",
   "pref_shortcuts_conflict": "Already used by {command}",
   "@pref_shortcuts_conflict": {

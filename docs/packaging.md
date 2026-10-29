@@ -27,3 +27,27 @@ and launches from the DMG's copy, and it starts the **bundled** daemon
 (`…/DLM.app/Contents/Resources/bin/dlm serve`), not one from the PATH. **Not verified yet:** a
 Developer ID certificate and notarisation (no certificate exists yet; see the list of what the
 maintainer provides in `docs/PLAN.md`), and Sparkle updates.
+
+## Homebrew (F7.6)
+
+`packaging/homebrew/dlm-app.rb.tmpl` is the cask; `tools/render_cask.sh <version> <sha256>` fills it.
+`.github/workflows/homebrew.yml` runs when a release is **published** (not when the tag is pushed:
+the release is a draft first, and the cask must not point at files nobody can download). It reads
+the DMG's `.sha256` from the release, renders the cask, runs `brew style`, and pushes
+`Casks/dlm-app.rb` to `sabadia/homebrew-tap` with the deploy key `HOMEBREW_TAP_DEPLOY_KEY`
+(without the secret it renders and warns, and publishes nothing). Prereleases are skipped.
+Pull requests that touch the cask run `brew style` on a placeholder checksum.
+
+- `brew install --cask sabadia/tap/dlm-app` and `brew upgrade dlm-app`. There is no `dlm@latest`
+  and Homebrew cannot alias casks; `dlm` is the CLI cask. Homebrew 7 may ask for
+  `brew trust --tap sabadia/tap` once.
+- The cask has no `auto_updates`, so `brew upgrade` handles it; `uninstall quit:` closes the app
+  first and quitting the app stops the daemon it started.
+- **In-app detection:** a cask copies the app into `/Applications` and leaves only a symlink in
+  the Caskroom, so the app's own path does not show Homebrew. The app looks for
+  `<prefix>/Caskroom/dlm-app` (`HOMEBREW_PREFIX`, `/opt/homebrew`, `/usr/local`) and then
+  says "Installed with Homebrew: run brew upgrade dlm-app" in About instead of offering a download.
+- `depends_on macos: :ventura` (Homebrew's style check rejects `">= :ventura"`).
+
+**Not verified yet:** the install-then-upgrade test (needs two published releases and the tap
+key) and `brew audit --online` (needs a live download URL). `brew style` passes locally.

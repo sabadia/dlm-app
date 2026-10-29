@@ -82,6 +82,25 @@ List<int> _numbers(String version) {
   return [for (final part in core.split('.')) int.tryParse(part) ?? 0];
 }
 
+/// Whether Homebrew installed this app. A cask copies the app into
+/// Applications, so the app's own path says nothing; the cask's directory in
+/// the Caskroom does.
+bool installedWithHomebrew({
+  Map<String, String>? environment,
+  bool Function(String path)? exists,
+}) {
+  final env = environment ?? Platform.environment;
+  bool present(String path) =>
+      exists != null ? exists(path) : Directory(path).existsSync();
+  final prefixes = {?env['HOMEBREW_PREFIX'], '/opt/homebrew', '/usr/local'};
+  return prefixes.any((prefix) => present('$prefix/Caskroom/dlm-app'));
+}
+
+/// Whether updates belong to Homebrew. Tests substitute their own.
+final homebrewInstallProvider = Provider<bool>(
+  (ref) => Platform.isMacOS && installedWithHomebrew(),
+);
+
 /// Reads the published releases. Tests substitute their own.
 final releaseSourceProvider = Provider<Future<List<ReleaseInfo>> Function()>(
   (ref) => fetchGitHubReleases,
@@ -160,10 +179,13 @@ class _UpdateSectionState extends ConsumerState<UpdateSection> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final channel = ref.watch(updateChannelProvider);
+    final brew = ref.watch(homebrewInstallProvider);
     final message = _failed
         ? l.ab_check_failed
         : _offer != null
-        ? l.ab_available(_offer!.tag)
+        ? brew
+              ? l.ab_available_brew(_offer!.tag)
+              : l.ab_available(_offer!.tag)
         : _checked
         ? l.ab_up_to_date
         : null;

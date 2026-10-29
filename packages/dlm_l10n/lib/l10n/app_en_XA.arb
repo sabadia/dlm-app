@@ -935,6 +935,7 @@
   "ab_up_to_date": "[Thîš îš thé ñéwéšt véršîôñ ôñ thîš çhàññél.~~~~~~~~~~~~~]",
   "ab_available": "[{version} îš àvàîlàblé~~~~~~~]",
   "ab_open_release": "[Ôpéñ thé réléàšé~~~~~]",
+  "ab_available_brew": "[{version} îš àvàîlàblé. Îñštàlléd wîth Hômébréw: rûñ bréw ûpgràdé dlm-àpp~~~~~~~~~~~~~~~~~~~~~~]",
   "ab_check_failed": "[Thé ûpdàté çhéçk dîd ñôt šûççééd.~~~~~~~~~~]",
   "pref_shortcuts_conflict": "[Âlréàdý ûšéd bý {command}~~~~~~~~]",
   "pref_startup": "[Štàrtûp~~~]",

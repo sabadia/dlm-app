@@ -1,0 +1,96 @@
+name: Homebrew
+
+# Publishing a release updates the cask in sabadia/homebrew-tap. The release is
+# a draft until you publish it, and the cask must not point at files nobody can
+# download yet, so this runs on publication rather than on the tag.
+# Changes to the cask run a style check with a placeholder checksum.
+on:
+  release:
+    types: [published]
+  pull_request:
+    paths:
+      - "packaging/homebrew/**"
+      - "tools/render_cask.sh"
+      - ".github/workflows/homebrew.yml"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish, such as v1.2.3"
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  style:
+    name: cask style
+    if: github.event_name == 'pull_request'
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Render and check
+        run: |
+          # Homebrew only checks casks that live in a tap.
+          brew tap-new --no-git local/check
+          mkdir -p "$(brew --repository local/check)/Casks"
+          bash tools/render_cask.sh 0.0.1 "$(printf 0%.0s {1..64})" > "$(brew --repository local/check)/Casks/dlm-app.rb"
+          brew style --cask local/check/dlm-app
+
+  publish:
+    name: update the tap
+    if: github.event_name != 'pull_request'
+    runs-on: macos-latest
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Stable releases only
+        id: gate
+        run: |
+          case "$TAG" in
+            *-*) echo "a prerelease does not go to Homebrew"; echo "go=false" >> "$GITHUB_OUTPUT" ;;
+            *) echo "go=true" >> "$GITHUB_OUTPUT" ;;
+          esac
+      - name: Render the cask from the published checksum
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          version="${TAG#v}"
+          gh release download "$TAG" --repo "$GITHUB_REPOSITORY" \
+            --pattern "DLM_${version}.dmg.sha256" --dir "$RUNNER_TEMP"
+          sha="$(awk '{print $1}' "$RUNNER_TEMP/DLM_${version}.dmg.sha256")"
+          bash tools/render_cask.sh "$version" "$sha" > "$RUNNER_TEMP/dlm-app.rb"
+          cat "$RUNNER_TEMP/dlm-app.rb"
+      - name: Style check
+        if: steps.gate.outputs.go == 'true'
+        run: |
+          brew tap-new --no-git local/check
+          mkdir -p "$(brew --repository local/check)/Casks"
+          cp "$RUNNER_TEMP/dlm-app.rb" "$(brew --repository local/check)/Casks/"
+          brew style --cask local/check/dlm-app
+      - name: Push to the tap
+        if: steps.gate.outputs.go == 'true'
+        env:
+          DEPLOY_KEY: ${{ secrets.HOMEBREW_TAP_DEPLOY_KEY }}
+        run: |
+          if [ -z "$DEPLOY_KEY" ]; then
+            echo "::warning::HOMEBREW_TAP_DEPLOY_KEY is not set: the cask was rendered but not published"
+            exit 0
+          fi
+          install -m 600 /dev/null "$RUNNER_TEMP/tap_key"
+          printf '%s\n' "$DEPLOY_KEY" > "$RUNNER_TEMP/tap_key"
+          export GIT_SSH_COMMAND="ssh -i $RUNNER_TEMP/tap_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+          git clone git@github.com:sabadia/homebrew-tap.git "$RUNNER_TEMP/tap"
+          mkdir -p "$RUNNER_TEMP/tap/Casks"
+          cp "$RUNNER_TEMP/dlm-app.rb" "$RUNNER_TEMP/tap/Casks/dlm-app.rb"
+          cd "$RUNNER_TEMP/tap"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Casks/dlm-app.rb
+          if git diff --cached --quiet; then
+            echo "the cask is already current"
+          else
+            git commit -m "dlm-app ${TAG#v}"
+            git push
+          fi
+          rm -f "$RUNNER_TEMP/tap_key"
