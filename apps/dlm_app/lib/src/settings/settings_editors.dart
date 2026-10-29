@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
+import '../format/dlm_format.dart';
 import '../queues/queue_settings_draft.dart';
 import 'settings_form.dart' show isDuration;
 
@@ -796,7 +797,7 @@ class _QuotaEditorState extends State<QuotaEditor> {
             value: _bytes,
             allowEmpty: true,
             parse: parseSize,
-            format: (b) => formatBytes(b) ?? '$b',
+            format: (b) => context.bytes(b) ?? '$b',
             invalidText: l.settings_invalid_size,
             semanticLabel: l.se_quota_bytes,
             onChanged: (b) {
@@ -908,7 +909,7 @@ class _ProfilesEditorState extends State<ProfilesEditor> {
                             value: _profiles[i].speedLimit,
                             allowEmpty: true,
                             parse: parseSize,
-                            format: (b) => formatBytes(b) ?? '$b',
+                            format: (b) => context.bytes(b) ?? '$b',
                             invalidText: l.settings_invalid_size,
                             semanticLabel: l.qs_profile_limit,
                             placeholder: l.qs_profile_limit,

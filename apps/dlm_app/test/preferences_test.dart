@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_app/src/app.dart';
 import 'package:dlm_app/src/manage/preferences_screen.dart';
 import 'package:dlm_app/src/platform/startup.dart';
@@ -80,7 +82,7 @@ void main() {
     expect(h.container.read(confirmDeleteProvider), isTrue);
     // The notification group pushes this switch's centre just past the
     // window, and more than one scrollable is on screen.
-    await tester.drag(find.byType(PreferencesScreen), const Offset(0, -160));
+    await tester.drag(find.byType(PreferencesScreen), const Offset(0, -800));
     await settle(tester);
     await tester.tap(toggle('Ask before deleting downloads'));
     await settle(tester);
@@ -127,6 +129,30 @@ void main() {
     await tester.tap(toggle('Tell me when a download finishes or fails'));
     await settle(tester);
     expect(h.container.read(notifyOnFinishProvider), isFalse);
+    await tester.drag(find.byType(PreferencesScreen), const Offset(0, -400));
+    await settle(tester);
+    await tester.tap(toggle('Watch the clipboard for links'));
+    await settle(tester);
+    expect(h.container.read(clipboardWatchProvider), isTrue);
+    await tester.tap(dropdown('Sizes'));
+    await settle(tester);
+    await tester.tap(find.text('Kilobytes (kB)').last);
+    await settle(tester);
+    expect(h.container.read(unitSystemProvider), UnitSystem.si);
+    await tester.tap(dropdown('Language'));
+    await settle(tester);
+    await tester.tap(find.text('en').last);
+    await settle(tester);
+    expect(h.container.read(languageProvider), 'en');
+    unawaited(
+      h.container.read(shortcutsProvider.notifier).set({'download.add': 'x'}),
+    );
+    await settle(tester);
+    await tester.drag(find.byType(PreferencesScreen), const Offset(0, -200));
+    await settle(tester);
+    await tester.tap(find.text('Reset shortcuts'));
+    await settle(tester);
+    expect(h.container.read(shortcutsProvider), isEmpty);
   });
 
   appTest('start hidden is remembered', (tester) async {

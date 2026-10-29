@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18740-4b6d-7b87-9db3-3f9edc3b7232
+status: draft
+created_at: '2026-10-29T10:41:40Z'
+updated_at: '2026-10-29T10:41:40Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F4.11: preferences for units, language, clipboard watching and the shortcut map, with sizes redrawn from one DlmFormat'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/format/dlm_format.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/preferences_screen.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

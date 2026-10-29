@@ -5440,6 +5440,78 @@ abstract class AppLocalizations {
   /// **'Not now'**
   String get clip_offer_dismiss;
 
+  /// No description provided for @pref_units.
+  ///
+  /// In en, this message translates to:
+  /// **'Sizes'**
+  String get pref_units;
+
+  /// No description provided for @pref_units_iec.
+  ///
+  /// In en, this message translates to:
+  /// **'Kibibytes (KiB)'**
+  String get pref_units_iec;
+
+  /// No description provided for @pref_units_si.
+  ///
+  /// In en, this message translates to:
+  /// **'Kilobytes (kB)'**
+  String get pref_units_si;
+
+  /// No description provided for @pref_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get pref_language;
+
+  /// No description provided for @pref_language_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get pref_language_system;
+
+  /// No description provided for @pref_clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the clipboard for links'**
+  String get pref_clipboard;
+
+  /// No description provided for @pref_clipboard_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'When the window is in front, offer to add an http, ftp, magnet or ed2k link that was copied. Off until you turn it on. The clipboard is not written to the log.'**
+  String get pref_clipboard_desc;
+
+  /// No description provided for @pref_shortcuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortcuts'**
+  String get pref_shortcuts;
+
+  /// No description provided for @pref_shortcuts_change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get pref_shortcuts_change;
+
+  /// No description provided for @pref_shortcuts_press.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the new shortcut'**
+  String get pref_shortcuts_press;
+
+  /// No description provided for @pref_shortcuts_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset shortcuts'**
+  String get pref_shortcuts_reset;
+
+  /// No description provided for @pref_shortcuts_conflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Already used by {command}'**
+  String pref_shortcuts_conflict(String command);
+
   /// No description provided for @pref_startup.
   ///
   /// In en, this message translates to:

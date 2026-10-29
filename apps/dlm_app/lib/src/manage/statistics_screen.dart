@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../format/dlm_format.dart';
 import '../shell/feedback.dart';
 import 'timeline_series.dart';
 
@@ -100,7 +101,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
         DlmFormRow(label: l.st_tasks, control: Text('${s.tasks}')),
         DlmFormRow(
           label: l.st_downloaded,
-          control: Text(formatBytes(s.downloadedBytes) ?? '0'),
+          control: Text(context.bytes(s.downloadedBytes) ?? '0'),
         ),
         DlmFormRow(
           label: l.st_by_status,
@@ -121,7 +122,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
               children: [
                 for (final e in s.byEngine!)
                   Text(
-                    '${e.engine}: ${e.tasks} · ${formatBytes(e.downloadedBytes) ?? '0'}',
+                    '${e.engine}: ${e.tasks} · ${context.bytes(e.downloadedBytes) ?? '0'}',
                     style: caption,
                   ),
               ],
@@ -130,7 +131,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
         for (final c in s.completed ?? const <CompletedStatsRow>[])
           DlmFormRow(
             label: l.st_completed_in(c.period.json ?? ''),
-            control: Text('${c.tasks} · ${formatBytes(c.bytes) ?? '0'}'),
+            control: Text('${c.tasks} · ${context.bytes(c.bytes) ?? '0'}'),
           ),
       ],
     );
@@ -143,8 +144,8 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
     return DlmChartFrame(
       title: l.st_timeline,
       summary: l.st_timeline_summary(
-        formatBytes(series.totalDown) ?? '0',
-        formatBytes(series.totalUp) ?? '0',
+        context.bytes(series.totalDown) ?? '0',
+        context.bytes(series.totalUp) ?? '0',
       ),
       legend: [
         for (var i = 0; i < series.groups.length; i++)
@@ -155,6 +156,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
           : CustomPaint(
               painter: _TimelinePainter(
                 series: series,
+                peakLabel: context.bytes(series.peakDown) ?? '',
                 colors: [
                   for (var i = 0; i < series.groups.length; i++) palette[i],
                 ],
@@ -266,7 +268,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
               DlmListRow(
                 title: t.name ?? t.source.currentUrl,
                 subtitle:
-                    '${formatBytes(t.size) ?? ''} · ${t.completedAt == null ? '' : date.format(t.completedAt!.toLocal())}',
+                    '${context.bytes(t.size) ?? ''} · ${t.completedAt == null ? '' : date.format(t.completedAt!.toLocal())}',
                 leading: const DlmIcon(DlmIconName.success),
               ),
           if (history.hasMore)
@@ -329,7 +331,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
               Text(
                 l.st_cleanup_preview_result(
                   _preview!.matched,
-                  formatBytes(_preview!.bytes) ?? '0',
+                  context.bytes(_preview!.bytes) ?? '0',
                 ),
               ),
               if (_preview!.matched > 0)
@@ -350,6 +352,7 @@ class _StatisticsScreenState extends ConsumerState<StatisticsScreen> {
 class _TimelinePainter extends CustomPainter {
   _TimelinePainter({
     required this.series,
+    required this.peakLabel,
     required this.colors,
     required this.grid,
     required this.text,
@@ -357,6 +360,7 @@ class _TimelinePainter extends CustomPainter {
   });
 
   final TimelineSeries series;
+  final String peakLabel;
   final List<Color> colors;
   final Color grid;
   final Color text;
@@ -368,7 +372,7 @@ class _TimelinePainter extends CustomPainter {
     if (peak <= 0 || series.times.isEmpty) return;
     final label = TextPainter(
       text: TextSpan(
-        text: formatBytes(peak) ?? '',
+        text: peakLabel,
         style: style.copyWith(color: text),
       ),
       textDirection: ui.TextDirection.ltr,
@@ -400,5 +404,6 @@ class _TimelinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_TimelinePainter old) => old.series != series;
+  bool shouldRepaint(_TimelinePainter old) =>
+      old.series != series || old.peakLabel != peakLabel;
 }

@@ -5,6 +5,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import '../shell/feedback.dart';
 
 /// The files of a download as a folder tree. It shows which files are
@@ -63,7 +64,13 @@ class _FilesTabState extends ConsumerState<FilesTab> {
     final kind = task?.statusKind;
     final editable =
         kind != null && !kind.isActive && kind != TaskStatus.completed;
-    final roots = buildFileTree(files, l, picked: _picked, onToggle: _toggle);
+    final roots = buildFileTree(
+      files,
+      l,
+      sizes: context.bytes,
+      picked: _picked,
+      onToggle: _toggle,
+    );
     _expanded ??= {for (final id in _folderIds(roots)) id};
     final selected = files.where((f) => f.selected).length;
     return Column(
@@ -147,6 +154,7 @@ class _FilesTabState extends ConsumerState<FilesTab> {
 List<DlmTreeNode> buildFileTree(
   List<File> files,
   AppLocalizations l, {
+  required String? Function(int bytes) sizes,
   Set<int>? picked,
   void Function(Iterable<int> indexes, bool on)? onToggle,
 }) {
@@ -163,7 +171,7 @@ List<DlmTreeNode> buildFileTree(
     }
     dir.files.add((parts.last, f));
   }
-  return root.nodes(l, picked, onToggle);
+  return root.nodes(l, picked, onToggle, sizes);
 }
 
 class _Folder {
@@ -186,6 +194,7 @@ class _Folder {
     AppLocalizations l,
     Set<int>? picked,
     void Function(Iterable<int> indexes, bool on)? onToggle,
+    String? Function(int bytes) sizes,
   ) => [
     for (final e in folders.entries)
       DlmTreeNode(
@@ -194,8 +203,8 @@ class _Folder {
         icon: picked == null
             ? const DlmIcon(DlmIconName.folder)
             : _folderBox(e.value, e.key, picked, onToggle!),
-        trailing: Text(formatBytes(e.value.total) ?? ''),
-        children: e.value.nodes(l, picked, onToggle),
+        trailing: Text(sizes(e.value.total) ?? ''),
+        children: e.value.nodes(l, picked, onToggle, sizes),
       ),
     for (final (name, f) in files)
       DlmTreeNode(
@@ -213,7 +222,7 @@ class _Folder {
                 onChanged: (v) =>
                     onToggle!([f.index], v == DlmCheckState.checked),
               ),
-        trailing: Text(formatBytes(f.size) ?? ''),
+        trailing: Text(sizes(f.size) ?? ''),
       ),
   ];
 

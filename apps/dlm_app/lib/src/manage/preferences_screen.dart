@@ -11,6 +11,7 @@ import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
 import '../shell/feedback.dart';
 import '../skin_registry.dart';
+import 'shortcut_editor.dart';
 
 /// The accent colours offered, by name; the app's own accent is the default.
 const Map<String, int> accentChoices = {
@@ -85,6 +86,16 @@ class PreferencesScreen extends ConsumerWidget {
             semanticLabel: l.pref_notify,
             onChanged: (v) =>
                 unawaited(ref.read(notifyOnFinishProvider.notifier).set(v)),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_clipboard,
+          description: l.pref_clipboard_desc,
+          control: DlmSwitch(
+            value: ref.watch(clipboardWatchProvider),
+            semanticLabel: l.pref_clipboard,
+            onChanged: (v) =>
+                unawaited(ref.read(clipboardWatchProvider.notifier).set(v)),
           ),
         ),
       ],
@@ -278,6 +289,53 @@ class PreferencesScreen extends ConsumerWidget {
         _startupGroup(context, ref),
         gap,
         _presenceGroup(context, ref),
+        gap,
+        DlmFormGroup(
+          title: l.pref_units,
+          children: [
+            DlmFormRow(
+              label: l.pref_units,
+              control: SizedBox(
+                width: 220,
+                child: DlmDropdown<UnitSystem>(
+                  semanticLabel: l.pref_units,
+                  value: ref.watch(unitSystemProvider),
+                  choices: [
+                    DlmChoice(value: UnitSystem.iec, label: l.pref_units_iec),
+                    DlmChoice(value: UnitSystem.si, label: l.pref_units_si),
+                  ],
+                  onChanged: (v) =>
+                      unawaited(ref.read(unitSystemProvider.notifier).set(v)),
+                ),
+              ),
+            ),
+            DlmFormRow(
+              label: l.pref_language,
+              control: SizedBox(
+                width: 220,
+                child: DlmDropdown<String?>(
+                  semanticLabel: l.pref_language,
+                  value: ref.watch(languageProvider),
+                  choices: [
+                    DlmChoice(value: null, label: l.pref_language_system),
+                    for (final locale in AppLocalizations.supportedLocales)
+                      DlmChoice(
+                        value: locale.languageCode,
+                        label: locale.languageCode,
+                      ),
+                  ],
+                  onChanged: (code) =>
+                      unawaited(ref.read(languageProvider.notifier).set(code)),
+                ),
+              ),
+            ),
+          ],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.pref_shortcuts,
+          children: const [ShortcutEditor()],
+        ),
         gap,
         DlmFormGroup(
           title: l.pref_confirmations,

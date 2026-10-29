@@ -5,6 +5,8 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
+
 /// The swarm of a torrent: state, peers, what was shared, trackers.
 class TorrentTab extends ConsumerWidget {
   /// Creates the tab for the task [id].
@@ -64,7 +66,7 @@ class TorrentTab extends ConsumerWidget {
         row(
           l.torrent_shared,
           l.torrent_shared_value(
-            formatBytes(info.uploaded) ?? '0',
+            context.bytes(info.uploaded) ?? '0',
             info.ratio.toStringAsFixed(2),
           ),
         ),
@@ -82,7 +84,7 @@ class TorrentTab extends ConsumerWidget {
               p.address,
               [
                 if (p.client != null && p.client!.isNotEmpty) p.client!,
-                l.torrent_peer_rate(formatSpeed(p.downloadRate) ?? '0'),
+                l.torrent_peer_rate(context.speed(p.downloadRate) ?? '0'),
               ].join(' · '),
             ),
         ],

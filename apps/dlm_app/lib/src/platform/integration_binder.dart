@@ -10,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../about/diagnostics_providers.dart';
+import '../format/dlm_format.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
 import '../shell/shell_state.dart';
@@ -178,8 +179,8 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     final text = speed == null
         ? null
         : l.status_speed(
-            formatSpeed(speed.down) ?? '0',
-            formatSpeed(speed.up) ?? '0',
+            context.speed(speed.down) ?? '0',
+            context.speed(speed.up) ?? '0',
           );
     // The speed sits beside the icon on macOS. Linux has a menu only.
     final title = Platform.isMacOS ? text : null;

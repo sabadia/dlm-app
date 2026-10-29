@@ -3222,6 +3222,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clip_offer_dismiss => 'Not now';
 
   @override
+  String get pref_units => 'Sizes';
+
+  @override
+  String get pref_units_iec => 'Kibibytes (KiB)';
+
+  @override
+  String get pref_units_si => 'Kilobytes (kB)';
+
+  @override
+  String get pref_language => 'Language';
+
+  @override
+  String get pref_language_system => 'System';
+
+  @override
+  String get pref_clipboard => 'Watch the clipboard for links';
+
+  @override
+  String get pref_clipboard_desc =>
+      'When the window is in front, offer to add an http, ftp, magnet or ed2k link that was copied. Off until you turn it on. The clipboard is not written to the log.';
+
+  @override
+  String get pref_shortcuts => 'Shortcuts';
+
+  @override
+  String get pref_shortcuts_change => 'Change';
+
+  @override
+  String get pref_shortcuts_press => 'Press the new shortcut';
+
+  @override
+  String get pref_shortcuts_reset => 'Reset shortcuts';
+
+  @override
+  String pref_shortcuts_conflict(String command) {
+    return 'Already used by $command';
+  }
+
+  @override
   String get pref_startup => 'Startup';
 
   @override

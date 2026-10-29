@@ -31,7 +31,10 @@ page, and the details pane. Panels resize by dragging or with the keyboard and r
 width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
 map (Command on macOS, Control elsewhere, overridable per command). A chord
 already used by another command is refused, and reset restores the built-in
-ones. Global hotkeys are not part of this map.
+ones. Global hotkeys are not part of this map. Preferences also choose the size
+units and the language. Sizes are drawn through one `DlmFormat` above the
+window, so a change redraws every count. The language follows the system
+unless a supported language is chosen.
 
 ## Downloads list
 

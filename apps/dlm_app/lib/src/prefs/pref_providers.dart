@@ -65,6 +65,17 @@ final densityProvider = NotifierProvider<PrefNotifier<Density>, Density>(
   () => PrefNotifier(UiPrefs.density),
 );
 
+/// IEC or SI sizes.
+final unitSystemProvider =
+    NotifierProvider<PrefNotifier<UnitSystem>, UnitSystem>(
+      () => PrefNotifier(UiPrefs.unitSystem),
+    );
+
+/// Language code, or null to follow the system.
+final languageProvider = NotifierProvider<PrefNotifier<String?>, String?>(
+  () => PrefNotifier(UiPrefs.language),
+);
+
 /// Forced skin id, or null for the platform's.
 final skinOverrideProvider = NotifierProvider<PrefNotifier<String?>, String?>(
   () => PrefNotifier(UiPrefs.skinOverride),

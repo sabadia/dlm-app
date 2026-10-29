@@ -5,6 +5,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import 'task_format.dart';
 
 /// The title of a task for assistive technology and the name column.
@@ -114,7 +115,7 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
     cell: (context, t) => TaskCell(
       id: t.id,
       builder: (context, task, progress) =>
-          Text(formatBytes(progress?.size ?? task.size) ?? ''),
+          Text(context.bytes(progress?.size ?? task.size) ?? ''),
     ),
   ),
   DlmColumn<Task>(
@@ -126,7 +127,7 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
       id: t.id,
       builder: (context, task, progress) => Text(
         task.statusKind.isActive && progress != null && progress.speed > 0
-            ? formatSpeed(progress.speed) ?? ''
+            ? context.speed(progress.speed) ?? ''
             : '',
       ),
     ),

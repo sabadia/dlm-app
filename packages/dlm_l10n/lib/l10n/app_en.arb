@@ -1892,6 +1892,23 @@
   "clip_offer_title": "A link is on the clipboard",
   "clip_offer_add": "Add",
   "clip_offer_dismiss": "Not now",
+  "pref_units": "Sizes",
+  "pref_units_iec": "Kibibytes (KiB)",
+  "pref_units_si": "Kilobytes (kB)",
+  "pref_language": "Language",
+  "pref_language_system": "System",
+  "pref_clipboard": "Watch the clipboard for links",
+  "pref_clipboard_desc": "When the window is in front, offer to add an http, ftp, magnet or ed2k link that was copied. Off until you turn it on. The clipboard is not written to the log.",
+  "pref_shortcuts": "Shortcuts",
+  "pref_shortcuts_change": "Change",
+  "pref_shortcuts_press": "Press the new shortcut",
+  "pref_shortcuts_reset": "Reset shortcuts",
+  "pref_shortcuts_conflict": "Already used by {command}",
+  "@pref_shortcuts_conflict": {
+    "placeholders": {
+      "command": {"type": "String"}
+    }
+  },
   "pref_startup": "Startup",
   "pref_login": "Start when I log in",
   "pref_login_desc": "Opens the app in the background when you sign in to this computer.",
