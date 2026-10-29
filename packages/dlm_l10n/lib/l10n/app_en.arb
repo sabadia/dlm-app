@@ -1879,5 +1879,42 @@
       }
     }
   },
-  "nav_tools": "Tools"
+  "nav_tools": "Tools",
+  "add_category": "Will be sorted into {name}: {dir}",
+  "@add_category": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dir": {
+        "type": "String"
+      }
+    }
+  },
+  "add_login_stored": "A login is stored for {host}",
+  "@add_login_stored": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "add_login_add": "Add a login",
+  "add_cookies_stored": "{count, plural, one{1 cookie is stored for this site} other{{count} cookies are stored for this site}}",
+  "@add_cookies_stored": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_cookies_none": "No cookies are stored for this site",
+  "add_login_none": "No login is stored for {host}",
+  "@add_login_none": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -3184,4 +3184,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nav_tools => 'Tools';
+
+  @override
+  String add_category(String name, String dir) {
+    return 'Will be sorted into $name: $dir';
+  }
+
+  @override
+  String add_login_stored(String host) {
+    return 'A login is stored for $host';
+  }
+
+  @override
+  String get add_login_add => 'Add a login';
+
+  @override
+  String add_cookies_stored(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies are stored for this site',
+      one: '1 cookie is stored for this site',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get add_cookies_none => 'No cookies are stored for this site';
+
+  @override
+  String add_login_none(String host) {
+    return 'No login is stored for $host';
+  }
 }

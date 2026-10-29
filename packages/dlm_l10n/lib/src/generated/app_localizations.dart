@@ -5367,6 +5367,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tools'**
   String get nav_tools;
+
+  /// No description provided for @add_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Will be sorted into {name}: {dir}'**
+  String add_category(String name, String dir);
+
+  /// No description provided for @add_login_stored.
+  ///
+  /// In en, this message translates to:
+  /// **'A login is stored for {host}'**
+  String add_login_stored(String host);
+
+  /// No description provided for @add_login_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a login'**
+  String get add_login_add;
+
+  /// No description provided for @add_cookies_stored.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 cookie is stored for this site} other{{count} cookies are stored for this site}}'**
+  String add_cookies_stored(int count);
+
+  /// No description provided for @add_cookies_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No cookies are stored for this site'**
+  String get add_cookies_none;
+
+  /// No description provided for @add_login_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No login is stored for {host}'**
+  String add_login_none(String host);
 }
 
 class _AppLocalizationsDelegate

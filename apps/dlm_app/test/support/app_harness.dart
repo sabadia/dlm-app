@@ -548,6 +548,8 @@ Future<AppHarness> pumpApp(
   Map<String, Map<String, int>> counts = const {},
   LimitsView? limits,
   List<Category> categories = const [],
+  List<Credential> logins = const [],
+  List<CookieInfo> cookies = const [],
   List<Override> overrides = const [],
 }) async {
   tester.view
@@ -595,6 +597,8 @@ Future<AppHarness> pumpApp(
       queuesProvider.overrideWith(() => FakeQueues(queues)),
       queueCountsSourceProvider.overrideWithValue(() async => counts),
       categoriesProvider.overrideWith(() => FakeCategories(categories)),
+      credentialsProvider.overrideWith(() => FakeCredentials(logins)),
+      cookiesProvider.overrideWith(() => FakeCookies(cookies)),
       limitsProvider.overrideWith(
         () => FakeLimits(
           limits ??

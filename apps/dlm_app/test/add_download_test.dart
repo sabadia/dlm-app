@@ -2,6 +2,7 @@ import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/add/add_dialog.dart';
 import 'package:dlm_app/src/add/add_input.dart';
 import 'package:dlm_app/src/add/add_results.dart';
+import 'package:dlm_app/src/manage/logins_screen.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/services.dart';
@@ -167,9 +168,18 @@ void main() {
   bool enabled(WidgetTester tester) =>
       tester.widget<DlmButton>(addButton()).onPressed != null;
 
-  Future<void> pump(WidgetTester tester, FakeAdd add) => pumpApp(
+  Future<AppHarness> pump(
+    WidgetTester tester,
+    FakeAdd add, {
+    List<Category> categories = const [],
+    List<Credential> logins = const [],
+    List<CookieInfo> cookies = const [],
+  }) => pumpApp(
     tester,
     queues: [queue('main', 'Default')],
+    categories: categories,
+    logins: logins,
+    cookies: cookies,
     overrides: [addRepositoryProvider.overrideWithValue(add)],
   );
 
@@ -412,6 +422,149 @@ void main() {
       [1],
     ]);
     expect(h.tasks.calls, isEmpty, reason: 'resume goes through the actions');
+  });
+
+  appTest('the category a file would be sorted into is previewed', (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      FakeAdd(),
+      categories: const [
+        Category(
+          dir: '/media/images',
+          id: 'c1',
+          name: 'Disk images',
+          position: 0,
+          extensions: ['iso'],
+        ),
+      ],
+    );
+    await openDialog(tester);
+    await type(tester, 'http://h/ubuntu.iso');
+    expect(
+      find.text('Will be sorted into Disk images: /media/images'),
+      findsOneWidget,
+    );
+  });
+
+  appTest('a folder typed by hand replaces the category preview', (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      FakeAdd(),
+      categories: const [
+        Category(
+          dir: '/media/images',
+          id: 'c1',
+          name: 'Disk images',
+          position: 0,
+          extensions: ['iso'],
+        ),
+      ],
+    );
+    await openDialog(tester);
+    await type(tester, 'http://h/ubuntu.iso');
+    await tester.enterText(
+      find
+          .descendant(
+            of: find.byType(AddDownloadDialog),
+            matching: find.byWidgetPredicate(
+              (w) => w is DlmTextField && w.semanticLabel == 'Folder',
+            ),
+          )
+          .first,
+      '/mine',
+    );
+    await tester.pump();
+    expect(find.textContaining('Will be sorted into'), findsNothing);
+  });
+
+  appTest('the site of the link: a login can be added, cookies are counted', (
+    tester,
+  ) async {
+    final h = await pump(tester, FakeAdd());
+    await openDialog(tester);
+    await type(tester, 'http://files.example.com/ubuntu.iso');
+    expect(find.text('No cookies are stored for this site'), findsOneWidget);
+    expect(
+      find.text('No login is stored for files.example.com'),
+      findsOneWidget,
+    );
+    await tester.tap(find.text('Add a login'));
+    await settle(tester);
+    await tester.enterText(
+      find
+          .descendant(
+            of: find.byType(LoginDialog),
+            matching: find.byWidgetPredicate(
+              (w) => w is DlmTextField && w.semanticLabel == 'User name',
+            ),
+          )
+          .first,
+      'ada',
+    );
+    await tester.enterText(
+      find
+          .descendant(
+            of: find.byType(LoginDialog),
+            matching: find.byWidgetPredicate(
+              (w) => w is DlmPasswordField && w.semanticLabel == 'Password',
+            ),
+          )
+          .first,
+      'pw',
+    );
+    await tester.pump();
+    await tester.tap(find.widgetWithText(DlmButton, 'Save'));
+    await settle(tester);
+    final fake =
+        h.container.read(credentialsProvider.notifier) as FakeCredentials;
+    expect(fake.calls.single, 'create files.example.com ada pw auto');
+    expect(
+      find.text('A login is stored for files.example.com'),
+      findsOneWidget,
+    );
+  });
+
+  appTest('a stored login and cookies are recognised, parents included', (
+    tester,
+  ) async {
+    await pump(
+      tester,
+      FakeAdd(),
+      logins: [
+        Credential(
+          createdAt: DateTime.utc(2026),
+          host: '*.example.com',
+          id: 'k',
+          scheme: 'auto',
+          updatedAt: DateTime.utc(2026),
+          username: 'ada',
+        ),
+      ],
+      cookies: [
+        CookieInfo(
+          createdAt: DateTime.utc(2026),
+          domain: '.example.com',
+          hostOnly: false,
+          httpOnly: false,
+          id: 'c',
+          name: 'sid',
+          path: '/',
+          secure: false,
+          updatedAt: DateTime.utc(2026),
+        ),
+      ],
+    );
+    await openDialog(tester);
+    await type(tester, 'http://files.example.com/a.iso');
+    expect(
+      find.text('A login is stored for files.example.com'),
+      findsOneWidget,
+    );
+    expect(find.text('1 cookie is stored for this site'), findsOneWidget);
   });
 }
 

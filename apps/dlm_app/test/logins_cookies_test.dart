@@ -103,8 +103,15 @@ void main() {
     WidgetTester tester,
     String page, {
     List<Override> overrides = const [],
+    List<Credential> logins = const [],
+    List<CookieInfo> cookies = const [],
   }) async {
-    final h = await pumpApp(tester, overrides: overrides);
+    final h = await pumpApp(
+      tester,
+      overrides: overrides,
+      logins: logins,
+      cookies: cookies,
+    );
     h.container.read(routerProvider).go('/manage/$page');
     await settle(tester);
     return h;
@@ -117,13 +124,7 @@ void main() {
     Future<AppHarness> openLogins(
       WidgetTester tester, [
       List<Credential> logins = const [],
-    ]) => open(
-      tester,
-      'logins',
-      overrides: [
-        credentialsProvider.overrideWith(() => FakeCredentials(logins)),
-      ],
-    );
+    ]) => open(tester, 'logins', logins: logins);
 
     Future<void> fill(WidgetTester tester, String label, String text) async {
       await tester.enterText(
@@ -204,10 +205,8 @@ void main() {
     }) => open(
       tester,
       'cookies',
-      overrides: [
-        cookiesProvider.overrideWith(() => FakeCookies(cookies ?? _cookies)),
-        ...overrides,
-      ],
+      overrides: overrides,
+      cookies: cookies ?? _cookies,
     );
 
     appTest('cookies are grouped by domain, values are not shown', (
