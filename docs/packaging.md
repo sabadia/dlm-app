@@ -51,3 +51,27 @@ Pull requests that touch the cask run `brew style` on a placeholder checksum.
 
 **Not verified yet:** the install-then-upgrade test (needs two published releases and the tap
 key) and `brew audit --online` (needs a live download URL). `brew style` passes locally.
+
+## Windows and Linux package managers (templates)
+
+`packaging/scoop/dlm.json.tmpl`, `packaging/winget/*.tmpl` and
+`packaging/flatpak/io.github.sabadia.dlm.yml.tmpl` take `@VERSION@` and `@SHA256@` of the file
+they point at. **None of them has been submitted or built.** winget (`microsoft/winget-pkgs`),
+a Scoop bucket and Flathub each need an account and a review by their maintainers; the manifests
+are the starting point for those submissions. MSIX needs a signing certificate and is deferred.
+
+## Update channels and compatibility (F7.5)
+
+- **Channels:** `stable` follows releases GitHub does not mark as prereleases; `beta` also takes
+  prereleases (tags with a `-`, such as `v1.3.0-rc.1`, are published as prereleases by the release
+  workflow). The About page picks the channel and checks the GitHub releases list
+  (`apps/dlm_app/lib/src/about/updates.dart`). Homebrew skips prereleases.
+- **App and daemon:** each release bundles the daemon in `packaging/daemon-version` (checksum
+  verified at build time) and the app passes it as `DLM_DAEMON_VERSION`; a running older daemon
+  that the app started is replaced, a daemon the user runs on their own is adopted as it is.
+  The app works against the API contract pinned in `packages/dlm_api/spec/PINNED.md`; a remote
+  daemon from another release works as far as that contract does, and the nightly contract
+  workflow reports drift.
+- **Not done:** Sparkle 2 (in-app install on macOS) and per-channel appcast feeds. They need an
+  EdDSA key pair that you create and keep (the public key goes in the app, the private key in a
+  secret) and a notarised build to test against, so they stay open under F7.1/F7.5.

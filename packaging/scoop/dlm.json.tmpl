@@ -1,0 +1,21 @@
+{
+    "version": "@VERSION@",
+    "description": "Cross-platform download manager",
+    "homepage": "https://github.com/sabadia/dlm-app",
+    "license": "Apache-2.0",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/sabadia/dlm-app/releases/download/v@VERSION@/DLM_@VERSION@_windows_x64.zip",
+            "hash": "@SHA256@"
+        }
+    },
+    "shortcuts": [["dlm_app.exe", "DLM"]],
+    "checkver": "github",
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/sabadia/dlm-app/releases/download/v$version/DLM_${version}_windows_x64.zip"
+            }
+        }
+    }
+}
