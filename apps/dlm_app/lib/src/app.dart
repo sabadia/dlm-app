@@ -80,6 +80,16 @@ final routerProvider = Provider<GoRouter>((ref) {
             ),
           ),
           GoRoute(
+            path: '/categories/:id',
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: ValueKey(state.uri.path),
+              child: DownloadsScreen(
+                filter: DownloadsFilter.all,
+                categoryId: state.pathParameters['id'],
+              ),
+            ),
+          ),
+          GoRoute(
             path: '/queues/:id',
             pageBuilder: (context, state) => NoTransitionPage(
               key: ValueKey(state.uri.path),

@@ -1594,4 +1594,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String add_torrent_remove(String name) {
     return 'Remove $name';
   }
+
+  @override
+  String get nav_categories => 'Categories';
 }

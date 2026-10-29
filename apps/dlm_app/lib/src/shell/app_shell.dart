@@ -76,8 +76,14 @@ class _AppShellState extends ConsumerState<AppShell> {
   ({String sidebarId, String title}) _current(
     AppLocalizations l,
     List<Queue> queues,
+    List<Category> categories,
   ) {
     final segments = widget.location.pathSegments;
+    if (segments.length >= 2 && segments.first == 'categories') {
+      final id = segments[1];
+      final name = categories.where((c) => c.id == id).firstOrNull?.name ?? id;
+      return (sidebarId: categorySidebarId(id), title: name);
+    }
     if (segments.length >= 2 && segments.first == 'queues') {
       final id = segments[1];
       final name = queues.where((q) => q.id == id).firstOrNull?.name ?? id;
@@ -100,7 +106,9 @@ class _AppShellState extends ConsumerState<AppShell> {
     final theme = DlmTheme.of(context);
     final queues = ref.watch(queuesProvider).value ?? const <Queue>[];
     final counts = ref.watch(queueCountsProvider);
-    final current = _current(l, queues);
+    final categories =
+        ref.watch(categoriesProvider).value ?? const <Category>[];
+    final current = _current(l, queues, categories);
     final sidebarWidth = ref.watch(sidebarWidthProvider);
     final inspectorWidth = ref.watch(inspectorWidthProvider);
     final inspectorPreferred = ref.watch(inspectorVisibleProvider);
@@ -136,6 +144,8 @@ class _AppShellState extends ConsumerState<AppShell> {
       onSelected: (id) {
         if (id.startsWith('queue:')) {
           context.go(queuePath(id.substring('queue:'.length)));
+        } else if (id.startsWith('category:')) {
+          context.go(categoryPath(id.substring('category:'.length)));
         } else {
           final f = DownloadsFilter.fromSegment(
             id.substring('downloads:'.length),
@@ -165,6 +175,18 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
           ],
         ),
+        if (categories.isNotEmpty)
+          DlmSidebarSection(
+            title: l.nav_categories,
+            items: [
+              for (final c in categories)
+                DlmSidebarItem(
+                  id: categorySidebarId(c.id),
+                  label: c.name,
+                  icon: const DlmIcon(DlmIconName.tag),
+                ),
+            ],
+          ),
         if (queues.isNotEmpty)
           DlmSidebarSection(
             title: l.nav_queues,

@@ -56,6 +56,16 @@ class FakeLimits extends LimitsController {
   }
 }
 
+/// The categories in memory.
+class FakeCategories extends CategoriesController {
+  FakeCategories(this.categories);
+
+  final List<Category> categories;
+
+  @override
+  Future<List<Category>> build() async => categories;
+}
+
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 
@@ -192,6 +202,7 @@ Future<AppHarness> pumpApp(
   bool onboarded = true,
   Map<String, Map<String, int>> counts = const {},
   LimitsView? limits,
+  List<Category> categories = const [],
   List<Override> overrides = const [],
 }) async {
   tester.view
@@ -238,6 +249,7 @@ Future<AppHarness> pumpApp(
         ),
       queuesProvider.overrideWith(() => FakeQueues(queues)),
       queueCountsSourceProvider.overrideWithValue(() async => counts),
+      categoriesProvider.overrideWith(() => FakeCategories(categories)),
       limitsProvider.overrideWith(
         () => FakeLimits(
           limits ??

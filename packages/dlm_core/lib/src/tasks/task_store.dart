@@ -23,6 +23,9 @@ class TaskStore {
   final _membership = StreamController<void>.broadcast(sync: true);
   final _speed = StreamController<SpeedData>.broadcast(sync: true);
   final _limits = StreamController<void>.broadcast(sync: true);
+  final _resources = StreamController<ResourceChangedData>.broadcast(
+    sync: true,
+  );
 
   /// The latest total speed and counts the daemon reported, or null before the
   /// first report.
@@ -30,6 +33,11 @@ class TaskStore {
 
   /// Fires with each `system.speed` report (about once a second).
   Stream<SpeedData> get speedChanged => _speed.stream;
+
+  /// Fires when somebody else created, changed or deleted a category, webhook,
+  /// credential, cookie, plugin or the boot config (`resource.changed`):
+  /// whoever shows that kind reads it again.
+  Stream<ResourceChangedData> get resourceChanged => _resources.stream;
 
   /// Fires when the speed limits or a quota changed (`limits.changed`,
   /// `quota.exhausted`, `quota.reset`): whoever shows them reads them again.
@@ -84,6 +92,8 @@ class TaskStore {
       case StreamEventSystemSpeedEvent(:final data):
         speed = data;
         _speed.add(data);
+      case StreamEventResourceChangedEvent(:final data):
+        _resources.add(data);
       case StreamEventLimitsChangedEvent() ||
           StreamEventQuotaExhaustedEvent() ||
           StreamEventQuotaResetEvent():
@@ -107,5 +117,6 @@ class TaskStore {
     await _membership.close();
     await _speed.close();
     await _limits.close();
+    await _resources.close();
   }
 }

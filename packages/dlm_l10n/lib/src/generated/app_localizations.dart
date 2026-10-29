@@ -2691,6 +2691,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove {name}'**
   String add_torrent_remove(String name);
+
+  /// No description provided for @nav_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get nav_categories;
 }
 
 class _AppLocalizationsDelegate

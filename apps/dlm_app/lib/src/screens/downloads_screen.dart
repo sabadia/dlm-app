@@ -18,13 +18,21 @@ import 'task_cells.dart';
 /// that pages in more rows as it is scrolled and follows the daemon's events.
 class DownloadsScreen extends ConsumerWidget {
   /// Creates the page for [filter]; [queueId] narrows it to one queue.
-  const DownloadsScreen({required this.filter, this.queueId, super.key});
+  const DownloadsScreen({
+    required this.filter,
+    this.queueId,
+    this.categoryId,
+    super.key,
+  });
 
   /// Which downloads to list.
   final DownloadsFilter filter;
 
   /// Restricts the list to this queue.
   final String? queueId;
+
+  /// Restricts the list to this category.
+  final String? categoryId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -33,6 +41,7 @@ class DownloadsScreen extends ConsumerWidget {
     final options = ref.watch(listOptionsProvider);
     final query = TaskQuery(
       queueId: queueId,
+      category: categoryId,
       statuses: filter.statuses,
       text: search.isEmpty ? null : search,
       sort: options.sort,

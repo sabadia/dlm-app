@@ -952,5 +952,6 @@
         "type": "String"
       }
     }
-  }
+  },
+  "nav_categories": "Categories"
 }
