@@ -18,6 +18,7 @@ import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
 import '../routing/app_routes.dart';
+import '../screens/list_views.dart';
 import 'app_commands.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
@@ -100,6 +101,10 @@ class _AppShellState extends ConsumerState<AppShell> {
     final inspectorWidth = ref.watch(inspectorWidthProvider);
     final inspectorPreferred = ref.watch(inspectorVisibleProvider);
     final selected = ref.watch(selectedTasksProvider);
+    // The view menu shows the engine filter and the saved views.
+    ref
+      ..watch(listOptionsProvider)
+      ..watch(savedViewsProvider);
     final ids = [for (final t in selected) t.id];
     final chrome = ref.watch(windowChromeProvider);
     final isMac = defaultTargetPlatform == TargetPlatform.macOS;
@@ -208,6 +213,22 @@ class _AppShellState extends ConsumerState<AppShell> {
                 onPressed: () => deleteTasks(context, ref, ids),
               ),
             ],
+            DlmMenuButton(
+              icon: const DlmIcon(DlmIconName.filter),
+              semanticLabel: l.view_menu,
+              variant: DlmButtonVariant.plain,
+              entries: viewMenuEntries(
+                context,
+                ref,
+                filter:
+                    DownloadsFilter.fromSegment(
+                      widget.location.pathSegments.length >= 2
+                          ? widget.location.pathSegments[1]
+                          : null,
+                    ) ??
+                    DownloadsFilter.all,
+              ),
+            ),
             SizedBox(
               width: 220,
               child: DlmSearchField(

@@ -2313,6 +2313,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add downloads'**
   String get toolbar_add;
+
+  /// No description provided for @view_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get view_menu;
+
+  /// No description provided for @view_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get view_engine;
+
+  /// No description provided for @view_all_engines.
+  ///
+  /// In en, this message translates to:
+  /// **'All engines'**
+  String get view_all_engines;
+
+  /// No description provided for @view_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved views'**
+  String get view_saved;
+
+  /// No description provided for @view_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save current view…'**
+  String get view_save;
+
+  /// No description provided for @view_save_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Save this view'**
+  String get view_save_title;
+
+  /// No description provided for @view_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete view {name}'**
+  String view_delete(String name);
+
+  /// No description provided for @col_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get col_engine;
+
+  /// No description provided for @list_total.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} downloads'**
+  String list_total(int count);
 }
 
 class _AppLocalizationsDelegate

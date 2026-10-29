@@ -13,6 +13,7 @@ export 'src/format/durations.dart';
 export 'src/format/relative_time.dart';
 export 'src/format/sizes.dart';
 export 'src/prefs/preferences.dart';
+export 'src/prefs/saved_view.dart';
 export 'src/prefs/ui_prefs.dart';
 export 'src/problems/failure_presentation.dart';
 export 'src/providers.dart';

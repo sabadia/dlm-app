@@ -170,7 +170,11 @@ class FakeTaskRepository implements TaskRepository {
     ];
     final start = int.tryParse(cursor ?? '0') ?? 0;
     final end = (start + limit).clamp(0, all.length);
-    return TaskPage(all.sublist(start, end), end < all.length ? '$end' : null);
+    return TaskPage(
+      all.sublist(start, end),
+      end < all.length ? '$end' : null,
+      total: cursor == null ? all.length : null,
+    );
   }
 
   @override

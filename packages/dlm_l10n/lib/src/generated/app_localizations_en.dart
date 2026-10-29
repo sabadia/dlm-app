@@ -1346,4 +1346,35 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toolbar_add => 'Add downloads';
+
+  @override
+  String get view_menu => 'View';
+
+  @override
+  String get view_engine => 'Engine';
+
+  @override
+  String get view_all_engines => 'All engines';
+
+  @override
+  String get view_saved => 'Saved views';
+
+  @override
+  String get view_save => 'Save current view…';
+
+  @override
+  String get view_save_title => 'Save this view';
+
+  @override
+  String view_delete(String name) {
+    return 'Delete view $name';
+  }
+
+  @override
+  String get col_engine => 'Engine';
+
+  @override
+  String list_total(int count) {
+    return '$count downloads';
+  }
 }

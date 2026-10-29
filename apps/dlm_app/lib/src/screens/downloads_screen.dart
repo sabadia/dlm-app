@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../routing/app_routes.dart';
 import '../shell/shell_state.dart';
 import '../shell/task_commands.dart';
+import 'list_views.dart';
 import 'task_cells.dart';
 
 /// The list of downloads of one filter (or one queue): a virtualized table
@@ -29,10 +30,14 @@ class DownloadsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final search = ref.watch(searchTextProvider).trim();
+    final options = ref.watch(listOptionsProvider);
     final query = TaskQuery(
       queueId: queueId,
       statuses: filter.statuses,
       text: search.isEmpty ? null : search,
+      sort: options.sort,
+      order: options.order,
+      engine: options.engine,
     );
     final state = ref.watch(taskListProvider(query));
     final list = ref.read(taskListProvider(query).notifier);
@@ -60,6 +65,25 @@ class DownloadsScreen extends ConsumerWidget {
         loadingRow: l.table_loading_row,
       ),
       columns: taskColumns(l),
+      sort: columnOfSort(options.sort) == null
+          ? null
+          : DlmSort(
+              columnOfSort(options.sort)!,
+              ascending: !options.descending,
+            ),
+      onSort: (s) {
+        final key = sortOfColumn(s.columnId);
+        if (key == null) return;
+        ref
+            .read(listOptionsProvider.notifier)
+            .set(
+              ListOptions(
+                sort: key,
+                descending: !s.ascending,
+                engine: options.engine,
+              ),
+            );
+      },
       // One extra, not yet loaded row at the end asks for the next page.
       itemCount: state.ids.length + (hasMore ? 1 : 0),
       itemAt: (i) {
@@ -99,7 +123,24 @@ class DownloadsScreen extends ConsumerWidget {
         const SingleActivator(LogicalKeyboardKey.delete): deleteSelection,
         const SingleActivator(LogicalKeyboardKey.backspace): deleteSelection,
       },
-      child: table,
+      child: Column(
+        children: [
+          Expanded(child: table),
+          if (state.total != null)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(
+                  l.list_total(state.total!),
+                  style: DlmTheme.of(context).typography.caption.copyWith(
+                    color: DlmTheme.of(context).colors.textSecondary,
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }

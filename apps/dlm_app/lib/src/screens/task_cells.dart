@@ -42,6 +42,7 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
   DlmColumn<Task>(
     id: 'name',
     label: l.col_name,
+    sortable: true,
     width: 280,
     minWidth: 140,
     cell: (context, t) => TaskCell(
@@ -107,6 +108,7 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
   DlmColumn<Task>(
     id: 'size',
     label: l.col_size,
+    sortable: true,
     width: 100,
     alignment: AlignmentDirectional.centerEnd,
     cell: (context, t) => TaskCell(
@@ -161,10 +163,21 @@ List<DlmColumn<Task>> taskColumns(AppLocalizations l) => [
   DlmColumn<Task>(
     id: 'added',
     label: l.col_added,
+    sortable: true,
     cell: (context, t) => TaskCell(
       id: t.id,
       builder: (context, task, _) =>
           Text(addedText(l, task.createdAt, DateTime.now())),
+    ),
+  ),
+  DlmColumn<Task>(
+    id: 'engine',
+    label: l.col_engine,
+    width: 90,
+    cell: (context, t) => TaskCell(
+      id: t.id,
+      builder: (context, task, _) =>
+          Text(task.engine ?? '', maxLines: 1, overflow: TextOverflow.ellipsis),
     ),
   ),
 ];

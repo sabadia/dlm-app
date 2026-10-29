@@ -783,5 +783,28 @@
     }
   },
   "cmd_add": "Add downloads…",
-  "toolbar_add": "Add downloads"
+  "toolbar_add": "Add downloads",
+  "view_menu": "View",
+  "view_engine": "Engine",
+  "view_all_engines": "All engines",
+  "view_saved": "Saved views",
+  "view_save": "Save current view…",
+  "view_save_title": "Save this view",
+  "view_delete": "Delete view {name}",
+  "@view_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "col_engine": "Engine",
+  "list_total": "{count} downloads",
+  "@list_total": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

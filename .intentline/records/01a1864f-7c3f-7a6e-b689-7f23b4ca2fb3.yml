@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1864f-7c3f-7a6e-b689-7f23b4ca2fb3
+status: draft
+created_at: '2026-10-29T06:18:38Z'
+updated_at: '2026-10-29T06:18:38Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Downloads list: server-side sort from column headers, engine filter, saved views, engine column and match count (F3.2 part, uses P13.5)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/screens/list_views.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_repository.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
