@@ -41,8 +41,11 @@ packaged updater.
 
 ## Downloads list
 
-A virtualized `DlmDataTable` over `taskListProvider`: pages in 100 rows at a time, follows the
-daemon's events, and every cell watches only its own task so a progress tick repaints one row.
+A virtualized `DlmDataTable` in card mode (`rowBuilder` + `rowExtent`, so no header and no sideways
+scrolling) over `taskListProvider`: pages in 100 rows at a time, follows the daemon's events, and
+every `TaskCard` watches only its own task so a progress tick repaints one card. A card shows the
+name and status, a progress bar, and size, speed, ETA, engine, queue and category as chips. Sorting
+and grouping are in the Display menu.
 Filters and queues map to daemon queries; search is the daemon's text filter. Selection is
 shared (`selectionProvider`); Pause/Resume/Delete act on it from the toolbar, the right-click
 menu, or the keyboard (Delete). Pause and resume offer Undo; delete asks first (the files stay

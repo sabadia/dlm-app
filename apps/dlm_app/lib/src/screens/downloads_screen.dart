@@ -8,11 +8,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
 import '../shell/shell_state.dart';
 import '../shell/task_commands.dart';
 import 'list_grouping.dart';
 import 'list_views.dart';
+import 'task_card.dart';
 import 'task_cells.dart';
 
 /// The list of downloads of one filter (or one queue): a virtualized table
@@ -40,7 +42,7 @@ class DownloadsScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final search = ref.watch(searchTextProvider).trim();
     final options = ref.watch(listOptionsProvider);
-    final shownColumns = ref.watch(downloadColumnsProvider);
+    final compact = ref.watch(densityProvider) == Density.compact;
     final query = TaskQuery(
       queueId: queueId,
       category: categoryId,
@@ -93,33 +95,11 @@ class DownloadsScreen extends ConsumerWidget {
         resizeColumn: l.table_resize_column,
         loadingRow: l.table_loading_row,
       ),
-      columns: [
-        for (final c in taskColumns(l))
-          if (c.id == 'name' ||
-              shownColumns.isEmpty ||
-              shownColumns.contains(c.id))
-            c,
-      ],
-      sort: columnOfSort(options.sort) == null
-          ? null
-          : DlmSort(
-              columnOfSort(options.sort)!,
-              ascending: !options.descending,
-            ),
-      onSort: (s) {
-        final key = sortOfColumn(s.columnId);
-        if (key == null) return;
-        ref
-            .read(listOptionsProvider.notifier)
-            .set(
-              ListOptions(
-                sort: key,
-                descending: !s.ascending,
-                engine: options.engine,
-                grouping: options.grouping,
-              ),
-            );
-      },
+      columns: const [],
+      rowExtent: taskCardExtent(compact: compact),
+      groupHeaderExtent: 40,
+      rowBuilder: (context, task, states) =>
+          TaskCard(task: task, states: states),
       // One extra, not yet loaded row at the end asks for the next page.
       itemCount: rows.length + (hasMore ? 1 : 0),
       itemAt: (i) {

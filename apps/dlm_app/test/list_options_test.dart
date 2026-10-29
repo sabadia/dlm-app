@@ -1,6 +1,7 @@
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/prefs/pref_providers.dart';
 import 'package:dlm_app/src/screens/list_views.dart';
+import 'package:dlm_app/src/screens/task_card.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
@@ -37,21 +38,40 @@ void main() {
     expect(find.text('3 downloads'), findsOneWidget);
   });
 
-  appTest('clicking a header sorts on the daemon, again reverses it', (
+  appTest('the display menu sorts on the daemon, and reverses the order', (
     tester,
   ) async {
     final h = await open(tester);
-    final header = find.descendant(
-      of: find.byType(DlmDataTable<Task>),
-      matching: find.text('Size'),
-    );
-    await tester.tap(header);
+    await openViewMenu(tester, label: 'Display');
+    await tester.ensureVisible(find.text('Size'));
+    await tester.tap(find.text('Size'));
     await settle(tester);
     expect(h.tasks.listCalls.last.$1.sort, Sort.size);
     expect(h.tasks.listCalls.last.$1.order, Order.asc);
-    await tester.tap(header);
+    await openViewMenu(tester, label: 'Display');
+    await tester.ensureVisible(find.text('Descending'));
+    await tester.tap(find.text('Descending'));
     await settle(tester);
     expect(h.tasks.listCalls.last.$1.order, Order.desc);
+  });
+
+  appTest('downloads are cards: no table header and no sideways scroll', (
+    tester,
+  ) async {
+    await open(tester);
+    expect(find.byType(TaskCard), findsNWidgets(3));
+    expect(
+      find.descendant(
+        of: find.byType(DlmDataTable<Task>),
+        matching: find.byWidgetPredicate(
+          (w) =>
+              w is SingleChildScrollView &&
+              w.scrollDirection == Axis.horizontal,
+        ),
+      ),
+      findsNothing,
+      reason: 'cards only scroll vertically',
+    );
   });
 
   appTest('the view menu narrows the list to one engine', (tester) async {
@@ -100,29 +120,6 @@ void main() {
     await settle(tester);
     expect(h.container.read(listOptionsProvider).engine, 'bt');
     expect(h.tasks.listCalls.last.$1.engine, 'bt');
-  });
-
-  appTest('columns can be hidden and shown again from the view menu', (
-    tester,
-  ) async {
-    await open(tester);
-    Finder header(String label) => find.descendant(
-      of: find.byType(DlmDataTable<Task>),
-      matching: find.text(label),
-    );
-    expect(header('Engine'), findsOneWidget);
-    await openViewMenu(tester, label: 'Display');
-    // The group entry of the same name comes first, then the column.
-    await tester.ensureVisible(find.text('Engine').at(1));
-    await tester.tap(find.text('Engine').at(1));
-    await settle(tester);
-    expect(header('Engine'), findsNothing);
-    expect(header('Name'), findsOneWidget, reason: 'the name stays');
-    await openViewMenu(tester, label: 'Display');
-    await tester.ensureVisible(find.text('Engine').at(1));
-    await tester.tap(find.text('Engine').at(1));
-    await settle(tester);
-    expect(header('Engine'), findsOneWidget);
   });
 
   appTest('the row height can be changed from the view menu', (tester) async {

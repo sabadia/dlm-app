@@ -2422,6 +2422,54 @@ abstract class AppLocalizations {
   /// **'All engines'**
   String get view_all_engines;
 
+  /// No description provided for @view_sort.
+  ///
+  /// In en, this message translates to:
+  /// **'Sort by'**
+  String get view_sort;
+
+  /// No description provided for @view_sort_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Default order'**
+  String get view_sort_default;
+
+  /// No description provided for @view_sort_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Date added'**
+  String get view_sort_added;
+
+  /// No description provided for @view_sort_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get view_sort_name;
+
+  /// No description provided for @view_sort_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get view_sort_size;
+
+  /// No description provided for @view_sort_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Date completed'**
+  String get view_sort_completed;
+
+  /// No description provided for @view_sort_asc.
+  ///
+  /// In en, this message translates to:
+  /// **'Ascending'**
+  String get view_sort_asc;
+
+  /// No description provided for @view_sort_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Descending'**
+  String get view_sort_desc;
+
   /// No description provided for @view_group.
   ///
   /// In en, this message translates to:

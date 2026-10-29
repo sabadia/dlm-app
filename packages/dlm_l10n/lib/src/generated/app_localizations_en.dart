@@ -1412,6 +1412,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get view_all_engines => 'All engines';
 
   @override
+  String get view_sort => 'Sort by';
+
+  @override
+  String get view_sort_default => 'Default order';
+
+  @override
+  String get view_sort_added => 'Date added';
+
+  @override
+  String get view_sort_name => 'Name';
+
+  @override
+  String get view_sort_size => 'Size';
+
+  @override
+  String get view_sort_completed => 'Date completed';
+
+  @override
+  String get view_sort_asc => 'Ascending';
+
+  @override
+  String get view_sort_desc => 'Descending';
+
+  @override
   String get view_group => 'Group by';
 
   @override

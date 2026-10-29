@@ -157,8 +157,7 @@ class _AppShellState extends ConsumerState<AppShell> {
     ref
       ..watch(listOptionsProvider)
       ..watch(savedViewsProvider)
-      ..watch(densityProvider)
-      ..watch(downloadColumnsProvider);
+      ..watch(densityProvider);
     final ids = [for (final t in selected) t.id];
     final chrome = ref.watch(windowChromeProvider);
     final isMac = defaultTargetPlatform == TargetPlatform.macOS;
