@@ -5361,6 +5361,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, one{1 licence text} other{{count} licence texts}}'**
   String ab_licences_count(int count);
+
+  /// No description provided for @nav_tools.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get nav_tools;
 }
 
 class _AppLocalizationsDelegate

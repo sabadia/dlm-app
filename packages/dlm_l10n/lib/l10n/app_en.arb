@@ -1878,5 +1878,6 @@
         "type": "int"
       }
     }
-  }
+  },
+  "nav_tools": "Tools"
 }

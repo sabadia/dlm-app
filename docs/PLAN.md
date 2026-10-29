@@ -125,7 +125,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 ### M3 Core experience
 
-- [ ] F3.1 App shell and navigation — Information architecture, sidebar (All, Active, Queued, Paused, Completed, Failed, Queues, Categories, Tools), toolbar, inspector pane, responsive widths, command palette (Cmd/Ctrl+K).
+- [x] F3.1 App shell and navigation — Information architecture, sidebar (All, Active, Queued, Paused, Completed, Failed, Queues, Categories, Tools), toolbar, inspector pane, responsive widths, command palette (Cmd/Ctrl+K).
 - [ ] F3.2 Downloads list *(needs P13.5)* — Virtualized; columns (name, status, progress, size, speed, ETA, queue, category, added, engine); densities, grouping, sort/filter/search, saved views.
 - [ ] F3.3 Selection, bulk operations, context menus, drag and drop *(needs P13.5)* — Bulk pause/resume/delete/move/priority/restart/refresh, drag reorder and drop onto a queue, confirm-with-undo for destructive actions.
 - [ ] F3.4 Task inspector *(needs P13.4)* — Overview, Files (tree + selection), Speed graph, Segments map, Source and refresh (edit URL, await link, history), per-task settings overrides, Events/errors.

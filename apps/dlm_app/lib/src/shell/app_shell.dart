@@ -77,6 +77,17 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   static String _manageTitle(AppLocalizations l, String page) => switch (page) {
     'categories' => l.nav_manage_categories,
+    'logins' => l.nav_manage_logins,
+    'cookies' => l.nav_manage_cookies,
+    'webhooks' => l.nav_manage_webhooks,
+    'plugins' => l.nav_manage_plugins,
+    'browser' => l.nav_manage_browser,
+    'transfer' => l.nav_manage_transfer,
+    'statistics' => l.nav_manage_statistics,
+    'daemon' => l.nav_manage_daemon,
+    'access' => l.nav_manage_access,
+    'preferences' => l.nav_manage_preferences,
+    'about' => l.nav_manage_about,
     _ => page,
   };
 
@@ -245,9 +256,24 @@ class _AppShellState extends ConsumerState<AppShell> {
             ],
           ),
         DlmSidebarSection(
+          title: l.nav_tools,
+          items: [
+            for (final page in toolPages)
+              DlmSidebarItem(
+                id: manageSidebarId(page),
+                label: _manageTitle(l, page),
+                icon: DlmIcon(switch (page) {
+                  'browser' => DlmIconName.globe,
+                  'transfer' => DlmIconName.importIcon,
+                  _ => DlmIconName.chart,
+                }),
+              ),
+          ],
+        ),
+        DlmSidebarSection(
           title: l.nav_manage,
           items: [
-            for (final page in managePages)
+            for (final page in setupPages)
               DlmSidebarItem(
                 id: manageSidebarId(page),
                 label: _manageTitle(l, page),
