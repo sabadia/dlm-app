@@ -998,5 +998,13 @@
   "ac_ext_revoke": "[Révôké {name}~~~~]",
   "ac_ext_revoked": "[{name} wàš révôkéd~~~~~~]",
   "ac_nh_browsers": "[Régîštér thé éxtéñšîôñ wîth~~~~~~~~~]",
-  "ac_nh_note": "[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd.~~~~~~~~~~~~~~~~~~~~~~]"
+  "ac_nh_note": "[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd.~~~~~~~~~~~~~~~~~~~~~~]",
+  "link_wait_title": "[Wàîtîñg fôr à ñéw lîñk~~~~~~~]",
+  "link_wait_message": "[{name} štôppéd béçàûšé îtš lîñk éxpîréd. Ôpéñ thé pàgé ît çàmé frôm îñ ýôûr brôwšér: thé éxtéñšîôñ hàñdš thé dôwñlôàd tô DLM àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "link_wait_more": "[{count, plural, one{1 môré dôwñlôàd wàîtš fôr à ñéw lîñk} other{{count} môré dôwñlôàdš wàît fôr à ñéw lîñk}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "link_wait_open": "[Ôpéñ thé pàgé~~~~]",
+  "notif_link_wait": "[Wàîtîñg fôr à ñéw lîñk~~~~~~~]",
+  "notif_open_page": "[Ôpéñ thé pàgé~~~~]",
+  "setup_ext_paired": "[{count, plural, one{1 éxtéñšîôñ pàîréd} other{{count} éxtéñšîôñš pàîréd}}~~~~~~~~~~~~~~~~~~~~~~]",
+  "setup_ext_get": "[Gét thé éxtéñšîôñ~~~~~~]"
 }

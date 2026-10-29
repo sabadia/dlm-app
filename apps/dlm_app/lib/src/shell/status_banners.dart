@@ -9,6 +9,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../connection/connection_controller.dart';
+import '../platform/url_opener.dart';
+import '../refresh/link_requests.dart';
 
 /// The state of the live event stream of the connected daemon.
 final hubStateProvider = StreamProvider<HubConnectionState>(
@@ -62,6 +64,23 @@ class StatusBanners extends ConsumerWidget {
           tone: DlmTone.warning,
           title: l.banner_reconnecting_title,
           message: l.banner_reconnecting_message,
+        ),
+      );
+    }
+    final waiting = ref.watch(linkRequestsProvider);
+    if (waiting.isNotEmpty) {
+      final first = waiting.first;
+      banners.add(
+        DlmBanner(
+          tone: DlmTone.warning,
+          title: l.link_wait_title,
+          message: waiting.length == 1
+              ? l.link_wait_message(first.name)
+              : '${l.link_wait_message(first.name)} '
+                    '${l.link_wait_more(waiting.length - 1)}',
+          actionLabel: l.link_wait_open,
+          onAction: () =>
+              unawaited(ref.read(urlOpenerProvider).open(first.pageUrl)),
         ),
       );
     }

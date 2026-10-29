@@ -9,8 +9,13 @@ import '../app.dart';
 import '../connection/connection_controller.dart';
 import '../manage/access_screen.dart';
 import '../platform/startup.dart';
+import '../platform/url_opener.dart';
 import '../routing/app_routes.dart';
 import '../shell/feedback.dart';
+
+/// Where the browser extension is downloaded.
+const extensionDownloadUrl =
+    'https://github.com/sabadia/dlm-extension/releases/latest';
 
 /// The rows of the setup that touch this computer rather than the daemon:
 /// start at login and the browser extension.
@@ -26,7 +31,16 @@ class SystemRows extends ConsumerWidget {
     final installed = host.value?.browsers
         ?.where((b) => b.status == 'installed')
         .length;
+    final paired = ref
+        .watch(tokensProvider)
+        .value
+        ?.where((t) => t.kind == 'extension')
+        .length;
     final (extText, extTone) = switch (host) {
+      AsyncData() when (paired ?? 0) > 0 => (
+        l.setup_ext_paired(paired!),
+        DlmTone.success,
+      ),
       AsyncData() when (installed ?? 0) > 0 => (
         l.setup_ext_connected(installed!),
         DlmTone.success,
@@ -77,16 +91,25 @@ class SystemRows extends ConsumerWidget {
         ),
         if (isLocal) ...[
           SizedBox(height: theme.metrics.spacing.sm),
-          Align(
-            alignment: AlignmentDirectional.centerStart,
-            child: DlmButton(
-              label: l.setup_ext_open,
-              variant: DlmButtonVariant.plain,
-              onPressed: () {
-                Navigator.of(context).pop();
-                ref.read(routerProvider).go(managePath('access'));
-              },
-            ),
+          Wrap(
+            spacing: theme.metrics.spacing.md,
+            children: [
+              DlmButton(
+                label: l.setup_ext_open,
+                variant: DlmButtonVariant.plain,
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  ref.read(routerProvider).go(managePath('access'));
+                },
+              ),
+              DlmButton(
+                label: l.setup_ext_get,
+                variant: DlmButtonVariant.plain,
+                onPressed: () => unawaited(
+                  ref.read(urlOpenerProvider).open(extensionDownloadUrl),
+                ),
+              ),
+            ],
           ),
         ],
       ],

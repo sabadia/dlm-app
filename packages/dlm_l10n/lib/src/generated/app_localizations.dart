@@ -6090,6 +6090,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The published DLM extension is always accepted; nothing has to be typed.'**
   String get ac_nh_note;
+
+  /// No description provided for @link_wait_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a new link'**
+  String get link_wait_title;
+
+  /// No description provided for @link_wait_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} stopped because its link expired. Open the page it came from in your browser: the extension hands the download to DLM again.'**
+  String link_wait_message(String name);
+
+  /// No description provided for @link_wait_more.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 more download waits for a new link} other{{count} more downloads wait for a new link}}'**
+  String link_wait_more(int count);
+
+  /// No description provided for @link_wait_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the page'**
+  String get link_wait_open;
+
+  /// No description provided for @notif_link_wait.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a new link'**
+  String get notif_link_wait;
+
+  /// No description provided for @notif_open_page.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the page'**
+  String get notif_open_page;
+
+  /// No description provided for @setup_ext_paired.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 extension paired} other{{count} extensions paired}}'**
+  String setup_ext_paired(int count);
+
+  /// No description provided for @setup_ext_get.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the extension'**
+  String get setup_ext_get;
 }
 
 class _AppLocalizationsDelegate

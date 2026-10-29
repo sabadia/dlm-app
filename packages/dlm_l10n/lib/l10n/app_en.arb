@@ -2136,5 +2136,34 @@
     }
   },
   "ac_nh_browsers": "Register the extension with",
-  "ac_nh_note": "The published DLM extension is always accepted; nothing has to be typed."
+  "ac_nh_note": "The published DLM extension is always accepted; nothing has to be typed.",
+  "link_wait_title": "Waiting for a new link",
+  "link_wait_message": "{name} stopped because its link expired. Open the page it came from in your browser: the extension hands the download to DLM again.",
+  "@link_wait_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "link_wait_more": "{count, plural, one{1 more download waits for a new link} other{{count} more downloads wait for a new link}}",
+  "@link_wait_more": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "link_wait_open": "Open the page",
+  "notif_link_wait": "Waiting for a new link",
+  "notif_open_page": "Open the page",
+  "setup_ext_paired": "{count, plural, one{1 extension paired} other{{count} extensions paired}}",
+  "@setup_ext_paired": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setup_ext_get": "Get the extension"
 }

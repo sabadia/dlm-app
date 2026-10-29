@@ -3606,6 +3606,48 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ac_nh_note =>
       'The published DLM extension is always accepted; nothing has to be typed.';
+
+  @override
+  String get link_wait_title => 'Waiting for a new link';
+
+  @override
+  String link_wait_message(String name) {
+    return '$name stopped because its link expired. Open the page it came from in your browser: the extension hands the download to DLM again.';
+  }
+
+  @override
+  String link_wait_more(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count more downloads wait for a new link',
+      one: '1 more download waits for a new link',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get link_wait_open => 'Open the page';
+
+  @override
+  String get notif_link_wait => 'Waiting for a new link';
+
+  @override
+  String get notif_open_page => 'Open the page';
+
+  @override
+  String setup_ext_paired(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count extensions paired',
+      one: '1 extension paired',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get setup_ext_get => 'Get the extension';
 }
 
 /// The translations for English (`en_XA`).
@@ -7255,4 +7297,46 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   @override
   String get ac_nh_note =>
       '[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd.~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get link_wait_title => '[Wàîtîñg fôr à ñéw lîñk~~~~~~~]';
+
+  @override
+  String link_wait_message(String name) {
+    return '[$name štôppéd béçàûšé îtš lîñk éxpîréd. Ôpéñ thé pàgé ît çàmé frôm îñ ýôûr brôwšér: thé éxtéñšîôñ hàñdš thé dôwñlôàd tô DLM àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String link_wait_more(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count môré dôwñlôàdš wàît fôr à ñéw lîñk',
+      one: '1 môré dôwñlôàd wàîtš fôr à ñéw lîñk',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get link_wait_open => '[Ôpéñ thé pàgé~~~~]';
+
+  @override
+  String get notif_link_wait => '[Wàîtîñg fôr à ñéw lîñk~~~~~~~]';
+
+  @override
+  String get notif_open_page => '[Ôpéñ thé pàgé~~~~]';
+
+  @override
+  String setup_ext_paired(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count éxtéñšîôñš pàîréd',
+      one: '1 éxtéñšîôñ pàîréd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get setup_ext_get => '[Gét thé éxtéñšîôñ~~~~~~]';
 }
