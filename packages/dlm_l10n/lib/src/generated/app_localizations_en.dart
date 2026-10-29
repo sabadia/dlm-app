@@ -1176,4 +1176,103 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get files_skipped => 'not downloaded';
+
+  @override
+  String get insp_tab_segments => 'Segments';
+
+  @override
+  String get insp_tab_torrent => 'Torrent';
+
+  @override
+  String get seg_none => 'This download is not split into segments.';
+
+  @override
+  String seg_summary(int count, int percent) {
+    return '$count segments, $percent% done.';
+  }
+
+  @override
+  String get seg_label => 'Map of the segments of the download';
+
+  @override
+  String get seg_done => 'downloaded';
+
+  @override
+  String get seg_todo => 'still to do';
+
+  @override
+  String get torrent_none =>
+      'There is no swarm to show yet: the torrent has not started.';
+
+  @override
+  String get torrent_state => 'State';
+
+  @override
+  String get torrent_hash => 'Info hash';
+
+  @override
+  String get torrent_private => 'Private torrent';
+
+  @override
+  String get torrent_yes => 'yes';
+
+  @override
+  String get torrent_no => 'no';
+
+  @override
+  String get torrent_peers => 'Peers';
+
+  @override
+  String torrent_peers_value(int connected, int known, int seeders) {
+    return '$connected connected, $known known, $seeders seeders';
+  }
+
+  @override
+  String get torrent_shared => 'Shared';
+
+  @override
+  String torrent_shared_value(String uploaded, String ratio) {
+    return '$uploaded uploaded, ratio $ratio';
+  }
+
+  @override
+  String get torrent_seeding_time => 'Seeding for';
+
+  @override
+  String get torrent_trackers => 'Trackers';
+
+  @override
+  String get torrent_peer_list => 'Connected peers';
+
+  @override
+  String torrent_peer_rate(String rate) {
+    return '$rate down';
+  }
+
+  @override
+  String get files_edit => 'Choose files';
+
+  @override
+  String get files_save => 'Save selection';
+
+  @override
+  String get files_cancel => 'Cancel';
+
+  @override
+  String get files_locked =>
+      'Pause the download to change which files are downloaded.';
+
+  @override
+  String get files_select_all => 'All files';
+
+  @override
+  String get files_pick_one => 'Select at least one file.';
+
+  @override
+  String get toast_files_saved => 'Selection saved';
+
+  @override
+  String files_file_label(String name) {
+    return 'Download $name';
+  }
 }

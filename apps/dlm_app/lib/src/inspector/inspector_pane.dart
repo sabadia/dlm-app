@@ -8,8 +8,10 @@ import '../screens/task_format.dart';
 import '../shell/shell_state.dart';
 import 'files_tab.dart';
 import 'overview_tab.dart';
+import 'segments_tab.dart';
 import 'source_tab.dart';
 import 'speed_tab.dart';
+import 'torrent_tab.dart';
 
 /// The pages of the details pane.
 enum InspectorTab {
@@ -21,6 +23,12 @@ enum InspectorTab {
 
   /// The live speed graph.
   speed,
+
+  /// The byte ranges fetched in parallel.
+  segments,
+
+  /// The swarm of a torrent.
+  torrent,
 
   /// The link and its renewals.
   source,
@@ -88,6 +96,14 @@ class _TaskDetails extends ConsumerWidget {
     final tab = ref.watch(inspectorTabProvider);
     if (task == null) return DlmEmptyState(title: l.insp_gone);
     final gap = theme.metrics.spacing.md;
+    final torrent = task.engine == 'bt';
+    // A torrent has no segments map and a plain download no swarm; a tab kept
+    // from another download falls back to the overview.
+    final shown = switch (tab) {
+      InspectorTab.torrent when !torrent => InspectorTab.overview,
+      InspectorTab.segments when torrent => InspectorTab.overview,
+      _ => tab,
+    };
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -117,7 +133,7 @@ class _TaskDetails extends ConsumerWidget {
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: DlmTabBar<InspectorTab>(
-              value: tab,
+              value: shown,
               onChanged: ref.read(inspectorTabProvider.notifier).set,
               tabs: [
                 DlmOption(
@@ -126,6 +142,16 @@ class _TaskDetails extends ConsumerWidget {
                 ),
                 DlmOption(value: InspectorTab.files, label: l.insp_tab_files),
                 DlmOption(value: InspectorTab.speed, label: l.insp_tab_speed),
+                if (torrent)
+                  DlmOption(
+                    value: InspectorTab.torrent,
+                    label: l.insp_tab_torrent,
+                  )
+                else
+                  DlmOption(
+                    value: InspectorTab.segments,
+                    label: l.insp_tab_segments,
+                  ),
                 DlmOption(value: InspectorTab.source, label: l.insp_tab_source),
               ],
             ),
@@ -134,11 +160,13 @@ class _TaskDetails extends ConsumerWidget {
         SizedBox(height: theme.metrics.spacing.sm),
         Expanded(
           child: KeyedSubtree(
-            key: ValueKey((id, tab)),
-            child: switch (tab) {
+            key: ValueKey((id, shown)),
+            child: switch (shown) {
               InspectorTab.overview => OverviewTab(id: id),
               InspectorTab.files => FilesTab(id: id),
               InspectorTab.speed => SpeedTab(id: id),
+              InspectorTab.segments => SegmentsTab(id: id),
+              InspectorTab.torrent => TorrentTab(id: id),
               InspectorTab.source => SourceTab(id: id),
             },
           ),
