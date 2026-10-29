@@ -5,6 +5,7 @@ import 'package:dlm_platform/dlm_platform.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'src/about/diagnostics_providers.dart';
 import 'src/app.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
@@ -47,6 +48,8 @@ void main() {
         overrides: [
           connectedSessionOverride,
           connectedTaskStoreOverride,
+          appLoggerProvider.overrideWithValue(logger),
+          redactorProvider.overrideWithValue(redactor),
           preferencesProvider.overrideWithValue(prefs),
           profileStoreProvider.overrideWithValue(profiles),
           localDaemonProvider.overrideWithValue(daemon),

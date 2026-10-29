@@ -88,6 +88,24 @@ class CategoriesController extends ResourceList<Category> {
         if (c.id != id) c,
     ],
   );
+
+  /// Moves a category to [position] (0 is first); the others shift.
+  Future<void> moveTo(String id, int position) => mutate(
+    (api) => api.rest.categories.updateCategory(
+      id: id,
+      body: UpdateCategoryBody(position: position),
+    ),
+  );
+
+  /// The category a file named [name] with the content type [mimeType] would
+  /// be sorted into; null when none matches.
+  Future<Category?> match({String? name, String? mimeType}) async {
+    final api = ref.read(apiProvider);
+    final out = await guard(
+      () => api.rest.categories.matchCategory(name: name, mimeType: mimeType),
+    );
+    return out.category;
+  }
 }
 
 /// The stored site logins (`/v1/credentials`); secrets never leave the daemon.
@@ -147,6 +165,14 @@ class WebhooksController extends ResourceList<Webhook> {
   /// Sends a test delivery.
   Future<void> test(String id) =>
       guard(() => ref.read(apiProvider).rest.webhooks.testWebhook(id: id));
+
+  /// The recent delivery attempts to the webhook, newest first.
+  Future<List<Delivery>> deliveries(String id) async {
+    final out = await guard(
+      () => ref.read(apiProvider).rest.webhooks.listWebhookDeliveries(id: id),
+    );
+    return out.deliveries ?? const [];
+  }
 }
 
 /// The plugins (`/v1/plugins`).
@@ -189,6 +215,15 @@ class PluginsController extends ResourceList<Plugin> {
     ],
   );
 
+  /// The latest log records of a plugin (at least [level]; containing [q]).
+  Future<LogList> logs(String name, {Level? level, String? q}) => guard(
+    () => ref
+        .read(apiProvider)
+        .rest
+        .plugins
+        .getPluginLogs(name: name, level: level, q: q),
+  );
+
   /// Removes a plugin.
   Future<void> remove(String name) => mutate(
     (api) => api.rest.plugins.deletePlugin(name: name),
@@ -217,7 +252,29 @@ class CookiesController extends ResourceList<CookieInfo> {
     ],
   );
 
+  /// Deletes one cookie.
+  Future<void> removeCookie(String id) => mutate(
+    (api) => api.rest.cookies.deleteCookie(id: id),
+    optimistic: (list) => [
+      for (final c in list)
+        if (c.id != id) c,
+    ],
+  );
+
   /// Imports cookies.
   Future<ImportCookiesResult> import(ImportCookiesBody body) =>
       mutate((api) => api.rest.cookies.importCookies(body: body));
+
+  /// The cookies of [domain] (all when null), values included, as a file's
+  /// text. The values are secrets: show them only when the user asks.
+  Future<ExportCookiesResult> export({
+    Format format = Format.netscape,
+    String? domain,
+  }) => guard(
+    () => ref
+        .read(apiProvider)
+        .rest
+        .cookies
+        .exportCookies(format: format, domain: domain),
+  );
 }

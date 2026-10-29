@@ -175,6 +175,7 @@ export 'models/webhook.dart';
 export 'models/webhook_deliveries.dart';
 export 'models/webhook_list.dart';
 export 'models/who_am_i.dart';
+export 'models/browser_status.dart';
 export 'models/get_v1_logs_stream_response_sealed.dart';
 export 'models/checksum.dart';
 export 'models/on_queue_complete.dart';

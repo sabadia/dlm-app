@@ -1623,4 +1623,1562 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get display_menu => 'Display';
+
+  @override
+  String get settings_search => 'Search settings';
+
+  @override
+  String get settings_save => 'Save';
+
+  @override
+  String get settings_revert => 'Revert';
+
+  @override
+  String get settings_saved => 'Settings saved';
+
+  @override
+  String get settings_unsaved => 'Unsaved changes';
+
+  @override
+  String get settings_no_match => 'No setting matches your search.';
+
+  @override
+  String get settings_changed_elsewhere =>
+      'The settings were changed somewhere else. Their version is shown now; make your changes again.';
+
+  @override
+  String get settings_level_default => 'Default';
+
+  @override
+  String get settings_level_global => 'Global';
+
+  @override
+  String get settings_level_queue => 'Queue';
+
+  @override
+  String get settings_level_task => 'This download';
+
+  @override
+  String get settings_restart => 'Needs restart';
+
+  @override
+  String get settings_unset => 'Not set';
+
+  @override
+  String settings_reset(String name) {
+    return 'Reset $name to the inherited value';
+  }
+
+  @override
+  String get settings_invalid_size => 'Not a size, such as 10 MB or 512 K.';
+
+  @override
+  String get settings_invalid_number => 'Not a number in the allowed range.';
+
+  @override
+  String get settings_invalid_duration =>
+      'Use a duration like 30s, 5m or 1h30m.';
+
+  @override
+  String get settings_leave_title => 'Leave without saving?';
+
+  @override
+  String get settings_leave_message =>
+      'You changed settings that are not saved yet.';
+
+  @override
+  String get settings_leave_confirm => 'Leave';
+
+  @override
+  String get settings_leave_stay => 'Keep editing';
+
+  @override
+  String get nav_settings => 'Settings';
+
+  @override
+  String get insp_tab_settings => 'Settings';
+
+  @override
+  String get se_name => 'Name';
+
+  @override
+  String get se_value => 'Value';
+
+  @override
+  String get se_remove => 'Remove';
+
+  @override
+  String get se_add => 'Add';
+
+  @override
+  String get se_add_rule => 'Add a rule';
+
+  @override
+  String get se_proxy_mode => 'Proxy';
+
+  @override
+  String get se_proxy_none => 'No proxy';
+
+  @override
+  String get se_proxy_system => 'The system\'s proxy';
+
+  @override
+  String get se_proxy_custom => 'A proxy I choose';
+
+  @override
+  String get se_proxy_url => 'Proxy address';
+
+  @override
+  String get se_rule_hosts => 'Hosts';
+
+  @override
+  String get se_rule_hosts_hint => 'example.com, *.cdn.net';
+
+  @override
+  String get se_lines => 'One entry per line';
+
+  @override
+  String get se_move_up => 'Move up';
+
+  @override
+  String get se_move_down => 'Move down';
+
+  @override
+  String get se_pa_add => 'Add an action';
+
+  @override
+  String get se_pa_extract => 'Unpack archives';
+
+  @override
+  String get se_pa_add_torrent => 'Add a downloaded .torrent file';
+
+  @override
+  String get se_pa_command => 'Run a program';
+
+  @override
+  String get se_pa_av_scan => 'Scan for viruses';
+
+  @override
+  String get se_pa_dir => 'Folder';
+
+  @override
+  String get se_pa_dir_hint => 'Next to the file';
+
+  @override
+  String get se_pa_delete => 'Delete the file afterwards';
+
+  @override
+  String get se_pa_password => 'Password';
+
+  @override
+  String get se_pa_cmd => 'Program';
+
+  @override
+  String get se_pa_cmd_hint => 'Full path, e.g. /usr/bin/clamscan';
+
+  @override
+  String get se_pa_args => 'Arguments';
+
+  @override
+  String se_pa_args_hint(String token) {
+    return 'One per line; $token is the file';
+  }
+
+  @override
+  String get se_pa_timeout => 'Time limit';
+
+  @override
+  String get se_pa_infected_exit => 'Infected exit code';
+
+  @override
+  String get se_pa_on_infected => 'When infected';
+
+  @override
+  String get se_pa_infected_delete => 'Delete the file';
+
+  @override
+  String get se_pa_infected_keep => 'Keep the file';
+
+  @override
+  String get se_pa_command_warning =>
+      'This runs a program on every finished download. Only use a program you trust.';
+
+  @override
+  String get se_pa_av_warning =>
+      'An infected file fails the download and, unless you keep it, is deleted. Only use a scanner you trust.';
+
+  @override
+  String get se_quota_bytes => 'Amount';
+
+  @override
+  String get se_quota_per => 'per';
+
+  @override
+  String get se_quota_period => 'Period';
+
+  @override
+  String get nav_manage => 'Manage';
+
+  @override
+  String get nav_manage_categories => 'Categories';
+
+  @override
+  String get cat_intro =>
+      'A category sorts a finished download into a folder by its file extension or content type. The first category that matches wins, so the order matters.';
+
+  @override
+  String get cat_add => 'Add a category';
+
+  @override
+  String get cat_add_title => 'Add a category';
+
+  @override
+  String get cat_edit_title => 'Edit the category';
+
+  @override
+  String get cat_saved => 'Category saved';
+
+  @override
+  String get cat_empty_title => 'No categories yet';
+
+  @override
+  String get cat_empty_message =>
+      'Add one to have finished downloads sorted into folders.';
+
+  @override
+  String get cat_name => 'Name';
+
+  @override
+  String get cat_folder => 'Folder';
+
+  @override
+  String get cat_folder_desc => 'Where files of this category are put.';
+
+  @override
+  String get cat_extensions => 'Extensions';
+
+  @override
+  String get cat_extensions_desc =>
+      'Separated by commas or spaces, like mkv, mp4.';
+
+  @override
+  String get cat_extensions_invalid =>
+      'Extensions are letters and digits only.';
+
+  @override
+  String get cat_mime => 'Content types';
+
+  @override
+  String get cat_mime_desc => 'One per line, like video/* or application/pdf.';
+
+  @override
+  String get cat_mime_invalid => 'Use the form type/subtype, or type/*.';
+
+  @override
+  String cat_drag(String name) {
+    return 'Drag $name to change its order';
+  }
+
+  @override
+  String cat_move_up(String name) {
+    return 'Move $name up';
+  }
+
+  @override
+  String cat_move_down(String name) {
+    return 'Move $name down';
+  }
+
+  @override
+  String cat_edit(String name) {
+    return 'Edit $name';
+  }
+
+  @override
+  String cat_delete(String name) {
+    return 'Delete $name';
+  }
+
+  @override
+  String cat_delete_title(String name) {
+    return 'Delete the category $name?';
+  }
+
+  @override
+  String get cat_delete_message =>
+      'Files already sorted by it stay where they are.';
+
+  @override
+  String get cat_delete_confirm => 'Delete category';
+
+  @override
+  String get cat_test_title => 'Try a file';
+
+  @override
+  String get cat_test_name => 'File name';
+
+  @override
+  String get cat_test_mime => 'Content type';
+
+  @override
+  String get cat_test_none =>
+      'No category matches: the file stays in the normal download folder.';
+
+  @override
+  String cat_test_found(String name, String dir) {
+    return 'Goes to $name: $dir';
+  }
+
+  @override
+  String get cat_test_error => 'The daemon could not be asked.';
+
+  @override
+  String get nav_manage_logins => 'Logins';
+
+  @override
+  String get nav_manage_cookies => 'Cookies';
+
+  @override
+  String get field_show => 'Show';
+
+  @override
+  String get field_hide => 'Hide';
+
+  @override
+  String get login_intro =>
+      'Logins are sent to sites that ask for a user name and password. The password stays in the download service: it is never shown here again.';
+
+  @override
+  String get login_add => 'Add a login';
+
+  @override
+  String get login_add_title => 'Add a login';
+
+  @override
+  String get login_edit_title => 'Edit the login';
+
+  @override
+  String get login_saved => 'Login saved';
+
+  @override
+  String get login_empty_title => 'No logins yet';
+
+  @override
+  String get login_empty_message =>
+      'Add one for a site that needs a user name and password.';
+
+  @override
+  String get login_host => 'Site';
+
+  @override
+  String get login_host_desc =>
+      'A host name like example.com, or *.example.com for all its subdomains.';
+
+  @override
+  String get login_user => 'User name';
+
+  @override
+  String get login_password => 'Password';
+
+  @override
+  String get login_password_keep => 'Leave empty to keep the stored password.';
+
+  @override
+  String get login_scheme => 'Method';
+
+  @override
+  String get login_scheme_auto => 'Let the site decide';
+
+  @override
+  String get login_scheme_basic => 'Basic';
+
+  @override
+  String get login_scheme_digest => 'Digest';
+
+  @override
+  String login_updated(String date) {
+    return 'changed $date';
+  }
+
+  @override
+  String login_edit(String host) {
+    return 'Edit the login for $host';
+  }
+
+  @override
+  String login_delete(String host) {
+    return 'Delete the login for $host';
+  }
+
+  @override
+  String login_delete_title(String host) {
+    return 'Delete the login for $host?';
+  }
+
+  @override
+  String get login_delete_message =>
+      'Downloads from that site will no longer sign in.';
+
+  @override
+  String get login_delete_confirm => 'Delete login';
+
+  @override
+  String get ck_intro =>
+      'Cookies keep you signed in to sites. Their values stay in the download service; an export is the only way to see them.';
+
+  @override
+  String get ck_import => 'Import cookies…';
+
+  @override
+  String get ck_export => 'Export all…';
+
+  @override
+  String get ck_empty_title => 'No cookies stored';
+
+  @override
+  String get ck_empty_message =>
+      'Import a cookies file, or let the browser extension send them.';
+
+  @override
+  String get ck_tree_label => 'Cookies by domain';
+
+  @override
+  String ck_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies',
+      one: '1 cookie',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_secure => 'Secure';
+
+  @override
+  String get ck_http_only => 'HTTP only';
+
+  @override
+  String get ck_session => 'Session';
+
+  @override
+  String ck_export_domain(String domain) {
+    return 'Export the cookies of $domain';
+  }
+
+  @override
+  String ck_delete_domain(String domain) {
+    return 'Delete the cookies of $domain';
+  }
+
+  @override
+  String ck_delete_cookie(String name) {
+    return 'Delete the cookie $name';
+  }
+
+  @override
+  String ck_delete_domain_title(String domain) {
+    return 'Delete the cookies of $domain?';
+  }
+
+  @override
+  String ck_delete_domain_message(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies will be deleted.',
+      one: '1 cookie will be deleted.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_delete_confirm => 'Delete cookies';
+
+  @override
+  String ck_import_title(String name) {
+    return 'Import $name';
+  }
+
+  @override
+  String ck_import_summary(int imported, int skipped) {
+    return '$imported imported, $skipped skipped.';
+  }
+
+  @override
+  String get ck_export_title => 'Export cookies';
+
+  @override
+  String get ck_export_all => 'All stored cookies.';
+
+  @override
+  String ck_export_one(String domain) {
+    return 'The cookies of $domain.';
+  }
+
+  @override
+  String get ck_format => 'File type';
+
+  @override
+  String get ck_format_netscape => 'Netscape cookies.txt';
+
+  @override
+  String get ck_format_json => 'JSON';
+
+  @override
+  String get ck_export_warning =>
+      'The export contains the cookie values. Anyone who has them can sign in as you. Reveal them only where you can keep them safe.';
+
+  @override
+  String get ck_reveal => 'Reveal the cookies';
+
+  @override
+  String ck_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies',
+      one: '1 cookie',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_export_text => 'The exported cookies';
+
+  @override
+  String get ck_copy => 'Copy';
+
+  @override
+  String get ck_copied => 'Copied';
+
+  @override
+  String get ck_save => 'Save to a file…';
+
+  @override
+  String get ck_saved => 'File saved';
+
+  @override
+  String get nav_manage_webhooks => 'Webhooks';
+
+  @override
+  String get wh_intro =>
+      'A webhook is an address that is sent the daemon\'s events as they happen, for example when a download finishes.';
+
+  @override
+  String get wh_add => 'Add a webhook';
+
+  @override
+  String get wh_add_title => 'Add a webhook';
+
+  @override
+  String get wh_edit_title => 'Edit the webhook';
+
+  @override
+  String get wh_saved => 'Webhook saved';
+
+  @override
+  String get wh_empty_title => 'No webhooks yet';
+
+  @override
+  String get wh_empty_message =>
+      'Add one to have events sent to another program.';
+
+  @override
+  String get wh_url => 'Address';
+
+  @override
+  String get wh_url_invalid =>
+      'Use an address that starts with http:// or https://.';
+
+  @override
+  String get wh_secret => 'Secret';
+
+  @override
+  String get wh_secret_desc =>
+      'Deliveries are signed with it, so the receiver can check where they came from. Optional.';
+
+  @override
+  String get wh_secret_keep => 'Leave empty to keep the stored secret.';
+
+  @override
+  String get wh_secret_remove => 'Remove the secret';
+
+  @override
+  String get wh_enabled_label => 'Send deliveries';
+
+  @override
+  String wh_enabled(String url) {
+    return 'Send deliveries to $url';
+  }
+
+  @override
+  String get wh_events => 'Events';
+
+  @override
+  String get wh_events_desc => 'Leave all unticked to receive every event.';
+
+  @override
+  String get wh_all_events => 'All events';
+
+  @override
+  String wh_events_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count events',
+      one: '1 event',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get wh_signed => 'Signed';
+
+  @override
+  String get wh_test => 'Test';
+
+  @override
+  String wh_test_ok(String url) {
+    return '$url accepted the test event.';
+  }
+
+  @override
+  String wh_test_failed(String url) {
+    return '$url did not accept the test event.';
+  }
+
+  @override
+  String get wh_log => 'Deliveries';
+
+  @override
+  String wh_log_title(String url) {
+    return 'Deliveries to $url';
+  }
+
+  @override
+  String get wh_log_desc =>
+      'The last attempts since the daemon started, newest first.';
+
+  @override
+  String get wh_log_empty => 'Nothing was sent yet.';
+
+  @override
+  String get wh_log_error => 'The deliveries could not be read.';
+
+  @override
+  String get wh_log_refresh => 'Refresh';
+
+  @override
+  String get wh_log_no_answer => 'no answer';
+
+  @override
+  String wh_log_status(int status) {
+    return 'HTTP $status';
+  }
+
+  @override
+  String wh_log_attempt(int n) {
+    return 'attempt $n';
+  }
+
+  @override
+  String get wh_log_retry => 'will retry';
+
+  @override
+  String wh_edit(String url) {
+    return 'Edit $url';
+  }
+
+  @override
+  String wh_delete(String url) {
+    return 'Delete $url';
+  }
+
+  @override
+  String wh_delete_title(String url) {
+    return 'Delete the webhook $url?';
+  }
+
+  @override
+  String get wh_delete_message => 'Events will no longer be sent there.';
+
+  @override
+  String get wh_delete_confirm => 'Delete webhook';
+
+  @override
+  String get nav_manage_plugins => 'Plugins';
+
+  @override
+  String get log_level => 'Level';
+
+  @override
+  String get log_level_all => 'All levels';
+
+  @override
+  String get log_level_info => 'Info and above';
+
+  @override
+  String get log_level_warn => 'Warnings and errors';
+
+  @override
+  String get log_level_error => 'Errors only';
+
+  @override
+  String get log_search => 'Search the log';
+
+  @override
+  String get log_refresh => 'Refresh';
+
+  @override
+  String get log_empty => 'No log records.';
+
+  @override
+  String get log_error => 'The log could not be read.';
+
+  @override
+  String get pl_intro =>
+      'Plugins are JavaScript extensions that resolve links, renew expired ones and react to downloads starting, failing and finishing. They run inside the daemon.';
+
+  @override
+  String get pl_install => 'Install a plugin';
+
+  @override
+  String get pl_install_title => 'Install a plugin';
+
+  @override
+  String get pl_install_message =>
+      'The plugin is installed switched off. You review what it may do before it runs.';
+
+  @override
+  String get pl_install_go => 'Install';
+
+  @override
+  String get pl_source => 'Where from';
+
+  @override
+  String get pl_source_desc =>
+      'A folder on the computer the daemon runs on, or a git address.';
+
+  @override
+  String get pl_ref => 'Version';
+
+  @override
+  String get pl_ref_desc =>
+      'A branch, tag or commit, for a git address. Optional.';
+
+  @override
+  String get pl_replace => 'Replace a plugin of the same name';
+
+  @override
+  String get pl_empty_title => 'No plugins installed';
+
+  @override
+  String get pl_empty_message => 'Install one from a folder or a git address.';
+
+  @override
+  String pl_enabled(String name) {
+    return 'Run $name';
+  }
+
+  @override
+  String get pl_permissions => 'Permissions';
+
+  @override
+  String get pl_logs => 'Log';
+
+  @override
+  String pl_remove(String name) {
+    return 'Remove $name';
+  }
+
+  @override
+  String pl_remove_title(String name) {
+    return 'Remove $name?';
+  }
+
+  @override
+  String get pl_remove_message =>
+      'The plugin, its files and the data it stored are deleted.';
+
+  @override
+  String get pl_remove_confirm => 'Remove plugin';
+
+  @override
+  String pl_logs_title(String name) {
+    return 'Log of $name';
+  }
+
+  @override
+  String pl_review_title(String name) {
+    return 'What $name may do';
+  }
+
+  @override
+  String get pl_review_fresh => 'The plugin is installed but not running.';
+
+  @override
+  String pl_review_source(String source, String version) {
+    return 'From $source, version $version.';
+  }
+
+  @override
+  String get pl_hooks => 'It reacts to';
+
+  @override
+  String get pl_hooks_none => 'No events.';
+
+  @override
+  String get pl_hosts => 'It may contact';
+
+  @override
+  String get pl_hosts_none => 'No other computers.';
+
+  @override
+  String get pl_trust_warning =>
+      'A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.';
+
+  @override
+  String get pl_keep_off => 'Keep it off';
+
+  @override
+  String get pl_enable => 'Switch it on';
+
+  @override
+  String get nav_manage_browser => 'Browser tool';
+
+  @override
+  String get br_intro =>
+      'Some pages only show their downloads in a real browser. Open one here and the daemon\'s headless browser lists what the page leads to: files, video and audio streams.';
+
+  @override
+  String get br_open_title => 'Open a page';
+
+  @override
+  String get br_url => 'Page address';
+
+  @override
+  String get br_url_invalid =>
+      'Use an address that starts with http:// or https://.';
+
+  @override
+  String get br_open => 'Open';
+
+  @override
+  String get br_opening => 'Opening…';
+
+  @override
+  String get br_error => 'The page could not be opened.';
+
+  @override
+  String br_result_info(String url, String group) {
+    return 'Opened $url in the group $group.';
+  }
+
+  @override
+  String get br_none => 'The page led to no downloads.';
+
+  @override
+  String get br_download => 'Download';
+
+  @override
+  String br_added(String name) {
+    return 'Added $name';
+  }
+
+  @override
+  String get br_profiles_title => 'Browser profiles';
+
+  @override
+  String get br_profiles_desc =>
+      'Each site group has its own profile, which keeps the logins of the pages opened there.';
+
+  @override
+  String get br_profiles_none => 'No profiles yet.';
+
+  @override
+  String get br_profiles_error => 'The profiles could not be listed.';
+
+  @override
+  String br_profile_delete(String group) {
+    return 'Delete the profile $group';
+  }
+
+  @override
+  String br_profile_delete_title(String group) {
+    return 'Delete the profile of $group?';
+  }
+
+  @override
+  String get br_profile_delete_message =>
+      'Its cookies and stored data are removed. It cannot be deleted while its browser runs.';
+
+  @override
+  String get br_profile_delete_confirm => 'Delete profile';
+
+  @override
+  String get br_state_title => 'The headless browser';
+
+  @override
+  String get br_state_in_use => 'In use';
+
+  @override
+  String get br_state_unused => 'Not used yet';
+
+  @override
+  String get br_state_running => 'Running';
+
+  @override
+  String get br_state_none => 'None';
+
+  @override
+  String get br_state_max => 'At most at once';
+
+  @override
+  String get br_tools_title => 'Programs';
+
+  @override
+  String get nav_manage_transfer => 'Import and export';
+
+  @override
+  String get tr_intro =>
+      'Add many downloads from a list, or write your downloads out as a list. Nothing is added until you have seen what would happen.';
+
+  @override
+  String get tr_import_title => 'Import a list';
+
+  @override
+  String get tr_list => 'The list';
+
+  @override
+  String get tr_list_desc => 'Paste it here, or choose a file.';
+
+  @override
+  String get tr_choose => 'Choose a file…';
+
+  @override
+  String get tr_format => 'Kind of list';
+
+  @override
+  String get tr_format_urls => 'One link per line';
+
+  @override
+  String get tr_format_json => 'dlm JSON';
+
+  @override
+  String get tr_format_aria2 => 'aria2 input file';
+
+  @override
+  String get tr_default_queue => 'The default queue';
+
+  @override
+  String get tr_duplicates => 'Add duplicates too';
+
+  @override
+  String get tr_duplicates_desc =>
+      'Otherwise links that are already in the list are skipped.';
+
+  @override
+  String get tr_preview => 'Preview';
+
+  @override
+  String tr_preview_summary(int ok, int failed) {
+    return 'Would add $ok, would not add $failed.';
+  }
+
+  @override
+  String get tr_export_title => 'Export downloads';
+
+  @override
+  String get tr_export_format => 'File kind to export';
+
+  @override
+  String get tr_export_queue => 'Queue';
+
+  @override
+  String get tr_all_queues => 'All queues';
+
+  @override
+  String get tr_export_status => 'Which downloads';
+
+  @override
+  String get tr_all_statuses => 'All of them';
+
+  @override
+  String get tr_export => 'Export';
+
+  @override
+  String tr_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get tr_export_text => 'The exported list';
+
+  @override
+  String get nav_manage_statistics => 'Statistics';
+
+  @override
+  String get st_error => 'The statistics could not be read.';
+
+  @override
+  String get st_totals => 'Totals';
+
+  @override
+  String get st_tasks => 'Downloads';
+
+  @override
+  String get st_downloaded => 'Downloaded in all';
+
+  @override
+  String get st_by_status => 'By state';
+
+  @override
+  String get st_by_engine => 'By engine';
+
+  @override
+  String st_completed_in(String period) {
+    return 'Finished in the last $period';
+  }
+
+  @override
+  String get st_bucket => 'Bucket';
+
+  @override
+  String get st_bucket_hour => 'Per hour';
+
+  @override
+  String get st_bucket_day => 'Per day';
+
+  @override
+  String get st_group => 'Split by';
+
+  @override
+  String get st_group_none => 'Nothing';
+
+  @override
+  String get st_group_engine => 'Engine';
+
+  @override
+  String get st_group_queue => 'Queue';
+
+  @override
+  String get st_timeline => 'Traffic';
+
+  @override
+  String st_timeline_summary(String down, String up) {
+    return 'Downloaded $down, uploaded $up in this range.';
+  }
+
+  @override
+  String get st_timeline_empty => 'No traffic in this range.';
+
+  @override
+  String get st_all_traffic => 'All traffic';
+
+  @override
+  String get st_history => 'Finished downloads';
+
+  @override
+  String get st_history_search => 'Search by name or link';
+
+  @override
+  String get st_history_empty => 'No finished downloads.';
+
+  @override
+  String get st_history_more => 'Show more';
+
+  @override
+  String get st_cleanup_title => 'Clean up';
+
+  @override
+  String get st_cleanup_desc =>
+      'Removes finished downloads from the list. The automatic cleanup of the retention setting never deletes files.';
+
+  @override
+  String get st_cleanup_days => 'Older than';
+
+  @override
+  String get st_days => 'days';
+
+  @override
+  String get st_cleanup_files => 'Also delete the files';
+
+  @override
+  String get st_cleanup_files_desc =>
+      'Off keeps the files on disk and only removes the list entries.';
+
+  @override
+  String get st_cleanup_preview => 'Check what would go';
+
+  @override
+  String st_cleanup_preview_result(int count, String size) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0 ($size) would be removed.';
+  }
+
+  @override
+  String get st_cleanup_go => 'Clean up';
+
+  @override
+  String st_cleanup_confirm_title(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return 'Remove $_temp0?';
+  }
+
+  @override
+  String get st_cleanup_confirm_list =>
+      'They leave the list; the files stay where they are.';
+
+  @override
+  String get st_cleanup_confirm_files =>
+      'They leave the list and their files are deleted from the disk. This cannot be undone.';
+
+  @override
+  String st_cleanup_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return 'Removed $_temp0';
+  }
+
+  @override
+  String st_cleanup_done_failed(int deleted, int failed) {
+    return 'Removed $deleted; $failed could not be removed';
+  }
+
+  @override
+  String get nav_manage_daemon => 'Daemon';
+
+  @override
+  String get dm_intro =>
+      'How the download service itself starts: where it listens, its engines and programs, its logging. Most changes take effect after a restart.';
+
+  @override
+  String dm_file(String file) {
+    return 'Read from $file';
+  }
+
+  @override
+  String dm_file_error(String error) {
+    return 'The configuration file has a problem: $error';
+  }
+
+  @override
+  String get dm_pending_title => 'A restart is needed';
+
+  @override
+  String get dm_pending_message =>
+      'Some saved changes are waiting for the daemon to restart.';
+
+  @override
+  String get dm_restart_now => 'Restart now';
+
+  @override
+  String dm_pending_value(String value) {
+    return 'after the restart: $value';
+  }
+
+  @override
+  String get dm_read_only => 'set by a flag or the environment';
+
+  @override
+  String get dm_saved => 'Configuration saved';
+
+  @override
+  String get dm_needs_restart => 'These changes take effect after a restart.';
+
+  @override
+  String get dm_restart_title => 'Restart the daemon?';
+
+  @override
+  String get dm_restart_message =>
+      'Downloads that are running are requeued and start again afterwards.';
+
+  @override
+  String get dm_restart_confirm => 'Restart';
+
+  @override
+  String get dm_restarting => 'The daemon is restarting';
+
+  @override
+  String get dm_log_title => 'Log';
+
+  @override
+  String get nav_manage_access => 'Access';
+
+  @override
+  String get ac_identity => 'This app';
+
+  @override
+  String get ac_signed_in => 'Signed in as';
+
+  @override
+  String ac_who(String name, String scope, String kind) {
+    return '$name ($scope, $kind)';
+  }
+
+  @override
+  String get ac_scope_admin => 'can change everything';
+
+  @override
+  String get ac_scope_read => 'read only';
+
+  @override
+  String get ac_primary => 'the main token';
+
+  @override
+  String get ac_named => 'a named token';
+
+  @override
+  String get ac_rotate => 'Replace the main token';
+
+  @override
+  String get ac_rotate_desc =>
+      'Makes a new main token and stops the old one working at once.';
+
+  @override
+  String get ac_rotate_title => 'Replace the main token?';
+
+  @override
+  String get ac_rotate_message =>
+      'Every client that uses the old token, such as a browser extension or a script, stops working until it is given the new one. This app is signed in again automatically.';
+
+  @override
+  String get ac_rotate_confirm => 'Replace it';
+
+  @override
+  String get ac_rotated_title => 'The new main token';
+
+  @override
+  String get ac_tokens => 'Named tokens';
+
+  @override
+  String get ac_tokens_desc =>
+      'Give a dashboard, a script or another device a token of its own, and revoke it when it is no longer needed.';
+
+  @override
+  String get ac_tokens_none => 'No named tokens.';
+
+  @override
+  String get ac_tokens_error => 'The tokens could not be listed.';
+
+  @override
+  String get ac_add => 'Add a token';
+
+  @override
+  String get ac_add_title => 'Add a token';
+
+  @override
+  String get ac_name => 'Name';
+
+  @override
+  String get ac_name_hint => 'dashboard';
+
+  @override
+  String get ac_scope => 'Can';
+
+  @override
+  String get ac_scope_desc =>
+      'A read-only token can look at everything except cookies, and change nothing.';
+
+  @override
+  String get ac_create => 'Create';
+
+  @override
+  String ac_created_title(String name) {
+    return 'The token $name';
+  }
+
+  @override
+  String ac_created(String date) {
+    return 'created $date';
+  }
+
+  @override
+  String get ac_never_used => 'never used';
+
+  @override
+  String ac_last_used(String date) {
+    return 'last used $date';
+  }
+
+  @override
+  String ac_delete(String name) {
+    return 'Revoke the token $name';
+  }
+
+  @override
+  String ac_delete_title(String name) {
+    return 'Revoke the token $name?';
+  }
+
+  @override
+  String get ac_delete_message => 'Whatever uses it stops working.';
+
+  @override
+  String get ac_delete_confirm => 'Revoke token';
+
+  @override
+  String get ac_secret_once =>
+      'This is the only time the token is shown. Copy it now and keep it somewhere safe.';
+
+  @override
+  String get ac_secret_done => 'I have copied it';
+
+  @override
+  String get ac_secret_gone => 'The token is not shown again';
+
+  @override
+  String get ac_nh_title => 'Browser extension';
+
+  @override
+  String get ac_nh_desc =>
+      'The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.';
+
+  @override
+  String get ac_nh_origins => 'Allowed extensions';
+
+  @override
+  String get ac_nh_no_origins => 'None yet';
+
+  @override
+  String get ac_nh_error => 'The extension host cannot be managed from here.';
+
+  @override
+  String get ac_nh_ids => 'Extension IDs';
+
+  @override
+  String get ac_nh_ids_desc =>
+      'Separated by commas or spaces. Needed to install.';
+
+  @override
+  String get ac_nh_install => 'Install for all browsers';
+
+  @override
+  String get ac_nh_remove => 'Remove';
+
+  @override
+  String ac_nh_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Done for $count browsers',
+      one: 'Done for 1 browser',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ac_mcp_title => 'Assistants (MCP)';
+
+  @override
+  String get ac_mcp_desc =>
+      'An AI assistant that speaks the Model Context Protocol can add and manage downloads. It signs in with a token.';
+
+  @override
+  String get ac_mcp_url => 'Address';
+
+  @override
+  String get ac_mcp_claude => 'Claude Code';
+
+  @override
+  String get ac_mcp_json => 'Settings file (JSON)';
+
+  @override
+  String get ac_mcp_token_note =>
+      'Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.';
+
+  @override
+  String get nav_manage_preferences => 'Preferences';
+
+  @override
+  String get pref_intro => 'How the app looks and asks. Changes apply at once.';
+
+  @override
+  String get pref_appearance => 'Appearance';
+
+  @override
+  String get pref_theme => 'Theme';
+
+  @override
+  String get pref_theme_system => 'System';
+
+  @override
+  String get pref_theme_light => 'Light';
+
+  @override
+  String get pref_theme_dark => 'Dark';
+
+  @override
+  String get pref_accent => 'Accent colour';
+
+  @override
+  String get pref_accent_default => 'The system\'s';
+
+  @override
+  String get pref_accent_blue => 'Blue';
+
+  @override
+  String get pref_accent_green => 'Green';
+
+  @override
+  String get pref_accent_orange => 'Orange';
+
+  @override
+  String get pref_accent_red => 'Red';
+
+  @override
+  String get pref_accent_purple => 'Purple';
+
+  @override
+  String get pref_accent_pink => 'Pink';
+
+  @override
+  String get pref_skin => 'Look and feel';
+
+  @override
+  String get pref_skin_desc =>
+      'The app follows your system; choose another to see the app dressed as on that system.';
+
+  @override
+  String get pref_skin_auto => 'Match this system';
+
+  @override
+  String get pref_skin_macos => 'macOS';
+
+  @override
+  String get pref_skin_fluent => 'Windows (Fluent)';
+
+  @override
+  String get pref_skin_adwaita => 'GNOME (Adwaita)';
+
+  @override
+  String get pref_skin_breeze => 'KDE (Breeze)';
+
+  @override
+  String get pref_density => 'Row height';
+
+  @override
+  String get pref_confirmations => 'Asking first';
+
+  @override
+  String get pref_confirm_delete => 'Ask before deleting downloads';
+
+  @override
+  String get pref_confirm_delete_desc =>
+      'Off deletes at once, keeping the files on disk.';
+
+  @override
+  String get nav_manage_about => 'About';
+
+  @override
+  String get ab_title => 'dlm';
+
+  @override
+  String get ab_blurb =>
+      'A download manager for files, torrents and streams, made of this app and a download service that does the work.';
+
+  @override
+  String get ab_app => 'This app';
+
+  @override
+  String get ab_daemon => 'The download service';
+
+  @override
+  String get ab_version => 'Version';
+
+  @override
+  String get ab_api => 'Talks API revision';
+
+  @override
+  String ab_api_value(int current, int oldest) {
+    return 'revision $current, works with $oldest and newer';
+  }
+
+  @override
+  String get ab_system => 'System';
+
+  @override
+  String get ab_address => 'Listens on';
+
+  @override
+  String get ab_compat => 'Together';
+
+  @override
+  String get ab_compat_ok => 'They work together.';
+
+  @override
+  String get ab_compat_app_old =>
+      'The service needs a newer version of this app.';
+
+  @override
+  String get ab_compat_daemon_old =>
+      'The service is older than this app supports.';
+
+  @override
+  String get ab_compat_unknown => 'Not connected.';
+
+  @override
+  String get ab_support => 'Support';
+
+  @override
+  String get ab_diagnostics => 'Diagnostics';
+
+  @override
+  String get ab_diagnostics_copy => 'Copy diagnostics';
+
+  @override
+  String get ab_diagnostics_desc =>
+      'Puts versions, the connections (without tokens) and the recent log on the clipboard, with secrets removed, for you to paste into a bug report.';
+
+  @override
+  String get ab_diagnostics_copied => 'Diagnostics copied';
+
+  @override
+  String get ab_licences => 'Open-source licences';
+
+  @override
+  String get ab_licences_list => 'Packages';
+
+  @override
+  String get ab_licences_show => 'Show the licences';
+
+  @override
+  String get ab_licences_desc =>
+      'dlm is built from open-source packages. Their licences are listed here.';
+
+  @override
+  String get ab_licences_none => 'No licences are registered in this build.';
+
+  @override
+  String ab_licences_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count licence texts',
+      one: '1 licence text',
+    );
+    return '$_temp0';
+  }
 }

@@ -966,5 +966,917 @@
   "view_density_comfortable": "Comfortable",
   "view_density_compact": "Compact",
   "view_columns": "Columns",
-  "display_menu": "Display"
+  "display_menu": "Display",
+  "settings_search": "Search settings",
+  "settings_save": "Save",
+  "settings_revert": "Revert",
+  "settings_saved": "Settings saved",
+  "settings_unsaved": "Unsaved changes",
+  "settings_no_match": "No setting matches your search.",
+  "settings_changed_elsewhere": "The settings were changed somewhere else. Their version is shown now; make your changes again.",
+  "settings_level_default": "Default",
+  "settings_level_global": "Global",
+  "settings_level_queue": "Queue",
+  "settings_level_task": "This download",
+  "settings_restart": "Needs restart",
+  "settings_unset": "Not set",
+  "settings_reset": "Reset {name} to the inherited value",
+  "@settings_reset": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "settings_invalid_size": "Not a size, such as 10 MB or 512 K.",
+  "settings_invalid_number": "Not a number in the allowed range.",
+  "settings_invalid_duration": "Use a duration like 30s, 5m or 1h30m.",
+  "settings_leave_title": "Leave without saving?",
+  "settings_leave_message": "You changed settings that are not saved yet.",
+  "settings_leave_confirm": "Leave",
+  "settings_leave_stay": "Keep editing",
+  "nav_settings": "Settings",
+  "insp_tab_settings": "Settings",
+  "se_name": "Name",
+  "se_value": "Value",
+  "se_remove": "Remove",
+  "se_add": "Add",
+  "se_add_rule": "Add a rule",
+  "se_proxy_mode": "Proxy",
+  "se_proxy_none": "No proxy",
+  "se_proxy_system": "The system's proxy",
+  "se_proxy_custom": "A proxy I choose",
+  "se_proxy_url": "Proxy address",
+  "se_rule_hosts": "Hosts",
+  "se_rule_hosts_hint": "example.com, *.cdn.net",
+  "se_lines": "One entry per line",
+  "se_move_up": "Move up",
+  "se_move_down": "Move down",
+  "se_pa_add": "Add an action",
+  "se_pa_extract": "Unpack archives",
+  "se_pa_add_torrent": "Add a downloaded .torrent file",
+  "se_pa_command": "Run a program",
+  "se_pa_av_scan": "Scan for viruses",
+  "se_pa_dir": "Folder",
+  "se_pa_dir_hint": "Next to the file",
+  "se_pa_delete": "Delete the file afterwards",
+  "se_pa_password": "Password",
+  "se_pa_cmd": "Program",
+  "se_pa_cmd_hint": "Full path, e.g. /usr/bin/clamscan",
+  "se_pa_args": "Arguments",
+  "se_pa_args_hint": "One per line; {token} is the file",
+  "se_pa_timeout": "Time limit",
+  "se_pa_infected_exit": "Infected exit code",
+  "se_pa_on_infected": "When infected",
+  "se_pa_infected_delete": "Delete the file",
+  "se_pa_infected_keep": "Keep the file",
+  "se_pa_command_warning": "This runs a program on every finished download. Only use a program you trust.",
+  "se_pa_av_warning": "An infected file fails the download and, unless you keep it, is deleted. Only use a scanner you trust.",
+  "se_quota_bytes": "Amount",
+  "se_quota_per": "per",
+  "se_quota_period": "Period",
+  "@se_pa_args_hint": {
+    "placeholders": {
+      "token": {
+        "type": "String"
+      }
+    }
+  },
+  "nav_manage": "Manage",
+  "nav_manage_categories": "Categories",
+  "cat_intro": "A category sorts a finished download into a folder by its file extension or content type. The first category that matches wins, so the order matters.",
+  "cat_add": "Add a category",
+  "cat_add_title": "Add a category",
+  "cat_edit_title": "Edit the category",
+  "cat_saved": "Category saved",
+  "cat_empty_title": "No categories yet",
+  "cat_empty_message": "Add one to have finished downloads sorted into folders.",
+  "cat_name": "Name",
+  "cat_folder": "Folder",
+  "cat_folder_desc": "Where files of this category are put.",
+  "cat_extensions": "Extensions",
+  "cat_extensions_desc": "Separated by commas or spaces, like mkv, mp4.",
+  "cat_extensions_invalid": "Extensions are letters and digits only.",
+  "cat_mime": "Content types",
+  "cat_mime_desc": "One per line, like video/* or application/pdf.",
+  "cat_mime_invalid": "Use the form type/subtype, or type/*.",
+  "cat_drag": "Drag {name} to change its order",
+  "@cat_drag": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_move_up": "Move {name} up",
+  "@cat_move_up": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_move_down": "Move {name} down",
+  "@cat_move_down": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_edit": "Edit {name}",
+  "@cat_edit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete": "Delete {name}",
+  "@cat_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete_title": "Delete the category {name}?",
+  "@cat_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete_message": "Files already sorted by it stay where they are.",
+  "cat_delete_confirm": "Delete category",
+  "cat_test_title": "Try a file",
+  "cat_test_name": "File name",
+  "cat_test_mime": "Content type",
+  "cat_test_none": "No category matches: the file stays in the normal download folder.",
+  "cat_test_found": "Goes to {name}: {dir}",
+  "@cat_test_found": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dir": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_test_error": "The daemon could not be asked.",
+  "nav_manage_logins": "Logins",
+  "nav_manage_cookies": "Cookies",
+  "field_show": "Show",
+  "field_hide": "Hide",
+  "login_intro": "Logins are sent to sites that ask for a user name and password. The password stays in the download service: it is never shown here again.",
+  "login_add": "Add a login",
+  "login_add_title": "Add a login",
+  "login_edit_title": "Edit the login",
+  "login_saved": "Login saved",
+  "login_empty_title": "No logins yet",
+  "login_empty_message": "Add one for a site that needs a user name and password.",
+  "login_host": "Site",
+  "login_host_desc": "A host name like example.com, or *.example.com for all its subdomains.",
+  "login_user": "User name",
+  "login_password": "Password",
+  "login_password_keep": "Leave empty to keep the stored password.",
+  "login_scheme": "Method",
+  "login_scheme_auto": "Let the site decide",
+  "login_scheme_basic": "Basic",
+  "login_scheme_digest": "Digest",
+  "login_updated": "changed {date}",
+  "@login_updated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "login_edit": "Edit the login for {host}",
+  "@login_edit": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete": "Delete the login for {host}",
+  "@login_delete": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete_title": "Delete the login for {host}?",
+  "@login_delete_title": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete_message": "Downloads from that site will no longer sign in.",
+  "login_delete_confirm": "Delete login",
+  "ck_intro": "Cookies keep you signed in to sites. Their values stay in the download service; an export is the only way to see them.",
+  "ck_import": "Import cookies…",
+  "ck_export": "Export all…",
+  "ck_empty_title": "No cookies stored",
+  "ck_empty_message": "Import a cookies file, or let the browser extension send them.",
+  "ck_tree_label": "Cookies by domain",
+  "ck_count": "{count, plural, one{1 cookie} other{{count} cookies}}",
+  "@ck_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_secure": "Secure",
+  "ck_http_only": "HTTP only",
+  "ck_session": "Session",
+  "ck_export_domain": "Export the cookies of {domain}",
+  "@ck_export_domain": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain": "Delete the cookies of {domain}",
+  "@ck_delete_domain": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_cookie": "Delete the cookie {name}",
+  "@ck_delete_cookie": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain_title": "Delete the cookies of {domain}?",
+  "@ck_delete_domain_title": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain_message": "{count, plural, one{1 cookie will be deleted.} other{{count} cookies will be deleted.}}",
+  "@ck_delete_domain_message": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_delete_confirm": "Delete cookies",
+  "ck_import_title": "Import {name}",
+  "@ck_import_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_import_summary": "{imported} imported, {skipped} skipped.",
+  "@ck_import_summary": {
+    "placeholders": {
+      "imported": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_export_title": "Export cookies",
+  "ck_export_all": "All stored cookies.",
+  "ck_export_one": "The cookies of {domain}.",
+  "@ck_export_one": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_format": "File type",
+  "ck_format_netscape": "Netscape cookies.txt",
+  "ck_format_json": "JSON",
+  "ck_export_warning": "The export contains the cookie values. Anyone who has them can sign in as you. Reveal them only where you can keep them safe.",
+  "ck_reveal": "Reveal the cookies",
+  "ck_export_count": "{count, plural, one{1 cookie} other{{count} cookies}}",
+  "@ck_export_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_export_text": "The exported cookies",
+  "ck_copy": "Copy",
+  "ck_copied": "Copied",
+  "ck_save": "Save to a file…",
+  "ck_saved": "File saved",
+  "nav_manage_webhooks": "Webhooks",
+  "wh_intro": "A webhook is an address that is sent the daemon's events as they happen, for example when a download finishes.",
+  "wh_add": "Add a webhook",
+  "wh_add_title": "Add a webhook",
+  "wh_edit_title": "Edit the webhook",
+  "wh_saved": "Webhook saved",
+  "wh_empty_title": "No webhooks yet",
+  "wh_empty_message": "Add one to have events sent to another program.",
+  "wh_url": "Address",
+  "wh_url_invalid": "Use an address that starts with http:// or https://.",
+  "wh_secret": "Secret",
+  "wh_secret_desc": "Deliveries are signed with it, so the receiver can check where they came from. Optional.",
+  "wh_secret_keep": "Leave empty to keep the stored secret.",
+  "wh_secret_remove": "Remove the secret",
+  "wh_enabled_label": "Send deliveries",
+  "wh_enabled": "Send deliveries to {url}",
+  "@wh_enabled": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_events": "Events",
+  "wh_events_desc": "Leave all unticked to receive every event.",
+  "wh_all_events": "All events",
+  "wh_events_count": "{count, plural, one{1 event} other{{count} events}}",
+  "@wh_events_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_signed": "Signed",
+  "wh_test": "Test",
+  "wh_test_ok": "{url} accepted the test event.",
+  "@wh_test_ok": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_test_failed": "{url} did not accept the test event.",
+  "@wh_test_failed": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_log": "Deliveries",
+  "wh_log_title": "Deliveries to {url}",
+  "@wh_log_title": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_log_desc": "The last attempts since the daemon started, newest first.",
+  "wh_log_empty": "Nothing was sent yet.",
+  "wh_log_error": "The deliveries could not be read.",
+  "wh_log_refresh": "Refresh",
+  "wh_log_no_answer": "no answer",
+  "wh_log_status": "HTTP {status}",
+  "@wh_log_status": {
+    "placeholders": {
+      "status": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_log_attempt": "attempt {n}",
+  "@wh_log_attempt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_log_retry": "will retry",
+  "wh_edit": "Edit {url}",
+  "@wh_edit": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete": "Delete {url}",
+  "@wh_delete": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete_title": "Delete the webhook {url}?",
+  "@wh_delete_title": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete_message": "Events will no longer be sent there.",
+  "wh_delete_confirm": "Delete webhook",
+  "nav_manage_plugins": "Plugins",
+  "log_level": "Level",
+  "log_level_all": "All levels",
+  "log_level_info": "Info and above",
+  "log_level_warn": "Warnings and errors",
+  "log_level_error": "Errors only",
+  "log_search": "Search the log",
+  "log_refresh": "Refresh",
+  "log_empty": "No log records.",
+  "log_error": "The log could not be read.",
+  "pl_intro": "Plugins are JavaScript extensions that resolve links, renew expired ones and react to downloads starting, failing and finishing. They run inside the daemon.",
+  "pl_install": "Install a plugin",
+  "pl_install_title": "Install a plugin",
+  "pl_install_message": "The plugin is installed switched off. You review what it may do before it runs.",
+  "pl_install_go": "Install",
+  "pl_source": "Where from",
+  "pl_source_desc": "A folder on the computer the daemon runs on, or a git address.",
+  "pl_ref": "Version",
+  "pl_ref_desc": "A branch, tag or commit, for a git address. Optional.",
+  "pl_replace": "Replace a plugin of the same name",
+  "pl_empty_title": "No plugins installed",
+  "pl_empty_message": "Install one from a folder or a git address.",
+  "pl_enabled": "Run {name}",
+  "@pl_enabled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_permissions": "Permissions",
+  "pl_logs": "Log",
+  "pl_remove": "Remove {name}",
+  "@pl_remove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_remove_title": "Remove {name}?",
+  "@pl_remove_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_remove_message": "The plugin, its files and the data it stored are deleted.",
+  "pl_remove_confirm": "Remove plugin",
+  "pl_logs_title": "Log of {name}",
+  "@pl_logs_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_review_title": "What {name} may do",
+  "@pl_review_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_review_fresh": "The plugin is installed but not running.",
+  "pl_review_source": "From {source}, version {version}.",
+  "@pl_review_source": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_hooks": "It reacts to",
+  "pl_hooks_none": "No events.",
+  "pl_hosts": "It may contact",
+  "pl_hosts_none": "No other computers.",
+  "pl_trust_warning": "A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.",
+  "pl_keep_off": "Keep it off",
+  "pl_enable": "Switch it on",
+  "nav_manage_browser": "Browser tool",
+  "br_intro": "Some pages only show their downloads in a real browser. Open one here and the daemon's headless browser lists what the page leads to: files, video and audio streams.",
+  "br_open_title": "Open a page",
+  "br_url": "Page address",
+  "br_url_invalid": "Use an address that starts with http:// or https://.",
+  "br_open": "Open",
+  "br_opening": "Opening…",
+  "br_error": "The page could not be opened.",
+  "br_result_info": "Opened {url} in the group {group}.",
+  "@br_result_info": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      },
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_none": "The page led to no downloads.",
+  "br_download": "Download",
+  "br_added": "Added {name}",
+  "@br_added": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profiles_title": "Browser profiles",
+  "br_profiles_desc": "Each site group has its own profile, which keeps the logins of the pages opened there.",
+  "br_profiles_none": "No profiles yet.",
+  "br_profiles_error": "The profiles could not be listed.",
+  "br_profile_delete": "Delete the profile {group}",
+  "@br_profile_delete": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profile_delete_title": "Delete the profile of {group}?",
+  "@br_profile_delete_title": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profile_delete_message": "Its cookies and stored data are removed. It cannot be deleted while its browser runs.",
+  "br_profile_delete_confirm": "Delete profile",
+  "br_state_title": "The headless browser",
+  "br_state_in_use": "In use",
+  "br_state_unused": "Not used yet",
+  "br_state_running": "Running",
+  "br_state_none": "None",
+  "br_state_max": "At most at once",
+  "br_tools_title": "Programs",
+  "nav_manage_transfer": "Import and export",
+  "tr_intro": "Add many downloads from a list, or write your downloads out as a list. Nothing is added until you have seen what would happen.",
+  "tr_import_title": "Import a list",
+  "tr_list": "The list",
+  "tr_list_desc": "Paste it here, or choose a file.",
+  "tr_choose": "Choose a file…",
+  "tr_format": "Kind of list",
+  "tr_format_urls": "One link per line",
+  "tr_format_json": "dlm JSON",
+  "tr_format_aria2": "aria2 input file",
+  "tr_default_queue": "The default queue",
+  "tr_duplicates": "Add duplicates too",
+  "tr_duplicates_desc": "Otherwise links that are already in the list are skipped.",
+  "tr_preview": "Preview",
+  "tr_preview_summary": "Would add {ok}, would not add {failed}.",
+  "@tr_preview_summary": {
+    "placeholders": {
+      "ok": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "tr_export_title": "Export downloads",
+  "tr_export_format": "File kind to export",
+  "tr_export_queue": "Queue",
+  "tr_all_queues": "All queues",
+  "tr_export_status": "Which downloads",
+  "tr_all_statuses": "All of them",
+  "tr_export": "Export",
+  "tr_export_count": "{count, plural, one{1 download} other{{count} downloads}}",
+  "@tr_export_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tr_export_text": "The exported list",
+  "nav_manage_statistics": "Statistics",
+  "st_error": "The statistics could not be read.",
+  "st_totals": "Totals",
+  "st_tasks": "Downloads",
+  "st_downloaded": "Downloaded in all",
+  "st_by_status": "By state",
+  "st_by_engine": "By engine",
+  "st_completed_in": "Finished in the last {period}",
+  "@st_completed_in": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "st_bucket": "Bucket",
+  "st_bucket_hour": "Per hour",
+  "st_bucket_day": "Per day",
+  "st_group": "Split by",
+  "st_group_none": "Nothing",
+  "st_group_engine": "Engine",
+  "st_group_queue": "Queue",
+  "st_timeline": "Traffic",
+  "st_timeline_summary": "Downloaded {down}, uploaded {up} in this range.",
+  "@st_timeline_summary": {
+    "placeholders": {
+      "down": {
+        "type": "String"
+      },
+      "up": {
+        "type": "String"
+      }
+    }
+  },
+  "st_timeline_empty": "No traffic in this range.",
+  "st_all_traffic": "All traffic",
+  "st_history": "Finished downloads",
+  "st_history_search": "Search by name or link",
+  "st_history_empty": "No finished downloads.",
+  "st_history_more": "Show more",
+  "st_cleanup_title": "Clean up",
+  "st_cleanup_desc": "Removes finished downloads from the list. The automatic cleanup of the retention setting never deletes files.",
+  "st_cleanup_days": "Older than",
+  "st_days": "days",
+  "st_cleanup_files": "Also delete the files",
+  "st_cleanup_files_desc": "Off keeps the files on disk and only removes the list entries.",
+  "st_cleanup_preview": "Check what would go",
+  "st_cleanup_preview_result": "{count, plural, one{1 download} other{{count} downloads}} ({size}) would be removed.",
+  "@st_cleanup_preview_result": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "st_cleanup_go": "Clean up",
+  "st_cleanup_confirm_title": "Remove {count, plural, one{1 download} other{{count} downloads}}?",
+  "@st_cleanup_confirm_title": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "st_cleanup_confirm_list": "They leave the list; the files stay where they are.",
+  "st_cleanup_confirm_files": "They leave the list and their files are deleted from the disk. This cannot be undone.",
+  "st_cleanup_done": "Removed {count, plural, one{1 download} other{{count} downloads}}",
+  "@st_cleanup_done": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "st_cleanup_done_failed": "Removed {deleted}; {failed} could not be removed",
+  "@st_cleanup_done_failed": {
+    "placeholders": {
+      "deleted": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "nav_manage_daemon": "Daemon",
+  "dm_intro": "How the download service itself starts: where it listens, its engines and programs, its logging. Most changes take effect after a restart.",
+  "dm_file": "Read from {file}",
+  "@dm_file": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_file_error": "The configuration file has a problem: {error}",
+  "@dm_file_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_pending_title": "A restart is needed",
+  "dm_pending_message": "Some saved changes are waiting for the daemon to restart.",
+  "dm_restart_now": "Restart now",
+  "dm_pending_value": "after the restart: {value}",
+  "@dm_pending_value": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "dm_read_only": "set by a flag or the environment",
+  "dm_saved": "Configuration saved",
+  "dm_needs_restart": "These changes take effect after a restart.",
+  "dm_restart_title": "Restart the daemon?",
+  "dm_restart_message": "Downloads that are running are requeued and start again afterwards.",
+  "dm_restart_confirm": "Restart",
+  "dm_restarting": "The daemon is restarting",
+  "dm_log_title": "Log",
+  "nav_manage_access": "Access",
+  "ac_identity": "This app",
+  "ac_signed_in": "Signed in as",
+  "ac_who": "{name} ({scope}, {kind})",
+  "@ac_who": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "scope": {
+        "type": "String"
+      },
+      "kind": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_scope_admin": "can change everything",
+  "ac_scope_read": "read only",
+  "ac_primary": "the main token",
+  "ac_named": "a named token",
+  "ac_rotate": "Replace the main token",
+  "ac_rotate_desc": "Makes a new main token and stops the old one working at once.",
+  "ac_rotate_title": "Replace the main token?",
+  "ac_rotate_message": "Every client that uses the old token, such as a browser extension or a script, stops working until it is given the new one. This app is signed in again automatically.",
+  "ac_rotate_confirm": "Replace it",
+  "ac_rotated_title": "The new main token",
+  "ac_tokens": "Named tokens",
+  "ac_tokens_desc": "Give a dashboard, a script or another device a token of its own, and revoke it when it is no longer needed.",
+  "ac_tokens_none": "No named tokens.",
+  "ac_tokens_error": "The tokens could not be listed.",
+  "ac_add": "Add a token",
+  "ac_add_title": "Add a token",
+  "ac_name": "Name",
+  "ac_name_hint": "dashboard",
+  "ac_scope": "Can",
+  "ac_scope_desc": "A read-only token can look at everything except cookies, and change nothing.",
+  "ac_create": "Create",
+  "ac_created_title": "The token {name}",
+  "@ac_created_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_created": "created {date}",
+  "@ac_created": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_never_used": "never used",
+  "ac_last_used": "last used {date}",
+  "@ac_last_used": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete": "Revoke the token {name}",
+  "@ac_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete_title": "Revoke the token {name}?",
+  "@ac_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_delete_message": "Whatever uses it stops working.",
+  "ac_delete_confirm": "Revoke token",
+  "ac_secret_once": "This is the only time the token is shown. Copy it now and keep it somewhere safe.",
+  "ac_secret_done": "I have copied it",
+  "ac_secret_gone": "The token is not shown again",
+  "ac_nh_title": "Browser extension",
+  "ac_nh_desc": "The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.",
+  "ac_nh_origins": "Allowed extensions",
+  "ac_nh_no_origins": "None yet",
+  "ac_nh_error": "The extension host cannot be managed from here.",
+  "ac_nh_ids": "Extension IDs",
+  "ac_nh_ids_desc": "Separated by commas or spaces. Needed to install.",
+  "ac_nh_install": "Install for all browsers",
+  "ac_nh_remove": "Remove",
+  "ac_nh_done": "{count, plural, one{Done for 1 browser} other{Done for {count} browsers}}",
+  "@ac_nh_done": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ac_mcp_title": "Assistants (MCP)",
+  "ac_mcp_desc": "An AI assistant that speaks the Model Context Protocol can add and manage downloads. It signs in with a token.",
+  "ac_mcp_url": "Address",
+  "ac_mcp_claude": "Claude Code",
+  "ac_mcp_json": "Settings file (JSON)",
+  "ac_mcp_token_note": "Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.",
+  "nav_manage_preferences": "Preferences",
+  "pref_intro": "How the app looks and asks. Changes apply at once.",
+  "pref_appearance": "Appearance",
+  "pref_theme": "Theme",
+  "pref_theme_system": "System",
+  "pref_theme_light": "Light",
+  "pref_theme_dark": "Dark",
+  "pref_accent": "Accent colour",
+  "pref_accent_default": "The system's",
+  "pref_accent_blue": "Blue",
+  "pref_accent_green": "Green",
+  "pref_accent_orange": "Orange",
+  "pref_accent_red": "Red",
+  "pref_accent_purple": "Purple",
+  "pref_accent_pink": "Pink",
+  "pref_skin": "Look and feel",
+  "pref_skin_desc": "The app follows your system; choose another to see the app dressed as on that system.",
+  "pref_skin_auto": "Match this system",
+  "pref_skin_macos": "macOS",
+  "pref_skin_fluent": "Windows (Fluent)",
+  "pref_skin_adwaita": "GNOME (Adwaita)",
+  "pref_skin_breeze": "KDE (Breeze)",
+  "pref_density": "Row height",
+  "pref_confirmations": "Asking first",
+  "pref_confirm_delete": "Ask before deleting downloads",
+  "pref_confirm_delete_desc": "Off deletes at once, keeping the files on disk.",
+  "nav_manage_about": "About",
+  "ab_title": "dlm",
+  "ab_blurb": "A download manager for files, torrents and streams, made of this app and a download service that does the work.",
+  "ab_app": "This app",
+  "ab_daemon": "The download service",
+  "ab_version": "Version",
+  "ab_api": "Talks API revision",
+  "ab_api_value": "revision {current}, works with {oldest} and newer",
+  "@ab_api_value": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "oldest": {
+        "type": "int"
+      }
+    }
+  },
+  "ab_system": "System",
+  "ab_address": "Listens on",
+  "ab_compat": "Together",
+  "ab_compat_ok": "They work together.",
+  "ab_compat_app_old": "The service needs a newer version of this app.",
+  "ab_compat_daemon_old": "The service is older than this app supports.",
+  "ab_compat_unknown": "Not connected.",
+  "ab_support": "Support",
+  "ab_diagnostics": "Diagnostics",
+  "ab_diagnostics_copy": "Copy diagnostics",
+  "ab_diagnostics_desc": "Puts versions, the connections (without tokens) and the recent log on the clipboard, with secrets removed, for you to paste into a bug report.",
+  "ab_diagnostics_copied": "Diagnostics copied",
+  "ab_licences": "Open-source licences",
+  "ab_licences_list": "Packages",
+  "ab_licences_show": "Show the licences",
+  "ab_licences_desc": "dlm is built from open-source packages. Their licences are listed here.",
+  "ab_licences_none": "No licences are registered in this build.",
+  "ab_licences_count": "{count, plural, one{1 licence text} other{{count} licence texts}}",
+  "@ab_licences_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

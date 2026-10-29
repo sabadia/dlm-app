@@ -52,6 +52,24 @@ String queuePath(String id) => '/queues/${Uri.encodeComponent(id)}';
 /// The page of one category.
 String categoryPath(String id) => '/categories/${Uri.encodeComponent(id)}';
 
+/// The settings groups with a page of their own, in sidebar order.
+const List<String> settingsGroups = [
+  'general',
+  'speed',
+  'network',
+  'retry',
+  'refresh',
+  'post-processing',
+  'torrent',
+  'browser',
+];
+
+/// The settings page of [group].
+String settingsPath(String group) => '/settings/$group';
+
+/// The management page [page] (`categories`).
+String managePath(String page) => '/manage/$page';
+
 /// Where the app starts.
 final String homePath = downloadsPath(DownloadsFilter.all);
 
@@ -63,3 +81,9 @@ String queueSidebarId(String id) => 'queue:$id';
 
 /// Sidebar id of a category.
 String categorySidebarId(String id) => 'category:$id';
+
+/// Sidebar id of a settings page.
+String settingsSidebarId(String group) => 'settings:$group';
+
+/// Sidebar id of a management page.
+String manageSidebarId(String page) => 'manage:$page';

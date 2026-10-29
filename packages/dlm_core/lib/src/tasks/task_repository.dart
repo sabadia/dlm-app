@@ -147,12 +147,14 @@ abstract interface class TaskRepository {
   /// Puts a task at [position] in its queue.
   Future<Task> reorder(String id, int position);
 
-  /// Renames or re-prioritises a task.
+  /// Renames or re-prioritises a task, or patches its settings overrides
+  /// ([settings] is an RFC 7396 merge patch).
   Future<Task> update(
     String id, {
     String? name,
     String? dir,
     UpdateTaskBodyPriority? priority,
+    Map<String, Object?>? settings,
   });
 }
 
@@ -301,10 +303,16 @@ class ApiTaskRepository implements TaskRepository {
     String? name,
     String? dir,
     UpdateTaskBodyPriority? priority,
+    Map<String, Object?>? settings,
   }) => guard(
     () => _tasks.updateTask(
       id: id,
-      body: UpdateTaskBody(name: name, dir: dir, priority: priority),
+      body: UpdateTaskBody(
+        name: name,
+        dir: dir,
+        priority: priority,
+        settings: settings,
+      ),
     ),
   );
 

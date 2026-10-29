@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a1869e-1f47-799f-8f5d-413cf17c94f0
+status: draft
+created_at: '2026-10-29T07:44:32Z'
+updated_at: '2026-10-29T07:44:32Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'About page: versions of the app and the daemon, compatibility, copy diagnostics without secrets, open-source licences (F4.12 part)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/about/about_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/about/licences_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/main.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

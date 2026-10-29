@@ -9,7 +9,10 @@ import 'settings/settings_repository.dart';
 import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
 import 'tasks/add_repository.dart';
+import 'tasks/browser_repository.dart';
+import 'tasks/daemon_repository.dart';
 import 'tasks/refresh_repository.dart';
+import 'tasks/stats_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_detail_repository.dart';
 import 'tasks/task_list.dart';
@@ -206,14 +209,34 @@ final statsProvider = FutureProvider<StatsBody>(
   (ref) => guard(ref.watch(apiProvider).rest.tasks.getStats),
 );
 
+/// The daemon's own configuration, log, tokens and native host.
+final daemonRepositoryProvider = Provider<DaemonRepository>(
+  (ref) => ApiDaemonRepository(ref.watch(apiProvider)),
+);
+
+/// Traffic over time and the cleanup of old downloads.
+final statsRepositoryProvider = Provider<StatsRepository>(
+  (ref) => ApiStatsRepository(ref.watch(apiProvider)),
+);
+
 /// What the daemon says about itself: version, paths and the state of its
 /// tools (ffmpeg, yt-dlp, browser). Read again when invalidated.
 final systemInfoProvider = FutureProvider<SystemInfo>(
   (ref) => guard(ref.watch(apiProvider).rest.system.getSystemInfo),
 );
 
+/// Where pages are opened in the headless browser and their downloads taken.
+final browserRepositoryProvider = Provider<BrowserRepository>(
+  (ref) => ApiBrowserRepository(ref.watch(apiProvider)),
+);
+
+/// The site groups that have a browser profile. Read again when invalidated.
+final browserProfilesProvider = FutureProvider.autoDispose<List<String>>(
+  (ref) => ref.watch(browserRepositoryProvider).profiles(),
+);
+
 /// The state of the internal headless browser.
-final browserStatusProvider = FutureProvider<Status>(
+final browserStatusProvider = FutureProvider<BrowserStatus>(
   (ref) => guard(ref.watch(apiProvider).rest.browser.getBrowserStatus),
 );
 

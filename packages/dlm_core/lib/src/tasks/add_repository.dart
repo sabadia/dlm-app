@@ -26,6 +26,14 @@ abstract interface class AddRepository {
     bool allowDuplicate = false,
   });
 
+  /// The tasks matching the filters as a list file: [format] says which kind.
+  /// Captured headers and cookies are never included.
+  Future<ExportedTasks> exportTasks(
+    Format2 format, {
+    String? queueId,
+    Set<String> statuses = const {},
+  });
+
   /// The folders below [path] on the daemon's machine (the roots when null);
   /// only places the daemon is allowed to show.
   Future<FsListing> browse(String? path);
@@ -92,6 +100,21 @@ class ApiAddRepository implements AddRepository {
     );
     return out.results ?? const [];
   }
+
+  @override
+  Future<ExportedTasks> exportTasks(
+    Format2 format, {
+    String? queueId,
+    Set<String> statuses = const {},
+  }) => guard(
+    () => _client.exportTasks(
+      format: format,
+      queueId: queueId,
+      status: [
+        for (final s in statuses) ...Status.values.where((v) => v.json == s),
+      ],
+    ),
+  );
 
   @override
   Future<FsListing> browse(String? path) =>

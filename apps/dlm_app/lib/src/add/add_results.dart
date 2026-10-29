@@ -56,7 +56,6 @@ class AddResultsSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    final theme = DlmTheme.of(context);
     final ok = results.where((r) => r.ok).length;
     return ConstrainedBox(
       constraints: BoxConstraints(
@@ -66,49 +65,7 @@ class AddResultsSheet extends StatelessWidget {
       child: DlmDialogContent(
         title: title,
         message: l.add_results_summary(ok, results.length - ok),
-        child: Flexible(
-          child: ListView(
-            shrinkWrap: true,
-            children: [
-              for (final r in results)
-                Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: theme.metrics.spacing.xs,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DlmIcon(
-                        r.ok ? DlmIconName.success : DlmIconName.error,
-                        color: r.ok
-                            ? theme.colors.success
-                            : theme.colors.danger,
-                      ),
-                      SizedBox(width: theme.metrics.spacing.sm),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              r.url ?? r.task?.name ?? '',
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              resultReason(l, r),
-                              style: theme.typography.caption.copyWith(
-                                color: theme.colors.textSecondary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
+        child: Flexible(child: BatchResultList(results: results)),
         actions: [
           DlmButton(
             label: confirmLabel == null ? l.add_close : l.files_cancel,
@@ -122,6 +79,59 @@ class AddResultsSheet extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// One row per link of a batch: whether it was (or would be) added, and why
+/// not when it was not.
+class BatchResultList extends StatelessWidget {
+  /// Creates the list.
+  const BatchResultList({required this.results, super.key});
+
+  /// The results, one per link.
+  final List<BatchItem> results;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final theme = DlmTheme.of(context);
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        for (final r in results)
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: theme.metrics.spacing.xs),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                DlmIcon(
+                  r.ok ? DlmIconName.success : DlmIconName.error,
+                  color: r.ok ? theme.colors.success : theme.colors.danger,
+                ),
+                SizedBox(width: theme.metrics.spacing.sm),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        r.url ?? r.task?.name ?? '',
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Text(
+                        resultReason(l, r),
+                        style: theme.typography.caption.copyWith(
+                          color: theme.colors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+      ],
     );
   }
 }

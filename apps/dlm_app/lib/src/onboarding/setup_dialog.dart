@@ -11,6 +11,7 @@ import '../connection/connection_controller.dart';
 import '../prefs/pref_providers.dart';
 import '../shell/feedback.dart';
 import 'folder_picker.dart';
+import 'tool_row.dart';
 
 /// Shows the setup dialog on the first run of the app with its own download
 /// service. A remote profile belongs to somebody else's computer, so nothing
@@ -86,7 +87,7 @@ class SetupDialog extends ConsumerWidget {
             l.setup_tool_browser_desc,
           ),
         ])
-          _ToolRow(
+          ToolStatusRow(
             label: label,
             description: desc,
             status: (i.tools ?? const <ToolStatus>[])
@@ -170,47 +171,6 @@ class SetupDialog extends ConsumerWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class _ToolRow extends StatelessWidget {
-  const _ToolRow({
-    required this.label,
-    required this.description,
-    required this.status,
-  });
-
-  final String label;
-  final String description;
-  final ToolStatus? status;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final s = status;
-    final (text, tone) = switch (s) {
-      null => (l.setup_tool_missing, DlmTone.neutral),
-      ToolStatus(available: true, :final version) => (
-        version == null || version.isEmpty
-            ? l.setup_tool_found_noversion
-            : l.setup_tool_found(version),
-        DlmTone.success,
-      ),
-      ToolStatus(:final error?) when error.isNotEmpty => (
-        l.setup_tool_error(error),
-        DlmTone.danger,
-      ),
-      ToolStatus(autoDownload: true) => (
-        l.setup_tool_missing_auto,
-        DlmTone.warning,
-      ),
-      _ => (l.setup_tool_missing, DlmTone.warning),
-    };
-    return DlmFormRow(
-      label: label,
-      description: description,
-      control: DlmBadge(label: text, tone: tone),
     );
   }
 }
