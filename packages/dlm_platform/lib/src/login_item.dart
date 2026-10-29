@@ -70,11 +70,18 @@ class XdgAutostartLoginItem implements LoginItem {
   final String _executable;
   final Map<String, String> _environment;
 
+  static bool _absolute(String path) =>
+      path.startsWith('/') ||
+      path.startsWith(r'\') ||
+      (path.length >= 3 && path[1] == ':');
+
   /// The autostart entry.
   File get file {
     final xdg = _environment['XDG_CONFIG_HOME'];
     final home = _environment['HOME'];
-    final base = xdg != null && xdg.startsWith('/')
+    // An absolute path counts on every system. A Windows temp directory is
+    // `C:\...`, and these tests run there too.
+    final base = xdg != null && _absolute(xdg)
         ? xdg
         : home == null
         ? throw const LoginItemException(r'$HOME is not set')
