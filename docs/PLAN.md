@@ -161,7 +161,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F5.6 Dock/taskbar progress, sleep prevention, power actions — Badges, prevent sleep while active, post-queue sleep/shutdown confirmations. The badge is the active count and the bar is the combined fraction (`window_manager`; above 1 pulses). Sleep is held off with `ProcessInfo` on macOS, `SetThreadExecutionState` on Windows and `systemd-inhibit` on Linux. The countdown banners are the confirmation; the daemon runs the action.
 - [ ] F5.7 Global hotkeys and shortcut map — In-app shortcut map first (command → `SingleActivator`, stored in `UiPrefs`, read by the shell and command palette, conflict check, reset); global hotkeys decided later (`hotkey_manager` on macOS/Windows/X11 vs the GlobalShortcuts portal on Wayland).
 - [x] F5.8 Window-state restore and multi-monitor — The saved frame is applied at launch, including a window that still overlaps a second display. A frame that would open off every attached display is fitted onto the first and is not maximised. Moves and resizes are written back to `ui.window`.
-- [ ] F5.9 Native menus — macOS menu bar, Windows/Linux application menu.
+- [x] F5.9 Native menus — macOS menu bar, Windows/Linux application menu. macOS uses `PlatformMenuBar` (About and Quit in the application menu, plus the system window items). Windows and Linux get the same commands as a menu bar in the window.
 - [x] F5.10 Browser-extension pairing helpers *(needs P13.13)* — Onboarding and preferences rows over `GET/POST /v1/native-host` (reuse `nativeHostProvider`); local profiles only (403 `native_host.local_only`).
 
 ### M6 Quality

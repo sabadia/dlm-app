@@ -286,6 +286,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get palette_label => 'Command palette';
 
   @override
+  String get menu_file => 'File';
+
+  @override
+  String get menu_go => 'Go';
+
+  @override
+  String get menu_window => 'Window';
+
+  @override
+  String get menu_help => 'Help';
+
+  @override
+  String get menu_about => 'About dlm';
+
+  @override
   String command_go_to(String destination) {
     return 'Go to $destination';
   }

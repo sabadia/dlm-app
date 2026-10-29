@@ -25,6 +25,7 @@ import '../routing/app_routes.dart';
 import '../screens/list_views.dart';
 import '../settings/settings_form.dart';
 import 'app_commands.dart';
+import 'app_menus.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
 import 'shortcuts.dart';
@@ -175,6 +176,12 @@ class _AppShellState extends ConsumerState<AppShell> {
         noResults: l.palette_no_results,
         semanticLabel: l.palette_label,
       ),
+    );
+    final menus = buildApplicationMenus(
+      context,
+      ref,
+      mac: isMac,
+      openPalette: openPalette,
     );
 
     final sidebar = DlmSidebar<String>(
@@ -434,20 +441,33 @@ class _AppShellState extends ConsumerState<AppShell> {
           color: theme.windowBackground,
           child: DlmToastHost(
             controller: ref.watch(toastControllerProvider),
-            child: DlmSplitView(
-              primarySize: sidebarWidth,
-              minPrimary: theme.metrics.sidebarWidth.min,
-              minSecondary: 520,
-              initialSize: theme.metrics.sidebarWidth.ideal,
-              dividerLabel: l.sidebar_resize,
-              onResized: ref.read(sidebarWidthProvider.notifier).set,
-              primary: BackdropRegion(
-                chrome: chrome,
-                child: theme.components.sidebarSurface(context, child: sidebar),
-              ),
-              secondary: ColoredBox(
-                color: theme.colors.content,
-                child: content,
+            child: PlatformMenuBar(
+              menus: platformMenuItems(menus, mac: isMac),
+              child: Column(
+                children: [
+                  if (!isMac) ApplicationMenuStrip(menus: menus),
+                  Expanded(
+                    child: DlmSplitView(
+                      primarySize: sidebarWidth,
+                      minPrimary: theme.metrics.sidebarWidth.min,
+                      minSecondary: 520,
+                      initialSize: theme.metrics.sidebarWidth.ideal,
+                      dividerLabel: l.sidebar_resize,
+                      onResized: ref.read(sidebarWidthProvider.notifier).set,
+                      primary: BackdropRegion(
+                        chrome: chrome,
+                        child: theme.components.sidebarSurface(
+                          context,
+                          child: sidebar,
+                        ),
+                      ),
+                      secondary: ColoredBox(
+                        color: theme.colors.content,
+                        child: content,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),

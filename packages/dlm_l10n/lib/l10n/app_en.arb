@@ -116,6 +116,11 @@
   "palette_placeholder": "Type a command",
   "palette_no_results": "No matching command",
   "palette_label": "Command palette",
+  "menu_file": "File",
+  "menu_go": "Go",
+  "menu_window": "Window",
+  "menu_help": "Help",
+  "menu_about": "About dlm",
   "command_go_to": "Go to {destination}",
   "@command_go_to": {
     "placeholders": {

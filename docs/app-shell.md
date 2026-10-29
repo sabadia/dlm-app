@@ -115,6 +115,15 @@ forward and every two seconds. It offers the first http, https, ftp, magnet
 or ed2k link, and skips a link it has already offered. The clipboard text is
 not written to the log.
 
+## Menus
+
+On macOS the commands live in the system menu bar: the application menu holds
+About and Quit, and the Window menu adds the system's minimise, zoom and full
+screen items. On Windows and Linux the same commands are a menu bar at the top
+of the window, because those systems have no global menu bar. File holds add,
+a new queue, setup, pause all and resume all. Go holds the lists and queues.
+Window holds search, the command palette and the details pane.
+
 ## The window's place
 
 The window opens where it was, including on a second display. The frame is

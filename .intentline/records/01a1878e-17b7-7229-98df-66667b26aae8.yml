@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1878e-17b7-7229-98df-66667b26aae8
+status: draft
+created_at: '2026-10-29T12:06:38Z'
+updated_at: '2026-10-29T12:06:38Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F5.9: put the app commands in the macOS menu bar and in a window menu on Windows and Linux'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/shell/app_menus.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
