@@ -313,5 +313,213 @@
     }
   },
   "banner_daemon_restart": "Restart service",
-  "banner_dismiss": "Dismiss"
+  "banner_dismiss": "Dismiss",
+  "queue_new": "New queue",
+  "queue_new_title": "New queue",
+  "queue_name_label": "Name",
+  "queue_name_placeholder": "For example Night downloads",
+  "queue_name_taken": "A queue with that name already exists.",
+  "queue_create": "Create",
+  "queue_rename": "Rename…",
+  "queue_rename_title": "Rename queue",
+  "queue_save": "Save",
+  "queue_delete": "Delete queue…",
+  "queue_delete_title": "Delete “{name}”?",
+  "@queue_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_delete_message": "Its downloads move to the default queue. Nothing is removed from disk.",
+  "queue_delete_confirm": "Delete queue",
+  "queue_move_up": "Move up",
+  "queue_move_down": "Move down",
+  "queue_start": "Start queue",
+  "queue_stop": "Stop queue",
+  "queue_settings": "Queue settings…",
+  "queue_menu": "Queue actions",
+  "queue_state_running": "Running",
+  "queue_state_stopped": "Stopped",
+  "queue_default": "Default",
+  "toast_queue_created": "Created “{name}”",
+  "@toast_queue_created": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_renamed": "Renamed to “{name}”",
+  "@toast_queue_renamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_deleted": "Deleted “{name}”",
+  "@toast_queue_deleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_started": "“{name}” started",
+  "@toast_queue_started": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_stopped": "“{name}” stopped",
+  "@toast_queue_stopped": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_saved": "Saved the settings of “{name}”",
+  "@toast_queue_saved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_title": "Settings of “{name}”",
+  "@qs_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_intro": "Anything left empty follows the global settings.",
+  "qs_group_speed": "Speed",
+  "qs_speed_limit": "Speed limit",
+  "qs_speed_limit_desc": "Per second, for the whole queue. Empty means no limit of its own.",
+  "qs_speed_placeholder": "For example 2 MB",
+  "qs_invalid_size": "Enter a size like 500K or 2 MB.",
+  "qs_group_schedule": "Schedule",
+  "qs_schedule_on": "Run only at chosen times",
+  "qs_schedule_desc": "Outside these hours the queue waits; downloads resume when the next window opens.",
+  "qs_schedule_grid": "Weekly schedule, one cell per hour",
+  "qs_group_profiles": "Speed profiles",
+  "qs_profiles_desc": "A profile limits the speed while its hours are active.",
+  "qs_profile_title": "Profile {index}",
+  "@qs_profile_title": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "qs_profile_add": "Add a profile",
+  "qs_profile_remove": "Remove",
+  "qs_profile_limit": "Limit while active",
+  "qs_profile_unlimited": "Empty means unlimited while active.",
+  "qs_group_quota": "Quota",
+  "qs_quota_on": "Limit the amount downloaded",
+  "qs_quota_desc": "When the quota is used up the queue waits for the period to roll over.",
+  "qs_quota_bytes": "Amount",
+  "qs_quota_period": "Per period",
+  "qs_quota_period_placeholder": "For example 1 d",
+  "qs_invalid_duration": "Enter a time like 1h, 1d or 90m (at least a minute).",
+  "qs_group_after": "When the queue finishes",
+  "qs_after": "Then",
+  "qs_after_none": "Do nothing",
+  "qs_after_stop": "Stop the queue",
+  "qs_after_sleep": "Put the computer to sleep",
+  "qs_after_shutdown": "Shut the computer down",
+  "qs_after_command": "Run a program",
+  "qs_after_delay": "Wait first",
+  "qs_after_delay_desc": "A grace period in which you can cancel. Empty means 1 minute.",
+  "qs_after_command_path": "Program (full path)",
+  "qs_after_command_args": "Arguments, one per line",
+  "qs_after_command_warning": "This program runs with your permissions whenever the queue finishes. Only use one you trust.",
+  "qs_invalid_path": "Enter the full path of the program.",
+  "qs_cancel": "Cancel",
+  "queue_countdown_title": "“{name}” has finished",
+  "@queue_countdown_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_countdown_message": "{action} in {time}.",
+  "@queue_countdown_message": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_countdown_cancel": "Cancel and stop the queue",
+  "queue_action_cancelled": "The action after “{name}” was cancelled.",
+  "@queue_action_cancelled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_schedule_custom": "These hours include minutes, which the weekly grid cannot show. They are kept as they are until you replace them.",
+  "qs_schedule_use_grid": "Use the hourly grid",
+  "queue_missing_title": "This queue does not exist any more",
+  "queue_missing_message": "It was deleted, perhaps from another window. Pick another one in the sidebar.",
+  "setup_title": "Welcome",
+  "setup_intro": "A quick look at where your downloads go and what the download service found on this computer. You can come back to this from the command palette.",
+  "setup_folder_title": "Download folder",
+  "setup_folder_desc": "New downloads are saved here unless a category or queue says otherwise.",
+  "setup_folder_choose": "Choose…",
+  "setup_folder_dialog": "Choose the download folder",
+  "setup_folder_unset": "Not chosen yet",
+  "setup_folder_saved": "Downloads will be saved in {path}",
+  "@setup_folder_saved": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_tools_title": "Helper programs",
+  "setup_tools_desc": "These are used for some downloads. A missing one is only a problem when a download needs it.",
+  "setup_tools_recheck": "Check again",
+  "setup_tools_loading": "Looking for helper programs…",
+  "setup_tool_ffmpeg": "ffmpeg",
+  "setup_tool_ffmpeg_desc": "Joins video and audio and converts media.",
+  "setup_tool_ytdlp": "yt-dlp",
+  "setup_tool_ytdlp_desc": "Downloads from video sites.",
+  "setup_tool_browser": "Browser",
+  "setup_tool_browser_desc": "Opens pages that only work in a real browser.",
+  "setup_tool_found": "Found · {version}",
+  "@setup_tool_found": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_tool_found_noversion": "Found",
+  "setup_tool_missing": "Not found",
+  "setup_tool_missing_auto": "Not found · installed automatically when needed",
+  "setup_tool_error": "Problem: {error}",
+  "@setup_tool_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_done": "Done",
+  "cmd_setup": "Setup and health check…"
 }

@@ -31,10 +31,15 @@ class SyncEngine {
   final void Function()? onSettingsUpdated;
 
   final _connection = StreamController<HubConnectionState>.broadcast();
+  final _events = StreamController<StreamEvent>.broadcast();
   StreamSubscription<HubEvent>? _sub;
 
   /// The connection state, for the status bar.
   Stream<HubConnectionState> get connection => _connection.stream;
+
+  /// The daemon's events, after they were applied to the cache, for screens
+  /// that react to one (a queue finishing, a quota running out).
+  Stream<StreamEvent> get events => _events.stream;
 
   /// Starts following the stream.
   void start() {
@@ -54,6 +59,7 @@ class SyncEngine {
     switch (e) {
       case HubStreamEvent(:final event):
         store.apply(event);
+        _events.add(event);
         if (event is StreamEventSettingsUpdatedEvent) onSettingsUpdated?.call();
       case HubReset():
         store.clear();
@@ -67,5 +73,6 @@ class SyncEngine {
   Future<void> dispose() async {
     await stop();
     await _connection.close();
+    await _events.close();
   }
 }

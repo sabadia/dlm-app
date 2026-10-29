@@ -115,6 +115,9 @@ abstract final class UiPrefs {
   /// Width of the details pane in logical pixels.
   static const inspectorWidth = Pref<double>.plain('ui.inspectorWidth', 340);
 
+  /// Whether the first-run setup was finished (or skipped).
+  static const onboardingDone = Pref<bool>.plain('ui.onboardingDone', false);
+
   /// Whether the details pane is open.
   static const inspectorVisible = Pref<bool>.plain('ui.inspectorVisible', true);
 

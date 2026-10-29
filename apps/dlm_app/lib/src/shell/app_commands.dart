@@ -7,8 +7,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
+import 'queue_commands.dart';
 import 'shell_state.dart';
 
 /// The localised name of a downloads filter.
@@ -53,6 +55,17 @@ List<DlmCommand> buildCommands(BuildContext context, WidgetRef ref) {
         group: l.nav_queues,
         onInvoke: () => router.go(queuePath(q.id)),
       ),
+    DlmCommand(
+      id: 'queue.new',
+      label: l.queue_new,
+      group: l.nav_queues,
+      onInvoke: () => createQueue(context, ref),
+    ),
+    DlmCommand(
+      id: 'app.setup',
+      label: l.cmd_setup,
+      onInvoke: () => showSetup(context, ref),
+    ),
     DlmCommand(
       id: 'window.focusSearch',
       label: l.command_focus_search,

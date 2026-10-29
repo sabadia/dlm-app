@@ -64,7 +64,8 @@ final syncEngineProvider = Provider<SyncEngine>((ref) {
         ..invalidate(webhooksProvider)
         ..invalidate(pluginsProvider)
         ..invalidate(cookiesProvider)
-        ..invalidate(statsProvider);
+        ..invalidate(statsProvider)
+        ..invalidate(systemInfoProvider);
     },
     onSettingsUpdated: () => ref.invalidate(globalSettingsProvider),
   );
@@ -164,6 +165,12 @@ final cookiesProvider =
 /// Download statistics (read again when invalidated).
 final statsProvider = FutureProvider<StatsBody>(
   (ref) => guard(ref.watch(apiProvider).rest.tasks.getStats),
+);
+
+/// What the daemon says about itself: version, paths and the state of its
+/// tools (ffmpeg, yt-dlp, browser). Read again when invalidated.
+final systemInfoProvider = FutureProvider<SystemInfo>(
+  (ref) => guard(ref.watch(apiProvider).rest.system.getSystemInfo),
 );
 
 /// The state of the internal headless browser.

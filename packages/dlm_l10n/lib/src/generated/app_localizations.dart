@@ -1017,6 +1017,606 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Dismiss'**
   String get banner_dismiss;
+
+  /// No description provided for @queue_new.
+  ///
+  /// In en, this message translates to:
+  /// **'New queue'**
+  String get queue_new;
+
+  /// No description provided for @queue_new_title.
+  ///
+  /// In en, this message translates to:
+  /// **'New queue'**
+  String get queue_new_title;
+
+  /// No description provided for @queue_name_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get queue_name_label;
+
+  /// No description provided for @queue_name_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'For example Night downloads'**
+  String get queue_name_placeholder;
+
+  /// No description provided for @queue_name_taken.
+  ///
+  /// In en, this message translates to:
+  /// **'A queue with that name already exists.'**
+  String get queue_name_taken;
+
+  /// No description provided for @queue_create.
+  ///
+  /// In en, this message translates to:
+  /// **'Create'**
+  String get queue_create;
+
+  /// No description provided for @queue_rename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename…'**
+  String get queue_rename;
+
+  /// No description provided for @queue_rename_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename queue'**
+  String get queue_rename_title;
+
+  /// No description provided for @queue_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get queue_save;
+
+  /// No description provided for @queue_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete queue…'**
+  String get queue_delete;
+
+  /// No description provided for @queue_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{name}”?'**
+  String queue_delete_title(String name);
+
+  /// No description provided for @queue_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Its downloads move to the default queue. Nothing is removed from disk.'**
+  String get queue_delete_message;
+
+  /// No description provided for @queue_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete queue'**
+  String get queue_delete_confirm;
+
+  /// No description provided for @queue_move_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get queue_move_up;
+
+  /// No description provided for @queue_move_down.
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get queue_move_down;
+
+  /// No description provided for @queue_start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start queue'**
+  String get queue_start;
+
+  /// No description provided for @queue_stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop queue'**
+  String get queue_stop;
+
+  /// No description provided for @queue_settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue settings…'**
+  String get queue_settings;
+
+  /// No description provided for @queue_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue actions'**
+  String get queue_menu;
+
+  /// No description provided for @queue_state_running.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get queue_state_running;
+
+  /// No description provided for @queue_state_stopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get queue_state_stopped;
+
+  /// No description provided for @queue_default.
+  ///
+  /// In en, this message translates to:
+  /// **'Default'**
+  String get queue_default;
+
+  /// No description provided for @toast_queue_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Created “{name}”'**
+  String toast_queue_created(String name);
+
+  /// No description provided for @toast_queue_renamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Renamed to “{name}”'**
+  String toast_queue_renamed(String name);
+
+  /// No description provided for @toast_queue_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleted “{name}”'**
+  String toast_queue_deleted(String name);
+
+  /// No description provided for @toast_queue_started.
+  ///
+  /// In en, this message translates to:
+  /// **'“{name}” started'**
+  String toast_queue_started(String name);
+
+  /// No description provided for @toast_queue_stopped.
+  ///
+  /// In en, this message translates to:
+  /// **'“{name}” stopped'**
+  String toast_queue_stopped(String name);
+
+  /// No description provided for @toast_queue_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved the settings of “{name}”'**
+  String toast_queue_saved(String name);
+
+  /// No description provided for @qs_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings of “{name}”'**
+  String qs_title(String name);
+
+  /// No description provided for @qs_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Anything left empty follows the global settings.'**
+  String get qs_intro;
+
+  /// No description provided for @qs_group_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get qs_group_speed;
+
+  /// No description provided for @qs_speed_limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed limit'**
+  String get qs_speed_limit;
+
+  /// No description provided for @qs_speed_limit_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Per second, for the whole queue. Empty means no limit of its own.'**
+  String get qs_speed_limit_desc;
+
+  /// No description provided for @qs_speed_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'For example 2 MB'**
+  String get qs_speed_placeholder;
+
+  /// No description provided for @qs_invalid_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a size like 500K or 2 MB.'**
+  String get qs_invalid_size;
+
+  /// No description provided for @qs_group_schedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Schedule'**
+  String get qs_group_schedule;
+
+  /// No description provided for @qs_schedule_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Run only at chosen times'**
+  String get qs_schedule_on;
+
+  /// No description provided for @qs_schedule_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Outside these hours the queue waits; downloads resume when the next window opens.'**
+  String get qs_schedule_desc;
+
+  /// No description provided for @qs_schedule_grid.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly schedule, one cell per hour'**
+  String get qs_schedule_grid;
+
+  /// No description provided for @qs_group_profiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed profiles'**
+  String get qs_group_profiles;
+
+  /// No description provided for @qs_profiles_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A profile limits the speed while its hours are active.'**
+  String get qs_profiles_desc;
+
+  /// No description provided for @qs_profile_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile {index}'**
+  String qs_profile_title(int index);
+
+  /// No description provided for @qs_profile_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a profile'**
+  String get qs_profile_add;
+
+  /// No description provided for @qs_profile_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get qs_profile_remove;
+
+  /// No description provided for @qs_profile_limit.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit while active'**
+  String get qs_profile_limit;
+
+  /// No description provided for @qs_profile_unlimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Empty means unlimited while active.'**
+  String get qs_profile_unlimited;
+
+  /// No description provided for @qs_group_quota.
+  ///
+  /// In en, this message translates to:
+  /// **'Quota'**
+  String get qs_group_quota;
+
+  /// No description provided for @qs_quota_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Limit the amount downloaded'**
+  String get qs_quota_on;
+
+  /// No description provided for @qs_quota_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'When the quota is used up the queue waits for the period to roll over.'**
+  String get qs_quota_desc;
+
+  /// No description provided for @qs_quota_bytes.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get qs_quota_bytes;
+
+  /// No description provided for @qs_quota_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Per period'**
+  String get qs_quota_period;
+
+  /// No description provided for @qs_quota_period_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'For example 1 d'**
+  String get qs_quota_period_placeholder;
+
+  /// No description provided for @qs_invalid_duration.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a time like 1h, 1d or 90m (at least a minute).'**
+  String get qs_invalid_duration;
+
+  /// No description provided for @qs_group_after.
+  ///
+  /// In en, this message translates to:
+  /// **'When the queue finishes'**
+  String get qs_group_after;
+
+  /// No description provided for @qs_after.
+  ///
+  /// In en, this message translates to:
+  /// **'Then'**
+  String get qs_after;
+
+  /// No description provided for @qs_after_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Do nothing'**
+  String get qs_after_none;
+
+  /// No description provided for @qs_after_stop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop the queue'**
+  String get qs_after_stop;
+
+  /// No description provided for @qs_after_sleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Put the computer to sleep'**
+  String get qs_after_sleep;
+
+  /// No description provided for @qs_after_shutdown.
+  ///
+  /// In en, this message translates to:
+  /// **'Shut the computer down'**
+  String get qs_after_shutdown;
+
+  /// No description provided for @qs_after_command.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a program'**
+  String get qs_after_command;
+
+  /// No description provided for @qs_after_delay.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait first'**
+  String get qs_after_delay;
+
+  /// No description provided for @qs_after_delay_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A grace period in which you can cancel. Empty means 1 minute.'**
+  String get qs_after_delay_desc;
+
+  /// No description provided for @qs_after_command_path.
+  ///
+  /// In en, this message translates to:
+  /// **'Program (full path)'**
+  String get qs_after_command_path;
+
+  /// No description provided for @qs_after_command_args.
+  ///
+  /// In en, this message translates to:
+  /// **'Arguments, one per line'**
+  String get qs_after_command_args;
+
+  /// No description provided for @qs_after_command_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'This program runs with your permissions whenever the queue finishes. Only use one you trust.'**
+  String get qs_after_command_warning;
+
+  /// No description provided for @qs_invalid_path.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the full path of the program.'**
+  String get qs_invalid_path;
+
+  /// No description provided for @qs_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get qs_cancel;
+
+  /// No description provided for @queue_countdown_title.
+  ///
+  /// In en, this message translates to:
+  /// **'“{name}” has finished'**
+  String queue_countdown_title(String name);
+
+  /// No description provided for @queue_countdown_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{action} in {time}.'**
+  String queue_countdown_message(String action, String time);
+
+  /// No description provided for @queue_countdown_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel and stop the queue'**
+  String get queue_countdown_cancel;
+
+  /// No description provided for @queue_action_cancelled.
+  ///
+  /// In en, this message translates to:
+  /// **'The action after “{name}” was cancelled.'**
+  String queue_action_cancelled(String name);
+
+  /// No description provided for @qs_schedule_custom.
+  ///
+  /// In en, this message translates to:
+  /// **'These hours include minutes, which the weekly grid cannot show. They are kept as they are until you replace them.'**
+  String get qs_schedule_custom;
+
+  /// No description provided for @qs_schedule_use_grid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the hourly grid'**
+  String get qs_schedule_use_grid;
+
+  /// No description provided for @queue_missing_title.
+  ///
+  /// In en, this message translates to:
+  /// **'This queue does not exist any more'**
+  String get queue_missing_title;
+
+  /// No description provided for @queue_missing_message.
+  ///
+  /// In en, this message translates to:
+  /// **'It was deleted, perhaps from another window. Pick another one in the sidebar.'**
+  String get queue_missing_message;
+
+  /// No description provided for @setup_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome'**
+  String get setup_title;
+
+  /// No description provided for @setup_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'A quick look at where your downloads go and what the download service found on this computer. You can come back to this from the command palette.'**
+  String get setup_intro;
+
+  /// No description provided for @setup_folder_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Download folder'**
+  String get setup_folder_title;
+
+  /// No description provided for @setup_folder_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'New downloads are saved here unless a category or queue says otherwise.'**
+  String get setup_folder_desc;
+
+  /// No description provided for @setup_folder_choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose…'**
+  String get setup_folder_choose;
+
+  /// No description provided for @setup_folder_dialog.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the download folder'**
+  String get setup_folder_dialog;
+
+  /// No description provided for @setup_folder_unset.
+  ///
+  /// In en, this message translates to:
+  /// **'Not chosen yet'**
+  String get setup_folder_unset;
+
+  /// No description provided for @setup_folder_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads will be saved in {path}'**
+  String setup_folder_saved(String path);
+
+  /// No description provided for @setup_tools_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Helper programs'**
+  String get setup_tools_title;
+
+  /// No description provided for @setup_tools_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'These are used for some downloads. A missing one is only a problem when a download needs it.'**
+  String get setup_tools_desc;
+
+  /// No description provided for @setup_tools_recheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check again'**
+  String get setup_tools_recheck;
+
+  /// No description provided for @setup_tools_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Looking for helper programs…'**
+  String get setup_tools_loading;
+
+  /// No description provided for @setup_tool_ffmpeg.
+  ///
+  /// In en, this message translates to:
+  /// **'ffmpeg'**
+  String get setup_tool_ffmpeg;
+
+  /// No description provided for @setup_tool_ffmpeg_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Joins video and audio and converts media.'**
+  String get setup_tool_ffmpeg_desc;
+
+  /// No description provided for @setup_tool_ytdlp.
+  ///
+  /// In en, this message translates to:
+  /// **'yt-dlp'**
+  String get setup_tool_ytdlp;
+
+  /// No description provided for @setup_tool_ytdlp_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads from video sites.'**
+  String get setup_tool_ytdlp_desc;
+
+  /// No description provided for @setup_tool_browser.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser'**
+  String get setup_tool_browser;
+
+  /// No description provided for @setup_tool_browser_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens pages that only work in a real browser.'**
+  String get setup_tool_browser_desc;
+
+  /// No description provided for @setup_tool_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Found · {version}'**
+  String setup_tool_found(String version);
+
+  /// No description provided for @setup_tool_found_noversion.
+  ///
+  /// In en, this message translates to:
+  /// **'Found'**
+  String get setup_tool_found_noversion;
+
+  /// No description provided for @setup_tool_missing.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get setup_tool_missing;
+
+  /// No description provided for @setup_tool_missing_auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found · installed automatically when needed'**
+  String get setup_tool_missing_auto;
+
+  /// No description provided for @setup_tool_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Problem: {error}'**
+  String setup_tool_error(String error);
+
+  /// No description provided for @setup_done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get setup_done;
+
+  /// No description provided for @cmd_setup.
+  ///
+  /// In en, this message translates to:
+  /// **'Setup and health check…'**
+  String get cmd_setup;
 }
 
 class _AppLocalizationsDelegate

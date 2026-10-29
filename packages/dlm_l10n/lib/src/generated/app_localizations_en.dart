@@ -606,4 +606,350 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get banner_dismiss => 'Dismiss';
+
+  @override
+  String get queue_new => 'New queue';
+
+  @override
+  String get queue_new_title => 'New queue';
+
+  @override
+  String get queue_name_label => 'Name';
+
+  @override
+  String get queue_name_placeholder => 'For example Night downloads';
+
+  @override
+  String get queue_name_taken => 'A queue with that name already exists.';
+
+  @override
+  String get queue_create => 'Create';
+
+  @override
+  String get queue_rename => 'Rename…';
+
+  @override
+  String get queue_rename_title => 'Rename queue';
+
+  @override
+  String get queue_save => 'Save';
+
+  @override
+  String get queue_delete => 'Delete queue…';
+
+  @override
+  String queue_delete_title(String name) {
+    return 'Delete “$name”?';
+  }
+
+  @override
+  String get queue_delete_message =>
+      'Its downloads move to the default queue. Nothing is removed from disk.';
+
+  @override
+  String get queue_delete_confirm => 'Delete queue';
+
+  @override
+  String get queue_move_up => 'Move up';
+
+  @override
+  String get queue_move_down => 'Move down';
+
+  @override
+  String get queue_start => 'Start queue';
+
+  @override
+  String get queue_stop => 'Stop queue';
+
+  @override
+  String get queue_settings => 'Queue settings…';
+
+  @override
+  String get queue_menu => 'Queue actions';
+
+  @override
+  String get queue_state_running => 'Running';
+
+  @override
+  String get queue_state_stopped => 'Stopped';
+
+  @override
+  String get queue_default => 'Default';
+
+  @override
+  String toast_queue_created(String name) {
+    return 'Created “$name”';
+  }
+
+  @override
+  String toast_queue_renamed(String name) {
+    return 'Renamed to “$name”';
+  }
+
+  @override
+  String toast_queue_deleted(String name) {
+    return 'Deleted “$name”';
+  }
+
+  @override
+  String toast_queue_started(String name) {
+    return '“$name” started';
+  }
+
+  @override
+  String toast_queue_stopped(String name) {
+    return '“$name” stopped';
+  }
+
+  @override
+  String toast_queue_saved(String name) {
+    return 'Saved the settings of “$name”';
+  }
+
+  @override
+  String qs_title(String name) {
+    return 'Settings of “$name”';
+  }
+
+  @override
+  String get qs_intro => 'Anything left empty follows the global settings.';
+
+  @override
+  String get qs_group_speed => 'Speed';
+
+  @override
+  String get qs_speed_limit => 'Speed limit';
+
+  @override
+  String get qs_speed_limit_desc =>
+      'Per second, for the whole queue. Empty means no limit of its own.';
+
+  @override
+  String get qs_speed_placeholder => 'For example 2 MB';
+
+  @override
+  String get qs_invalid_size => 'Enter a size like 500K or 2 MB.';
+
+  @override
+  String get qs_group_schedule => 'Schedule';
+
+  @override
+  String get qs_schedule_on => 'Run only at chosen times';
+
+  @override
+  String get qs_schedule_desc =>
+      'Outside these hours the queue waits; downloads resume when the next window opens.';
+
+  @override
+  String get qs_schedule_grid => 'Weekly schedule, one cell per hour';
+
+  @override
+  String get qs_group_profiles => 'Speed profiles';
+
+  @override
+  String get qs_profiles_desc =>
+      'A profile limits the speed while its hours are active.';
+
+  @override
+  String qs_profile_title(int index) {
+    return 'Profile $index';
+  }
+
+  @override
+  String get qs_profile_add => 'Add a profile';
+
+  @override
+  String get qs_profile_remove => 'Remove';
+
+  @override
+  String get qs_profile_limit => 'Limit while active';
+
+  @override
+  String get qs_profile_unlimited => 'Empty means unlimited while active.';
+
+  @override
+  String get qs_group_quota => 'Quota';
+
+  @override
+  String get qs_quota_on => 'Limit the amount downloaded';
+
+  @override
+  String get qs_quota_desc =>
+      'When the quota is used up the queue waits for the period to roll over.';
+
+  @override
+  String get qs_quota_bytes => 'Amount';
+
+  @override
+  String get qs_quota_period => 'Per period';
+
+  @override
+  String get qs_quota_period_placeholder => 'For example 1 d';
+
+  @override
+  String get qs_invalid_duration =>
+      'Enter a time like 1h, 1d or 90m (at least a minute).';
+
+  @override
+  String get qs_group_after => 'When the queue finishes';
+
+  @override
+  String get qs_after => 'Then';
+
+  @override
+  String get qs_after_none => 'Do nothing';
+
+  @override
+  String get qs_after_stop => 'Stop the queue';
+
+  @override
+  String get qs_after_sleep => 'Put the computer to sleep';
+
+  @override
+  String get qs_after_shutdown => 'Shut the computer down';
+
+  @override
+  String get qs_after_command => 'Run a program';
+
+  @override
+  String get qs_after_delay => 'Wait first';
+
+  @override
+  String get qs_after_delay_desc =>
+      'A grace period in which you can cancel. Empty means 1 minute.';
+
+  @override
+  String get qs_after_command_path => 'Program (full path)';
+
+  @override
+  String get qs_after_command_args => 'Arguments, one per line';
+
+  @override
+  String get qs_after_command_warning =>
+      'This program runs with your permissions whenever the queue finishes. Only use one you trust.';
+
+  @override
+  String get qs_invalid_path => 'Enter the full path of the program.';
+
+  @override
+  String get qs_cancel => 'Cancel';
+
+  @override
+  String queue_countdown_title(String name) {
+    return '“$name” has finished';
+  }
+
+  @override
+  String queue_countdown_message(String action, String time) {
+    return '$action in $time.';
+  }
+
+  @override
+  String get queue_countdown_cancel => 'Cancel and stop the queue';
+
+  @override
+  String queue_action_cancelled(String name) {
+    return 'The action after “$name” was cancelled.';
+  }
+
+  @override
+  String get qs_schedule_custom =>
+      'These hours include minutes, which the weekly grid cannot show. They are kept as they are until you replace them.';
+
+  @override
+  String get qs_schedule_use_grid => 'Use the hourly grid';
+
+  @override
+  String get queue_missing_title => 'This queue does not exist any more';
+
+  @override
+  String get queue_missing_message =>
+      'It was deleted, perhaps from another window. Pick another one in the sidebar.';
+
+  @override
+  String get setup_title => 'Welcome';
+
+  @override
+  String get setup_intro =>
+      'A quick look at where your downloads go and what the download service found on this computer. You can come back to this from the command palette.';
+
+  @override
+  String get setup_folder_title => 'Download folder';
+
+  @override
+  String get setup_folder_desc =>
+      'New downloads are saved here unless a category or queue says otherwise.';
+
+  @override
+  String get setup_folder_choose => 'Choose…';
+
+  @override
+  String get setup_folder_dialog => 'Choose the download folder';
+
+  @override
+  String get setup_folder_unset => 'Not chosen yet';
+
+  @override
+  String setup_folder_saved(String path) {
+    return 'Downloads will be saved in $path';
+  }
+
+  @override
+  String get setup_tools_title => 'Helper programs';
+
+  @override
+  String get setup_tools_desc =>
+      'These are used for some downloads. A missing one is only a problem when a download needs it.';
+
+  @override
+  String get setup_tools_recheck => 'Check again';
+
+  @override
+  String get setup_tools_loading => 'Looking for helper programs…';
+
+  @override
+  String get setup_tool_ffmpeg => 'ffmpeg';
+
+  @override
+  String get setup_tool_ffmpeg_desc =>
+      'Joins video and audio and converts media.';
+
+  @override
+  String get setup_tool_ytdlp => 'yt-dlp';
+
+  @override
+  String get setup_tool_ytdlp_desc => 'Downloads from video sites.';
+
+  @override
+  String get setup_tool_browser => 'Browser';
+
+  @override
+  String get setup_tool_browser_desc =>
+      'Opens pages that only work in a real browser.';
+
+  @override
+  String setup_tool_found(String version) {
+    return 'Found · $version';
+  }
+
+  @override
+  String get setup_tool_found_noversion => 'Found';
+
+  @override
+  String get setup_tool_missing => 'Not found';
+
+  @override
+  String get setup_tool_missing_auto =>
+      'Not found · installed automatically when needed';
+
+  @override
+  String setup_tool_error(String error) {
+    return 'Problem: $error';
+  }
+
+  @override
+  String get setup_done => 'Done';
+
+  @override
+  String get cmd_setup => 'Setup and health check…';
 }

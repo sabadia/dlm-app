@@ -40,6 +40,34 @@ shared (`selectionProvider`); Pause/Resume/Delete act on it from the toolbar, th
 menu, or the keyboard (Delete). Pause and resume offer Undo; delete asks first (the files stay
 on disk unless the box is ticked) and has no Undo because a removed download cannot come back.
 
+## Queues
+
+The sidebar lists the queues and has a New queue button. A queue page is a header (state,
+Start/Stop, settings, a menu to rename, move up or down and delete) above that queue's downloads.
+Deleting moves its downloads to the default queue, which cannot be deleted. Queue settings are
+edited in a dialog: speed limit and a weekly schedule (a grid with one cell per hour, shown
+as the daemon's time windows). Windows that need minutes, for example written with the command
+line, are kept as they are until the user chooses the hourly grid, so opening and saving never
+changes them.
+
+`SyncEngine.events` exposes the daemon's events after the cache applied them. A finished queue
+with an action at the end shows a banner with the seconds left (counted from the moment the event
+arrived, so a remote daemon's clock does not matter). The daemon cancels the action when its queue
+is stopped, so the banner's button stops the queue.
+
+The quota, the speed profiles and the action at the end are written (`queue_settings_draft.dart`,
+the dialog sections) but not offered yet: the daemon's request validation refuses them
+([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)). `queueLimitsEditableProvider`
+turns them on.
+
+## First-run setup
+
+On the first start with the app's own download service a dialog shows the download folder
+(chosen with the system's folder dialog and saved as the global `downloadDir`) and the helper
+programs the daemon found (ffmpeg, yt-dlp, browser). It is also in the command palette as
+"Setup and health check". Start at login, the tray icon and the browser extension are added
+with their own work (P13.13, F5.1, F5.10).
+
 ## What is waiting for the daemon
 
 These need backend phase 13 and are not worked around in the app: sorting by name or size,

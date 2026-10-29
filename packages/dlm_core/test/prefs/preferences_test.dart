@@ -22,6 +22,7 @@ void main() {
     final p = await open();
     expect(p.get(UiPrefs.density), Density.comfortable);
     expect(p.get(UiPrefs.confirmDelete), isTrue);
+    expect(p.get(UiPrefs.onboardingDone), isFalse);
     expect(p.isSet(UiPrefs.density), isFalse);
     await p.set(UiPrefs.density, Density.compact);
     await p.set(UiPrefs.theme, ThemeChoice.dark);
