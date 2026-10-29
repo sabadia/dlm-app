@@ -13,6 +13,7 @@ import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
+import 'shortcuts.dart';
 
 /// The localised name of a downloads filter.
 String filterLabel(AppLocalizations l, DownloadsFilter f) => switch (f) {
@@ -39,7 +40,12 @@ DlmIconName filterIcon(DownloadsFilter f) => switch (f) {
 List<DlmCommand> buildCommands(BuildContext context, WidgetRef ref) {
   final l = AppLocalizations.of(context);
   final router = GoRouter.of(context);
-  final mod = defaultTargetPlatform == TargetPlatform.macOS ? '⌘' : 'Ctrl+';
+  final mac = defaultTargetPlatform == TargetPlatform.macOS;
+  final chords = effectiveShortcuts(
+    ref.read(shortcutsProvider),
+    primaryIsMeta: mac,
+  );
+  String? chord(String id) => chords[id]?.label(mac: mac);
   final queues = ref.read(queuesProvider).value ?? const [];
   return [
     for (final f in DownloadsFilter.values)
@@ -59,7 +65,7 @@ List<DlmCommand> buildCommands(BuildContext context, WidgetRef ref) {
     DlmCommand(
       id: 'download.add',
       label: l.cmd_add,
-      shortcut: '${mod}N',
+      shortcut: chord('download.add'),
       onInvoke: () => showAddDownload(context, ref),
     ),
     DlmCommand(
@@ -76,7 +82,7 @@ List<DlmCommand> buildCommands(BuildContext context, WidgetRef ref) {
     DlmCommand(
       id: 'window.focusSearch',
       label: l.command_focus_search,
-      shortcut: '${mod}F',
+      shortcut: chord('window.focusSearch'),
       onInvoke: ref.read(focusSearchProvider.notifier).request,
     ),
     DlmCommand(

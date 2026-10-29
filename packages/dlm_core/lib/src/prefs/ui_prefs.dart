@@ -154,6 +154,24 @@ abstract final class UiPrefs {
   /// Watch the clipboard for download links. Off until the user turns it on.
   static const clipboardWatch = Pref<bool>.plain('ui.clipboardWatch', false);
 
+  /// Shortcut overrides, command id to a chord such as `primary+42`. Empty
+  /// means the built-in chords.
+  static final shortcuts = Pref<Map<String, String>>(
+    'ui.shortcuts',
+    const {},
+    _decodeShortcuts,
+    (v) => v,
+  );
+
+  static Map<String, String>? _decodeShortcuts(Object? raw) {
+    if (raw is! Map) return null;
+    return {
+      for (final e in raw.entries)
+        if (e.key is String && e.value is String)
+          e.key as String: e.value as String,
+    };
+  }
+
   /// The window's place and size.
   static const windowState = Pref<WindowState?>(
     'ui.window',

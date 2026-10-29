@@ -28,8 +28,10 @@ survives a reconnect.
 completed, failed) and `/queues/<id>`. The shell is the sidebar (a translucent glass pane on
 macOS), the toolbar (title, selection actions, search, command palette, details toggle), the
 page, and the details pane. Panels resize by dragging or with the keyboard and remember their
-width; the details pane closes by itself below 1000 px. Cmd/Ctrl+K opens the command palette,
-Cmd/Ctrl+F focuses the search.
+width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
+map (Command on macOS, Control elsewhere, overridable per command). A chord
+already used by another command is refused, and reset restores the built-in
+ones. Global hotkeys are not part of this map.
 
 ## Downloads list
 

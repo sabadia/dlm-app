@@ -7,7 +7,6 @@ import 'package:dlm_platform/dlm_platform.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/foundation.dart'
     show TargetPlatform, defaultTargetPlatform;
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -25,6 +24,7 @@ import '../settings/settings_form.dart';
 import 'app_commands.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
+import 'shortcuts.dart';
 import 'status_banners.dart';
 import 'status_bar.dart';
 import 'task_commands.dart';
@@ -408,18 +408,19 @@ class _AppShellState extends ConsumerState<AppShell> {
       ],
     );
 
+    final chords = effectiveShortcuts(
+      ref.watch(shortcutsProvider),
+      primaryIsMeta: isMac,
+    );
     return CallbackShortcuts(
       bindings: {
-        SingleActivator(LogicalKeyboardKey.keyK, meta: isMac, control: !isMac):
-            openPalette,
-        SingleActivator(LogicalKeyboardKey.keyF, meta: isMac, control: !isMac):
-            ref.read(focusSearchProvider.notifier).request,
-        SingleActivator(
-          LogicalKeyboardKey.keyN,
-          meta: isMac,
-          control: !isMac,
-        ): () =>
-            showAddDownload(context, ref),
+        if (chords['window.commandPalette'] case final shortcut?)
+          shortcut.activator(): openPalette,
+        if (chords['window.focusSearch'] case final shortcut?)
+          shortcut.activator(): () =>
+              ref.read(focusSearchProvider.notifier).request(),
+        if (chords['download.add'] case final shortcut?)
+          shortcut.activator(): () => showAddDownload(context, ref),
       },
       child: Focus(
         autofocus: true,

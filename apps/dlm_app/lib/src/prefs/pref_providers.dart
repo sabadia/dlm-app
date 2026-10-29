@@ -99,3 +99,9 @@ final notifyOnFinishProvider = NotifierProvider<PrefNotifier<bool>, bool>(
 final clipboardWatchProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.clipboardWatch),
 );
+
+/// Shortcut overrides. An empty map means the built-in chords.
+final shortcutsProvider =
+    NotifierProvider<PrefNotifier<Map<String, String>>, Map<String, String>>(
+      () => PrefNotifier(UiPrefs.shortcuts),
+    );
