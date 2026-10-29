@@ -2332,6 +2332,42 @@ abstract class AppLocalizations {
   /// **'All engines'**
   String get view_all_engines;
 
+  /// No description provided for @view_group.
+  ///
+  /// In en, this message translates to:
+  /// **'Group by'**
+  String get view_group;
+
+  /// No description provided for @view_group_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No grouping'**
+  String get view_group_none;
+
+  /// No description provided for @view_group_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get view_group_status;
+
+  /// No description provided for @view_group_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get view_group_queue;
+
+  /// No description provided for @view_group_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get view_group_engine;
+
+  /// No description provided for @group_header.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} ({count})'**
+  String group_header(String name, int count);
+
   /// No description provided for @view_saved.
   ///
   /// In en, this message translates to:
@@ -2361,6 +2397,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Engine'**
   String get col_engine;
+
+  /// No description provided for @col_category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get col_category;
 
   /// No description provided for @list_total.
   ///

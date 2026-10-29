@@ -1357,6 +1357,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get view_all_engines => 'All engines';
 
   @override
+  String get view_group => 'Group by';
+
+  @override
+  String get view_group_none => 'No grouping';
+
+  @override
+  String get view_group_status => 'Status';
+
+  @override
+  String get view_group_queue => 'Queue';
+
+  @override
+  String get view_group_engine => 'Engine';
+
+  @override
+  String group_header(String name, int count) {
+    return '$name ($count)';
+  }
+
+  @override
   String get view_saved => 'Saved views';
 
   @override
@@ -1372,6 +1392,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get col_engine => 'Engine';
+
+  @override
+  String get col_category => 'Category';
 
   @override
   String list_total(int count) {

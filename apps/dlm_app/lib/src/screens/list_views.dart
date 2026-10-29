@@ -14,6 +14,21 @@ import '../shell/queue_commands.dart';
 import '../shell/shell_state.dart';
 import 'task_cells.dart';
 
+/// What the downloads list is divided into headed groups by.
+enum ListGrouping {
+  /// One flat list.
+  none,
+
+  /// By status.
+  status,
+
+  /// By queue.
+  queue,
+
+  /// By engine.
+  engine,
+}
+
 /// How the downloads list is sorted and narrowed beyond the page it is on.
 class ListOptions {
   /// Creates options; the default is the daemon's own order.
@@ -21,6 +36,7 @@ class ListOptions {
     this.sort = Sort.position,
     this.descending = false,
     this.engine,
+    this.grouping = ListGrouping.none,
   });
 
   /// The sort key.
@@ -31,6 +47,21 @@ class ListOptions {
 
   /// Only downloads of this engine.
   final String? engine;
+
+  /// How the rows are grouped under headings.
+  final ListGrouping grouping;
+
+  /// These options with [sort], [descending] or [grouping] replaced.
+  ListOptions copyWith({
+    Sort? sort,
+    bool? descending,
+    ListGrouping? grouping,
+  }) => ListOptions(
+    sort: sort ?? this.sort,
+    descending: descending ?? this.descending,
+    engine: engine,
+    grouping: grouping ?? this.grouping,
+  );
 
   /// The direction to ask the daemon for; null for its natural order.
   Order? get order => sort == Sort.position
@@ -121,6 +152,21 @@ List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
           unawaited(ref.read(densityProvider.notifier).set(Density.compact)),
     ),
     const DlmMenuSeparator(),
+    DlmMenuHeader(l.view_group),
+    for (final g in ListGrouping.values)
+      DlmMenuItem(
+        label: switch (g) {
+          ListGrouping.none => l.view_group_none,
+          ListGrouping.status => l.view_group_status,
+          ListGrouping.queue => l.view_group_queue,
+          ListGrouping.engine => l.view_group_engine,
+        },
+        checked: ref.read(listOptionsProvider).grouping == g,
+        onPressed: () => ref
+            .read(listOptionsProvider.notifier)
+            .set(ref.read(listOptionsProvider).copyWith(grouping: g)),
+      ),
+    const DlmMenuSeparator(),
     DlmMenuHeader(l.view_columns),
     for (final c in columns)
       DlmMenuItem(
@@ -159,7 +205,11 @@ List<DlmMenuEntry> viewMenuEntries(
       label: l.view_all_engines,
       checked: options.engine == null,
       onPressed: () => notifier.set(
-        ListOptions(sort: options.sort, descending: options.descending),
+        ListOptions(
+          sort: options.sort,
+          descending: options.descending,
+          grouping: options.grouping,
+        ),
       ),
     ),
     for (final e in engineChoices)
@@ -171,6 +221,7 @@ List<DlmMenuEntry> viewMenuEntries(
             sort: options.sort,
             descending: options.descending,
             engine: e,
+            grouping: options.grouping,
           ),
         ),
       ),

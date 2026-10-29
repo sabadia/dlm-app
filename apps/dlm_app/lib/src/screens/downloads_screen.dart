@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../routing/app_routes.dart';
 import '../shell/shell_state.dart';
 import '../shell/task_commands.dart';
+import 'list_grouping.dart';
 import 'list_views.dart';
 import 'task_cells.dart';
 
@@ -66,6 +67,19 @@ class DownloadsScreen extends ConsumerWidget {
     final store = ref.read(taskStoreProvider);
     final selection = ref.watch(selectionProvider);
     final hasMore = state.hasMore;
+    final queueNames = {
+      for (final q in ref.watch(queuesProvider).value ?? const <Queue>[])
+        q.id: q.name,
+    };
+    final rows = groupRows(
+      l,
+      [
+        for (final id in state.ids)
+          if (store.tasks[id] != null) store.tasks[id]!,
+      ],
+      options.grouping,
+      queueNames: queueNames,
+    );
     final table = DlmDataTable<Task>(
       semanticLabel: l.table_downloads_label,
       labels: DlmTableLabels(
@@ -97,17 +111,32 @@ class DownloadsScreen extends ConsumerWidget {
                 sort: key,
                 descending: !s.ascending,
                 engine: options.engine,
+                grouping: options.grouping,
               ),
             );
       },
       // One extra, not yet loaded row at the end asks for the next page.
-      itemCount: state.ids.length + (hasMore ? 1 : 0),
+      itemCount: rows.length + (hasMore ? 1 : 0),
       itemAt: (i) {
-        if (i >= state.ids.length) {
+        if (i >= rows.length) {
           unawaited(Future.microtask(list.loadMore));
           return null;
         }
-        return store.tasks[state.ids[i]];
+        return rows[i];
+      },
+      isGroupHeader: isGroupHeaderRow,
+      groupHeader: (context, row) {
+        final theme = DlmTheme.of(context);
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          child: Text(
+            l.group_header(row.name ?? '', row.size),
+            style: theme.typography.body.copyWith(
+              color: theme.colors.textSecondary,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        );
       },
       rowId: (t) => t.id,
       rowSemanticLabel: (t) =>
