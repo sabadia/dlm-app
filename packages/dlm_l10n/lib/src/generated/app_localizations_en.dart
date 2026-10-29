@@ -1697,4 +1697,122 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get insp_tab_settings => 'Settings';
+
+  @override
+  String get se_name => 'Name';
+
+  @override
+  String get se_value => 'Value';
+
+  @override
+  String get se_remove => 'Remove';
+
+  @override
+  String get se_add => 'Add';
+
+  @override
+  String get se_add_rule => 'Add a rule';
+
+  @override
+  String get se_proxy_mode => 'Proxy';
+
+  @override
+  String get se_proxy_none => 'No proxy';
+
+  @override
+  String get se_proxy_system => 'The system\'s proxy';
+
+  @override
+  String get se_proxy_custom => 'A proxy I choose';
+
+  @override
+  String get se_proxy_url => 'Proxy address';
+
+  @override
+  String get se_rule_hosts => 'Hosts';
+
+  @override
+  String get se_rule_hosts_hint => 'example.com, *.cdn.net';
+
+  @override
+  String get se_lines => 'One entry per line';
+
+  @override
+  String get se_move_up => 'Move up';
+
+  @override
+  String get se_move_down => 'Move down';
+
+  @override
+  String get se_pa_add => 'Add an action';
+
+  @override
+  String get se_pa_extract => 'Unpack archives';
+
+  @override
+  String get se_pa_add_torrent => 'Add a downloaded .torrent file';
+
+  @override
+  String get se_pa_command => 'Run a program';
+
+  @override
+  String get se_pa_av_scan => 'Scan for viruses';
+
+  @override
+  String get se_pa_dir => 'Folder';
+
+  @override
+  String get se_pa_dir_hint => 'Next to the file';
+
+  @override
+  String get se_pa_delete => 'Delete the file afterwards';
+
+  @override
+  String get se_pa_password => 'Password';
+
+  @override
+  String get se_pa_cmd => 'Program';
+
+  @override
+  String get se_pa_cmd_hint => 'Full path, e.g. /usr/bin/clamscan';
+
+  @override
+  String get se_pa_args => 'Arguments';
+
+  @override
+  String se_pa_args_hint(String token) {
+    return 'One per line; $token is the file';
+  }
+
+  @override
+  String get se_pa_timeout => 'Time limit';
+
+  @override
+  String get se_pa_infected_exit => 'Infected exit code';
+
+  @override
+  String get se_pa_on_infected => 'When infected';
+
+  @override
+  String get se_pa_infected_delete => 'Delete the file';
+
+  @override
+  String get se_pa_infected_keep => 'Keep the file';
+
+  @override
+  String get se_pa_command_warning =>
+      'This runs a program on every finished download. Only use a program you trust.';
+
+  @override
+  String get se_pa_av_warning =>
+      'An infected file fails the download and, unless you keep it, is deleted. Only use a scanner you trust.';
+
+  @override
+  String get se_quota_bytes => 'Amount';
+
+  @override
+  String get se_quota_per => 'per';
+
+  @override
+  String get se_quota_period => 'Period';
 }

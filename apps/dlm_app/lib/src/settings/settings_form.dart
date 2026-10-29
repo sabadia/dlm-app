@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../shell/feedback.dart';
+import 'settings_editors.dart';
 
 /// Whether a settings form holds edits that were not saved. The shell asks
 /// before it leaves the page.
@@ -201,7 +202,7 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
     final level = widget.target.level.name;
     final visible = [
       for (final f in fields)
-        if (editableType(f.type) &&
+        if ((editableType(f.type) || settingEditors.containsKey(f.path)) &&
             (f.levels?.contains(level) ?? true) &&
             (widget.groups?.contains(f.group) ?? true) &&
             (widget.paths?.contains(f.path) ?? true) &&
@@ -422,7 +423,26 @@ class _FieldRow extends StatelessWidget {
       case FieldSchemaType.array ||
           FieldSchemaType.object ||
           FieldSchemaType.$unknown:
-        return const SizedBox.shrink();
+        final editor = settingEditors[path];
+        if (editor == null) return const SizedBox.shrink();
+        // The row lays its control out without a width: give the editor one.
+        return SizedBox(
+          width: 520,
+          child: KeyedSubtree(
+            key: ValueKey('$path-${draft.revision}'),
+            child: editor(
+              EditorContext(
+                field: field,
+                value: draft.valueOf(path),
+                set: (v) {
+                  draft.set(path, v);
+                  onChanged();
+                },
+                l: l,
+              ),
+            ),
+          ),
+        );
     }
   }
 

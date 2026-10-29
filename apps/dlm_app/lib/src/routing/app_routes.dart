@@ -59,6 +59,7 @@ const List<String> settingsGroups = [
   'network',
   'retry',
   'refresh',
+  'post-processing',
   'torrent',
   'browser',
 ];

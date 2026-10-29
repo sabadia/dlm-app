@@ -198,11 +198,17 @@ class SettingsDraft {
     return source == snapshot.level ? SettingLevel.defaults : source;
   }
 
-  /// Sets [path] to [value]. Setting what is stored removes the edit.
+  /// Counts the changes that put values back (a reset, a revert): editors of
+  /// lists and maps keep their own rows and start over when it changes.
+  int get revision => _revision;
+  int _revision = 0;
+
+  /// Sets [path] to [value] (a number, text, a list or a map). Setting what is
+  /// stored removes the edit.
   void set(String path, Object value) {
     _errors.remove(path);
     final stored = jsonAt(snapshot.overrides, path);
-    if (stored == value) {
+    if (stored != null && jsonEncode(stored) == jsonEncode(value)) {
       _edits.remove(path);
     } else {
       _edits[path] = value;
@@ -211,6 +217,7 @@ class SettingsDraft {
 
   /// Resets [path] to inherit (the override is removed on save).
   void reset(String path) {
+    _revision++;
     _errors.remove(path);
     if (jsonAt(snapshot.overrides, path) == null) {
       _edits.remove(path);
@@ -221,6 +228,7 @@ class SettingsDraft {
 
   /// Drops every edit.
   void revert() {
+    _revision++;
     _edits.clear();
     _errors.clear();
   }

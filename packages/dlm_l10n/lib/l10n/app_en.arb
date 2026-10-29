@@ -996,5 +996,50 @@
   "settings_leave_confirm": "Leave",
   "settings_leave_stay": "Keep editing",
   "nav_settings": "Settings",
-  "insp_tab_settings": "Settings"
+  "insp_tab_settings": "Settings",
+  "se_name": "Name",
+  "se_value": "Value",
+  "se_remove": "Remove",
+  "se_add": "Add",
+  "se_add_rule": "Add a rule",
+  "se_proxy_mode": "Proxy",
+  "se_proxy_none": "No proxy",
+  "se_proxy_system": "The system's proxy",
+  "se_proxy_custom": "A proxy I choose",
+  "se_proxy_url": "Proxy address",
+  "se_rule_hosts": "Hosts",
+  "se_rule_hosts_hint": "example.com, *.cdn.net",
+  "se_lines": "One entry per line",
+  "se_move_up": "Move up",
+  "se_move_down": "Move down",
+  "se_pa_add": "Add an action",
+  "se_pa_extract": "Unpack archives",
+  "se_pa_add_torrent": "Add a downloaded .torrent file",
+  "se_pa_command": "Run a program",
+  "se_pa_av_scan": "Scan for viruses",
+  "se_pa_dir": "Folder",
+  "se_pa_dir_hint": "Next to the file",
+  "se_pa_delete": "Delete the file afterwards",
+  "se_pa_password": "Password",
+  "se_pa_cmd": "Program",
+  "se_pa_cmd_hint": "Full path, e.g. /usr/bin/clamscan",
+  "se_pa_args": "Arguments",
+  "se_pa_args_hint": "One per line; {token} is the file",
+  "se_pa_timeout": "Time limit",
+  "se_pa_infected_exit": "Infected exit code",
+  "se_pa_on_infected": "When infected",
+  "se_pa_infected_delete": "Delete the file",
+  "se_pa_infected_keep": "Keep the file",
+  "se_pa_command_warning": "This runs a program on every finished download. Only use a program you trust.",
+  "se_pa_av_warning": "An infected file fails the download and, unless you keep it, is deleted. Only use a scanner you trust.",
+  "se_quota_bytes": "Amount",
+  "se_quota_per": "per",
+  "se_quota_period": "Period",
+  "@se_pa_args_hint": {
+    "placeholders": {
+      "token": {
+        "type": "String"
+      }
+    }
+  }
 }

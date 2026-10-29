@@ -2871,6 +2871,234 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Settings'**
   String get insp_tab_settings;
+
+  /// No description provided for @se_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get se_name;
+
+  /// No description provided for @se_value.
+  ///
+  /// In en, this message translates to:
+  /// **'Value'**
+  String get se_value;
+
+  /// No description provided for @se_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get se_remove;
+
+  /// No description provided for @se_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get se_add;
+
+  /// No description provided for @se_add_rule.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a rule'**
+  String get se_add_rule;
+
+  /// No description provided for @se_proxy_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Proxy'**
+  String get se_proxy_mode;
+
+  /// No description provided for @se_proxy_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No proxy'**
+  String get se_proxy_none;
+
+  /// No description provided for @se_proxy_system.
+  ///
+  /// In en, this message translates to:
+  /// **'The system\'s proxy'**
+  String get se_proxy_system;
+
+  /// No description provided for @se_proxy_custom.
+  ///
+  /// In en, this message translates to:
+  /// **'A proxy I choose'**
+  String get se_proxy_custom;
+
+  /// No description provided for @se_proxy_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Proxy address'**
+  String get se_proxy_url;
+
+  /// No description provided for @se_rule_hosts.
+  ///
+  /// In en, this message translates to:
+  /// **'Hosts'**
+  String get se_rule_hosts;
+
+  /// No description provided for @se_rule_hosts_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'example.com, *.cdn.net'**
+  String get se_rule_hosts_hint;
+
+  /// No description provided for @se_lines.
+  ///
+  /// In en, this message translates to:
+  /// **'One entry per line'**
+  String get se_lines;
+
+  /// No description provided for @se_move_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Move up'**
+  String get se_move_up;
+
+  /// No description provided for @se_move_down.
+  ///
+  /// In en, this message translates to:
+  /// **'Move down'**
+  String get se_move_down;
+
+  /// No description provided for @se_pa_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an action'**
+  String get se_pa_add;
+
+  /// No description provided for @se_pa_extract.
+  ///
+  /// In en, this message translates to:
+  /// **'Unpack archives'**
+  String get se_pa_extract;
+
+  /// No description provided for @se_pa_add_torrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a downloaded .torrent file'**
+  String get se_pa_add_torrent;
+
+  /// No description provided for @se_pa_command.
+  ///
+  /// In en, this message translates to:
+  /// **'Run a program'**
+  String get se_pa_command;
+
+  /// No description provided for @se_pa_av_scan.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan for viruses'**
+  String get se_pa_av_scan;
+
+  /// No description provided for @se_pa_dir.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder'**
+  String get se_pa_dir;
+
+  /// No description provided for @se_pa_dir_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Next to the file'**
+  String get se_pa_dir_hint;
+
+  /// No description provided for @se_pa_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the file afterwards'**
+  String get se_pa_delete;
+
+  /// No description provided for @se_pa_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get se_pa_password;
+
+  /// No description provided for @se_pa_cmd.
+  ///
+  /// In en, this message translates to:
+  /// **'Program'**
+  String get se_pa_cmd;
+
+  /// No description provided for @se_pa_cmd_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Full path, e.g. /usr/bin/clamscan'**
+  String get se_pa_cmd_hint;
+
+  /// No description provided for @se_pa_args.
+  ///
+  /// In en, this message translates to:
+  /// **'Arguments'**
+  String get se_pa_args;
+
+  /// No description provided for @se_pa_args_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line; {token} is the file'**
+  String se_pa_args_hint(String token);
+
+  /// No description provided for @se_pa_timeout.
+  ///
+  /// In en, this message translates to:
+  /// **'Time limit'**
+  String get se_pa_timeout;
+
+  /// No description provided for @se_pa_infected_exit.
+  ///
+  /// In en, this message translates to:
+  /// **'Infected exit code'**
+  String get se_pa_infected_exit;
+
+  /// No description provided for @se_pa_on_infected.
+  ///
+  /// In en, this message translates to:
+  /// **'When infected'**
+  String get se_pa_on_infected;
+
+  /// No description provided for @se_pa_infected_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the file'**
+  String get se_pa_infected_delete;
+
+  /// No description provided for @se_pa_infected_keep.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the file'**
+  String get se_pa_infected_keep;
+
+  /// No description provided for @se_pa_command_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'This runs a program on every finished download. Only use a program you trust.'**
+  String get se_pa_command_warning;
+
+  /// No description provided for @se_pa_av_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'An infected file fails the download and, unless you keep it, is deleted. Only use a scanner you trust.'**
+  String get se_pa_av_warning;
+
+  /// No description provided for @se_quota_bytes.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get se_quota_bytes;
+
+  /// No description provided for @se_quota_per.
+  ///
+  /// In en, this message translates to:
+  /// **'per'**
+  String get se_quota_per;
+
+  /// No description provided for @se_quota_period.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get se_quota_period;
 }
 
 class _AppLocalizationsDelegate

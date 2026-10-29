@@ -52,10 +52,68 @@ const _schema = Schema(
       type: FieldSchemaType.object,
       levels: _levels,
     ),
+    const FieldSchema(
+      description: 'Headers sent with every request',
+      group: 'network',
+      path: 'headers',
+      type: FieldSchemaType.object,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Extra tracker announce URLs',
+      group: 'torrent',
+      path: 'torrent.trackers',
+      type: FieldSchemaType.array,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Strategies tried in order',
+      group: 'refresh',
+      path: 'refresh.strategies',
+      type: FieldSchemaType.array,
+      enumValue: ['origin-redirect', 'page-reload', 'manual'],
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Actions run after a download completes',
+      group: 'post-processing',
+      path: 'postActions',
+      type: FieldSchemaType.array,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Traffic quota',
+      group: 'speed',
+      path: 'quota',
+      type: FieldSchemaType.object,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Time-of-day speed limits',
+      group: 'speed',
+      path: 'speedProfiles',
+      type: FieldSchemaType.array,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Proxies for some hosts',
+      group: 'network',
+      path: 'proxyRules',
+      type: FieldSchemaType.array,
+      levels: _levels,
+    ),
+    const FieldSchema(
+      description: 'Something structured with no editor',
+      group: 'speed',
+      path: 'schedule',
+      type: FieldSchemaType.object,
+      levels: _levels,
+    ),
   ],
 );
 
 void main() {
+  editorTests();
   FakeGlobalSettings settings(AppHarness h) =>
       h.container.read(globalSettingsProvider.notifier) as FakeGlobalSettings;
 
@@ -104,11 +162,17 @@ void main() {
     expect(find.text('Speed limit'), findsOneWidget);
     expect(find.text('Parallel connections per task'), findsOneWidget);
     // maxConnections is the built-in value, speedLimit is set globally.
-    expect(find.text('Default'), findsOneWidget);
+    expect(
+      find.text('Default'),
+      findsNWidgets(3),
+      reason: 'maxConnections, quota, profiles',
+    );
     expect(find.text('Global'), findsOneWidget);
     // Other groups and structured values are not on this page.
     expect(find.text('Retry: max attempts'), findsNothing);
     expect(find.text('Proxy'), findsNothing);
+    // A structured setting without an editor is not offered.
+    expect(find.text('Schedule'), findsNothing);
     expect(canSave(tester), isFalse);
   });
 
@@ -250,6 +314,219 @@ void main() {
     await tester.tap(save());
     await settle(tester);
     expect(h.tasks.calls, ['settings:a:{"maxConnections":6}']);
+  });
+}
+
+void editorTests() {
+  FakeGlobalSettings settings(AppHarness h) =>
+      h.container.read(globalSettingsProvider.notifier) as FakeGlobalSettings;
+
+  Future<AppHarness> open(WidgetTester tester, String group) async {
+    final h = await pumpApp(
+      tester,
+      overrides: [
+        settingsSchemaProvider.overrideWith((ref) async => _schema),
+        globalSettingsProvider.overrideWith(
+          () => FakeGlobalSettings(
+            stored: const Settings(),
+            defaults: const Settings(),
+          ),
+        ),
+      ],
+    );
+    h.container.read(routerProvider).go('/settings/$group');
+    await settle(tester);
+    return h;
+  }
+
+  Finder parsed(String label) => find.descendant(
+    of: find.byWidgetPredicate(
+      (w) => w is DlmParsedField && w.semanticLabel == label,
+    ),
+    matching: find.byType(EditableText),
+  );
+
+  Future<void> choose(
+    WidgetTester tester,
+    String label,
+    String option, {
+    bool last = false,
+  }) async {
+    final dropdowns = find.byWidgetPredicate(
+      (w) => w is DlmDropdown && w.semanticLabel == label,
+    );
+    await tester.tap(last ? dropdowns.last : dropdowns);
+    await settle(tester);
+    await tester.tap(find.text(option).last);
+    await settle(tester);
+  }
+
+  Future<void> save(WidgetTester tester) async {
+    await tester.tap(find.widgetWithText(DlmButton, 'Save'));
+    await settle(tester);
+  }
+
+  appTest('headers are edited as name and value rows', (tester) async {
+    final h = await open(tester, 'network');
+    await tester.tap(find.text('Add'));
+    await settle(tester);
+    await tester.enterText(parsed('Name'), 'X-Token');
+    await tester.pump();
+    await tester.enterText(parsed('Value'), 'abc');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches, [
+      {
+        'headers': {'X-Token': 'abc'},
+      },
+    ]);
+  });
+
+  appTest('a custom proxy has an address, the system one does not', (
+    tester,
+  ) async {
+    final h = await open(tester, 'network');
+    await choose(tester, 'Proxy', 'A proxy I choose');
+    await tester.enterText(parsed('Proxy address'), 'http://p:3128');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'proxy': {'mode': 'custom', 'url': 'http://p:3128'},
+    });
+  });
+
+  appTest('tracker addresses are one per line', (tester) async {
+    final h = await open(tester, 'torrent');
+    await tester.enterText(
+      find.descendant(
+        of: find.byWidgetPredicate(
+          (w) => w is DlmTextField && w.semanticLabel == 'One entry per line',
+        ),
+        matching: find.byType(EditableText),
+      ),
+      'udp://a:1\n\nudp://b:2',
+    );
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'torrent': {
+        'trackers': ['udp://a:1', 'udp://b:2'],
+      },
+    });
+  });
+
+  appTest('refresh strategies keep the order they were added in', (
+    tester,
+  ) async {
+    final h = await open(tester, 'refresh');
+    await choose(tester, 'Add', 'Manual');
+    await choose(tester, 'Add', 'Origin redirect');
+    expect(find.text('1. Manual'), findsOneWidget);
+    expect(find.text('2. Origin redirect'), findsOneWidget);
+    final semantics = tester.ensureSemantics();
+    await tester.tap(find.bySemanticsLabel('Move up').last);
+    await settle(tester);
+    expect(find.text('1. Origin redirect'), findsOneWidget);
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'refresh': {
+        'strategies': ['origin-redirect', 'manual'],
+      },
+    });
+    semantics.dispose();
+  });
+
+  appTest('a program action warns and needs a program', (tester) async {
+    final h = await open(tester, 'post-processing');
+    await choose(tester, 'Add an action', 'Run a program');
+    expect(
+      find.textContaining('Only use a program you trust.'),
+      findsOneWidget,
+    );
+    await tester.enterText(parsed('Program'), '/usr/bin/notify');
+    await tester.pump();
+    await tester.enterText(parsed('Time limit'), '2m');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'postActions': [
+        {
+          'kind': 'command',
+          'params': {'cmd': '/usr/bin/notify', 'timeout': '2m'},
+        },
+      ],
+    });
+  });
+
+  appTest('a virus scan says what happens to an infected file', (tester) async {
+    await open(tester, 'post-processing');
+    await choose(tester, 'Add an action', 'Scan for viruses');
+    expect(find.textContaining('is deleted'), findsOneWidget);
+    expect(find.text('Delete the file'), findsOneWidget);
+  });
+
+  appTest('an archive action keeps its own options', (tester) async {
+    final h = await open(tester, 'post-processing');
+    await choose(tester, 'Add an action', 'Unpack archives');
+    await tester.tap(find.text('Delete the file afterwards'));
+    await settle(tester);
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'postActions': [
+        {
+          'kind': 'extract',
+          'params': {'delete': 'true'},
+        },
+      ],
+    });
+  });
+
+  appTest('a speed profile has a limit and its hours', (tester) async {
+    final h = await open(tester, 'speed');
+    await tester.tap(find.text('Add a profile'));
+    await settle(tester);
+    await tester.enterText(parsed('Limit while active'), '2 M');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'speedProfiles': [
+        {'speedLimit': 2 * 1024 * 1024, 'windows': <Object>[]},
+      ],
+    });
+  });
+
+  appTest('a proxy rule sends some hosts through another proxy', (
+    tester,
+  ) async {
+    final h = await open(tester, 'network');
+    await tester.tap(find.text('Add a rule'));
+    await settle(tester);
+    await tester.enterText(parsed('Hosts'), 'a.com, *.b.net');
+    await tester.pump();
+    await choose(tester, 'Proxy', 'A proxy I choose', last: true);
+    await tester.enterText(parsed('Proxy address'), 'http://r:1');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'proxyRules': [
+        {
+          'hosts': ['a.com', '*.b.net'],
+          'proxy': {'mode': 'custom', 'url': 'http://r:1'},
+        },
+      ],
+    });
+  });
+
+  appTest('a quota is an amount per period', (tester) async {
+    final h = await open(tester, 'speed');
+    await tester.enterText(parsed('Amount'), '10 G');
+    await tester.pump();
+    await tester.enterText(parsed('Period'), '720h');
+    await tester.pump();
+    await save(tester);
+    expect(settings(h).patches.single, {
+      'quota': {'bytes': 10 * 1024 * 1024 * 1024, 'period': '720h'},
+    });
   });
 }
 
