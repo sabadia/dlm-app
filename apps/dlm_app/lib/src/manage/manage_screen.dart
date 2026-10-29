@@ -1,9 +1,11 @@
 import 'package:flutter/widgets.dart';
 
 import 'categories_screen.dart';
+import 'cookies_screen.dart';
+import 'logins_screen.dart';
 
 /// The management pages of the sidebar, by their path segment.
-const List<String> managePages = ['categories'];
+const List<String> managePages = ['categories', 'logins', 'cookies'];
 
 /// One management page.
 class ManageScreen extends StatelessWidget {
@@ -16,6 +18,8 @@ class ManageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => switch (page) {
     'categories' => const CategoriesScreen(),
+    'logins' => const LoginsScreen(),
+    'cookies' => const CookiesScreen(),
     _ => const SizedBox.shrink(),
   };
 }

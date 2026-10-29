@@ -145,6 +145,109 @@ class FakeCategories extends CategoriesController {
   }
 }
 
+/// The site logins in memory.
+class FakeCredentials extends CredentialsController {
+  FakeCredentials(this.logins);
+
+  List<Credential> logins;
+  final List<String> calls = [];
+
+  @override
+  Future<List<Credential>> build() async => logins;
+
+  @override
+  Future<Credential> create(CreateCredentialBody body) async {
+    calls.add(
+      'create ${body.host} ${body.username} ${body.password} ${body.scheme?.json}',
+    );
+    final c = Credential(
+      createdAt: DateTime.utc(2026),
+      host: body.host,
+      id: 'n${logins.length}',
+      scheme: body.scheme?.json ?? 'auto',
+      updatedAt: DateTime.utc(2026),
+      username: body.username,
+    );
+    logins = [...logins, c];
+    state = AsyncData(logins);
+    return c;
+  }
+
+  @override
+  Future<Credential> edit(String id, UpdateCredentialBody body) async {
+    calls.add(
+      'edit $id ${body.host} ${body.username} ${body.password} ${body.scheme?.json}',
+    );
+    return logins.firstWhere((c) => c.id == id);
+  }
+
+  @override
+  Future<void> remove(String id) async {
+    calls.add('remove $id');
+    logins = [
+      for (final c in logins)
+        if (c.id != id) c,
+    ];
+    state = AsyncData(logins);
+  }
+}
+
+/// The cookie store in memory; values only leave through [export].
+class FakeCookies extends CookiesController {
+  FakeCookies(this.cookies);
+
+  List<CookieInfo> cookies;
+  final List<String> calls = [];
+
+  @override
+  Future<List<CookieInfo>> build() async => cookies;
+
+  @override
+  Future<void> removeDomain(String domain) async {
+    calls.add('removeDomain $domain');
+    cookies = [
+      for (final c in cookies)
+        if (c.domain != domain) c,
+    ];
+    state = AsyncData(cookies);
+  }
+
+  @override
+  Future<void> removeCookie(String id) async {
+    calls.add('removeCookie $id');
+    cookies = [
+      for (final c in cookies)
+        if (c.id != id) c,
+    ];
+    state = AsyncData(cookies);
+  }
+
+  @override
+  Future<ImportCookiesResult> import(ImportCookiesBody body) async {
+    calls.add('import ${body.format?.json} ${body.data.length}');
+    return const ImportCookiesResult(
+      imported: 2,
+      skipped: 1,
+      errors: ['line 3: bad domain'],
+    );
+  }
+
+  @override
+  Future<ExportCookiesResult> export({
+    Format format = Format.netscape,
+    String? domain,
+  }) async {
+    calls.add('export ${format.json} $domain');
+    return ExportCookiesResult(
+      count: 1,
+      data: 'SECRET-DATA',
+      format: format == Format.valueJson
+          ? ExportCookiesResultFormat.valueJson
+          : ExportCookiesResultFormat.netscape,
+    );
+  }
+}
+
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 

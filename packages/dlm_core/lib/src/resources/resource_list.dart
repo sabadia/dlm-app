@@ -235,7 +235,29 @@ class CookiesController extends ResourceList<CookieInfo> {
     ],
   );
 
+  /// Deletes one cookie.
+  Future<void> removeCookie(String id) => mutate(
+    (api) => api.rest.cookies.deleteCookie(id: id),
+    optimistic: (list) => [
+      for (final c in list)
+        if (c.id != id) c,
+    ],
+  );
+
   /// Imports cookies.
   Future<ImportCookiesResult> import(ImportCookiesBody body) =>
       mutate((api) => api.rest.cookies.importCookies(body: body));
+
+  /// The cookies of [domain] (all when null), values included, as a file's
+  /// text. The values are secrets: show them only when the user asks.
+  Future<ExportCookiesResult> export({
+    Format format = Format.netscape,
+    String? domain,
+  }) => guard(
+    () => ref
+        .read(apiProvider)
+        .rest
+        .cookies
+        .exportCookies(format: format, domain: domain),
+  );
 }

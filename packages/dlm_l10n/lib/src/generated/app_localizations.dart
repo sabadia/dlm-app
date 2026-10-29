@@ -3291,6 +3291,354 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The daemon could not be asked.'**
   String get cat_test_error;
+
+  /// No description provided for @nav_manage_logins.
+  ///
+  /// In en, this message translates to:
+  /// **'Logins'**
+  String get nav_manage_logins;
+
+  /// No description provided for @nav_manage_cookies.
+  ///
+  /// In en, this message translates to:
+  /// **'Cookies'**
+  String get nav_manage_cookies;
+
+  /// No description provided for @field_show.
+  ///
+  /// In en, this message translates to:
+  /// **'Show'**
+  String get field_show;
+
+  /// No description provided for @field_hide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide'**
+  String get field_hide;
+
+  /// No description provided for @login_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Logins are sent to sites that ask for a user name and password. The password stays in the download service: it is never shown here again.'**
+  String get login_intro;
+
+  /// No description provided for @login_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a login'**
+  String get login_add;
+
+  /// No description provided for @login_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a login'**
+  String get login_add_title;
+
+  /// No description provided for @login_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the login'**
+  String get login_edit_title;
+
+  /// No description provided for @login_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Login saved'**
+  String get login_saved;
+
+  /// No description provided for @login_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No logins yet'**
+  String get login_empty_title;
+
+  /// No description provided for @login_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one for a site that needs a user name and password.'**
+  String get login_empty_message;
+
+  /// No description provided for @login_host.
+  ///
+  /// In en, this message translates to:
+  /// **'Site'**
+  String get login_host;
+
+  /// No description provided for @login_host_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A host name like example.com, or *.example.com for all its subdomains.'**
+  String get login_host_desc;
+
+  /// No description provided for @login_user.
+  ///
+  /// In en, this message translates to:
+  /// **'User name'**
+  String get login_user;
+
+  /// No description provided for @login_password.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get login_password;
+
+  /// No description provided for @login_password_keep.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to keep the stored password.'**
+  String get login_password_keep;
+
+  /// No description provided for @login_scheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get login_scheme;
+
+  /// No description provided for @login_scheme_auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the site decide'**
+  String get login_scheme_auto;
+
+  /// No description provided for @login_scheme_basic.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic'**
+  String get login_scheme_basic;
+
+  /// No description provided for @login_scheme_digest.
+  ///
+  /// In en, this message translates to:
+  /// **'Digest'**
+  String get login_scheme_digest;
+
+  /// No description provided for @login_updated.
+  ///
+  /// In en, this message translates to:
+  /// **'changed {date}'**
+  String login_updated(String date);
+
+  /// No description provided for @login_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the login for {host}'**
+  String login_edit(String host);
+
+  /// No description provided for @login_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the login for {host}'**
+  String login_delete(String host);
+
+  /// No description provided for @login_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the login for {host}?'**
+  String login_delete_title(String host);
+
+  /// No description provided for @login_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads from that site will no longer sign in.'**
+  String get login_delete_message;
+
+  /// No description provided for @login_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete login'**
+  String get login_delete_confirm;
+
+  /// No description provided for @ck_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Cookies keep you signed in to sites. Their values stay in the download service; an export is the only way to see them.'**
+  String get ck_intro;
+
+  /// No description provided for @ck_import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import cookies…'**
+  String get ck_import;
+
+  /// No description provided for @ck_export.
+  ///
+  /// In en, this message translates to:
+  /// **'Export all…'**
+  String get ck_export;
+
+  /// No description provided for @ck_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No cookies stored'**
+  String get ck_empty_title;
+
+  /// No description provided for @ck_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Import a cookies file, or let the browser extension send them.'**
+  String get ck_empty_message;
+
+  /// No description provided for @ck_tree_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Cookies by domain'**
+  String get ck_tree_label;
+
+  /// No description provided for @ck_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 cookie} other{{count} cookies}}'**
+  String ck_count(int count);
+
+  /// No description provided for @ck_secure.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure'**
+  String get ck_secure;
+
+  /// No description provided for @ck_http_only.
+  ///
+  /// In en, this message translates to:
+  /// **'HTTP only'**
+  String get ck_http_only;
+
+  /// No description provided for @ck_session.
+  ///
+  /// In en, this message translates to:
+  /// **'Session'**
+  String get ck_session;
+
+  /// No description provided for @ck_export_domain.
+  ///
+  /// In en, this message translates to:
+  /// **'Export the cookies of {domain}'**
+  String ck_export_domain(String domain);
+
+  /// No description provided for @ck_delete_domain.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the cookies of {domain}'**
+  String ck_delete_domain(String domain);
+
+  /// No description provided for @ck_delete_cookie.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the cookie {name}'**
+  String ck_delete_cookie(String name);
+
+  /// No description provided for @ck_delete_domain_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the cookies of {domain}?'**
+  String ck_delete_domain_title(String domain);
+
+  /// No description provided for @ck_delete_domain_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 cookie will be deleted.} other{{count} cookies will be deleted.}}'**
+  String ck_delete_domain_message(int count);
+
+  /// No description provided for @ck_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete cookies'**
+  String get ck_delete_confirm;
+
+  /// No description provided for @ck_import_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {name}'**
+  String ck_import_title(String name);
+
+  /// No description provided for @ck_import_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{imported} imported, {skipped} skipped.'**
+  String ck_import_summary(int imported, int skipped);
+
+  /// No description provided for @ck_export_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Export cookies'**
+  String get ck_export_title;
+
+  /// No description provided for @ck_export_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All stored cookies.'**
+  String get ck_export_all;
+
+  /// No description provided for @ck_export_one.
+  ///
+  /// In en, this message translates to:
+  /// **'The cookies of {domain}.'**
+  String ck_export_one(String domain);
+
+  /// No description provided for @ck_format.
+  ///
+  /// In en, this message translates to:
+  /// **'File type'**
+  String get ck_format;
+
+  /// No description provided for @ck_format_netscape.
+  ///
+  /// In en, this message translates to:
+  /// **'Netscape cookies.txt'**
+  String get ck_format_netscape;
+
+  /// No description provided for @ck_format_json.
+  ///
+  /// In en, this message translates to:
+  /// **'JSON'**
+  String get ck_format_json;
+
+  /// No description provided for @ck_export_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'The export contains the cookie values. Anyone who has them can sign in as you. Reveal them only where you can keep them safe.'**
+  String get ck_export_warning;
+
+  /// No description provided for @ck_reveal.
+  ///
+  /// In en, this message translates to:
+  /// **'Reveal the cookies'**
+  String get ck_reveal;
+
+  /// No description provided for @ck_export_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 cookie} other{{count} cookies}}'**
+  String ck_export_count(int count);
+
+  /// No description provided for @ck_export_text.
+  ///
+  /// In en, this message translates to:
+  /// **'The exported cookies'**
+  String get ck_export_text;
+
+  /// No description provided for @ck_copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get ck_copy;
+
+  /// No description provided for @ck_copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied'**
+  String get ck_copied;
+
+  /// No description provided for @ck_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to a file…'**
+  String get ck_save;
+
+  /// No description provided for @ck_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'File saved'**
+  String get ck_saved;
 }
 
 class _AppLocalizationsDelegate

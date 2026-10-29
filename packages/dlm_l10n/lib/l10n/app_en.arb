@@ -1125,5 +1125,164 @@
       }
     }
   },
-  "cat_test_error": "The daemon could not be asked."
+  "cat_test_error": "The daemon could not be asked.",
+  "nav_manage_logins": "Logins",
+  "nav_manage_cookies": "Cookies",
+  "field_show": "Show",
+  "field_hide": "Hide",
+  "login_intro": "Logins are sent to sites that ask for a user name and password. The password stays in the download service: it is never shown here again.",
+  "login_add": "Add a login",
+  "login_add_title": "Add a login",
+  "login_edit_title": "Edit the login",
+  "login_saved": "Login saved",
+  "login_empty_title": "No logins yet",
+  "login_empty_message": "Add one for a site that needs a user name and password.",
+  "login_host": "Site",
+  "login_host_desc": "A host name like example.com, or *.example.com for all its subdomains.",
+  "login_user": "User name",
+  "login_password": "Password",
+  "login_password_keep": "Leave empty to keep the stored password.",
+  "login_scheme": "Method",
+  "login_scheme_auto": "Let the site decide",
+  "login_scheme_basic": "Basic",
+  "login_scheme_digest": "Digest",
+  "login_updated": "changed {date}",
+  "@login_updated": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "login_edit": "Edit the login for {host}",
+  "@login_edit": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete": "Delete the login for {host}",
+  "@login_delete": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete_title": "Delete the login for {host}?",
+  "@login_delete_title": {
+    "placeholders": {
+      "host": {
+        "type": "String"
+      }
+    }
+  },
+  "login_delete_message": "Downloads from that site will no longer sign in.",
+  "login_delete_confirm": "Delete login",
+  "ck_intro": "Cookies keep you signed in to sites. Their values stay in the download service; an export is the only way to see them.",
+  "ck_import": "Import cookies…",
+  "ck_export": "Export all…",
+  "ck_empty_title": "No cookies stored",
+  "ck_empty_message": "Import a cookies file, or let the browser extension send them.",
+  "ck_tree_label": "Cookies by domain",
+  "ck_count": "{count, plural, one{1 cookie} other{{count} cookies}}",
+  "@ck_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_secure": "Secure",
+  "ck_http_only": "HTTP only",
+  "ck_session": "Session",
+  "ck_export_domain": "Export the cookies of {domain}",
+  "@ck_export_domain": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain": "Delete the cookies of {domain}",
+  "@ck_delete_domain": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_cookie": "Delete the cookie {name}",
+  "@ck_delete_cookie": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain_title": "Delete the cookies of {domain}?",
+  "@ck_delete_domain_title": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_delete_domain_message": "{count, plural, one{1 cookie will be deleted.} other{{count} cookies will be deleted.}}",
+  "@ck_delete_domain_message": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_delete_confirm": "Delete cookies",
+  "ck_import_title": "Import {name}",
+  "@ck_import_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_import_summary": "{imported} imported, {skipped} skipped.",
+  "@ck_import_summary": {
+    "placeholders": {
+      "imported": {
+        "type": "int"
+      },
+      "skipped": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_export_title": "Export cookies",
+  "ck_export_all": "All stored cookies.",
+  "ck_export_one": "The cookies of {domain}.",
+  "@ck_export_one": {
+    "placeholders": {
+      "domain": {
+        "type": "String"
+      }
+    }
+  },
+  "ck_format": "File type",
+  "ck_format_netscape": "Netscape cookies.txt",
+  "ck_format_json": "JSON",
+  "ck_export_warning": "The export contains the cookie values. Anyone who has them can sign in as you. Reveal them only where you can keep them safe.",
+  "ck_reveal": "Reveal the cookies",
+  "ck_export_count": "{count, plural, one{1 cookie} other{{count} cookies}}",
+  "@ck_export_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ck_export_text": "The exported cookies",
+  "ck_copy": "Copy",
+  "ck_copied": "Copied",
+  "ck_save": "Save to a file…",
+  "ck_saved": "File saved"
 }

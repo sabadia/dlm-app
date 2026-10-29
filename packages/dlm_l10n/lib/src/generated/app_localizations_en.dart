@@ -1931,4 +1931,231 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cat_test_error => 'The daemon could not be asked.';
+
+  @override
+  String get nav_manage_logins => 'Logins';
+
+  @override
+  String get nav_manage_cookies => 'Cookies';
+
+  @override
+  String get field_show => 'Show';
+
+  @override
+  String get field_hide => 'Hide';
+
+  @override
+  String get login_intro =>
+      'Logins are sent to sites that ask for a user name and password. The password stays in the download service: it is never shown here again.';
+
+  @override
+  String get login_add => 'Add a login';
+
+  @override
+  String get login_add_title => 'Add a login';
+
+  @override
+  String get login_edit_title => 'Edit the login';
+
+  @override
+  String get login_saved => 'Login saved';
+
+  @override
+  String get login_empty_title => 'No logins yet';
+
+  @override
+  String get login_empty_message =>
+      'Add one for a site that needs a user name and password.';
+
+  @override
+  String get login_host => 'Site';
+
+  @override
+  String get login_host_desc =>
+      'A host name like example.com, or *.example.com for all its subdomains.';
+
+  @override
+  String get login_user => 'User name';
+
+  @override
+  String get login_password => 'Password';
+
+  @override
+  String get login_password_keep => 'Leave empty to keep the stored password.';
+
+  @override
+  String get login_scheme => 'Method';
+
+  @override
+  String get login_scheme_auto => 'Let the site decide';
+
+  @override
+  String get login_scheme_basic => 'Basic';
+
+  @override
+  String get login_scheme_digest => 'Digest';
+
+  @override
+  String login_updated(String date) {
+    return 'changed $date';
+  }
+
+  @override
+  String login_edit(String host) {
+    return 'Edit the login for $host';
+  }
+
+  @override
+  String login_delete(String host) {
+    return 'Delete the login for $host';
+  }
+
+  @override
+  String login_delete_title(String host) {
+    return 'Delete the login for $host?';
+  }
+
+  @override
+  String get login_delete_message =>
+      'Downloads from that site will no longer sign in.';
+
+  @override
+  String get login_delete_confirm => 'Delete login';
+
+  @override
+  String get ck_intro =>
+      'Cookies keep you signed in to sites. Their values stay in the download service; an export is the only way to see them.';
+
+  @override
+  String get ck_import => 'Import cookies…';
+
+  @override
+  String get ck_export => 'Export all…';
+
+  @override
+  String get ck_empty_title => 'No cookies stored';
+
+  @override
+  String get ck_empty_message =>
+      'Import a cookies file, or let the browser extension send them.';
+
+  @override
+  String get ck_tree_label => 'Cookies by domain';
+
+  @override
+  String ck_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies',
+      one: '1 cookie',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_secure => 'Secure';
+
+  @override
+  String get ck_http_only => 'HTTP only';
+
+  @override
+  String get ck_session => 'Session';
+
+  @override
+  String ck_export_domain(String domain) {
+    return 'Export the cookies of $domain';
+  }
+
+  @override
+  String ck_delete_domain(String domain) {
+    return 'Delete the cookies of $domain';
+  }
+
+  @override
+  String ck_delete_cookie(String name) {
+    return 'Delete the cookie $name';
+  }
+
+  @override
+  String ck_delete_domain_title(String domain) {
+    return 'Delete the cookies of $domain?';
+  }
+
+  @override
+  String ck_delete_domain_message(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies will be deleted.',
+      one: '1 cookie will be deleted.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_delete_confirm => 'Delete cookies';
+
+  @override
+  String ck_import_title(String name) {
+    return 'Import $name';
+  }
+
+  @override
+  String ck_import_summary(int imported, int skipped) {
+    return '$imported imported, $skipped skipped.';
+  }
+
+  @override
+  String get ck_export_title => 'Export cookies';
+
+  @override
+  String get ck_export_all => 'All stored cookies.';
+
+  @override
+  String ck_export_one(String domain) {
+    return 'The cookies of $domain.';
+  }
+
+  @override
+  String get ck_format => 'File type';
+
+  @override
+  String get ck_format_netscape => 'Netscape cookies.txt';
+
+  @override
+  String get ck_format_json => 'JSON';
+
+  @override
+  String get ck_export_warning =>
+      'The export contains the cookie values. Anyone who has them can sign in as you. Reveal them only where you can keep them safe.';
+
+  @override
+  String get ck_reveal => 'Reveal the cookies';
+
+  @override
+  String ck_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count cookies',
+      one: '1 cookie',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get ck_export_text => 'The exported cookies';
+
+  @override
+  String get ck_copy => 'Copy';
+
+  @override
+  String get ck_copied => 'Copied';
+
+  @override
+  String get ck_save => 'Save to a file…';
+
+  @override
+  String get ck_saved => 'File saved';
 }
