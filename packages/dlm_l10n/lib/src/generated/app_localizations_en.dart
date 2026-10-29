@@ -2444,4 +2444,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pl_enable => 'Switch it on';
+
+  @override
+  String get nav_manage_browser => 'Browser tool';
+
+  @override
+  String get br_intro =>
+      'Some pages only show their downloads in a real browser. Open one here and the daemon\'s headless browser lists what the page leads to: files, video and audio streams.';
+
+  @override
+  String get br_open_title => 'Open a page';
+
+  @override
+  String get br_url => 'Page address';
+
+  @override
+  String get br_url_invalid =>
+      'Use an address that starts with http:// or https://.';
+
+  @override
+  String get br_open => 'Open';
+
+  @override
+  String get br_opening => 'Opening…';
+
+  @override
+  String get br_error => 'The page could not be opened.';
+
+  @override
+  String br_result_info(String url, String group) {
+    return 'Opened $url in the group $group.';
+  }
+
+  @override
+  String get br_none => 'The page led to no downloads.';
+
+  @override
+  String get br_download => 'Download';
+
+  @override
+  String br_added(String name) {
+    return 'Added $name';
+  }
+
+  @override
+  String get br_profiles_title => 'Browser profiles';
+
+  @override
+  String get br_profiles_desc =>
+      'Each site group has its own profile, which keeps the logins of the pages opened there.';
+
+  @override
+  String get br_profiles_none => 'No profiles yet.';
+
+  @override
+  String get br_profiles_error => 'The profiles could not be listed.';
+
+  @override
+  String br_profile_delete(String group) {
+    return 'Delete the profile $group';
+  }
+
+  @override
+  String br_profile_delete_title(String group) {
+    return 'Delete the profile of $group?';
+  }
+
+  @override
+  String get br_profile_delete_message =>
+      'Its cookies and stored data are removed. It cannot be deleted while its browser runs.';
+
+  @override
+  String get br_profile_delete_confirm => 'Delete profile';
+
+  @override
+  String get br_state_title => 'The headless browser';
+
+  @override
+  String get br_state_in_use => 'In use';
+
+  @override
+  String get br_state_unused => 'Not used yet';
+
+  @override
+  String get br_state_running => 'Running';
+
+  @override
+  String get br_state_none => 'None';
+
+  @override
+  String get br_state_max => 'At most at once';
+
+  @override
+  String get br_tools_title => 'Programs';
 }

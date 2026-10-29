@@ -4113,6 +4113,168 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Switch it on'**
   String get pl_enable;
+
+  /// No description provided for @nav_manage_browser.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser tool'**
+  String get nav_manage_browser;
+
+  /// No description provided for @br_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Some pages only show their downloads in a real browser. Open one here and the daemon\'s headless browser lists what the page leads to: files, video and audio streams.'**
+  String get br_intro;
+
+  /// No description provided for @br_open_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Open a page'**
+  String get br_open_title;
+
+  /// No description provided for @br_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Page address'**
+  String get br_url;
+
+  /// No description provided for @br_url_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an address that starts with http:// or https://.'**
+  String get br_url_invalid;
+
+  /// No description provided for @br_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get br_open;
+
+  /// No description provided for @br_opening.
+  ///
+  /// In en, this message translates to:
+  /// **'Opening…'**
+  String get br_opening;
+
+  /// No description provided for @br_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The page could not be opened.'**
+  String get br_error;
+
+  /// No description provided for @br_result_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Opened {url} in the group {group}.'**
+  String br_result_info(String url, String group);
+
+  /// No description provided for @br_none.
+  ///
+  /// In en, this message translates to:
+  /// **'The page led to no downloads.'**
+  String get br_none;
+
+  /// No description provided for @br_download.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get br_download;
+
+  /// No description provided for @br_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {name}'**
+  String br_added(String name);
+
+  /// No description provided for @br_profiles_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser profiles'**
+  String get br_profiles_title;
+
+  /// No description provided for @br_profiles_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Each site group has its own profile, which keeps the logins of the pages opened there.'**
+  String get br_profiles_desc;
+
+  /// No description provided for @br_profiles_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No profiles yet.'**
+  String get br_profiles_none;
+
+  /// No description provided for @br_profiles_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The profiles could not be listed.'**
+  String get br_profiles_error;
+
+  /// No description provided for @br_profile_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the profile {group}'**
+  String br_profile_delete(String group);
+
+  /// No description provided for @br_profile_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the profile of {group}?'**
+  String br_profile_delete_title(String group);
+
+  /// No description provided for @br_profile_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Its cookies and stored data are removed. It cannot be deleted while its browser runs.'**
+  String get br_profile_delete_message;
+
+  /// No description provided for @br_profile_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete profile'**
+  String get br_profile_delete_confirm;
+
+  /// No description provided for @br_state_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The headless browser'**
+  String get br_state_title;
+
+  /// No description provided for @br_state_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'In use'**
+  String get br_state_in_use;
+
+  /// No description provided for @br_state_unused.
+  ///
+  /// In en, this message translates to:
+  /// **'Not used yet'**
+  String get br_state_unused;
+
+  /// No description provided for @br_state_running.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get br_state_running;
+
+  /// No description provided for @br_state_none.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get br_state_none;
+
+  /// No description provided for @br_state_max.
+  ///
+  /// In en, this message translates to:
+  /// **'At most at once'**
+  String get br_state_max;
+
+  /// No description provided for @br_tools_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Programs'**
+  String get br_tools_title;
 }
 
 class _AppLocalizationsDelegate

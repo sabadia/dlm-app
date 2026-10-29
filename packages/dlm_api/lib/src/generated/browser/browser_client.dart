@@ -6,10 +6,10 @@ import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import '../models/browser_profiles.dart';
+import '../models/browser_status.dart';
 import '../models/download_candidate_body.dart';
 import '../models/page_result.dart';
 import '../models/resolve_page_body.dart';
-import '../models/status.dart';
 import '../models/task.dart';
 
 part 'browser_client.g.dart';
@@ -22,7 +22,7 @@ abstract class BrowserClient {
   ///
   /// The browser in use (absent until a page was opened) and the running browsers, one per site group.
   @GET('/v1/browser')
-  Future<Status> getBrowserStatus();
+  Future<BrowserStatus> getBrowserStatus();
 
   /// List browser profiles.
   ///

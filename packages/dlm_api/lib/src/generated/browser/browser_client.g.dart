@@ -21,12 +21,12 @@ class _BrowserClient implements BrowserClient {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<Status> getBrowserStatus() async {
+  Future<BrowserStatus> getBrowserStatus() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<Status>(
+    final _options = _setStreamType<BrowserStatus>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -36,10 +36,10 @@ class _BrowserClient implements BrowserClient {
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<String>(_options);
-    late Status _value;
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late BrowserStatus _value;
     try {
-      _value = Status.fromJson(_result.data!);
+      _value = BrowserStatus.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options, response: _result);
       rethrow;

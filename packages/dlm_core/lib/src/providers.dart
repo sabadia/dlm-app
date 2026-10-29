@@ -9,6 +9,7 @@ import 'settings/settings_repository.dart';
 import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
 import 'tasks/add_repository.dart';
+import 'tasks/browser_repository.dart';
 import 'tasks/refresh_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_detail_repository.dart';
@@ -212,8 +213,18 @@ final systemInfoProvider = FutureProvider<SystemInfo>(
   (ref) => guard(ref.watch(apiProvider).rest.system.getSystemInfo),
 );
 
+/// Where pages are opened in the headless browser and their downloads taken.
+final browserRepositoryProvider = Provider<BrowserRepository>(
+  (ref) => ApiBrowserRepository(ref.watch(apiProvider)),
+);
+
+/// The site groups that have a browser profile. Read again when invalidated.
+final browserProfilesProvider = FutureProvider.autoDispose<List<String>>(
+  (ref) => ref.watch(browserRepositoryProvider).profiles(),
+);
+
 /// The state of the internal headless browser.
-final browserStatusProvider = FutureProvider<Status>(
+final browserStatusProvider = FutureProvider<BrowserStatus>(
   (ref) => guard(ref.watch(apiProvider).rest.browser.getBrowserStatus),
 );
 

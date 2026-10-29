@@ -1478,5 +1478,63 @@
   "pl_hosts_none": "No other computers.",
   "pl_trust_warning": "A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.",
   "pl_keep_off": "Keep it off",
-  "pl_enable": "Switch it on"
+  "pl_enable": "Switch it on",
+  "nav_manage_browser": "Browser tool",
+  "br_intro": "Some pages only show their downloads in a real browser. Open one here and the daemon's headless browser lists what the page leads to: files, video and audio streams.",
+  "br_open_title": "Open a page",
+  "br_url": "Page address",
+  "br_url_invalid": "Use an address that starts with http:// or https://.",
+  "br_open": "Open",
+  "br_opening": "Opening…",
+  "br_error": "The page could not be opened.",
+  "br_result_info": "Opened {url} in the group {group}.",
+  "@br_result_info": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      },
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_none": "The page led to no downloads.",
+  "br_download": "Download",
+  "br_added": "Added {name}",
+  "@br_added": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profiles_title": "Browser profiles",
+  "br_profiles_desc": "Each site group has its own profile, which keeps the logins of the pages opened there.",
+  "br_profiles_none": "No profiles yet.",
+  "br_profiles_error": "The profiles could not be listed.",
+  "br_profile_delete": "Delete the profile {group}",
+  "@br_profile_delete": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profile_delete_title": "Delete the profile of {group}?",
+  "@br_profile_delete_title": {
+    "placeholders": {
+      "group": {
+        "type": "String"
+      }
+    }
+  },
+  "br_profile_delete_message": "Its cookies and stored data are removed. It cannot be deleted while its browser runs.",
+  "br_profile_delete_confirm": "Delete profile",
+  "br_state_title": "The headless browser",
+  "br_state_in_use": "In use",
+  "br_state_unused": "Not used yet",
+  "br_state_running": "Running",
+  "br_state_none": "None",
+  "br_state_max": "At most at once",
+  "br_tools_title": "Programs"
 }

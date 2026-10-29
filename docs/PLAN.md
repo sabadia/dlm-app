@@ -143,7 +143,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F4.4 Logins and Cookies managers — Domain tree, Netscape/JSON import-export, reveal on demand.
 - [x] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
 - [x] F4.6 Plugins manager *(needs P13.9)* — Install from folder/git, permission review (hooks + net hosts), enable/disable/remove, logs.
-- [ ] F4.7 Browser tool — Resolve a page, candidates list, download, profile cleanup, tool status.
+- [x] F4.7 Browser tool — Resolve a page, candidates list, download, profile cleanup, tool status.
 - [ ] F4.8 Import/Export wizard *(needs P13.6)* — JSON/URL list/aria2, dry-run preview, results.
 - [ ] F4.9 Statistics, history and cleanup *(needs P13.7, P13.14)* — Charts by day/engine/queue, totals, completed history search, cleanup.
 - [ ] F4.10 Daemon and server settings *(needs P13.2, P13.3, P13.12, P13.13)* — Boot-config editor with restart flow, listen/TLS/allowed origins, token rotate, native-host/extension status, MCP page with copyable configs, log viewer, tools status.

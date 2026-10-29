@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import 'browser_screen.dart';
 import 'categories_screen.dart';
 import 'cookies_screen.dart';
 import 'logins_screen.dart';
@@ -13,6 +14,7 @@ const List<String> managePages = [
   'cookies',
   'webhooks',
   'plugins',
+  'browser',
 ];
 
 /// One management page.
@@ -30,6 +32,7 @@ class ManageScreen extends StatelessWidget {
     'cookies' => const CookiesScreen(),
     'webhooks' => const WebhooksScreen(),
     'plugins' => const PluginsScreen(),
+    'browser' => const BrowserScreen(),
     _ => const SizedBox.shrink(),
   };
 }

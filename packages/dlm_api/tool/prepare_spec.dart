@@ -33,6 +33,21 @@ void main(List<String> args) {
       'schema': {r'$ref': '#/components/schemas/StreamEvent'},
     },
   };
+  // The browser state is a schema called Status, which the generator mixes up
+  // with the task status enum of the list filter; give it its own name.
+  final schemas =
+      (doc['components']! as Map<String, Object?>)['schemas']!
+          as Map<String, Object?>;
+  schemas['BrowserStatus'] = jsonDecode(jsonEncode(schemas['Status']));
+  final browserOk =
+      ((((paths['/v1/browser']! as Map<String, Object?>)['get']!
+                      as Map<String, Object?>)['responses']!
+                  as Map<String, Object?>)['200']!
+              as Map<String, Object?>)['content']!
+          as Map<String, Object?>;
+  ((browserOk['application/json']! as Map<String, Object?>)['schema']!
+          as Map<String, Object?>)[r'$ref'] =
+      '#/components/schemas/BrowserStatus';
   File(output)
     ..createSync(recursive: true)
     ..writeAsStringSync(const JsonEncoder.withIndent('  ').convert(doc));
