@@ -8,6 +8,7 @@ import 'settings/settings_controller.dart';
 import 'settings/settings_repository.dart';
 import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
+import 'tasks/refresh_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_list.dart';
 import 'tasks/task_repository.dart';
@@ -38,6 +39,18 @@ final taskStoreProvider = Provider<TaskStore>((ref) {
 final taskRepositoryProvider = Provider<TaskRepository>(
   (ref) => ApiTaskRepository(ref.watch(apiProvider)),
 );
+
+/// Where a task's link is renewed or replaced.
+final refreshRepositoryProvider = Provider<RefreshRepository>(
+  (ref) => ApiRefreshRepository(ref.watch(apiProvider)),
+);
+
+/// The attempts to renew one task's link. Read again when invalidated (a
+/// `task.refresh` event does that while the inspector shows it).
+final taskRefreshesProvider =
+    FutureProvider.family<List<RefreshAttempt>, String>(
+      (ref, id) => ref.watch(refreshRepositoryProvider).history(id),
+    );
 
 /// Commands on tasks with optimistic updates.
 final taskActionsProvider = Provider<TaskActions>(

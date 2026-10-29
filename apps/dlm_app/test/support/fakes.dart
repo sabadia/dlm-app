@@ -113,12 +113,17 @@ Task task(
   int downloaded = 0,
   String queueId = 'main',
   String? name,
+  Resource? resource,
+  TaskError? error,
+  String? engine,
+  String? dir,
+  String priority = 'normal',
 }) => Task(
   createdAt: DateTime.utc(2026, 10, 29),
   downloaded: downloaded,
   id: id,
   position: position,
-  priority: 'normal',
+  priority: priority,
   queueId: queueId,
   settings: const Settings(),
   size: size,
@@ -129,6 +134,10 @@ Task task(
   status: status,
   updatedAt: DateTime.utc(2026, 10, 29),
   name: name ?? 'file-$id',
+  resource: resource,
+  error: error,
+  engine: engine,
+  dir: dir,
 );
 
 /// A repository over a fixed list: filters by status, queue and text, and

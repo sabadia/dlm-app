@@ -23,6 +23,7 @@ export 'src/settings/settings_controller.dart';
 export 'src/settings/settings_repository.dart';
 export 'src/stores/entity_store.dart';
 export 'src/sync/sync_engine.dart';
+export 'src/tasks/refresh_repository.dart';
 export 'src/tasks/task_actions.dart';
 export 'src/tasks/task_list.dart';
 export 'src/tasks/task_repository.dart';

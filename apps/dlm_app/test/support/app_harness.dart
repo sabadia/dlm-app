@@ -308,3 +308,39 @@ class FakeGlobalSettings extends GlobalSettingsController {
     );
   }
 }
+
+/// A link-renewal service in memory that records what is asked of it.
+class FakeRefresh implements RefreshRepository {
+  FakeRefresh(this.tasks, [this.attempts = const []]);
+
+  final FakeTaskRepository tasks;
+  List<RefreshAttempt> attempts;
+  final List<String> calls = [];
+
+  Task _task(String id) => tasks.tasks.firstWhere((t) => t.id == id);
+
+  @override
+  Future<Task> refresh(String id) async {
+    calls.add('refresh $id');
+    return _task(id);
+  }
+
+  @override
+  Future<Task> awaitLink(String id) async {
+    calls.add('await $id');
+    return _task(id);
+  }
+
+  @override
+  Future<Task> setLink(
+    String id,
+    String url, {
+    UpdateTaskSourceBodyOnMismatch? onMismatch,
+  }) async {
+    calls.add('link $id $url ${onMismatch?.json}');
+    return _task(id);
+  }
+
+  @override
+  Future<List<RefreshAttempt>> history(String id) async => attempts;
+}

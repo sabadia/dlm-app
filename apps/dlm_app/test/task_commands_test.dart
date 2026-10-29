@@ -131,7 +131,8 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);
     await settle(tester);
     expect(h.tasks.deleted, isEmpty, reason: 'Enter pressed Cancel');
-    expect(find.text('broken.zip'), findsOneWidget);
+    // Still listed: the table row and the details pane's title.
+    expect(find.text('broken.zip'), findsNWidgets(2));
   });
 
   appTest('the dialog can also delete the files', (tester) async {
