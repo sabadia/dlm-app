@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dlm_api/dlm_api.dart';
+import 'package:dlm_app/src/connection/connection_controller.dart';
 import 'package:dlm_app/src/platform/file_opener.dart';
 import 'package:dlm_app/src/platform/integration_binder.dart';
 import 'package:dlm_app/src/platform/startup.dart';
@@ -253,6 +254,50 @@ void main() {
     await settle(tester);
     expect(window.quits, 1);
     expect(window.hides, 0);
+  });
+
+  appTest('quitting from the tray stops the daemon the app started', (
+    tester,
+  ) async {
+    final daemon = FakeDaemon();
+    final tray = RecordingTray();
+    final window = RecordingWindow();
+    await pumpApp(
+      tester,
+      overrides: [
+        localDaemonProvider.overrideWithValue(daemon),
+        trayProvider.overrideWithValue(tray),
+        windowControlProvider.overrideWithValue(window),
+        notifierProvider.overrideWithValue(RecordingNotifier()),
+      ],
+    );
+    window.requestClose();
+    await settle(tester);
+    expect(daemon.disposed, isFalse, reason: 'hiding to the tray keeps it');
+    tray.choose(TrayIds.quit);
+    await settle(tester);
+    expect(daemon.disposed, isTrue);
+    expect(window.quits, 1);
+  });
+
+  appTest('closing the window without a tray stops the daemon too', (
+    tester,
+  ) async {
+    final daemon = FakeDaemon();
+    final window = RecordingWindow();
+    await pumpApp(
+      tester,
+      overrides: [
+        localDaemonProvider.overrideWithValue(daemon),
+        trayProvider.overrideWithValue(RecordingTray(supported: false)),
+        windowControlProvider.overrideWithValue(window),
+        notifierProvider.overrideWithValue(RecordingNotifier()),
+      ],
+    );
+    window.requestClose();
+    await settle(tester);
+    expect(daemon.disposed, isTrue);
+    expect(window.quits, 1);
   });
 
   appTest('a finished or failed download is announced, and its buttons act', (

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:ui' show AppExitResponse;
 
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
@@ -10,6 +11,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../about/diagnostics_providers.dart';
+import '../connection/connection_controller.dart';
 import '../format/dlm_format.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
@@ -103,15 +105,39 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
   String? _shownTitle;
   String? _shownTooltip;
   bool _started = false;
+  AppLifecycleListener? _lifecycle;
 
   @override
   void initState() {
     super.initState();
+    // Quitting (Command-Q, the system shutting down) stops the daemon the app
+    // started, so an update can replace its files.
+    _lifecycle = AppLifecycleListener(
+      onExitRequested: () async {
+        await _releaseDaemon();
+        return AppExitResponse.exit;
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => unawaited(_start()));
+  }
+
+  Future<void> _releaseDaemon() async {
+    try {
+      await ref.read(localDaemonProvider).dispose();
+    } on Object catch (e) {
+      // Quitting must go on; a daemon that cannot be stopped is left to its
+      // own shutdown. The log may not be up either.
+      try {
+        ref.read(appLoggerProvider).warning('stopping the daemon failed: $e');
+      } on Object {
+        // Nothing more to do.
+      }
+    }
   }
 
   @override
   void dispose() {
+    _lifecycle?.dispose();
     for (final s in _subs) {
       unawaited(s.cancel());
     }
@@ -215,7 +241,12 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     final tray = ref.read(trayProvider);
     final window = ref.read(windowControlProvider);
     // Without an icon to bring the window back from, closing quits.
-    await (tray.visible ? window.hide() : window.quit());
+    if (tray.visible) {
+      await window.hide();
+      return;
+    }
+    await _releaseDaemon();
+    await window.quit();
   }
 
   void _onTray(String id) {
@@ -232,7 +263,10 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
       case TrayIds.resumeAll:
         unawaited(_quietly(actions.resumeAll));
       case TrayIds.quit:
-        unawaited(window.quit());
+        unawaited(() async {
+          await _releaseDaemon();
+          await window.quit();
+        }());
     }
   }
 

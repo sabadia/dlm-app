@@ -36,7 +36,8 @@ trap 'rm -rf "$work"' EXIT
 [ -n "${SKIP_BUILD:-}" ] || echo "==> building DLM $version ($number)" >&2
 if [ -z "${SKIP_BUILD:-}" ]; then
   (cd apps/dlm_app && flutter build macos --release \
-    --build-name "$build_name" --build-number "$number")
+    --build-name "$build_name" --build-number "$number" \
+    --dart-define="DLM_DAEMON_VERSION=${daemon_version#v}")
 fi
 archs="$(lipo -archs "$app_build/Contents/MacOS/DLM")"
 case "$archs" in *arm64*x86_64*|*x86_64*arm64*) ;; *)

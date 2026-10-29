@@ -17,6 +17,11 @@ import 'src/prefs/pref_providers.dart';
 import 'src/secret_token_vault.dart';
 import 'src/shell/app_shell.dart';
 
+/// The daemon release this build ships with (`--dart-define`), or empty.
+const String _bundledDaemonVersion = String.fromEnvironment(
+  'DLM_DAEMON_VERSION',
+);
+
 void main() {
   // Everything, including the binding, starts inside the guarded zone: Flutter
   // insists that the binding and runApp share one.
@@ -57,7 +62,15 @@ void main() {
     final daemon = executable == null
         ? MissingDaemon(locator.candidates())
         : SupervisedDaemon(
-            DaemonSupervisor(executable: executable, home: dirs.daemonHome),
+            DaemonSupervisor(
+              executable: executable,
+              home: dirs.daemonHome,
+              // Set by the packaging scripts: after an update a daemon of an
+              // older version that is still running is replaced.
+              expectedVersion: _bundledDaemonVersion.isEmpty
+                  ? null
+                  : _bundledDaemonVersion,
+            ),
           );
 
     runApp(

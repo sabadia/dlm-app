@@ -18,7 +18,8 @@ bundle="$PWD/apps/dlm_app/build/linux/x64/release/bundle"
 
 if [ -z "${SKIP_BUILD:-}" ]; then
   (cd apps/dlm_app && flutter build linux --release \
-    --build-name "$build_name" --build-number "$number")
+    --build-name "$build_name" --build-number "$number" \
+    --dart-define="DLM_DAEMON_VERSION=${daemon_version#v}")
 fi
 test -x "$bundle/dlm_app" || { echo "no build in $bundle" >&2; exit 1; }
 
