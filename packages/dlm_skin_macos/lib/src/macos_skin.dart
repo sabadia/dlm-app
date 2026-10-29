@@ -10,8 +10,8 @@ class MacosSkin extends DlmSkin {
   /// Creates the macOS skin.
   const MacosSkin();
 
-  /// The system blue used when the OS reports no accent.
-  static const Color defaultAccent = Color(0xFF007AFF);
+  /// The accent used when the OS reports none: the brand accent.
+  static const Color defaultAccent = dlmBrandAccent;
 
   @override
   String get id => 'macos';

@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1881b-c79a-711c-ac26-b6f754dabe62
+status: draft
+created_at: '2026-10-29T14:41:24Z'
+updated_at: '2026-10-29T14:41:24Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.17: brand accent only when the OS reports none, a stored custom accent shown as Custom colour, accent comment fixed'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/theme/colors.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/preferences_screen.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

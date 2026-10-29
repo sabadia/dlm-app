@@ -1867,6 +1867,8 @@
   "pref_theme_dark": "Dark",
   "pref_accent": "Accent colour",
   "pref_accent_default": "The system's",
+  "pref_accent_indigo": "DLM indigo",
+  "pref_accent_custom": "Custom colour",
   "pref_accent_blue": "Blue",
   "pref_accent_green": "Green",
   "pref_accent_orange": "Orange",

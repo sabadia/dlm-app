@@ -12,8 +12,8 @@ class FluentSkin extends DlmSkin {
   /// Creates the Windows Fluent skin.
   const FluentSkin();
 
-  /// The accent used when the system reports none.
-  static const Color defaultAccent = Color(0xFF0078D4);
+  /// The accent used when the OS reports none: the brand accent.
+  static const Color defaultAccent = dlmBrandAccent;
 
   @override
   String get id => 'fluent';

@@ -3142,6 +3142,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pref_accent_default => 'The system\'s';
 
   @override
+  String get pref_accent_indigo => 'DLM indigo';
+
+  @override
+  String get pref_accent_custom => 'Custom colour';
+
+  @override
   String get pref_accent_blue => 'Blue';
 
   @override

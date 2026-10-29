@@ -5290,6 +5290,18 @@ abstract class AppLocalizations {
   /// **'The system\'s'**
   String get pref_accent_default;
 
+  /// No description provided for @pref_accent_indigo.
+  ///
+  /// In en, this message translates to:
+  /// **'DLM indigo'**
+  String get pref_accent_indigo;
+
+  /// No description provided for @pref_accent_custom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom colour'**
+  String get pref_accent_custom;
+
   /// No description provided for @pref_accent_blue.
   ///
   /// In en, this message translates to:

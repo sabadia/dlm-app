@@ -3,6 +3,10 @@ import 'dart:ui';
 import 'contrast.dart';
 import 'token_value.dart';
 
+/// The brand accent: used by every skin when the operating system reports no
+/// accent of its own (and never over one it does report).
+const Color dlmBrandAccent = Color(0xFF4F5BD5);
+
 /// Semantic colour roles. Widgets use roles, never literal colours.
 ///
 /// The five surfaces are always opaque: a skin whose sidebar is translucent
