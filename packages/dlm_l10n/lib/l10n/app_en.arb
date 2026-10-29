@@ -1837,11 +1837,7 @@
   "ac_secret_gone": "The token is not shown again",
   "ac_nh_title": "Browser extension",
   "ac_nh_desc": "The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.",
-  "ac_nh_origins": "Allowed extensions",
-  "ac_nh_no_origins": "None yet",
   "ac_nh_error": "The extension host cannot be managed from here.",
-  "ac_nh_ids": "Extension IDs",
-  "ac_nh_ids_desc": "Separated by commas or spaces. Needed to install.",
   "ac_nh_install": "Install for all browsers",
   "ac_nh_remove": "Remove",
   "ac_nh_done": "{count, plural, one{Done for 1 browser} other{Done for {count} browsers}}",
@@ -1937,21 +1933,27 @@
   "ab_available": "{version} is available",
   "@ab_available": {
     "placeholders": {
-      "version": {"type": "String"}
+      "version": {
+        "type": "String"
+      }
     }
   },
   "ab_open_release": "Open the release",
   "ab_available_brew": "{version} is available. Installed with Homebrew: run brew upgrade dlm-app",
   "@ab_available_brew": {
     "placeholders": {
-      "version": {"type": "String"}
+      "version": {
+        "type": "String"
+      }
     }
   },
   "ab_check_failed": "The update check did not succeed.",
   "pref_shortcuts_conflict": "Already used by {command}",
   "@pref_shortcuts_conflict": {
     "placeholders": {
-      "command": {"type": "String"}
+      "command": {
+        "type": "String"
+      }
     }
   },
   "pref_startup": "Startup",
@@ -2070,5 +2072,69 @@
   },
   "ev_current_error": "Failed",
   "ev_none": "Nothing has happened to this download since the app connected.",
-  "ev_note": "This is what the app has seen since it connected; the daemon does not keep a longer history."
+  "ev_note": "This is what the app has seen since it connected; the daemon does not keep a longer history.",
+  "pair_title": "Allow a browser extension?",
+  "pair_message": "{name} ({browser}) wants to connect to DLM so it can hand downloads to it. Allow it only if the code below is the one the extension shows.",
+  "@pair_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "browser": {
+        "type": "String"
+      }
+    }
+  },
+  "pair_code_label": "Code",
+  "pair_allow": "Allow",
+  "pair_deny": "Deny",
+  "pair_allowed": "{name} can now send downloads to DLM",
+  "@pair_allowed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pair_denied": "{name} was refused",
+  "@pair_denied": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pair_notification": "A browser extension wants to connect",
+  "ac_ext_title": "Browser extensions",
+  "ac_ext_desc": "The extensions you allowed to send downloads to DLM. Revoking one ends its access at once and affects nothing else.",
+  "ac_ext_none": "No extension is paired yet. Install the DLM extension in your browser and choose Connect in it.",
+  "ac_ext_info": "{browser} {version}",
+  "@ac_ext_info": {
+    "placeholders": {
+      "browser": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_ext_revoke": "Revoke {name}",
+  "@ac_ext_revoke": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_ext_revoked": "{name} was revoked",
+  "@ac_ext_revoked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "ac_nh_browsers": "Register the extension with",
+  "ac_nh_note": "The published DLM extension is always accepted; nothing has to be typed."
 }

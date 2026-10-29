@@ -5155,35 +5155,11 @@ abstract class AppLocalizations {
   /// **'The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.'**
   String get ac_nh_desc;
 
-  /// No description provided for @ac_nh_origins.
-  ///
-  /// In en, this message translates to:
-  /// **'Allowed extensions'**
-  String get ac_nh_origins;
-
-  /// No description provided for @ac_nh_no_origins.
-  ///
-  /// In en, this message translates to:
-  /// **'None yet'**
-  String get ac_nh_no_origins;
-
   /// No description provided for @ac_nh_error.
   ///
   /// In en, this message translates to:
   /// **'The extension host cannot be managed from here.'**
   String get ac_nh_error;
-
-  /// No description provided for @ac_nh_ids.
-  ///
-  /// In en, this message translates to:
-  /// **'Extension IDs'**
-  String get ac_nh_ids;
-
-  /// No description provided for @ac_nh_ids_desc.
-  ///
-  /// In en, this message translates to:
-  /// **'Separated by commas or spaces. Needed to install.'**
-  String get ac_nh_ids_desc;
 
   /// No description provided for @ac_nh_install.
   ///
@@ -6018,6 +5994,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This is what the app has seen since it connected; the daemon does not keep a longer history.'**
   String get ev_note;
+
+  /// No description provided for @pair_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow a browser extension?'**
+  String get pair_title;
+
+  /// No description provided for @pair_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} ({browser}) wants to connect to DLM so it can hand downloads to it. Allow it only if the code below is the one the extension shows.'**
+  String pair_message(String name, String browser);
+
+  /// No description provided for @pair_code_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Code'**
+  String get pair_code_label;
+
+  /// No description provided for @pair_allow.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow'**
+  String get pair_allow;
+
+  /// No description provided for @pair_deny.
+  ///
+  /// In en, this message translates to:
+  /// **'Deny'**
+  String get pair_deny;
+
+  /// No description provided for @pair_allowed.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} can now send downloads to DLM'**
+  String pair_allowed(String name);
+
+  /// No description provided for @pair_denied.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} was refused'**
+  String pair_denied(String name);
+
+  /// No description provided for @pair_notification.
+  ///
+  /// In en, this message translates to:
+  /// **'A browser extension wants to connect'**
+  String get pair_notification;
+
+  /// No description provided for @ac_ext_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser extensions'**
+  String get ac_ext_title;
+
+  /// No description provided for @ac_ext_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The extensions you allowed to send downloads to DLM. Revoking one ends its access at once and affects nothing else.'**
+  String get ac_ext_desc;
+
+  /// No description provided for @ac_ext_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No extension is paired yet. Install the DLM extension in your browser and choose Connect in it.'**
+  String get ac_ext_none;
+
+  /// No description provided for @ac_ext_info.
+  ///
+  /// In en, this message translates to:
+  /// **'{browser} {version}'**
+  String ac_ext_info(String browser, String version);
+
+  /// No description provided for @ac_ext_revoke.
+  ///
+  /// In en, this message translates to:
+  /// **'Revoke {name}'**
+  String ac_ext_revoke(String name);
+
+  /// No description provided for @ac_ext_revoked.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} was revoked'**
+  String ac_ext_revoked(String name);
+
+  /// No description provided for @ac_nh_browsers.
+  ///
+  /// In en, this message translates to:
+  /// **'Register the extension with'**
+  String get ac_nh_browsers;
+
+  /// No description provided for @ac_nh_note.
+  ///
+  /// In en, this message translates to:
+  /// **'The published DLM extension is always accepted; nothing has to be typed.'**
+  String get ac_nh_note;
 }
 
 class _AppLocalizationsDelegate

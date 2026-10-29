@@ -8,6 +8,12 @@ import 'action_cancelled_data.dart';
 import 'limits_changed_data.dart';
 import 'limits_changed_event.dart';
 import 'limits_changed_event_type.dart';
+import 'pairing_requested_data.dart';
+import 'pairing_requested_event.dart';
+import 'pairing_requested_event_type.dart';
+import 'pairing_resolved_data.dart';
+import 'pairing_resolved_event.dart';
+import 'pairing_resolved_event_type.dart';
 import 'progress_data.dart';
 import 'queue.dart';
 import 'queue_action_cancelled_event.dart';
@@ -27,6 +33,7 @@ import 'quota_exhausted_event_type.dart';
 import 'quota_reset_event.dart';
 import 'quota_reset_event_type.dart';
 import 'refresh_attempt.dart';
+import 'refresh_requested_data.dart';
 import 'resource_changed_data.dart';
 import 'resource_changed_event.dart';
 import 'resource_changed_event_type.dart';
@@ -46,6 +53,8 @@ import 'task_progress_event.dart';
 import 'task_progress_event_type.dart';
 import 'task_refresh_event.dart';
 import 'task_refresh_event_type.dart';
+import 'task_refresh_requested_event.dart';
+import 'task_refresh_requested_event_type.dart';
 import 'task_status_event.dart';
 import 'task_status_event_type.dart';
 import 'task_updated_event.dart';
@@ -72,6 +81,8 @@ extension StreamEventSealedDeserializer on StreamEvent {
   }) {
     final mappingFallback = const <Type, Object?>{
       StreamEventLimitsChangedEvent: 'limits.changed',
+      StreamEventPairingRequestedEvent: 'pairing.requested',
+      StreamEventPairingResolvedEvent: 'pairing.resolved',
       StreamEventQueueActionCancelledEvent: 'queue.action_cancelled',
       StreamEventQueueCompletedEvent: 'queue.completed',
       StreamEventQueueCreatedEvent: 'queue.created',
@@ -86,6 +97,7 @@ extension StreamEventSealedDeserializer on StreamEvent {
       StreamEventTaskDeletedEvent: 'task.deleted',
       StreamEventTaskProgressEvent: 'task.progress',
       StreamEventTaskRefreshEvent: 'task.refresh',
+      StreamEventTaskRefreshRequestedEvent: 'task.refresh.requested',
       StreamEventTaskStatusEvent: 'task.status',
       StreamEventTaskUpdatedEvent: 'task.updated',
     };
@@ -94,6 +106,10 @@ extension StreamEventSealedDeserializer on StreamEvent {
     return switch (value) {
       _ when value == effective[StreamEventLimitsChangedEvent] =>
         StreamEventLimitsChangedEvent.fromJson(json),
+      _ when value == effective[StreamEventPairingRequestedEvent] =>
+        StreamEventPairingRequestedEvent.fromJson(json),
+      _ when value == effective[StreamEventPairingResolvedEvent] =>
+        StreamEventPairingResolvedEvent.fromJson(json),
       _ when value == effective[StreamEventQueueActionCancelledEvent] =>
         StreamEventQueueActionCancelledEvent.fromJson(json),
       _ when value == effective[StreamEventQueueCompletedEvent] =>
@@ -122,6 +138,8 @@ extension StreamEventSealedDeserializer on StreamEvent {
         StreamEventTaskProgressEvent.fromJson(json),
       _ when value == effective[StreamEventTaskRefreshEvent] =>
         StreamEventTaskRefreshEvent.fromJson(json),
+      _ when value == effective[StreamEventTaskRefreshRequestedEvent] =>
+        StreamEventTaskRefreshRequestedEvent.fromJson(json),
       _ when value == effective[StreamEventTaskStatusEvent] =>
         StreamEventTaskStatusEvent.fromJson(json),
       _ when value == effective[StreamEventTaskUpdatedEvent] =>
@@ -163,6 +181,73 @@ class StreamEventLimitsChangedEvent extends StreamEvent
 
   @override
   Map<String, dynamic> toJson() => _$StreamEventLimitsChangedEventToJson(this);
+}
+
+@JsonSerializable()
+class StreamEventPairingRequestedEvent extends StreamEvent
+    implements PairingRequestedEvent {
+  @override
+  final PairingRequestedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final PairingRequestedEventType type;
+
+  const StreamEventPairingRequestedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventPairingRequestedEvent.fromJson(
+    Map<String, dynamic> json,
+  ) => _$StreamEventPairingRequestedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$StreamEventPairingRequestedEventToJson(this);
+}
+
+@JsonSerializable()
+class StreamEventPairingResolvedEvent extends StreamEvent
+    implements PairingResolvedEvent {
+  @override
+  final PairingResolvedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final PairingResolvedEventType type;
+
+  const StreamEventPairingResolvedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventPairingResolvedEvent.fromJson(Map<String, dynamic> json) =>
+      _$StreamEventPairingResolvedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$StreamEventPairingResolvedEventToJson(this);
 }
 
 @JsonSerializable()
@@ -615,6 +700,40 @@ class StreamEventTaskRefreshEvent extends StreamEvent
 
   @override
   Map<String, dynamic> toJson() => _$StreamEventTaskRefreshEventToJson(this);
+}
+
+@JsonSerializable()
+class StreamEventTaskRefreshRequestedEvent extends StreamEvent
+    implements TaskRefreshRequestedEvent {
+  @override
+  final RefreshRequestedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final TaskRefreshRequestedEventType type;
+
+  const StreamEventTaskRefreshRequestedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventTaskRefreshRequestedEvent.fromJson(
+    Map<String, dynamic> json,
+  ) => _$StreamEventTaskRefreshRequestedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$StreamEventTaskRefreshRequestedEventToJson(this);
 }
 
 @JsonSerializable()

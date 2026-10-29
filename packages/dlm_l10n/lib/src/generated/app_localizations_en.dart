@@ -3062,20 +3062,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'The extension talks to the download service through a native host that is registered with each browser. Installing works only on the computer the daemon runs on.';
 
   @override
-  String get ac_nh_origins => 'Allowed extensions';
-
-  @override
-  String get ac_nh_no_origins => 'None yet';
-
-  @override
   String get ac_nh_error => 'The extension host cannot be managed from here.';
-
-  @override
-  String get ac_nh_ids => 'Extension IDs';
-
-  @override
-  String get ac_nh_ids_desc =>
-      'Separated by commas or spaces. Needed to install.';
 
   @override
   String get ac_nh_install => 'Install for all browsers';
@@ -3556,6 +3543,69 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ev_note =>
       'This is what the app has seen since it connected; the daemon does not keep a longer history.';
+
+  @override
+  String get pair_title => 'Allow a browser extension?';
+
+  @override
+  String pair_message(String name, String browser) {
+    return '$name ($browser) wants to connect to DLM so it can hand downloads to it. Allow it only if the code below is the one the extension shows.';
+  }
+
+  @override
+  String get pair_code_label => 'Code';
+
+  @override
+  String get pair_allow => 'Allow';
+
+  @override
+  String get pair_deny => 'Deny';
+
+  @override
+  String pair_allowed(String name) {
+    return '$name can now send downloads to DLM';
+  }
+
+  @override
+  String pair_denied(String name) {
+    return '$name was refused';
+  }
+
+  @override
+  String get pair_notification => 'A browser extension wants to connect';
+
+  @override
+  String get ac_ext_title => 'Browser extensions';
+
+  @override
+  String get ac_ext_desc =>
+      'The extensions you allowed to send downloads to DLM. Revoking one ends its access at once and affects nothing else.';
+
+  @override
+  String get ac_ext_none =>
+      'No extension is paired yet. Install the DLM extension in your browser and choose Connect in it.';
+
+  @override
+  String ac_ext_info(String browser, String version) {
+    return '$browser $version';
+  }
+
+  @override
+  String ac_ext_revoke(String name) {
+    return 'Revoke $name';
+  }
+
+  @override
+  String ac_ext_revoked(String name) {
+    return '$name was revoked';
+  }
+
+  @override
+  String get ac_nh_browsers => 'Register the extension with';
+
+  @override
+  String get ac_nh_note =>
+      'The published DLM extension is always accepted; nothing has to be typed.';
 }
 
 /// The translations for English (`en_XA`).
@@ -6652,21 +6702,8 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
       '[Thé éxtéñšîôñ tàlkš tô thé dôwñlôàd šérvîçé thrôûgh à ñàtîvé hôšt thàt îš régîštéréd wîth éàçh brôwšér. Îñštàllîñg wôrkš ôñlý ôñ thé çômpûtér thé dàémôñ rûñš ôñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
 
   @override
-  String get ac_nh_origins => '[Âllôwéd éxtéñšîôñš~~~~~~]';
-
-  @override
-  String get ac_nh_no_origins => '[Ñôñé ýét~~~]';
-
-  @override
   String get ac_nh_error =>
       '[Thé éxtéñšîôñ hôšt çàññôt bé màñàgéd frôm héré.~~~~~~~~~~~~~~~]';
-
-  @override
-  String get ac_nh_ids => '[Éxtéñšîôñ ÎDš~~~~]';
-
-  @override
-  String get ac_nh_ids_desc =>
-      '[Šépàràtéd bý çômmàš ôr špàçéš. Ñéédéd tô îñštàll.~~~~~~~~~~~~~~~]';
 
   @override
   String get ac_nh_install => '[Îñštàll fôr àll brôwšérš~~~~~~~~]';
@@ -6955,6 +6992,11 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   String get ab_open_release => '[Ôpéñ thé réléàšé~~~~~]';
 
   @override
+  String ab_available_brew(String version) {
+    return '[$version îš àvàîlàblé. Îñštàlléd wîth Hômébréw: rûñ bréw ûpgràdé dlm-àpp~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
   String get ab_check_failed => '[Thé ûpdàté çhéçk dîd ñôt šûççééd.~~~~~~~~~~]';
 
   @override
@@ -7149,4 +7191,68 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   @override
   String get ev_note =>
       '[Thîš îš whàt thé àpp hàš šééñ šîñçé ît çôññéçtéd; thé dàémôñ dôéš ñôt kéép à lôñgér hîštôrý.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pair_title => '[Âllôw à brôwšér éxtéñšîôñ?~~~~~~~~]';
+
+  @override
+  String pair_message(String name, String browser) {
+    return '[$name ($browser) wàñtš tô çôññéçt tô DLM šô ît çàñ hàñd dôwñlôàdš tô ît. Âllôw ît ôñlý îf thé çôdé bélôw îš thé ôñé thé éxtéñšîôñ šhôwš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get pair_code_label => '[Çôdé~~]';
+
+  @override
+  String get pair_allow => '[Âllôw~~]';
+
+  @override
+  String get pair_deny => '[Déñý~~]';
+
+  @override
+  String pair_allowed(String name) {
+    return '[$name çàñ ñôw šéñd dôwñlôàdš tô DLM~~~~~~~~~~~]';
+  }
+
+  @override
+  String pair_denied(String name) {
+    return '[$name wàš réfûšéd~~~~~~]';
+  }
+
+  @override
+  String get pair_notification =>
+      '[Â brôwšér éxtéñšîôñ wàñtš tô çôññéçt~~~~~~~~~~~]';
+
+  @override
+  String get ac_ext_title => '[Brôwšér éxtéñšîôñš~~~~~~]';
+
+  @override
+  String get ac_ext_desc =>
+      '[Thé éxtéñšîôñš ýôû àllôwéd tô šéñd dôwñlôàdš tô DLM. Révôkîñg ôñé éñdš îtš àççéšš àt ôñçé àñd àfféçtš ñôthîñg élšé.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_ext_none =>
+      '[Ñô éxtéñšîôñ îš pàîréd ýét. Îñštàll thé DLM éxtéñšîôñ îñ ýôûr brôwšér àñd çhôôšé Çôññéçt îñ ît.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String ac_ext_info(String browser, String version) {
+    return '[$browser $version~~~~~~]';
+  }
+
+  @override
+  String ac_ext_revoke(String name) {
+    return '[Révôké $name~~~~]';
+  }
+
+  @override
+  String ac_ext_revoked(String name) {
+    return '[$name wàš révôkéd~~~~~~]';
+  }
+
+  @override
+  String get ac_nh_browsers => '[Régîštér thé éxtéñšîôñ wîth~~~~~~~~~]';
+
+  @override
+  String get ac_nh_note =>
+      '[Thé pûblîšhéd DLM éxtéñšîôñ îš àlwàýš àççéptéd; ñôthîñg hàš tô bé týpéd.~~~~~~~~~~~~~~~~~~~~~~]';
 }

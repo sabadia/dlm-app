@@ -4,13 +4,17 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-/// admin may do everything; read may only read (GET), and not cookie exports, the token list or MCP.
+/// admin may do everything; read may only read (GET), and not cookie exports, the token list or MCP; extension (a paired browser extension) may hand downloads to the daemon and follow them, and nothing else.
 @JsonEnum()
 enum WhoAmIScope {
   @JsonValue('admin')
   admin('admin'),
   @JsonValue('read')
   read('read'),
+
+  /// The name has been replaced because it contains a keyword. Original name: `extension`.
+  @JsonValue('extension')
+  valueExtension('extension'),
 
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);

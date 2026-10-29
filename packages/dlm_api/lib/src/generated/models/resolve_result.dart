@@ -5,6 +5,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'duplicate_hint.dart';
+import 'format.dart';
 import 'resource.dart';
 import 'source.dart';
 
@@ -21,6 +22,7 @@ class ResolveResult {
     required this.source,
     this.schema,
     this.duplicateOf,
+    this.formats,
   });
 
   factory ResolveResult.fromJson(Map<String, Object?> json) =>
@@ -33,6 +35,7 @@ class ResolveResult {
   final DuplicateHint? duplicateOf;
   final String engine;
   final DateTime expiresAt;
+  final List<Format>? formats;
   final String name;
   final String resolveId;
   final Resource resource;

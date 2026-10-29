@@ -27,5 +27,6 @@ Map<String, dynamic> _$WhoAmIToJson(WhoAmI instance) => <String, dynamic>{
 const _$WhoAmIScopeEnumMap = {
   WhoAmIScope.admin: 'admin',
   WhoAmIScope.read: 'read',
+  WhoAmIScope.valueExtension: 'extension',
   WhoAmIScope.$unknown: r'$unknown',
 };

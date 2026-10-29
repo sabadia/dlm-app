@@ -33,7 +33,7 @@ class WhoAmI {
   final String name;
   final bool primary;
 
-  /// admin may do everything; read may only read (GET), and not cookie exports, the token list or MCP.
+  /// admin may do everything; read may only read (GET), and not cookie exports, the token list or MCP; extension (a paired browser extension) may hand downloads to the daemon and follow them, and nothing else.
   final WhoAmIScope scope;
 
   /// Whether the connection is encrypted.

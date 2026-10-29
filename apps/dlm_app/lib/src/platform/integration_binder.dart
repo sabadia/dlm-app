@@ -13,6 +13,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../about/diagnostics_providers.dart';
 import '../connection/connection_controller.dart';
 import '../format/dlm_format.dart';
+import '../pairing/pairing_dialog.dart';
+import '../pairing/pairing_requests.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
 import '../shell/shell_state.dart';
@@ -62,6 +64,9 @@ abstract final class NotifyIds {
 
   /// The category of a queue that ran out of work.
   static const queue = 'queue';
+
+  /// The category of a browser extension that asks to connect.
+  static const pairing = 'pairing';
 }
 
 /// The buttons per notification category, which macOS needs at start-up.
@@ -165,6 +170,15 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
         (_, store) => _watchTasks(store),
         fireImmediately: true,
       )
+      ..listenManual(pairingRequestsProvider, (previous, next) {
+        // An extension that asks to connect needs an answer: bring the window
+        // forward, where the prompt is, and tell the system.
+        final before = {for (final p in previous ?? const <Pairing>[]) p.id};
+        if (next.any((p) => !before.contains(p.id))) {
+          unawaited(window.show());
+          unawaited(_announcePairing(next.last));
+        }
+      })
       ..listenManual(pendingQueueActionsProvider, (previous, next) {
         final before = previous?.keys.toSet() ?? const {};
         for (final entry in next.entries) {
@@ -320,6 +334,26 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     }
     try {
       await ref.read(notifierProvider).show(note);
+    } on Object catch (e) {
+      ref.read(appLoggerProvider).warning('notification failed: $e');
+    }
+  }
+
+  Future<void> _announcePairing(Pairing p) async {
+    if (!mounted) return;
+    final l = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(notifierProvider)
+          .show(
+            AppNotification(
+              id: p.id.hashCode,
+              title: l.pair_notification,
+              body: '${p.name} · ${spacedCode(p.code)}',
+              category: NotifyIds.pairing,
+              payload: p.id,
+            ),
+          );
     } on Object catch (e) {
       ref.read(appLoggerProvider).warning('notification failed: $e');
     }

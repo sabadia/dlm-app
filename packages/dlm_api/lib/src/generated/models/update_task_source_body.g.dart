@@ -34,6 +34,9 @@ UpdateTaskSourceBody _$UpdateTaskSourceBodyFromJson(
       : UpdateTaskSourceBodyResolverKind.fromJson(
           json['resolverKind'] as String,
         ),
+  streamKind: json['streamKind'] == null
+      ? null
+      : UpdateTaskSourceBodyStreamKind.fromJson(json['streamKind'] as String),
   userAgent: json['userAgent'] as String?,
 );
 
@@ -54,6 +57,7 @@ Map<String, dynamic> _$UpdateTaskSourceBodyToJson(
   'referrer': instance.referrer,
   'resolverKind':
       _$UpdateTaskSourceBodyResolverKindEnumMap[instance.resolverKind],
+  'streamKind': _$UpdateTaskSourceBodyStreamKindEnumMap[instance.streamKind],
   'userAgent': instance.userAgent,
 };
 
@@ -69,4 +73,10 @@ const _$UpdateTaskSourceBodyResolverKindEnumMap = {
   UpdateTaskSourceBodyResolverKind.ytdlp: 'ytdlp',
   UpdateTaskSourceBodyResolverKind.plugin: 'plugin',
   UpdateTaskSourceBodyResolverKind.$unknown: r'$unknown',
+};
+
+const _$UpdateTaskSourceBodyStreamKindEnumMap = {
+  UpdateTaskSourceBodyStreamKind.hls: 'hls',
+  UpdateTaskSourceBodyStreamKind.dash: 'dash',
+  UpdateTaskSourceBodyStreamKind.$unknown: r'$unknown',
 };

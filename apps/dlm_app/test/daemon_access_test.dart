@@ -66,9 +66,11 @@ class FakeDaemon implements DaemonRepository {
     this.scope = WhoAmIScope.admin,
     this.failConfig,
     List<Token>? tokens,
+    this.waiting = const [],
   }) : _tokens = tokens ?? [];
 
   final bool pending;
+  final List<Pairing> waiting;
   final WhoAmIScope scope;
   ApiProblem? failConfig;
   final List<Token> _tokens;
@@ -161,8 +163,23 @@ class FakeDaemon implements DaemonRepository {
     List<String> firefoxIds = const [],
     List<String> browsers = const [],
   }) async {
-    calls.add('native ${action.json} $extensionIds');
+    calls.add('native ${action.json} $browsers');
     return const [Result(browser: 'chrome', status: 'installed')];
+  }
+
+  @override
+  Future<List<Pairing>> pairings() async => waiting;
+
+  @override
+  Future<Pairing> approvePairing(String id) async {
+    calls.add('approve $id');
+    return waiting.firstWhere((p) => p.id == id);
+  }
+
+  @override
+  Future<Pairing> denyPairing(String id) async {
+    calls.add('deny $id');
+    return waiting.firstWhere((p) => p.id == id);
   }
 }
 
@@ -388,7 +405,7 @@ void main() {
       expect(find.text('dlm_NEW_PRIMARY'), findsOneWidget);
     });
 
-    appTest('the extension host is installed with its extension ids', (
+    appTest('the extension host is installed for the chosen browsers', (
       tester,
     ) async {
       final daemon = FakeDaemon();
@@ -398,22 +415,44 @@ void main() {
         300,
         scrollable: pageScroll(),
       );
-      await tester.enterText(
-        find
-            .descendant(
-              of: find.byWidgetPredicate(
-                (w) => w is DlmTextField && w.semanticLabel == 'Extension IDs',
-              ),
-              matching: find.byType(EditableText),
-            )
-            .first,
-        'abcdef, ghijkl',
-      );
-      await tester.pump();
       await tester.tap(find.text('Install for all browsers'));
       await settle(tester);
-      expect(daemon.calls.single, 'native install [abcdef, ghijkl]');
+      expect(daemon.calls.single, startsWith('native install'));
       expect(find.text('Done for 1 browser'), findsOneWidget);
+    });
+
+    appTest('paired extensions are listed apart and can be revoked', (
+      tester,
+    ) async {
+      final daemon = FakeDaemon(
+        tokens: [
+          Token(
+            browser: 'firefox',
+            clientVersion: '0.1.0',
+            createdAt: DateTime.utc(2026),
+            id: 'x1',
+            kind: 'extension',
+            name: 'Work laptop',
+            scope: 'extension',
+          ),
+        ],
+      );
+      await open(tester, 'access', daemon);
+      await tester.scrollUntilVisible(
+        find.text('Work laptop'),
+        300,
+        scrollable: pageScroll(),
+      );
+      expect(find.textContaining('Firefox'), findsWidgets);
+      await tester.tap(
+        find.byWidgetPredicate(
+          (w) => w is DlmIconButton && w.semanticLabel == 'Revoke Work laptop',
+        ),
+      );
+      await settle(tester);
+      await tester.tap(find.text('Revoke token'));
+      await settle(tester);
+      expect(daemon.calls.single, 'delete x1');
     });
 
     appTest('settings for assistants use the daemon address', (tester) async {

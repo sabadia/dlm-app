@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../connection/connection_controller.dart';
+import '../pairing/pairing_dialog.dart';
 import '../shell/feedback.dart';
 
 /// Who the app's token says it is.
@@ -43,14 +44,10 @@ class AccessScreen extends ConsumerStatefulWidget {
 }
 
 class _AccessScreenState extends ConsumerState<AccessScreen> {
-  final TextEditingController _extensionIds = TextEditingController();
+  /// The browsers the host is registered with or removed from; all of them
+  /// until the user chooses.
+  final Set<String> _browsers = {};
   bool _busy = false;
-
-  @override
-  void dispose() {
-    _extensionIds.dispose();
-    super.dispose();
-  }
 
   Future<void> _showSecret(String title, String token) async {
     final l = AppLocalizations.of(context);
@@ -138,13 +135,11 @@ class _AccessScreenState extends ConsumerState<AccessScreen> {
     final l = AppLocalizations.of(context);
     setState(() => _busy = true);
     try {
-      final ids = [
-        for (final id in _extensionIds.text.split(RegExp(r'[\s,]+')))
-          if (id.isNotEmpty) id,
-      ];
+      // The published extension's ids are built into the daemon: only the
+      // browsers are chosen here.
       final results = await ref
           .read(daemonRepositoryProvider)
-          .updateNativeHost(action, extensionIds: ids);
+          .updateNativeHost(action, browsers: _browsers.toList());
       ref.invalidate(nativeHostProvider);
       if (!mounted) return;
       final done = results
@@ -177,6 +172,7 @@ class _AccessScreenState extends ConsumerState<AccessScreen> {
     final url = mcpUrl(base);
     final date = DateFormat.yMMMd(l.localeName);
     final canManage = me == null || me.scope == WhoAmIScope.admin;
+    final isLocal = ref.watch(activeProfileProvider).isLocal;
     final claude =
         'claude mcp add --transport http dlm $url \\\n  --header "Authorization: Bearer <token>"';
     final json =
@@ -234,71 +230,119 @@ class _AccessScreenState extends ConsumerState<AccessScreen> {
           ),
         SizedBox(height: theme.metrics.spacing.xs),
         ...tokens.when(
-          data: (list) => list.isEmpty
-              ? [Text(l.ac_tokens_none)]
-              : [
-                  for (final t in list)
-                    DlmListRow(
-                      title: t.name,
-                      subtitle:
-                          '${t.scope == 'read' ? l.ac_scope_read : l.ac_scope_admin} · ${l.ac_created(date.format(t.createdAt.toLocal()))} · ${t.lastUsedAt == null ? l.ac_never_used : l.ac_last_used(date.format(t.lastUsedAt!.toLocal()))}',
-                      leading: const DlmIcon(DlmIconName.key),
-                      trailing: canManage
-                          ? DlmIconButton(
-                              icon: const DlmIcon(DlmIconName.trash),
-                              semanticLabel: l.ac_delete(t.name),
-                              size: DlmControlSize.small,
-                              onPressed: () => unawaited(_deleteToken(t)),
-                            )
-                          : null,
-                    ),
-                ],
+          data: (all) {
+            final list = [
+              for (final t in all)
+                if (t.kind != 'extension') t,
+            ];
+            return list.isEmpty
+                ? [Text(l.ac_tokens_none)]
+                : [
+                    for (final t in list)
+                      DlmListRow(
+                        title: t.name,
+                        subtitle:
+                            '${t.scope == 'read' ? l.ac_scope_read : l.ac_scope_admin} · ${l.ac_created(date.format(t.createdAt.toLocal()))} · ${t.lastUsedAt == null ? l.ac_never_used : l.ac_last_used(date.format(t.lastUsedAt!.toLocal()))}',
+                        leading: const DlmIcon(DlmIconName.key),
+                        trailing: canManage
+                            ? DlmIconButton(
+                                icon: const DlmIcon(DlmIconName.trash),
+                                semanticLabel: l.ac_delete(t.name),
+                                size: DlmControlSize.small,
+                                onPressed: () => unawaited(_deleteToken(t)),
+                              )
+                            : null,
+                      ),
+                  ];
+          },
           loading: () => [DlmLoadingState(label: l.list_loading)],
           error: (e, _) => [
             DlmBanner(tone: DlmTone.danger, message: l.ac_tokens_error),
           ],
         ),
+        if (isLocal) ...[
+          gap,
+          Text(l.ac_ext_title, style: theme.typography.subtitle),
+          Text(
+            l.ac_ext_desc,
+            style: theme.typography.caption.copyWith(
+              color: theme.colors.textSecondary,
+            ),
+          ),
+          SizedBox(height: theme.metrics.spacing.xs),
+          ...tokens.when(
+            data: (all) {
+              final exts = [
+                for (final t in all)
+                  if (t.kind == 'extension') t,
+              ];
+              return exts.isEmpty
+                  ? [Text(l.ac_ext_none)]
+                  : [
+                      for (final t in exts)
+                        DlmListRow(
+                          title: t.name,
+                          subtitle:
+                              '${l.ac_ext_info(browserName(t.browser ?? ''), t.clientVersion ?? '')} · ${l.ac_created(date.format(t.createdAt.toLocal()))} · ${t.lastUsedAt == null ? l.ac_never_used : l.ac_last_used(date.format(t.lastUsedAt!.toLocal()))}',
+                          leading: const DlmIcon(DlmIconName.plugin),
+                          trailing: canManage
+                              ? DlmIconButton(
+                                  icon: const DlmIcon(DlmIconName.trash),
+                                  semanticLabel: l.ac_ext_revoke(t.name),
+                                  size: DlmControlSize.small,
+                                  onPressed: () => unawaited(_deleteToken(t)),
+                                )
+                              : null,
+                        ),
+                    ];
+            },
+            loading: () => [DlmLoadingState(label: l.list_loading)],
+            error: (e, _) => [
+              DlmBanner(tone: DlmTone.danger, message: l.ac_tokens_error),
+            ],
+          ),
+        ],
         gap,
         DlmFormGroup(
           title: l.ac_nh_title,
-          footer: l.ac_nh_desc,
+          footer: '${l.ac_nh_desc} ${l.ac_nh_note}',
           children: [
             ...host.when(
               data: (s) => [
                 for (final b in s.browsers ?? const <Result>[])
                   DlmFormRow(
-                    label: b.browser,
-                    control: DlmBadge(
-                      label: b.status,
-                      tone: b.status == 'installed'
-                          ? DlmTone.success
-                          : DlmTone.neutral,
+                    label: browserName(b.browser),
+                    control: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        DlmBadge(
+                          label: b.status,
+                          tone: b.status == 'installed'
+                              ? DlmTone.success
+                              : DlmTone.neutral,
+                        ),
+                        SizedBox(width: theme.metrics.spacing.md),
+                        DlmCheckbox(
+                          value: _browsers.contains(b.browser)
+                              ? DlmCheckState.checked
+                              : DlmCheckState.unchecked,
+                          semanticLabel: l.ac_nh_browsers,
+                          onChanged: (v) => setState(() {
+                            if (v == DlmCheckState.checked) {
+                              _browsers.add(b.browser);
+                            } else {
+                              _browsers.remove(b.browser);
+                            }
+                          }),
+                        ),
+                      ],
                     ),
                   ),
-                DlmFormRow(
-                  label: l.ac_nh_origins,
-                  control: Text(
-                    (s.allowedOrigins ?? const []).isEmpty
-                        ? l.ac_nh_no_origins
-                        : s.allowedOrigins!.join(', '),
-                  ),
-                ),
               ],
               loading: () => [DlmLoadingState(label: l.list_loading)],
               error: (e, _) => [
                 DlmBanner(tone: DlmTone.warning, message: l.ac_nh_error),
               ],
-            ),
-            DlmFormRow(
-              label: l.ac_nh_ids,
-              description: l.ac_nh_ids_desc,
-              control: SizedBox(
-                width: 360,
-                child: DlmTextField(
-                  controller: _extensionIds,
-                  semanticLabel: l.ac_nh_ids,
-                ),
-              ),
             ),
           ],
         ),

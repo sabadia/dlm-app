@@ -28,6 +28,7 @@ Source _$SourceFromJson(Map<String, dynamic> json) => Source(
   redirectUrl: json['redirectUrl'] as String?,
   referrer: json['referrer'] as String?,
   resolverKind: json['resolverKind'] as String?,
+  streamKind: json['streamKind'] as String?,
   userAgent: json['userAgent'] as String?,
 );
 
@@ -45,5 +46,6 @@ Map<String, dynamic> _$SourceToJson(Source instance) => <String, dynamic>{
   'redirectUrl': instance.redirectUrl,
   'referrer': instance.referrer,
   'resolverKind': instance.resolverKind,
+  'streamKind': instance.streamKind,
   'userAgent': instance.userAgent,
 };

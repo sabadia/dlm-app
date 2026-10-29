@@ -14,6 +14,8 @@ import 'package:go_router/go_router.dart';
 import '../add/add_dialog.dart';
 import '../inspector/inspector_pane.dart';
 import '../onboarding/setup_dialog.dart';
+import '../pairing/pairing_dialog.dart';
+import '../pairing/pairing_requests.dart';
 import '../platform/activity.dart';
 import '../platform/clipboard_watch.dart';
 import '../platform/dropped_files.dart';
@@ -65,6 +67,7 @@ class AppShell extends ConsumerStatefulWidget {
 
 class _AppShellState extends ConsumerState<AppShell> {
   final FocusNode _search = FocusNode(debugLabel: 'toolbar search');
+  final Set<String> _prompted = {};
 
   @override
   void initState() {
@@ -76,6 +79,16 @@ class _AppShellState extends ConsumerState<AppShell> {
       notifier.pendingText = null;
       unawaited(showAddDownload(context, ref, initialText: text));
     });
+    // A browser extension asking to connect is put to the user at once.
+    ref.listenManual(pairingRequestsProvider, (previous, next) {
+      if (!mounted) return;
+      final known = {for (final p in previous ?? const <Pairing>[]) p.id};
+      for (final p in next) {
+        if (!known.contains(p.id) && _prompted.add(p.id)) {
+          unawaited(showPairingPrompt(context, ref, p));
+        }
+      }
+    }, fireImmediately: true);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) unawaited(showSetupOnFirstRun(context, ref));
     });

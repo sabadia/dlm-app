@@ -4,7 +4,10 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'capture_body_cookie_scope.dart';
 import 'capture_body_priority.dart';
+import 'capture_body_resolver_kind.dart';
+import 'capture_checksum.dart';
 import 'capture_cookie.dart';
 import 'media_candidate_body.dart';
 import 'settings.dart';
@@ -16,6 +19,9 @@ class CaptureBody {
   const CaptureBody({
     this.schema,
     this.allowDuplicate,
+    this.body,
+    this.checksum,
+    this.cookieScope,
     this.cookies,
     this.dir,
     this.filename,
@@ -23,12 +29,16 @@ class CaptureBody {
     this.headers,
     this.labels,
     this.mediaCandidates,
+    this.method,
     this.mime,
+    this.mirrors,
+    this.name,
     this.pageUrl,
     this.paused,
     this.priority,
     this.queueId,
     this.referrer,
+    this.resolverKind,
     this.settings,
     this.size,
     this.url,
@@ -45,6 +55,15 @@ class CaptureBody {
 
   /// Add the task even when another task has the same link; otherwise it is refused with 409.
   final bool? allowDuplicate;
+
+  /// Request body for a non-GET method, base64; at most 256 KiB.
+  final String? body;
+
+  /// The hash the file should have; the task fails and re-downloads on a mismatch (task setting checksum).
+  final CaptureChecksum? checksum;
+
+  /// task keeps the cookies for this download only (they are not in the cookie store and are removed when the task completes or is deleted, or after 7 days); store adds them to the cookie store like cookies/import. Default: task for a browser-extension token, store for any other.
+  final CaptureBodyCookieScope? cookieScope;
 
   /// Cookies for the download; stored in the cookie store before the task is queued.
   final List<CaptureCookie>? cookies;
@@ -65,8 +84,17 @@ class CaptureBody {
   /// Media found on the page. Selects the download when url is absent; when url equals a candidate its variant, mime and size fill in what the request omits.
   final List<MediaCandidateBody>? mediaCandidates;
 
+  /// HTTP method; default GET. For a form that answers with a file.
+  final String? method;
+
   /// Content type the browser saw.
   final String? mime;
+
+  /// Other http(s) links to the same file.
+  final List<String>? mirrors;
+
+  /// File name for the task; wins over filename.
+  final String? name;
 
   /// Web page the link was found on.
   final String? pageUrl;
@@ -80,6 +108,9 @@ class CaptureBody {
 
   /// Referer the browser sent (default pageUrl).
   final String? referrer;
+
+  /// How the link is turned into a download: direct (a file, the default), ytdlp (a video or audio page yt-dlp can extract) or browser (a page that needs the headless browser).
+  final CaptureBodyResolverKind? resolverKind;
 
   /// Task-level settings overrides.
   final Settings? settings;

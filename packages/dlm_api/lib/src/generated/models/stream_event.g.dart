@@ -36,6 +36,60 @@ const _$LimitsChangedEventTypeEnumMap = {
   LimitsChangedEventType.$unknown: r'$unknown',
 };
 
+StreamEventPairingRequestedEvent _$StreamEventPairingRequestedEventFromJson(
+  Map<String, dynamic> json,
+) => StreamEventPairingRequestedEvent(
+  data: PairingRequestedData.fromJson(json['data'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  queueId: json['queueId'] as String?,
+  taskId: json['taskId'] as String?,
+  time: DateTime.parse(json['time'] as String),
+  type: PairingRequestedEventType.fromJson(json['type'] as String),
+);
+
+Map<String, dynamic> _$StreamEventPairingRequestedEventToJson(
+  StreamEventPairingRequestedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$PairingRequestedEventTypeEnumMap[instance.type]!,
+};
+
+const _$PairingRequestedEventTypeEnumMap = {
+  PairingRequestedEventType.undefined0: 'pairing.requested',
+  PairingRequestedEventType.$unknown: r'$unknown',
+};
+
+StreamEventPairingResolvedEvent _$StreamEventPairingResolvedEventFromJson(
+  Map<String, dynamic> json,
+) => StreamEventPairingResolvedEvent(
+  data: PairingResolvedData.fromJson(json['data'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  queueId: json['queueId'] as String?,
+  taskId: json['taskId'] as String?,
+  time: DateTime.parse(json['time'] as String),
+  type: PairingResolvedEventType.fromJson(json['type'] as String),
+);
+
+Map<String, dynamic> _$StreamEventPairingResolvedEventToJson(
+  StreamEventPairingResolvedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$PairingResolvedEventTypeEnumMap[instance.type]!,
+};
+
+const _$PairingResolvedEventTypeEnumMap = {
+  PairingResolvedEventType.undefined0: 'pairing.resolved',
+  PairingResolvedEventType.$unknown: r'$unknown',
+};
+
 StreamEventQueueActionCancelledEvent
 _$StreamEventQueueActionCancelledEventFromJson(Map<String, dynamic> json) =>
     StreamEventQueueActionCancelledEvent(
@@ -412,6 +466,33 @@ Map<String, dynamic> _$StreamEventTaskRefreshEventToJson(
 const _$TaskRefreshEventTypeEnumMap = {
   TaskRefreshEventType.undefined0: 'task.refresh',
   TaskRefreshEventType.$unknown: r'$unknown',
+};
+
+StreamEventTaskRefreshRequestedEvent
+_$StreamEventTaskRefreshRequestedEventFromJson(Map<String, dynamic> json) =>
+    StreamEventTaskRefreshRequestedEvent(
+      data: RefreshRequestedData.fromJson(json['data'] as Map<String, dynamic>),
+      id: (json['id'] as num).toInt(),
+      queueId: json['queueId'] as String?,
+      taskId: json['taskId'] as String?,
+      time: DateTime.parse(json['time'] as String),
+      type: TaskRefreshRequestedEventType.fromJson(json['type'] as String),
+    );
+
+Map<String, dynamic> _$StreamEventTaskRefreshRequestedEventToJson(
+  StreamEventTaskRefreshRequestedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$TaskRefreshRequestedEventTypeEnumMap[instance.type]!,
+};
+
+const _$TaskRefreshRequestedEventTypeEnumMap = {
+  TaskRefreshRequestedEventType.undefined0: 'task.refresh.requested',
+  TaskRefreshRequestedEventType.$unknown: r'$unknown',
 };
 
 StreamEventTaskStatusEvent _$StreamEventTaskStatusEventFromJson(
