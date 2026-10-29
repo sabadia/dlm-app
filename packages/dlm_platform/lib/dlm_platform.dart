@@ -3,8 +3,10 @@ library;
 
 export 'src/app_dirs.dart';
 export 'src/daemon/daemon_locator.dart';
+export 'src/daemon/daemon_service.dart';
 export 'src/daemon/daemon_supervisor.dart';
 export 'src/daemon/runtime_info.dart';
+export 'src/login_item.dart';
 export 'src/secret_store.dart';
 export 'src/window/backdrop_region.dart';
 export 'src/window/kde_appearance.dart';

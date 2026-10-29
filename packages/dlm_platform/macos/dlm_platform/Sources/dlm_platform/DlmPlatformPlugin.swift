@@ -1,5 +1,6 @@
 import Cocoa
 import FlutterMacOS
+import ServiceManagement
 
 /// Window chrome for the macOS skin: a transparent title bar and a backdrop
 /// effect (NSGlassEffectView on macOS 26+, NSVisualEffectView before) behind a
@@ -75,7 +76,48 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
       object: nil, queue: .main, using: push)
   }
 
+  /// Whether the launch event says the system started the app as a login item.
+  /// Only the event of the launch itself says so, so it is read once at
+  /// registration, which happens during launch.
+  private static let launchedAsLoginItem: Bool = {
+    guard let event = NSAppleEventDescriptor.currentAppleEvent,
+      event.eventID == AEEventID(kAEOpenApplication),
+      let prop = event.paramDescriptor(forKeyword: AEKeyword(keyAEPropData))
+    else { return false }
+    return prop.enumCodeValue == OSType(keyAELaunchedAsLogInItem)
+  }()
+
+  /// Channel `dlm/login_item`: `isEnabled` -> bool, `setEnabled` {enabled: bool},
+  /// `startedAtLogin` -> bool, over `SMAppService.mainApp`.
+  private static func handleLoginItem(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    let service = SMAppService.mainApp
+    switch call.method {
+    case "isEnabled":
+      result(service.status == .enabled)
+    case "setEnabled":
+      let enabled = (call.arguments as? [String: Any])?["enabled"] as? Bool ?? false
+      do {
+        if enabled {
+          try service.register()
+        } else {
+          try service.unregister()
+        }
+        result(nil)
+      } catch {
+        result(
+          FlutterError(code: "login-item", message: error.localizedDescription, details: nil))
+      }
+    case "startedAtLogin":
+      result(launchedAsLoginItem)
+    default:
+      result(FlutterMethodNotImplemented)
+    }
+  }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
+    _ = launchedAsLoginItem
+    FlutterMethodChannel(name: "dlm/login_item", binaryMessenger: registrar.messenger)
+      .setMethodCallHandler(handleLoginItem)
     let channel = FlutterMethodChannel(
       name: "dlm/window_chrome",
       binaryMessenger: registrar.messenger

@@ -6,7 +6,10 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../connection/connection_controller.dart';
+import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
+import '../shell/feedback.dart';
 import '../skin_registry.dart';
 
 /// The accent colours offered, by name; the app's own accent is the default.
@@ -43,6 +46,84 @@ class PreferencesScreen extends ConsumerWidget {
     'breeze' => l.pref_skin_breeze,
     _ => id,
   };
+
+  Future<void> _change(
+    BuildContext context,
+    WidgetRef ref,
+    Future<void> Function() change,
+  ) async {
+    try {
+      await change();
+    } on Object catch (e) {
+      if (context.mounted) showFailure(context, ref, e);
+    }
+  }
+
+  /// Start at login, start hidden, and the daemon's own login item. Only the
+  /// rows this computer can do show: a remote daemon has no login item here.
+  Widget _startupGroup(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final login = ref.watch(loginItemEnabledProvider);
+    final service = ref.watch(daemonServiceStatusProvider);
+    final hidden = ref.watch(startMinimisedProvider);
+    final hasService =
+        ref.watch(daemonServiceProvider) != null &&
+        ref.watch(activeProfileProvider).isLocal;
+    return DlmFormGroup(
+      title: l.pref_startup,
+      children: [
+        DlmFormRow(
+          label: l.pref_login,
+          description: l.pref_login_desc,
+          control: DlmSwitch(
+            value: login.value ?? false,
+            semanticLabel: l.pref_login,
+            onChanged: login.isLoading
+                ? null
+                : (v) => unawaited(
+                    _change(
+                      context,
+                      ref,
+                      () => ref
+                          .read(loginItemEnabledProvider.notifier)
+                          .set(enabled: v),
+                    ),
+                  ),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_start_hidden,
+          description: l.pref_start_hidden_desc,
+          control: DlmSwitch(
+            value: hidden,
+            semanticLabel: l.pref_start_hidden,
+            onChanged: (v) =>
+                unawaited(ref.read(startMinimisedProvider.notifier).set(v)),
+          ),
+        ),
+        if (hasService)
+          DlmFormRow(
+            label: l.pref_daemon_service,
+            description: l.pref_daemon_service_desc,
+            control: DlmSwitch(
+              value: service.value?.installed ?? false,
+              semanticLabel: l.pref_daemon_service,
+              onChanged: service.isLoading
+                  ? null
+                  : (v) => unawaited(
+                      _change(
+                        context,
+                        ref,
+                        () => ref
+                            .read(daemonServiceStatusProvider.notifier)
+                            .set(enabled: v),
+                      ),
+                    ),
+            ),
+          ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -161,6 +242,8 @@ class PreferencesScreen extends ConsumerWidget {
             ),
           ],
         ),
+        gap,
+        _startupGroup(context, ref),
         gap,
         DlmFormGroup(
           title: l.pref_confirmations,

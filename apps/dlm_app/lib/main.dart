@@ -10,6 +10,7 @@ import 'src/app.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
 import 'src/crash_handlers.dart';
+import 'src/platform/startup.dart';
 import 'src/prefs/pref_providers.dart';
 import 'src/secret_token_vault.dart';
 import 'src/shell/app_shell.dart';
@@ -54,6 +55,15 @@ void main() {
           profileStoreProvider.overrideWithValue(profiles),
           localDaemonProvider.overrideWithValue(daemon),
           windowChromeProvider.overrideWithValue(platformWindowChrome()),
+          loginItemProvider.overrideWithValue(
+            platformLoginItem(
+              flatpakMarker: File('${dirs.root}/login-item-enabled'),
+            ),
+          ),
+          if (executable != null)
+            daemonServiceProvider.overrideWithValue(
+              DaemonService(executable: executable, home: dirs.daemonHome),
+            ),
           systemAppearanceProvider.overrideWithValue(
             platformSystemAppearance(),
           ),

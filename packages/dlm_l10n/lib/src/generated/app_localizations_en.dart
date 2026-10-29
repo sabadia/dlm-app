@@ -3113,6 +3113,30 @@ class AppLocalizationsEn extends AppLocalizations {
       'Off deletes at once, keeping the files on disk.';
 
   @override
+  String get pref_startup => 'Startup';
+
+  @override
+  String get pref_login => 'Start when I log in';
+
+  @override
+  String get pref_login_desc =>
+      'Opens the app in the background when you sign in to this computer.';
+
+  @override
+  String get pref_start_hidden => 'Start hidden';
+
+  @override
+  String get pref_start_hidden_desc =>
+      'When started at login, keep the window closed; open it from the tray icon.';
+
+  @override
+  String get pref_daemon_service => 'Keep downloading without the app';
+
+  @override
+  String get pref_daemon_service_desc =>
+      'Starts the download service at login on its own, so queues and schedules run while the app is closed.';
+
+  @override
   String get nav_manage_about => 'About';
 
   @override

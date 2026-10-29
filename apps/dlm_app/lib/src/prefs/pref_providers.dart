@@ -79,3 +79,8 @@ final accentProvider = NotifierProvider<PrefNotifier<int?>, int?>(
 final confirmDeleteProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.confirmDelete),
 );
+
+/// Keep the window hidden when the app is started at login.
+final startMinimisedProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.startMinimised),
+);

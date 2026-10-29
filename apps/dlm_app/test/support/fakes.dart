@@ -267,3 +267,57 @@ class FakeTaskRepository implements TaskRepository {
     return tasks.firstWhere((t) => t.id == id);
   }
 }
+
+/// A login item that only remembers the last answer.
+class FakeLoginItem implements LoginItem {
+  FakeLoginItem({this.refuse = false});
+
+  final bool refuse;
+  bool enabled = false;
+
+  @override
+  Future<bool> isEnabled() async => enabled;
+
+  @override
+  Future<void> setEnabled({required bool enabled}) async {
+    if (refuse) throw const LoginItemException('refused');
+    this.enabled = enabled;
+  }
+
+  @override
+  Future<bool> startedAtLogin(List<String> args) async => false;
+}
+
+/// The daemon's login item, recording the verbs it was asked.
+class FakeDaemonService extends DaemonService {
+  FakeDaemonService() : super(executable: '/bin/dlm');
+
+  final List<String> calls = [];
+  bool installed = false;
+
+  DaemonServiceStatus _status() => DaemonServiceStatus(
+    kind: 'launchd',
+    installed: installed,
+    active: installed,
+  );
+
+  @override
+  Future<DaemonServiceStatus> status() async {
+    calls.add('status');
+    return _status();
+  }
+
+  @override
+  Future<DaemonServiceStatus> install() async {
+    calls.add('install');
+    installed = true;
+    return _status();
+  }
+
+  @override
+  Future<DaemonServiceStatus> uninstall() async {
+    calls.add('uninstall');
+    installed = false;
+    return _status();
+  }
+}

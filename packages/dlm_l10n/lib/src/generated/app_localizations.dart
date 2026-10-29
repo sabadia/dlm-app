@@ -5248,6 +5248,48 @@ abstract class AppLocalizations {
   /// **'Off deletes at once, keeping the files on disk.'**
   String get pref_confirm_delete_desc;
 
+  /// No description provided for @pref_startup.
+  ///
+  /// In en, this message translates to:
+  /// **'Startup'**
+  String get pref_startup;
+
+  /// No description provided for @pref_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Start when I log in'**
+  String get pref_login;
+
+  /// No description provided for @pref_login_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the app in the background when you sign in to this computer.'**
+  String get pref_login_desc;
+
+  /// No description provided for @pref_start_hidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Start hidden'**
+  String get pref_start_hidden;
+
+  /// No description provided for @pref_start_hidden_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'When started at login, keep the window closed; open it from the tray icon.'**
+  String get pref_start_hidden_desc;
+
+  /// No description provided for @pref_daemon_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep downloading without the app'**
+  String get pref_daemon_service;
+
+  /// No description provided for @pref_daemon_service_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts the download service at login on its own, so queues and schedules run while the app is closed.'**
+  String get pref_daemon_service_desc;
+
   /// No description provided for @nav_manage_about.
   ///
   /// In en, this message translates to:
