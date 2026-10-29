@@ -1903,6 +1903,21 @@
   "pref_shortcuts_change": "Change",
   "pref_shortcuts_press": "Press the new shortcut",
   "pref_shortcuts_reset": "Reset shortcuts",
+  "ab_updates": "Updates",
+  "ab_channel": "Channel",
+  "ab_channel_stable": "Stable",
+  "ab_channel_beta": "Beta",
+  "ab_check": "Check for updates",
+  "ab_checking": "Checking…",
+  "ab_up_to_date": "This is the newest version on this channel.",
+  "ab_available": "{version} is available",
+  "@ab_available": {
+    "placeholders": {
+      "version": {"type": "String"}
+    }
+  },
+  "ab_open_release": "Open the release",
+  "ab_check_failed": "The update check did not succeed.",
   "pref_shortcuts_conflict": "Already used by {command}",
   "@pref_shortcuts_conflict": {
     "placeholders": {

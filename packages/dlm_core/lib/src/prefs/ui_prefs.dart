@@ -14,6 +14,15 @@ enum ThemeChoice {
   dark,
 }
 
+/// Which published builds the update check considers.
+enum UpdateChannel {
+  /// Tagged releases only.
+  stable,
+
+  /// Tagged releases and prereleases.
+  beta,
+}
+
 /// How tightly lists are packed.
 enum Density {
   /// Roomy rows.
@@ -138,6 +147,13 @@ abstract final class UiPrefs {
 
   /// Language code (`de`); null follows the system.
   static const language = Pref<String?>.plain('ui.language', null);
+
+  /// Which GitHub releases count as an update.
+  static final updateChannel = enumPref(
+    'ui.updateChannel',
+    UpdateChannel.values,
+    UpdateChannel.stable,
+  );
 
   /// Whether the tray / menu-bar item shows.
   static const trayEnabled = Pref<bool>.plain('ui.tray', true);

@@ -5506,6 +5506,66 @@ abstract class AppLocalizations {
   /// **'Reset shortcuts'**
   String get pref_shortcuts_reset;
 
+  /// No description provided for @ab_updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get ab_updates;
+
+  /// No description provided for @ab_channel.
+  ///
+  /// In en, this message translates to:
+  /// **'Channel'**
+  String get ab_channel;
+
+  /// No description provided for @ab_channel_stable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable'**
+  String get ab_channel_stable;
+
+  /// No description provided for @ab_channel_beta.
+  ///
+  /// In en, this message translates to:
+  /// **'Beta'**
+  String get ab_channel_beta;
+
+  /// No description provided for @ab_check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get ab_check;
+
+  /// No description provided for @ab_checking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get ab_checking;
+
+  /// No description provided for @ab_up_to_date.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the newest version on this channel.'**
+  String get ab_up_to_date;
+
+  /// No description provided for @ab_available.
+  ///
+  /// In en, this message translates to:
+  /// **'{version} is available'**
+  String ab_available(String version);
+
+  /// No description provided for @ab_open_release.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the release'**
+  String get ab_open_release;
+
+  /// No description provided for @ab_check_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'The update check did not succeed.'**
+  String get ab_check_failed;
+
   /// No description provided for @pref_shortcuts_conflict.
   ///
   /// In en, this message translates to:

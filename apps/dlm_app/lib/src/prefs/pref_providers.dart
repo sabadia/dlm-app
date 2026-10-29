@@ -76,6 +76,12 @@ final languageProvider = NotifierProvider<PrefNotifier<String?>, String?>(
   () => PrefNotifier(UiPrefs.language),
 );
 
+/// Stable or beta updates.
+final updateChannelProvider =
+    NotifierProvider<PrefNotifier<UpdateChannel>, UpdateChannel>(
+      () => PrefNotifier(UiPrefs.updateChannel),
+    );
+
 /// Forced skin id, or null for the platform's.
 final skinOverrideProvider = NotifierProvider<PrefNotifier<String?>, String?>(
   () => PrefNotifier(UiPrefs.skinOverride),

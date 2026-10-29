@@ -12,6 +12,7 @@ import '../connection/connection_controller.dart';
 import '../shell/feedback.dart';
 import 'diagnostics_providers.dart';
 import 'licences_dialog.dart';
+import 'updates.dart';
 
 /// About the app and the daemon it talks to: versions, whether they work
 /// together, a diagnostics text to give to support, and the open-source
@@ -132,6 +133,8 @@ class AboutScreen extends ConsumerWidget {
             ),
           ],
         ),
+        gap,
+        const UpdateSection(),
         gap,
         DlmFormGroup(
           title: l.ab_licences,

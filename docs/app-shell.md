@@ -34,7 +34,10 @@ already used by another command is refused, and reset restores the built-in
 ones. Global hotkeys are not part of this map. Preferences also choose the size
 units and the language. Sizes are drawn through one `DlmFormat` above the
 window, so a change redraws every count. The language follows the system
-unless a supported language is chosen.
+unless a supported language is chosen. About can check GitHub releases of
+this app: stable ignores prereleases, beta includes them. On Linux the result
+opens the release page. Installing on macOS and Windows waits for the
+packaged updater.
 
 ## Downloads list
 

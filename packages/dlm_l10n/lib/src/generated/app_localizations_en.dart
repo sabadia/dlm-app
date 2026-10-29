@@ -3256,6 +3256,38 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pref_shortcuts_reset => 'Reset shortcuts';
 
   @override
+  String get ab_updates => 'Updates';
+
+  @override
+  String get ab_channel => 'Channel';
+
+  @override
+  String get ab_channel_stable => 'Stable';
+
+  @override
+  String get ab_channel_beta => 'Beta';
+
+  @override
+  String get ab_check => 'Check for updates';
+
+  @override
+  String get ab_checking => 'Checking…';
+
+  @override
+  String get ab_up_to_date => 'This is the newest version on this channel.';
+
+  @override
+  String ab_available(String version) {
+    return '$version is available';
+  }
+
+  @override
+  String get ab_open_release => 'Open the release';
+
+  @override
+  String get ab_check_failed => 'The update check did not succeed.';
+
+  @override
   String pref_shortcuts_conflict(String command) {
     return 'Already used by $command';
   }
