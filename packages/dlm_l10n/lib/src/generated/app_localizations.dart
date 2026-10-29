@@ -2673,6 +2673,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not a valid value for this algorithm.'**
   String get add_checksum_invalid;
+
+  /// No description provided for @add_torrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Torrent file…'**
+  String get add_torrent;
+
+  /// No description provided for @add_torrent_too_big.
+  ///
+  /// In en, this message translates to:
+  /// **'That torrent file is too large (16 MiB at most).'**
+  String get add_torrent_too_big;
+
+  /// No description provided for @add_torrent_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String add_torrent_remove(String name);
 }
 
 class _AppLocalizationsDelegate

@@ -1582,4 +1582,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get add_checksum_invalid => 'Not a valid value for this algorithm.';
+
+  @override
+  String get add_torrent => 'Torrent file…';
+
+  @override
+  String get add_torrent_too_big =>
+      'That torrent file is too large (16 MiB at most).';
+
+  @override
+  String add_torrent_remove(String name) {
+    return 'Remove $name';
+  }
 }

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
@@ -37,6 +39,29 @@ final addFilePickerProvider = Provider<Future<PickedList?> Function()>(
     return (name: file.name, content: await file.readAsString());
   },
 );
+
+/// A .torrent file chosen by the user: its name and bytes.
+typedef PickedTorrent = ({String name, Uint8List bytes});
+
+/// The largest .torrent file the daemon accepts.
+const int maxTorrentBytes = 16 << 20;
+
+/// Asks the user for a .torrent file; null when cancelled. A seam for tests.
+final addTorrentPickerProvider = Provider<Future<PickedTorrent?> Function()>(
+  (ref) => () async {
+    final file = await openFile(
+      acceptedTypeGroups: const [
+        XTypeGroup(label: 'Torrent files', extensions: ['torrent']),
+      ],
+    );
+    if (file == null) return null;
+    return (name: file.name, bytes: await file.readAsBytes());
+  },
+);
+
+/// The embedded form of a .torrent file that the daemon takes as a link.
+String torrentDataUrl(Uint8List bytes) =>
+    'data:application/x-bittorrent;base64,${base64.encode(bytes)}';
 
 /// How a list file is read, from its name.
 ImportTasksBodyFormat importFormatOf(String fileName) {
@@ -119,6 +144,9 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
   bool _allowDuplicate = false;
   bool _adding = false;
   bool _showAdvanced = false;
+
+  /// The .torrent files added by hand: the name shown and the embedded link.
+  final List<({String name, String url})> _torrents = [];
   final AdvancedDraft _adv = AdvancedDraft();
   final TextEditingController _referrer = TextEditingController();
   final TextEditingController _headers = TextEditingController();
@@ -149,7 +177,14 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     super.dispose();
   }
 
-  List<String> get _typed => parseLinks(_links.text);
+  List<String> get _typed => [
+    ...parseLinks(_links.text),
+    for (final t in _torrents) t.url,
+  ];
+
+  /// What to show for a link: the file name of an embedded torrent.
+  String _label(String link) =>
+      _torrents.where((t) => t.url == link).firstOrNull?.name ?? link;
 
   void _schedule() {
     _debounce?.cancel();
@@ -188,7 +223,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
             sample.add(link);
           }
         }
-        found = _Many(count, sample.take(5).toList());
+        found = _Many(count, [for (final u in sample.take(5)) _label(u)]);
       }
     } on Object catch (e) {
       found = _Bad(e);
@@ -340,6 +375,24 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
       if (mounted) showFailure(context, ref, e);
     } finally {
       if (mounted) setState(() => _adding = false);
+    }
+  }
+
+  Future<void> _pickTorrent() async {
+    final l = AppLocalizations.of(context);
+    try {
+      final picked = await ref.read(addTorrentPickerProvider)();
+      if (picked == null || !mounted) return;
+      if (picked.bytes.length > maxTorrentBytes) {
+        showNotice(context, ref, l.add_torrent_too_big, tone: DlmTone.danger);
+        return;
+      }
+      setState(() {
+        _torrents.add((name: picked.name, url: torrentDataUrl(picked.bytes)));
+      });
+      _schedule();
+    } on Object catch (e) {
+      if (mounted) showFailure(context, ref, e);
     }
   }
 
@@ -605,14 +658,33 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
           maxLines: 6,
           onChanged: (_) => _schedule(),
         ),
-        Align(
-          alignment: AlignmentDirectional.centerStart,
-          child: DlmButton(
-            label: l.add_import,
-            icon: const DlmIcon(DlmIconName.importIcon),
-            variant: DlmButtonVariant.plain,
-            onPressed: _adding ? null : _import,
-          ),
+        Wrap(
+          spacing: theme.metrics.spacing.xs,
+          runSpacing: theme.metrics.spacing.xs,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            DlmButton(
+              label: l.add_import,
+              icon: const DlmIcon(DlmIconName.importIcon),
+              variant: DlmButtonVariant.plain,
+              onPressed: _adding ? null : _import,
+            ),
+            DlmButton(
+              label: l.add_torrent,
+              icon: const DlmIcon(DlmIconName.file),
+              variant: DlmButtonVariant.plain,
+              onPressed: _adding ? null : _pickTorrent,
+            ),
+            for (final t in _torrents)
+              DlmChip(
+                label: t.name,
+                onDeleted: () {
+                  setState(() => _torrents.remove(t));
+                  _schedule();
+                },
+                deleteLabel: l.add_torrent_remove(t.name),
+              ),
+          ],
         ),
         gap,
         _summary(l, theme),

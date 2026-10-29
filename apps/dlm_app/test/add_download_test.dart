@@ -329,6 +329,29 @@ void main() {
     expect(add.imports.map((i) => i.$2), [true, false]);
   });
 
+  appTest('a torrent file is added as an embedded link', (tester) async {
+    final add = FakeAdd();
+    await pumpApp(
+      tester,
+      queues: [queue('main', 'Default')],
+      overrides: [
+        addRepositoryProvider.overrideWithValue(add),
+        addTorrentPickerProvider.overrideWithValue(
+          () async =>
+              (name: 'pack.torrent', bytes: Uint8List.fromList([1, 2, 3])),
+        ),
+      ],
+    );
+    await openDialog(tester);
+    await tester.tap(find.text('Torrent file…'));
+    await tester.pump(addLookupDelay + const Duration(milliseconds: 50));
+    await settle(tester);
+    expect(find.text('pack.torrent'), findsOneWidget);
+    await tester.tap(addButton());
+    await settle(tester);
+    expect(add.created.single.url, 'data:application/x-bittorrent;base64,AQID');
+  });
+
   appTest('a folder is picked from the daemon\'s own list', (tester) async {
     final add = FakeAdd();
     await pump(tester, add);
