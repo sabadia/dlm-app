@@ -11,6 +11,7 @@ import '../connection/connection_controller.dart';
 import '../prefs/pref_providers.dart';
 import '../shell/feedback.dart';
 import 'folder_picker.dart';
+import 'system_rows.dart';
 import 'tool_row.dart';
 
 /// Shows the setup dialog on the first run of the app with its own download
@@ -158,6 +159,8 @@ class SetupDialog extends ConsumerWidget {
                     onPressed: () => ref.invalidate(systemInfoProvider),
                   ),
                 ),
+                gap,
+                const SystemRows(),
               ],
             ),
           ),

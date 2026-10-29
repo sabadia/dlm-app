@@ -1,5 +1,7 @@
 import 'package:dlm_api/dlm_api.dart';
+import 'package:dlm_app/src/manage/access_screen.dart';
 import 'package:dlm_app/src/onboarding/folder_picker.dart';
+import 'package:dlm_app/src/platform/startup.dart';
 import 'package:dlm_app/src/prefs/pref_providers.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
+import 'support/fakes.dart';
 
 class FakePicker implements FolderPicker {
   FakePicker(this.answer);
@@ -38,12 +41,22 @@ void main() {
   FakeGlobalSettings settings(AppHarness h) =>
       h.container.read(globalSettingsProvider.notifier) as FakeGlobalSettings;
 
+  const host = NativeHostStatus(
+    allowedOrigins: [],
+    launcher: '/bin/dlm',
+    launcherExists: true,
+    browsers: [Result(browser: 'chrome', status: 'installed')],
+  );
+  final login = FakeLoginItem();
+
   Future<AppHarness> first(WidgetTester tester, FakePicker picker) => pumpApp(
     tester,
     onboarded: false,
     overrides: [
       folderPickerProvider.overrideWithValue(picker),
       globalSettingsProvider.overrideWith(FakeGlobalSettings.new),
+      nativeHostProvider.overrideWith((ref) async => host),
+      loginItemProvider.overrideWithValue(login),
       systemInfoProvider.overrideWith(
         (ref) async => systemInfo([ffmpeg, ytdlp]),
       ),
@@ -118,5 +131,20 @@ void main() {
     await settle(tester);
     expect(find.text('Welcome'), findsOneWidget);
     expect(find.byType(DlmDialogContent), findsOneWidget);
+  });
+
+  appTest('the setup shows the extension state and can start at login', (
+    tester,
+  ) async {
+    await first(tester, FakePicker(null));
+    expect(find.text('Set up for 1 browser'), findsOneWidget);
+    final toggle = find.byWidgetPredicate(
+      (w) => w is DlmSwitch && w.semanticLabel == 'Start when I log in',
+    );
+    await tester.ensureVisible(toggle);
+    await tester.pump();
+    await tester.tap(toggle);
+    await settle(tester);
+    expect(login.enabled, isTrue);
   });
 }

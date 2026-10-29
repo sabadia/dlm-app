@@ -951,6 +951,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setup_done => 'Done';
 
   @override
+  String get setup_system_title => 'On this computer';
+
+  @override
+  String get setup_system_desc =>
+      'Optional. All of this can be changed later in Preferences and under Access.';
+
+  @override
+  String get setup_login => 'Start when I log in';
+
+  @override
+  String get setup_login_desc =>
+      'Keeps downloads going without opening the app by hand.';
+
+  @override
+  String get setup_ext => 'Browser extension';
+
+  @override
+  String get setup_ext_desc => 'Send downloads from your browser to this app.';
+
+  @override
+  String setup_ext_connected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Set up for $count browsers',
+      one: 'Set up for 1 browser',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get setup_ext_none => 'Not set up';
+
+  @override
+  String get setup_ext_unknown => 'Not available';
+
+  @override
+  String get setup_ext_open => 'Set up…';
+
+  @override
   String get cmd_setup => 'Setup and health check…';
 
   @override

@@ -521,6 +521,23 @@
     }
   },
   "setup_done": "Done",
+  "setup_system_title": "On this computer",
+  "setup_system_desc": "Optional. All of this can be changed later in Preferences and under Access.",
+  "setup_login": "Start when I log in",
+  "setup_login_desc": "Keeps downloads going without opening the app by hand.",
+  "setup_ext": "Browser extension",
+  "setup_ext_desc": "Send downloads from your browser to this app.",
+  "setup_ext_connected": "{count, plural, one{Set up for 1 browser} other{Set up for {count} browsers}}",
+  "@setup_ext_connected": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "setup_ext_none": "Not set up",
+  "setup_ext_unknown": "Not available",
+  "setup_ext_open": "Set up…",
   "cmd_setup": "Setup and health check…",
   "insp_label": "Download details",
   "insp_tab_overview": "Overview",

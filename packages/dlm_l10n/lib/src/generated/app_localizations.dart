@@ -1612,6 +1612,66 @@ abstract class AppLocalizations {
   /// **'Done'**
   String get setup_done;
 
+  /// No description provided for @setup_system_title.
+  ///
+  /// In en, this message translates to:
+  /// **'On this computer'**
+  String get setup_system_title;
+
+  /// No description provided for @setup_system_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. All of this can be changed later in Preferences and under Access.'**
+  String get setup_system_desc;
+
+  /// No description provided for @setup_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Start when I log in'**
+  String get setup_login;
+
+  /// No description provided for @setup_login_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps downloads going without opening the app by hand.'**
+  String get setup_login_desc;
+
+  /// No description provided for @setup_ext.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser extension'**
+  String get setup_ext;
+
+  /// No description provided for @setup_ext_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Send downloads from your browser to this app.'**
+  String get setup_ext_desc;
+
+  /// No description provided for @setup_ext_connected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Set up for 1 browser} other{Set up for {count} browsers}}'**
+  String setup_ext_connected(int count);
+
+  /// No description provided for @setup_ext_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set up'**
+  String get setup_ext_none;
+
+  /// No description provided for @setup_ext_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get setup_ext_unknown;
+
+  /// No description provided for @setup_ext_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up…'**
+  String get setup_ext_open;
+
   /// No description provided for @cmd_setup.
   ///
   /// In en, this message translates to:
