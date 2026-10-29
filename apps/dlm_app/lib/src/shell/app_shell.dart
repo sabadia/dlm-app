@@ -12,6 +12,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../inspector/inspector_pane.dart';
 import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
@@ -97,7 +98,6 @@ class _AppShellState extends ConsumerState<AppShell> {
     final sidebarWidth = ref.watch(sidebarWidthProvider);
     final inspectorWidth = ref.watch(inspectorWidthProvider);
     final inspectorPreferred = ref.watch(inspectorVisibleProvider);
-    final selection = ref.watch(selectionProvider);
     final selected = ref.watch(selectedTasksProvider);
     final ids = [for (final t in selected) t.id];
     final chrome = ref.watch(windowChromeProvider);
@@ -240,7 +240,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                   dividerLabel: l.inspector_resize,
                   onResized: ref.read(inspectorWidthProvider.notifier).set,
                   secondary: widget.child,
-                  primary: _Inspector(selection: selection),
+                  primary: const InspectorPane(),
                 )
               : widget.child,
         ),
@@ -279,29 +279,6 @@ class _AppShellState extends ConsumerState<AppShell> {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// The details pane. The task views arrive with F3.4; until then it says what
-/// is selected.
-class _Inspector extends StatelessWidget {
-  const _Inspector({required this.selection});
-
-  final Set<String> selection;
-
-  @override
-  Widget build(BuildContext context) {
-    final l = AppLocalizations.of(context);
-    final theme = DlmTheme.of(context);
-    return ColoredBox(
-      color: theme.colors.raised,
-      child: selection.isEmpty
-          ? DlmEmptyState(
-              title: l.inspector_empty_title,
-              message: l.inspector_empty_message,
-            )
-          : const SizedBox.expand(),
     );
   }
 }

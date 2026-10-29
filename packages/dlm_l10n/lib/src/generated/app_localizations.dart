@@ -1617,6 +1617,408 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Setup and health check…'**
   String get cmd_setup;
+
+  /// No description provided for @insp_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Download details'**
+  String get insp_label;
+
+  /// No description provided for @insp_tab_overview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get insp_tab_overview;
+
+  /// No description provided for @insp_tab_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get insp_tab_files;
+
+  /// No description provided for @insp_tab_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get insp_tab_speed;
+
+  /// No description provided for @insp_tab_source.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get insp_tab_source;
+
+  /// No description provided for @insp_multi.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 download selected} other{{count} downloads selected}}'**
+  String insp_multi(int count);
+
+  /// No description provided for @insp_multi_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a single download to see its details.'**
+  String get insp_multi_hint;
+
+  /// No description provided for @insp_gone.
+  ///
+  /// In en, this message translates to:
+  /// **'This download no longer exists.'**
+  String get insp_gone;
+
+  /// No description provided for @ov_group_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get ov_group_progress;
+
+  /// No description provided for @ov_group_where.
+  ///
+  /// In en, this message translates to:
+  /// **'Where it goes'**
+  String get ov_group_where;
+
+  /// No description provided for @ov_group_times.
+  ///
+  /// In en, this message translates to:
+  /// **'Times'**
+  String get ov_group_times;
+
+  /// No description provided for @ov_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get ov_status;
+
+  /// No description provided for @ov_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get ov_progress;
+
+  /// No description provided for @ov_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get ov_size;
+
+  /// No description provided for @ov_size_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not known yet'**
+  String get ov_size_unknown;
+
+  /// No description provided for @ov_downloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded'**
+  String get ov_downloaded;
+
+  /// No description provided for @ov_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get ov_speed;
+
+  /// No description provided for @ov_time_left.
+  ///
+  /// In en, this message translates to:
+  /// **'Time left'**
+  String get ov_time_left;
+
+  /// No description provided for @ov_connections.
+  ///
+  /// In en, this message translates to:
+  /// **'Connections'**
+  String get ov_connections;
+
+  /// No description provided for @ov_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get ov_queue;
+
+  /// No description provided for @ov_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get ov_engine;
+
+  /// No description provided for @ov_folder.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder'**
+  String get ov_folder;
+
+  /// No description provided for @ov_priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get ov_priority;
+
+  /// No description provided for @ov_labels.
+  ///
+  /// In en, this message translates to:
+  /// **'Labels'**
+  String get ov_labels;
+
+  /// No description provided for @ov_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get ov_added;
+
+  /// No description provided for @ov_started.
+  ///
+  /// In en, this message translates to:
+  /// **'Started'**
+  String get ov_started;
+
+  /// No description provided for @ov_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished'**
+  String get ov_completed;
+
+  /// No description provided for @ov_none.
+  ///
+  /// In en, this message translates to:
+  /// **'—'**
+  String get ov_none;
+
+  /// No description provided for @ov_priority_low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get ov_priority_low;
+
+  /// No description provided for @ov_priority_normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get ov_priority_normal;
+
+  /// No description provided for @ov_priority_high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get ov_priority_high;
+
+  /// No description provided for @ov_error_title.
+  ///
+  /// In en, this message translates to:
+  /// **'It stopped with an error'**
+  String get ov_error_title;
+
+  /// No description provided for @ov_error_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'{message} ({code})'**
+  String ov_error_detail(String message, String code);
+
+  /// No description provided for @ov_error_when.
+  ///
+  /// In en, this message translates to:
+  /// **'{when}'**
+  String ov_error_when(String when);
+
+  /// No description provided for @ov_error_retryable.
+  ///
+  /// In en, this message translates to:
+  /// **'Trying again may work.'**
+  String get ov_error_retryable;
+
+  /// No description provided for @ov_error_final.
+  ///
+  /// In en, this message translates to:
+  /// **'Trying again will not help until something changes.'**
+  String get ov_error_final;
+
+  /// No description provided for @files_tree_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Files of this download'**
+  String get files_tree_label;
+
+  /// No description provided for @files_single.
+  ///
+  /// In en, this message translates to:
+  /// **'This download is a single file.'**
+  String get files_single;
+
+  /// No description provided for @files_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{selected} of {total} files selected'**
+  String files_count(int selected, int total);
+
+  /// No description provided for @files_none_selected.
+  ///
+  /// In en, this message translates to:
+  /// **'No files are selected for download.'**
+  String get files_none_selected;
+
+  /// No description provided for @speed_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Download speed'**
+  String get speed_title;
+
+  /// No description provided for @speed_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Now {current}, highest {peak} over the last {seconds} seconds.'**
+  String speed_summary(String current, String peak, int seconds);
+
+  /// No description provided for @speed_waiting.
+  ///
+  /// In en, this message translates to:
+  /// **'The graph fills in while the download runs.'**
+  String get speed_waiting;
+
+  /// No description provided for @speed_series.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get speed_series;
+
+  /// No description provided for @src_group_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Link'**
+  String get src_group_link;
+
+  /// No description provided for @src_group_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Link renewals'**
+  String get src_group_history;
+
+  /// No description provided for @src_current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current link'**
+  String get src_current;
+
+  /// No description provided for @src_original.
+  ///
+  /// In en, this message translates to:
+  /// **'First link'**
+  String get src_original;
+
+  /// No description provided for @src_page.
+  ///
+  /// In en, this message translates to:
+  /// **'Page'**
+  String get src_page;
+
+  /// No description provided for @src_referrer.
+  ///
+  /// In en, this message translates to:
+  /// **'Referrer'**
+  String get src_referrer;
+
+  /// No description provided for @src_mirrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Mirrors'**
+  String get src_mirrors;
+
+  /// No description provided for @src_copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy'**
+  String get src_copy;
+
+  /// No description provided for @src_refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Renew link now'**
+  String get src_refresh;
+
+  /// No description provided for @src_await.
+  ///
+  /// In en, this message translates to:
+  /// **'Wait for a new link'**
+  String get src_await;
+
+  /// No description provided for @src_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace link…'**
+  String get src_edit;
+
+  /// No description provided for @src_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace the link'**
+  String get src_edit_title;
+
+  /// No description provided for @src_edit_label.
+  ///
+  /// In en, this message translates to:
+  /// **'New link'**
+  String get src_edit_label;
+
+  /// No description provided for @src_edit_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'The daemon checks it against the file. If it is not the same file, the download starts again.'**
+  String get src_edit_hint;
+
+  /// No description provided for @src_edit_needs_pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause the download first to replace its link.'**
+  String get src_edit_needs_pause;
+
+  /// No description provided for @src_edit_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace'**
+  String get src_edit_save;
+
+  /// No description provided for @src_history_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'The link has not needed renewing.'**
+  String get src_history_empty;
+
+  /// No description provided for @src_attempt.
+  ///
+  /// In en, this message translates to:
+  /// **'{strategy} · {outcome}'**
+  String src_attempt(String strategy, String outcome);
+
+  /// No description provided for @src_attempt_cause.
+  ///
+  /// In en, this message translates to:
+  /// **'Cause: {cause}'**
+  String src_attempt_cause(String cause);
+
+  /// No description provided for @toast_link_refreshing.
+  ///
+  /// In en, this message translates to:
+  /// **'Asking for a new link'**
+  String get toast_link_refreshing;
+
+  /// No description provided for @toast_link_waiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a new link'**
+  String get toast_link_waiting;
+
+  /// No description provided for @toast_link_replaced.
+  ///
+  /// In en, this message translates to:
+  /// **'Link replaced'**
+  String get toast_link_replaced;
+
+  /// No description provided for @files_skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'not downloaded'**
+  String get files_skipped;
 }
 
 class _AppLocalizationsDelegate

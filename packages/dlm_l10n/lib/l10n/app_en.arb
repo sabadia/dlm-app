@@ -521,5 +521,136 @@
     }
   },
   "setup_done": "Done",
-  "cmd_setup": "Setup and health check…"
+  "cmd_setup": "Setup and health check…",
+  "insp_label": "Download details",
+  "insp_tab_overview": "Overview",
+  "insp_tab_files": "Files",
+  "insp_tab_speed": "Speed",
+  "insp_tab_source": "Link",
+  "insp_multi": "{count, plural, =1{1 download selected} other{{count} downloads selected}}",
+  "@insp_multi": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insp_multi_hint": "Select a single download to see its details.",
+  "insp_gone": "This download no longer exists.",
+  "ov_group_progress": "Progress",
+  "ov_group_where": "Where it goes",
+  "ov_group_times": "Times",
+  "ov_status": "Status",
+  "ov_progress": "Done",
+  "ov_size": "Size",
+  "ov_size_unknown": "Not known yet",
+  "ov_downloaded": "Downloaded",
+  "ov_speed": "Speed",
+  "ov_time_left": "Time left",
+  "ov_connections": "Connections",
+  "ov_queue": "Queue",
+  "ov_engine": "Engine",
+  "ov_folder": "Folder",
+  "ov_priority": "Priority",
+  "ov_labels": "Labels",
+  "ov_added": "Added",
+  "ov_started": "Started",
+  "ov_completed": "Finished",
+  "ov_none": "—",
+  "ov_priority_low": "Low",
+  "ov_priority_normal": "Normal",
+  "ov_priority_high": "High",
+  "ov_error_title": "It stopped with an error",
+  "ov_error_detail": "{message} ({code})",
+  "@ov_error_detail": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ov_error_when": "{when}",
+  "@ov_error_when": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ov_error_retryable": "Trying again may work.",
+  "ov_error_final": "Trying again will not help until something changes.",
+  "files_tree_label": "Files of this download",
+  "files_single": "This download is a single file.",
+  "files_count": "{selected} of {total} files selected",
+  "@files_count": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "files_none_selected": "No files are selected for download.",
+  "speed_title": "Download speed",
+  "speed_summary": "Now {current}, highest {peak} over the last {seconds} seconds.",
+  "@speed_summary": {
+    "placeholders": {
+      "current": {
+        "type": "String"
+      },
+      "peak": {
+        "type": "String"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "speed_waiting": "The graph fills in while the download runs.",
+  "speed_series": "Speed",
+  "src_group_link": "Link",
+  "src_group_history": "Link renewals",
+  "src_current": "Current link",
+  "src_original": "First link",
+  "src_page": "Page",
+  "src_referrer": "Referrer",
+  "src_mirrors": "Mirrors",
+  "src_copy": "Copy",
+  "src_refresh": "Renew link now",
+  "src_await": "Wait for a new link",
+  "src_edit": "Replace link…",
+  "src_edit_title": "Replace the link",
+  "src_edit_label": "New link",
+  "src_edit_hint": "The daemon checks it against the file. If it is not the same file, the download starts again.",
+  "src_edit_needs_pause": "Pause the download first to replace its link.",
+  "src_edit_save": "Replace",
+  "src_history_empty": "The link has not needed renewing.",
+  "src_attempt": "{strategy} · {outcome}",
+  "@src_attempt": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "outcome": {
+        "type": "String"
+      }
+    }
+  },
+  "src_attempt_cause": "Cause: {cause}",
+  "@src_attempt_cause": {
+    "placeholders": {
+      "cause": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_link_refreshing": "Asking for a new link",
+  "toast_link_waiting": "Waiting for a new link",
+  "toast_link_replaced": "Link replaced",
+  "files_skipped": "not downloaded"
 }

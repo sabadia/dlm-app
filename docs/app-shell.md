@@ -40,6 +40,20 @@ shared (`selectionProvider`); Pause/Resume/Delete act on it from the toolbar, th
 menu, or the keyboard (Delete). Pause and resume offer Undo; delete asks first (the files stay
 on disk unless the box is ticked) and has no Undo because a removed download cannot come back.
 
+## Details pane
+
+With one download selected the pane has four tabs (the choice stays when another download is
+picked): **Overview** (progress, speed, time left, connections, queue, engine, folder, priority,
+times and the last error), **Files** (a folder tree of the files; files that were not chosen are
+marked), **Speed** (a live graph of the last 120 progress events, kept only while the pane is
+open) and **Link** (current, first, page and referrer links, Renew now, Wait for a new link,
+Replace link, and the renewal history). Replacing the link needs the download paused and asks the
+daemon to start again if the file does not match.
+
+Not there yet: the segments map (P13.4), changing the chosen files after the download exists
+(P13.4), per-download setting overrides (they come with the settings form engine, F4.1) and a
+per-download event log (the daemon has none).
+
 ## Queues
 
 The sidebar lists the queues and has a New queue button. A queue page is a header (state,

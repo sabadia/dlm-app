@@ -952,4 +952,228 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cmd_setup => 'Setup and health check…';
+
+  @override
+  String get insp_label => 'Download details';
+
+  @override
+  String get insp_tab_overview => 'Overview';
+
+  @override
+  String get insp_tab_files => 'Files';
+
+  @override
+  String get insp_tab_speed => 'Speed';
+
+  @override
+  String get insp_tab_source => 'Link';
+
+  @override
+  String insp_multi(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads selected',
+      one: '1 download selected',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get insp_multi_hint => 'Select a single download to see its details.';
+
+  @override
+  String get insp_gone => 'This download no longer exists.';
+
+  @override
+  String get ov_group_progress => 'Progress';
+
+  @override
+  String get ov_group_where => 'Where it goes';
+
+  @override
+  String get ov_group_times => 'Times';
+
+  @override
+  String get ov_status => 'Status';
+
+  @override
+  String get ov_progress => 'Done';
+
+  @override
+  String get ov_size => 'Size';
+
+  @override
+  String get ov_size_unknown => 'Not known yet';
+
+  @override
+  String get ov_downloaded => 'Downloaded';
+
+  @override
+  String get ov_speed => 'Speed';
+
+  @override
+  String get ov_time_left => 'Time left';
+
+  @override
+  String get ov_connections => 'Connections';
+
+  @override
+  String get ov_queue => 'Queue';
+
+  @override
+  String get ov_engine => 'Engine';
+
+  @override
+  String get ov_folder => 'Folder';
+
+  @override
+  String get ov_priority => 'Priority';
+
+  @override
+  String get ov_labels => 'Labels';
+
+  @override
+  String get ov_added => 'Added';
+
+  @override
+  String get ov_started => 'Started';
+
+  @override
+  String get ov_completed => 'Finished';
+
+  @override
+  String get ov_none => '—';
+
+  @override
+  String get ov_priority_low => 'Low';
+
+  @override
+  String get ov_priority_normal => 'Normal';
+
+  @override
+  String get ov_priority_high => 'High';
+
+  @override
+  String get ov_error_title => 'It stopped with an error';
+
+  @override
+  String ov_error_detail(String message, String code) {
+    return '$message ($code)';
+  }
+
+  @override
+  String ov_error_when(String when) {
+    return '$when';
+  }
+
+  @override
+  String get ov_error_retryable => 'Trying again may work.';
+
+  @override
+  String get ov_error_final =>
+      'Trying again will not help until something changes.';
+
+  @override
+  String get files_tree_label => 'Files of this download';
+
+  @override
+  String get files_single => 'This download is a single file.';
+
+  @override
+  String files_count(int selected, int total) {
+    return '$selected of $total files selected';
+  }
+
+  @override
+  String get files_none_selected => 'No files are selected for download.';
+
+  @override
+  String get speed_title => 'Download speed';
+
+  @override
+  String speed_summary(String current, String peak, int seconds) {
+    return 'Now $current, highest $peak over the last $seconds seconds.';
+  }
+
+  @override
+  String get speed_waiting => 'The graph fills in while the download runs.';
+
+  @override
+  String get speed_series => 'Speed';
+
+  @override
+  String get src_group_link => 'Link';
+
+  @override
+  String get src_group_history => 'Link renewals';
+
+  @override
+  String get src_current => 'Current link';
+
+  @override
+  String get src_original => 'First link';
+
+  @override
+  String get src_page => 'Page';
+
+  @override
+  String get src_referrer => 'Referrer';
+
+  @override
+  String get src_mirrors => 'Mirrors';
+
+  @override
+  String get src_copy => 'Copy';
+
+  @override
+  String get src_refresh => 'Renew link now';
+
+  @override
+  String get src_await => 'Wait for a new link';
+
+  @override
+  String get src_edit => 'Replace link…';
+
+  @override
+  String get src_edit_title => 'Replace the link';
+
+  @override
+  String get src_edit_label => 'New link';
+
+  @override
+  String get src_edit_hint =>
+      'The daemon checks it against the file. If it is not the same file, the download starts again.';
+
+  @override
+  String get src_edit_needs_pause =>
+      'Pause the download first to replace its link.';
+
+  @override
+  String get src_edit_save => 'Replace';
+
+  @override
+  String get src_history_empty => 'The link has not needed renewing.';
+
+  @override
+  String src_attempt(String strategy, String outcome) {
+    return '$strategy · $outcome';
+  }
+
+  @override
+  String src_attempt_cause(String cause) {
+    return 'Cause: $cause';
+  }
+
+  @override
+  String get toast_link_refreshing => 'Asking for a new link';
+
+  @override
+  String get toast_link_waiting => 'Waiting for a new link';
+
+  @override
+  String get toast_link_replaced => 'Link replaced';
+
+  @override
+  String get files_skipped => 'not downloaded';
 }
