@@ -136,6 +136,87 @@ Future<void> deleteTasks(
   }
 }
 
+/// Runs a bulk [call], reports what failed and says [done] for the tasks
+/// that went through.
+Future<void> _bulkAction(
+  BuildContext context,
+  WidgetRef ref,
+  Future<List<ItemResult>> Function(TaskActions actions) call,
+  String Function(int count) done,
+) async {
+  try {
+    final results = await call(ref.read(taskActionsProvider));
+    if (!context.mounted) return;
+    _reportPartial(context, ref, results);
+    final ok = results.where((r) => r.ok).length;
+    if (ok > 0) showNotice(context, ref, done(ok));
+  } on Object catch (e) {
+    if (context.mounted) showFailure(context, ref, e);
+  }
+}
+
+/// Moves [ids] to the end of [queue].
+Future<void> moveTasksToQueue(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids,
+  Queue queue,
+) {
+  final l = AppLocalizations.of(context);
+  return _bulkAction(
+    context,
+    ref,
+    (a) => a.moveMany(ids, queue.id),
+    (n) => l.toast_moved(n, queue.name),
+  );
+}
+
+/// Gives [ids] a priority.
+Future<void> prioritiseTasks(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids,
+  UpdateTasksBodyPriority priority,
+) {
+  final l = AppLocalizations.of(context);
+  return _bulkAction(
+    context,
+    ref,
+    (a) => a.prioritise(ids, priority),
+    l.toast_prioritised,
+  );
+}
+
+/// Downloads the finished or failed [ids] again from the start.
+Future<void> restartTasks(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids,
+) {
+  final l = AppLocalizations.of(context);
+  return _bulkAction(
+    context,
+    ref,
+    (a) => a.restartMany(ids),
+    l.toast_restarted_many,
+  );
+}
+
+/// Asks for a fresh link for [ids].
+Future<void> refreshTaskLinks(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids,
+) {
+  final l = AppLocalizations.of(context);
+  return _bulkAction(
+    context,
+    ref,
+    (a) => a.refreshMany(ids),
+    l.toast_refreshing_many,
+  );
+}
+
 /// Copies the link of [task] to the clipboard.
 Future<void> copyLink(BuildContext context, WidgetRef ref, Task task) async {
   final l = AppLocalizations.of(context);
@@ -199,6 +280,7 @@ List<DlmMenuEntry> taskMenuEntries(
       : [clicked];
   final ids = [for (final t in targets) t.id];
   final single = targets.length == 1;
+  final queues = ref.read(queuesProvider).value ?? const <Queue>[];
   return [
     if (targets.any((t) => t.statusKind.canPause))
       DlmMenuItem(
@@ -212,11 +294,46 @@ List<DlmMenuEntry> taskMenuEntries(
         icon: const DlmIcon(DlmIconName.play),
         onPressed: () => resumeTasks(context, ref, ids),
       ),
-    if (single && clicked.statusKind.isFinished)
+    if (targets.any((t) => t.statusKind.isFinished))
       DlmMenuItem(
         label: l.action_restart,
         icon: const DlmIcon(DlmIconName.restart),
-        onPressed: () => restartTask(context, ref, clicked.id),
+        onPressed: () => restartTasks(context, ref, [
+          for (final t in targets)
+            if (t.statusKind.isFinished) t.id,
+        ]),
+      ),
+    if (targets.any((t) => !t.statusKind.isFinished))
+      DlmMenuItem(
+        label: l.action_refresh_link,
+        icon: const DlmIcon(DlmIconName.refresh),
+        onPressed: () => refreshTaskLinks(context, ref, ids),
+      ),
+    if (queues.length > 1) ...[
+      const DlmMenuSeparator(),
+      DlmMenuHeader(l.action_move_to),
+      for (final q in queues)
+        DlmMenuItem(
+          label: q.name,
+          checked: targets.every((t) => t.queueId == q.id),
+          onPressed: () => moveTasksToQueue(context, ref, ids, q),
+        ),
+    ],
+    const DlmMenuSeparator(),
+    DlmMenuHeader(l.action_priority),
+    for (final p in const [
+      UpdateTasksBodyPriority.high,
+      UpdateTasksBodyPriority.normal,
+      UpdateTasksBodyPriority.low,
+    ])
+      DlmMenuItem(
+        label: switch (p) {
+          UpdateTasksBodyPriority.high => l.priority_high,
+          UpdateTasksBodyPriority.low => l.priority_low,
+          _ => l.priority_normal,
+        },
+        checked: targets.every((t) => t.priority == p.json),
+        onPressed: () => prioritiseTasks(context, ref, ids, p),
       ),
     if (single) ...[
       const DlmMenuSeparator(),

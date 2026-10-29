@@ -167,4 +167,48 @@ void main() {
     await rightClick(tester, 'report.pdf');
     expect(find.text('Download again'), findsOneWidget);
   });
+
+  appTest('Download again restarts every finished download selected', (
+    tester,
+  ) async {
+    final h = await pumpApp(tester, tasks: tasks);
+    h.container.read(selectionProvider.notifier).set({'c', 'd'});
+    await tester.pump(const Duration(milliseconds: 100));
+    await rightClick(tester, 'report.pdf');
+    await tester.tap(find.text('Download again'));
+    await settle(tester);
+    expect(h.tasks.calls, ['restartMany:c,d']);
+    expect(find.text('Restarting 2 downloads'), findsOneWidget);
+  });
+
+  appTest('a new link is asked for the whole selection', (tester) async {
+    final h = await pumpApp(tester, tasks: tasks);
+    h.container.read(selectionProvider.notifier).set({'a', 'b'});
+    await tester.pump(const Duration(milliseconds: 100));
+    await rightClick(tester, 'ubuntu.iso');
+    await tester.tap(find.text('Get a new link'));
+    await settle(tester);
+    expect(h.tasks.calls, ['refreshMany:a,b']);
+  });
+
+  appTest('priority and queue are set for the whole selection', (tester) async {
+    final h = await pumpApp(
+      tester,
+      tasks: tasks,
+      queues: [queue('main', 'Default'), queue('night', 'Night')],
+    );
+    h.container.read(selectionProvider.notifier).set({'a', 'b'});
+    await tester.pump(const Duration(milliseconds: 100));
+    await rightClick(tester, 'ubuntu.iso');
+    await tester.tap(find.text('High'));
+    await settle(tester);
+    expect(h.tasks.calls, ['prioritise:a,b:high']);
+    expect(find.text('Priority changed for 2 downloads'), findsOneWidget);
+
+    await rightClick(tester, 'ubuntu.iso');
+    await tester.tap(find.text('Night').last);
+    await settle(tester);
+    expect(h.tasks.calls.last, 'moveMany:a,b:night');
+    expect(find.text('Moved 2 downloads to Night'), findsOneWidget);
+  });
 }

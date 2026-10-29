@@ -806,5 +806,46 @@
         "type": "int"
       }
     }
+  },
+  "action_refresh_link": "Get a new link",
+  "action_move_to": "Move to queue",
+  "action_priority": "Priority",
+  "priority_high": "High",
+  "priority_normal": "Normal",
+  "priority_low": "Low",
+  "toast_moved": "{count, plural, one{Moved 1 download to {queue}} other{Moved {count} downloads to {queue}}}",
+  "@toast_moved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "queue": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_prioritised": "{count, plural, one{Priority changed for 1 download} other{Priority changed for {count} downloads}}",
+  "@toast_prioritised": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_restarted_many": "{count, plural, one{Restarting 1 download} other{Restarting {count} downloads}}",
+  "@toast_restarted_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_refreshing_many": "{count, plural, one{Asking for a new link for 1 download} other{Asking for new links for {count} downloads}}",
+  "@toast_refreshing_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
   }
 }

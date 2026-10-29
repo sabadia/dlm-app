@@ -65,6 +65,39 @@ class TaskActions {
     call: () => _repo.restart(id),
   );
 
+  /// Restarts the finished or failed tasks among [ids] from the beginning.
+  Future<List<ItemResult>> restartMany(List<String> ids) => _bulk(
+    ids,
+    optimistic: (t) => t.statusKind.isFinished
+        ? t.copyWith(status: 'queued', clearError: true, downloaded: 0)
+        : null,
+    call: _repo.restartMany,
+  );
+
+  /// Asks for a fresh link for [ids].
+  Future<List<ItemResult>> refreshMany(List<String> ids) =>
+      _bulk(ids, optimistic: (_) => null, call: _repo.refreshMany);
+
+  /// Moves [ids] to the end of [queueId].
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId) => _bulk(
+    ids,
+    optimistic: (t) =>
+        t.queueId == queueId ? null : t.copyWith(queueId: queueId),
+    call: (ids) => _repo.moveMany(ids, queueId),
+  );
+
+  /// Gives [ids] a priority.
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  ) => _bulk(
+    ids,
+    optimistic: (t) => t.priority == priority.json
+        ? null
+        : t.copyWith(priority: priority.json),
+    call: (ids) => _repo.prioritise(ids, priority),
+  );
+
   /// Moves a task to [queueId].
   Future<Task> move(String id, String queueId) =>
       _single(id, optimistic: (t) => t, call: () => _repo.move(id, queueId));

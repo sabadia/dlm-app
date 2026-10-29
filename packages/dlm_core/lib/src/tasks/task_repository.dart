@@ -119,6 +119,21 @@ abstract interface class TaskRepository {
   /// Restarts a failed or finished task from the beginning.
   Future<Task> restart(String id);
 
+  /// Restarts several tasks from the beginning.
+  Future<List<ItemResult>> restartMany(List<String> ids);
+
+  /// Asks for a fresh link for several tasks (those that can renew theirs).
+  Future<List<ItemResult>> refreshMany(List<String> ids);
+
+  /// Moves several tasks to the end of another queue.
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId);
+
+  /// Gives several tasks a priority.
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  );
+
   /// Moves a task to another queue.
   Future<Task> move(String id, String queueId);
 
@@ -196,6 +211,37 @@ class ApiTaskRepository implements TaskRepository {
 
   @override
   Future<Task> restart(String id) => guard(() => _tasks.restartTask(id: id));
+
+  @override
+  Future<List<ItemResult>> restartMany(List<String> ids) => guard(
+    () async => _items(await _tasks.restartTasks(body: TaskSelector(ids: ids))),
+  );
+
+  @override
+  Future<List<ItemResult>> refreshMany(List<String> ids) => guard(
+    () async => _items(await _tasks.refreshTasks(body: TaskSelector(ids: ids))),
+  );
+
+  @override
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId) => guard(
+    () async => _items(
+      await _tasks.moveTasks(
+        body: MoveTasksBody(ids: ids, queueId: queueId),
+      ),
+    ),
+  );
+
+  @override
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  ) => guard(
+    () async => _items(
+      await _tasks.updateTasks(
+        body: UpdateTasksBody(ids: ids, priority: priority),
+      ),
+    ),
+  );
 
   @override
   Future<Task> move(String id, String queueId) => guard(

@@ -2367,6 +2367,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} downloads'**
   String list_total(int count);
+
+  /// No description provided for @action_refresh_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Get a new link'**
+  String get action_refresh_link;
+
+  /// No description provided for @action_move_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to queue'**
+  String get action_move_to;
+
+  /// No description provided for @action_priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get action_priority;
+
+  /// No description provided for @priority_high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get priority_high;
+
+  /// No description provided for @priority_normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get priority_normal;
+
+  /// No description provided for @priority_low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get priority_low;
+
+  /// No description provided for @toast_moved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Moved 1 download to {queue}} other{Moved {count} downloads to {queue}}}'**
+  String toast_moved(int count, String queue);
+
+  /// No description provided for @toast_prioritised.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Priority changed for 1 download} other{Priority changed for {count} downloads}}'**
+  String toast_prioritised(int count);
+
+  /// No description provided for @toast_restarted_many.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Restarting 1 download} other{Restarting {count} downloads}}'**
+  String toast_restarted_many(int count);
+
+  /// No description provided for @toast_refreshing_many.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Asking for a new link for 1 download} other{Asking for new links for {count} downloads}}'**
+  String toast_refreshing_many(int count);
 }
 
 class _AppLocalizationsDelegate

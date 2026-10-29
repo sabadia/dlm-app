@@ -143,6 +143,33 @@ class FakeTaskRepository implements TaskRepository {
   }
 
   @override
+  Future<List<ItemResult>> restartMany(List<String> ids) async {
+    calls.add('restartMany:${ids.join(',')}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> refreshMany(List<String> ids) async {
+    calls.add('refreshMany:${ids.join(',')}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId) async {
+    calls.add('moveMany:${ids.join(',')}:$queueId');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  ) async {
+    calls.add('prioritise:${ids.join(',')}:${priority.json}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
   Future<Task> update(
     String id, {
     String? name,

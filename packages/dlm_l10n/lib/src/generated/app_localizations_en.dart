@@ -1377,4 +1377,66 @@ class AppLocalizationsEn extends AppLocalizations {
   String list_total(int count) {
     return '$count downloads';
   }
+
+  @override
+  String get action_refresh_link => 'Get a new link';
+
+  @override
+  String get action_move_to => 'Move to queue';
+
+  @override
+  String get action_priority => 'Priority';
+
+  @override
+  String get priority_high => 'High';
+
+  @override
+  String get priority_normal => 'Normal';
+
+  @override
+  String get priority_low => 'Low';
+
+  @override
+  String toast_moved(int count, String queue) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Moved $count downloads to $queue',
+      one: 'Moved 1 download to $queue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_prioritised(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Priority changed for $count downloads',
+      one: 'Priority changed for 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_restarted_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Restarting $count downloads',
+      one: 'Restarting 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_refreshing_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Asking for new links for $count downloads',
+      one: 'Asking for a new link for 1 download',
+    );
+    return '$_temp0';
+  }
 }
