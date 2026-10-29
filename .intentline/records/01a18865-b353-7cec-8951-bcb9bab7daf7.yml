@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a18865-b353-7cec-8951-bcb9bab7daf7
+status: draft
+created_at: '2026-10-29T16:02:08Z'
+updated_at: '2026-10-29T16:02:08Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F6.6: threat model and review; fix control characters in deep links and the unbounded single-instance read, with tests'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: docs/threat-model.md
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/handed_open.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/instance_endpoint.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

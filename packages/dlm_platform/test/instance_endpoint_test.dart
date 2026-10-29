@@ -52,4 +52,37 @@ void main() {
     final again = await InstanceEndpoint(dir).claim(const []);
     expect(again, isA<InstanceHandedOff>());
   });
+
+  test('a peer that sends more than the limit without a newline is cut off, '
+      'and the app goes on', () async {
+    final primary = await InstanceEndpoint(dir).claim(const []);
+    final running = primary as InstancePrimary;
+    addTearDown(running.close);
+    final port = int.parse(
+      File('${dir.path}${Platform.pathSeparator}instance.port')
+          .readAsStringSync()
+          .trim(),
+    );
+    final incoming = StreamIterator(running.incoming);
+    addTearDown(incoming.cancel);
+
+    final hostile = await Socket.connect(InternetAddress.loopbackIPv4, port);
+    final chunk = List<int>.filled(256 * 1024, 65);
+    try {
+      for (var i = 0; i < 16; i++) {
+        hostile.add(chunk);
+      }
+      await hostile.flush();
+    } on Object {
+      // The other side hung up at the limit: that is the point.
+    }
+    hostile.destroy();
+
+    // Nothing was delivered for it, and a real launch still gets through.
+    final second = await InstanceEndpoint(dir)
+        .claim(const ['magnet:?xt=urn:btih:ok']);
+    expect(second, isA<InstanceHandedOff>());
+    expect(await incoming.moveNext(), isTrue);
+    expect(incoming.current.links, ['magnet:?xt=urn:btih:ok']);
+  });
 }
