@@ -5,6 +5,7 @@ import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/app.dart';
 import 'package:dlm_app/src/connection/connection_controller.dart';
 import 'package:dlm_app/src/prefs/pref_providers.dart';
+import 'package:dlm_app/src/queues/queue_countdown.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -24,13 +25,95 @@ Queue queue(String id, String name, {int position = 0}) => Queue(
   updatedAt: DateTime.utc(2026, 10, 29),
 );
 
+/// Queues held in memory: the commands change the list the way the daemon's
+/// answers would and are recorded in [calls].
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 
-  final List<Queue> queues;
+  List<Queue> queues;
+  final List<String> calls = [];
+  Settings? savedSettings;
 
   @override
   Future<List<Queue>> build() async => queues;
+
+  void _set(List<Queue> next) {
+    queues = next;
+    state = AsyncData(next);
+  }
+
+  Queue _replace(String id, Queue Function(Queue) change) {
+    final updated = change(queues.firstWhere((q) => q.id == id));
+    _set([
+      for (final q in queues)
+        if (q.id == id) updated else q,
+    ]);
+    return updated;
+  }
+
+  Queue _with(Queue q, {String? name, String? state, Settings? settings}) =>
+      Queue(
+        createdAt: q.createdAt,
+        id: q.id,
+        isDefault: q.isDefault,
+        name: name ?? q.name,
+        position: q.position,
+        settings: settings ?? q.settings,
+        state: state ?? q.state,
+        updatedAt: q.updatedAt,
+      );
+
+  @override
+  Future<Queue> create(CreateQueueBody body) async {
+    calls.add('create ${body.name}');
+    final created = queue(
+      'q${queues.length + 1}',
+      body.name,
+      position: queues.length,
+    );
+    _set([...queues, created]);
+    return created;
+  }
+
+  @override
+  Future<Queue> edit(String id, UpdateQueueBody body) async {
+    calls.add('edit $id ${body.name}');
+    return _replace(id, (q) => _with(q, name: body.name));
+  }
+
+  @override
+  Future<Queue> start(String id) async {
+    calls.add('start $id');
+    return _replace(id, (q) => _with(q, state: 'running'));
+  }
+
+  @override
+  Future<Queue> stop(String id) async {
+    calls.add('stop $id');
+    return _replace(id, (q) => _with(q, state: 'stopped'));
+  }
+
+  @override
+  Future<Queue> reorder(String id, int position) async {
+    calls.add('reorder $id $position');
+    return queues.firstWhere((q) => q.id == id);
+  }
+
+  @override
+  Future<Queue> replaceSettings(String id, Settings settings) async {
+    calls.add('settings $id');
+    savedSettings = settings;
+    return _replace(id, (q) => _with(q, settings: settings));
+  }
+
+  @override
+  Future<void> remove(String id, {String? moveTasksTo}) async {
+    calls.add('remove $id to $moveTasksTo');
+    _set([
+      for (final q in queues)
+        if (q.id != id) q,
+    ]);
+  }
 }
 
 class ReadyConnection extends ConnectionController {
@@ -77,6 +160,7 @@ Future<AppHarness> pumpApp(
   List<Queue> queues = const [],
   Size size = const Size(1400, 900),
   bool liveSync = false,
+  bool onboarded = true,
   List<Override> overrides = const [],
 }) async {
   tester.view
@@ -90,6 +174,9 @@ Future<AppHarness> pumpApp(
   final prefs = (await tester.runAsync(
     () => PreferencesStore.open(io.File('${dir.path}/prefs.json')),
   ))!;
+  if (onboarded) {
+    await tester.runAsync(() => prefs.set(UiPrefs.onboardingDone, true));
+  }
   // Not disposed: closing its stream inside the fake-async zone never
   // completes, and the temporary file goes away with its directory.
 
@@ -119,6 +206,7 @@ Future<AppHarness> pumpApp(
           ),
         ),
       queuesProvider.overrideWith(() => FakeQueues(queues)),
+      clockProvider.overrideWithValue(tester.binding.clock.now),
       ...overrides,
     ],
   );
@@ -164,5 +252,59 @@ void appTest(
 Future<void> settle(WidgetTester tester) async {
   for (var i = 0; i < 5; i++) {
     await tester.pump(const Duration(milliseconds: 150));
+  }
+}
+
+/// What a daemon reports about itself, with the given tools.
+SystemInfo systemInfo(List<ToolStatus> tools) => SystemInfo(
+  address: '127.0.0.1:1',
+  apiVersion: 1,
+  arch: 'arm64',
+  databaseBytes: 0,
+  engines: const ['http'],
+  goVersion: 'go1.26',
+  local: true,
+  minClientApi: 1,
+  os: 'darwin',
+  paths: const SystemPaths(
+    cache: '/c',
+    config: '/cfg',
+    data: '/d',
+    database: '/db',
+    downloads: '/dl',
+    log: '/l',
+  ),
+  pid: 1,
+  startedAt: DateTime.utc(2026, 10, 29),
+  tls: false,
+  tools: tools,
+  uptimeSeconds: 1,
+  version: '0.2.1',
+);
+
+/// Global settings in memory that record the patches sent to them.
+class FakeGlobalSettings extends GlobalSettingsController {
+  FakeGlobalSettings({String? downloadDir})
+    : _dir = downloadDir ?? '/Users/test/Downloads';
+
+  String _dir;
+  final List<Map<String, Object?>> patches = [];
+
+  @override
+  Future<GlobalSettings> build() async => GlobalSettings(
+    settings: Settings(downloadDir: _dir),
+    defaults: const Settings(downloadDir: '/Users/test/Downloads'),
+  );
+
+  @override
+  Future<void> patch(Map<String, Object?> mergePatch) async {
+    patches.add(mergePatch);
+    _dir = mergePatch['downloadDir']! as String;
+    state = AsyncData(
+      GlobalSettings(
+        settings: Settings(downloadDir: _dir),
+        defaults: const Settings(downloadDir: '/Users/test/Downloads'),
+      ),
+    );
   }
 }

@@ -23,6 +23,8 @@ void main() {
       store: store,
       onReset: () async => resets++,
     );
+    final seen = <StreamEvent>[];
+    engine.events.listen(seen.add);
     final states = <HubConnectionState>[];
     engine.connection.listen(states.add);
     addTearDown(engine.dispose);
@@ -49,6 +51,7 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 30));
     expect(store.tasks['a']!.statusKind, TaskStatus.paused);
     expect(states, contains(HubConnectionState.connected));
+    expect(seen.single, isA<StreamEventTaskStatusEvent>());
 
     frames.add(
       SseData(

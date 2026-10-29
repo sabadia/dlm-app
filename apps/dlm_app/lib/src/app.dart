@@ -14,6 +14,7 @@ import 'connection/connection_gate.dart';
 import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
 import 'screens/downloads_screen.dart';
+import 'screens/queue_screen.dart';
 import 'shell/app_shell.dart';
 import 'skin_registry.dart';
 
@@ -82,10 +83,7 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: '/queues/:id',
             pageBuilder: (context, state) => NoTransitionPage(
               key: ValueKey(state.uri.path),
-              child: DownloadsScreen(
-                filter: DownloadsFilter.all,
-                queueId: state.pathParameters['id'],
-              ),
+              child: QueueScreen(queueId: state.pathParameters['id']!),
             ),
           ),
         ],

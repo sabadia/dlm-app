@@ -44,6 +44,11 @@ final inspectorWidthProvider = NotifierProvider<PrefNotifier<double>, double>(
   () => PrefNotifier(UiPrefs.inspectorWidth),
 );
 
+/// Whether the first-run setup was finished.
+final onboardingDoneProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.onboardingDone),
+);
+
 /// Whether the details pane is open.
 final inspectorVisibleProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.inspectorVisible),

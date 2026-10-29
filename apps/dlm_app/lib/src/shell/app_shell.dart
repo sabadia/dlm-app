@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
@@ -10,9 +12,12 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
+import '../queues/queue_countdown.dart';
 import '../routing/app_routes.dart';
 import 'app_commands.dart';
+import 'queue_commands.dart';
 import 'shell_state.dart';
 import 'status_banners.dart';
 import 'task_commands.dart';
@@ -47,6 +52,14 @@ class AppShell extends ConsumerStatefulWidget {
 
 class _AppShellState extends ConsumerState<AppShell> {
   final FocusNode _search = FocusNode(debugLabel: 'toolbar search');
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(showSetupOnFirstRun(context, ref));
+    });
+  }
 
   @override
   void dispose() {
@@ -121,6 +134,15 @@ class _AppShellState extends ConsumerState<AppShell> {
         }
       },
       header: SizedBox(height: theme.titleBarInset + theme.metrics.spacing.sm),
+      footer: Padding(
+        padding: EdgeInsets.all(theme.metrics.spacing.sm),
+        child: DlmButton(
+          label: l.queue_new,
+          icon: const DlmIcon(DlmIconName.plus),
+          variant: DlmButtonVariant.plain,
+          onPressed: () => createQueue(context, ref),
+        ),
+      ),
       sections: [
         DlmSidebarSection(
           items: [
@@ -206,6 +228,7 @@ class _AppShellState extends ConsumerState<AppShell> {
           ],
         ),
         const StatusBanners(),
+        const QueueCountdownBanners(),
         Expanded(
           child: inspectorVisible
               ? DlmSplitView(

@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a1853c-5456-7e0c-904d-0c75ab59b144
+status: draft
+created_at: '2026-10-29T01:18:05Z'
+updated_at: '2026-10-29T01:18:05Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Queues UI (create, rename, delete, start/stop, reorder, settings dialog for speed and schedule, countdown banner for the post-queue action) and first-run setup (download folder, helper programs); quota, speed profiles and end action written but hidden until dlm-server#128
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/queues/queue_settings_draft.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/queues/queue_settings_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/onboarding/setup_dialog.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
