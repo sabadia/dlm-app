@@ -141,7 +141,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F4.2 Global settings pages — General, Downloads, Connections, Speed, Network (proxy + rules, UA, headers, TLS), Refresh, Post-processing builder (extract, add-torrent, command, av-scan with warnings), Torrent/ed2k/yt-dlp/ffmpeg, Browser usage.
 - [x] F4.3 Categories manager — Rules, drag order, live match tester.
 - [x] F4.4 Logins and Cookies managers — Domain tree, Netscape/JSON import-export, reveal on demand.
-- [ ] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
+- [x] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
 - [ ] F4.6 Plugins manager *(needs P13.9)* — Install from folder/git, permission review (hooks + net hosts), enable/disable/remove, logs.
 - [ ] F4.7 Browser tool — Resolve a page, candidates list, download, profile cleanup, tool status.
 - [ ] F4.8 Import/Export wizard *(needs P13.6)* — JSON/URL list/aria2, dry-run preview, results.

@@ -248,6 +248,89 @@ class FakeCookies extends CookiesController {
   }
 }
 
+/// The webhooks in memory.
+class FakeWebhooks extends WebhooksController {
+  FakeWebhooks(
+    this.hooks, {
+    this.deliveryList = const [],
+    this.failTest = false,
+  });
+
+  List<Webhook> hooks;
+  final List<Delivery> deliveryList;
+  final bool failTest;
+  final List<String> calls = [];
+
+  @override
+  Future<List<Webhook>> build() async => hooks;
+
+  @override
+  Future<Webhook> create(CreateWebhookBody body) async {
+    calls.add(
+      'create ${body.url} ${body.events} ${body.secret} ${body.disabled}',
+    );
+    final h = Webhook(
+      createdAt: DateTime.utc(2026),
+      enabled: body.disabled != true,
+      events: body.events,
+      hasSecret: body.secret != null,
+      id: 'n${hooks.length}',
+      updatedAt: DateTime.utc(2026),
+      url: body.url,
+    );
+    hooks = [...hooks, h];
+    state = AsyncData(hooks);
+    return h;
+  }
+
+  @override
+  Future<Webhook> edit(String id, UpdateWebhookBody body) async {
+    calls.add(
+      'edit $id ${body.url} ${body.events} ${body.secret} ${body.enabled}',
+    );
+    final old = hooks.firstWhere((h) => h.id == id);
+    final h = Webhook(
+      createdAt: old.createdAt,
+      enabled: body.enabled ?? old.enabled,
+      events: body.events ?? old.events,
+      hasSecret: old.hasSecret,
+      id: id,
+      updatedAt: old.updatedAt,
+      url: body.url ?? old.url,
+    );
+    hooks = [
+      for (final o in hooks)
+        if (o.id == id) h else o,
+    ];
+    state = AsyncData(hooks);
+    return h;
+  }
+
+  @override
+  Future<void> remove(String id) async {
+    calls.add('remove $id');
+    hooks = [
+      for (final h in hooks)
+        if (h.id != id) h,
+    ];
+    state = AsyncData(hooks);
+  }
+
+  @override
+  Future<void> test(String id) async {
+    calls.add('test $id');
+    if (failTest) {
+      throw const ApiProblem(status: 502, code: 'webhook.delivery_failed');
+    }
+  }
+
+  @override
+  Future<List<Delivery>> deliveries(String id) async {
+    calls.add('deliveries $id');
+    return deliveryList;
+  }
+}
+
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 

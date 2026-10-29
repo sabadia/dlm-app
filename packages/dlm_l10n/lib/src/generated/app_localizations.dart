@@ -3639,6 +3639,240 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'File saved'**
   String get ck_saved;
+
+  /// No description provided for @nav_manage_webhooks.
+  ///
+  /// In en, this message translates to:
+  /// **'Webhooks'**
+  String get nav_manage_webhooks;
+
+  /// No description provided for @wh_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'A webhook is an address that is sent the daemon\'s events as they happen, for example when a download finishes.'**
+  String get wh_intro;
+
+  /// No description provided for @wh_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a webhook'**
+  String get wh_add;
+
+  /// No description provided for @wh_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a webhook'**
+  String get wh_add_title;
+
+  /// No description provided for @wh_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the webhook'**
+  String get wh_edit_title;
+
+  /// No description provided for @wh_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Webhook saved'**
+  String get wh_saved;
+
+  /// No description provided for @wh_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No webhooks yet'**
+  String get wh_empty_title;
+
+  /// No description provided for @wh_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one to have events sent to another program.'**
+  String get wh_empty_message;
+
+  /// No description provided for @wh_url.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get wh_url;
+
+  /// No description provided for @wh_url_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use an address that starts with http:// or https://.'**
+  String get wh_url_invalid;
+
+  /// No description provided for @wh_secret.
+  ///
+  /// In en, this message translates to:
+  /// **'Secret'**
+  String get wh_secret;
+
+  /// No description provided for @wh_secret_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliveries are signed with it, so the receiver can check where they came from. Optional.'**
+  String get wh_secret_desc;
+
+  /// No description provided for @wh_secret_keep.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty to keep the stored secret.'**
+  String get wh_secret_keep;
+
+  /// No description provided for @wh_secret_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove the secret'**
+  String get wh_secret_remove;
+
+  /// No description provided for @wh_enabled_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Send deliveries'**
+  String get wh_enabled_label;
+
+  /// No description provided for @wh_enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Send deliveries to {url}'**
+  String wh_enabled(String url);
+
+  /// No description provided for @wh_events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get wh_events;
+
+  /// No description provided for @wh_events_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave all unticked to receive every event.'**
+  String get wh_events_desc;
+
+  /// No description provided for @wh_all_events.
+  ///
+  /// In en, this message translates to:
+  /// **'All events'**
+  String get wh_all_events;
+
+  /// No description provided for @wh_events_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 event} other{{count} events}}'**
+  String wh_events_count(int count);
+
+  /// No description provided for @wh_signed.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed'**
+  String get wh_signed;
+
+  /// No description provided for @wh_test.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get wh_test;
+
+  /// No description provided for @wh_test_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'{url} accepted the test event.'**
+  String wh_test_ok(String url);
+
+  /// No description provided for @wh_test_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'{url} did not accept the test event.'**
+  String wh_test_failed(String url);
+
+  /// No description provided for @wh_log.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliveries'**
+  String get wh_log;
+
+  /// No description provided for @wh_log_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Deliveries to {url}'**
+  String wh_log_title(String url);
+
+  /// No description provided for @wh_log_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The last attempts since the daemon started, newest first.'**
+  String get wh_log_desc;
+
+  /// No description provided for @wh_log_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing was sent yet.'**
+  String get wh_log_empty;
+
+  /// No description provided for @wh_log_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The deliveries could not be read.'**
+  String get wh_log_error;
+
+  /// No description provided for @wh_log_refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get wh_log_refresh;
+
+  /// No description provided for @wh_log_no_answer.
+  ///
+  /// In en, this message translates to:
+  /// **'no answer'**
+  String get wh_log_no_answer;
+
+  /// No description provided for @wh_log_status.
+  ///
+  /// In en, this message translates to:
+  /// **'HTTP {status}'**
+  String wh_log_status(int status);
+
+  /// No description provided for @wh_log_attempt.
+  ///
+  /// In en, this message translates to:
+  /// **'attempt {n}'**
+  String wh_log_attempt(int n);
+
+  /// No description provided for @wh_log_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'will retry'**
+  String get wh_log_retry;
+
+  /// No description provided for @wh_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit {url}'**
+  String wh_edit(String url);
+
+  /// No description provided for @wh_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {url}'**
+  String wh_delete(String url);
+
+  /// No description provided for @wh_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the webhook {url}?'**
+  String wh_delete_title(String url);
+
+  /// No description provided for @wh_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Events will no longer be sent there.'**
+  String get wh_delete_message;
+
+  /// No description provided for @wh_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete webhook'**
+  String get wh_delete_confirm;
 }
 
 class _AppLocalizationsDelegate

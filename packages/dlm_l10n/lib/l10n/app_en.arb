@@ -1284,5 +1284,114 @@
   "ck_copy": "Copy",
   "ck_copied": "Copied",
   "ck_save": "Save to a file…",
-  "ck_saved": "File saved"
+  "ck_saved": "File saved",
+  "nav_manage_webhooks": "Webhooks",
+  "wh_intro": "A webhook is an address that is sent the daemon's events as they happen, for example when a download finishes.",
+  "wh_add": "Add a webhook",
+  "wh_add_title": "Add a webhook",
+  "wh_edit_title": "Edit the webhook",
+  "wh_saved": "Webhook saved",
+  "wh_empty_title": "No webhooks yet",
+  "wh_empty_message": "Add one to have events sent to another program.",
+  "wh_url": "Address",
+  "wh_url_invalid": "Use an address that starts with http:// or https://.",
+  "wh_secret": "Secret",
+  "wh_secret_desc": "Deliveries are signed with it, so the receiver can check where they came from. Optional.",
+  "wh_secret_keep": "Leave empty to keep the stored secret.",
+  "wh_secret_remove": "Remove the secret",
+  "wh_enabled_label": "Send deliveries",
+  "wh_enabled": "Send deliveries to {url}",
+  "@wh_enabled": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_events": "Events",
+  "wh_events_desc": "Leave all unticked to receive every event.",
+  "wh_all_events": "All events",
+  "wh_events_count": "{count, plural, one{1 event} other{{count} events}}",
+  "@wh_events_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_signed": "Signed",
+  "wh_test": "Test",
+  "wh_test_ok": "{url} accepted the test event.",
+  "@wh_test_ok": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_test_failed": "{url} did not accept the test event.",
+  "@wh_test_failed": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_log": "Deliveries",
+  "wh_log_title": "Deliveries to {url}",
+  "@wh_log_title": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_log_desc": "The last attempts since the daemon started, newest first.",
+  "wh_log_empty": "Nothing was sent yet.",
+  "wh_log_error": "The deliveries could not be read.",
+  "wh_log_refresh": "Refresh",
+  "wh_log_no_answer": "no answer",
+  "wh_log_status": "HTTP {status}",
+  "@wh_log_status": {
+    "placeholders": {
+      "status": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_log_attempt": "attempt {n}",
+  "@wh_log_attempt": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "wh_log_retry": "will retry",
+  "wh_edit": "Edit {url}",
+  "@wh_edit": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete": "Delete {url}",
+  "@wh_delete": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete_title": "Delete the webhook {url}?",
+  "@wh_delete_title": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "wh_delete_message": "Events will no longer be sent there.",
+  "wh_delete_confirm": "Delete webhook"
 }

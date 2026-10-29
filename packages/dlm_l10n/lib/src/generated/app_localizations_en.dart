@@ -2158,4 +2158,152 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get ck_saved => 'File saved';
+
+  @override
+  String get nav_manage_webhooks => 'Webhooks';
+
+  @override
+  String get wh_intro =>
+      'A webhook is an address that is sent the daemon\'s events as they happen, for example when a download finishes.';
+
+  @override
+  String get wh_add => 'Add a webhook';
+
+  @override
+  String get wh_add_title => 'Add a webhook';
+
+  @override
+  String get wh_edit_title => 'Edit the webhook';
+
+  @override
+  String get wh_saved => 'Webhook saved';
+
+  @override
+  String get wh_empty_title => 'No webhooks yet';
+
+  @override
+  String get wh_empty_message =>
+      'Add one to have events sent to another program.';
+
+  @override
+  String get wh_url => 'Address';
+
+  @override
+  String get wh_url_invalid =>
+      'Use an address that starts with http:// or https://.';
+
+  @override
+  String get wh_secret => 'Secret';
+
+  @override
+  String get wh_secret_desc =>
+      'Deliveries are signed with it, so the receiver can check where they came from. Optional.';
+
+  @override
+  String get wh_secret_keep => 'Leave empty to keep the stored secret.';
+
+  @override
+  String get wh_secret_remove => 'Remove the secret';
+
+  @override
+  String get wh_enabled_label => 'Send deliveries';
+
+  @override
+  String wh_enabled(String url) {
+    return 'Send deliveries to $url';
+  }
+
+  @override
+  String get wh_events => 'Events';
+
+  @override
+  String get wh_events_desc => 'Leave all unticked to receive every event.';
+
+  @override
+  String get wh_all_events => 'All events';
+
+  @override
+  String wh_events_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count events',
+      one: '1 event',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get wh_signed => 'Signed';
+
+  @override
+  String get wh_test => 'Test';
+
+  @override
+  String wh_test_ok(String url) {
+    return '$url accepted the test event.';
+  }
+
+  @override
+  String wh_test_failed(String url) {
+    return '$url did not accept the test event.';
+  }
+
+  @override
+  String get wh_log => 'Deliveries';
+
+  @override
+  String wh_log_title(String url) {
+    return 'Deliveries to $url';
+  }
+
+  @override
+  String get wh_log_desc =>
+      'The last attempts since the daemon started, newest first.';
+
+  @override
+  String get wh_log_empty => 'Nothing was sent yet.';
+
+  @override
+  String get wh_log_error => 'The deliveries could not be read.';
+
+  @override
+  String get wh_log_refresh => 'Refresh';
+
+  @override
+  String get wh_log_no_answer => 'no answer';
+
+  @override
+  String wh_log_status(int status) {
+    return 'HTTP $status';
+  }
+
+  @override
+  String wh_log_attempt(int n) {
+    return 'attempt $n';
+  }
+
+  @override
+  String get wh_log_retry => 'will retry';
+
+  @override
+  String wh_edit(String url) {
+    return 'Edit $url';
+  }
+
+  @override
+  String wh_delete(String url) {
+    return 'Delete $url';
+  }
+
+  @override
+  String wh_delete_title(String url) {
+    return 'Delete the webhook $url?';
+  }
+
+  @override
+  String get wh_delete_message => 'Events will no longer be sent there.';
+
+  @override
+  String get wh_delete_confirm => 'Delete webhook';
 }

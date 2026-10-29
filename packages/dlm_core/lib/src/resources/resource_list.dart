@@ -165,6 +165,14 @@ class WebhooksController extends ResourceList<Webhook> {
   /// Sends a test delivery.
   Future<void> test(String id) =>
       guard(() => ref.read(apiProvider).rest.webhooks.testWebhook(id: id));
+
+  /// The recent delivery attempts to the webhook, newest first.
+  Future<List<Delivery>> deliveries(String id) async {
+    final out = await guard(
+      () => ref.read(apiProvider).rest.webhooks.listWebhookDeliveries(id: id),
+    );
+    return out.deliveries ?? const [];
+  }
 }
 
 /// The plugins (`/v1/plugins`).
