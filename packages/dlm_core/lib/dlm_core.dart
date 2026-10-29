@@ -31,6 +31,7 @@ export 'src/sync/sync_engine.dart';
 export 'src/tasks/add_repository.dart';
 export 'src/tasks/browser_repository.dart';
 export 'src/tasks/refresh_repository.dart';
+export 'src/tasks/stats_repository.dart';
 export 'src/tasks/task_actions.dart';
 export 'src/tasks/task_detail_repository.dart';
 export 'src/tasks/task_list.dart';

@@ -4419,6 +4419,228 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The exported list'**
   String get tr_export_text;
+
+  /// No description provided for @nav_manage_statistics.
+  ///
+  /// In en, this message translates to:
+  /// **'Statistics'**
+  String get nav_manage_statistics;
+
+  /// No description provided for @st_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The statistics could not be read.'**
+  String get st_error;
+
+  /// No description provided for @st_totals.
+  ///
+  /// In en, this message translates to:
+  /// **'Totals'**
+  String get st_totals;
+
+  /// No description provided for @st_tasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads'**
+  String get st_tasks;
+
+  /// No description provided for @st_downloaded.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded in all'**
+  String get st_downloaded;
+
+  /// No description provided for @st_by_status.
+  ///
+  /// In en, this message translates to:
+  /// **'By state'**
+  String get st_by_status;
+
+  /// No description provided for @st_by_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'By engine'**
+  String get st_by_engine;
+
+  /// No description provided for @st_completed_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished in the last {period}'**
+  String st_completed_in(String period);
+
+  /// No description provided for @st_bucket.
+  ///
+  /// In en, this message translates to:
+  /// **'Bucket'**
+  String get st_bucket;
+
+  /// No description provided for @st_bucket_hour.
+  ///
+  /// In en, this message translates to:
+  /// **'Per hour'**
+  String get st_bucket_hour;
+
+  /// No description provided for @st_bucket_day.
+  ///
+  /// In en, this message translates to:
+  /// **'Per day'**
+  String get st_bucket_day;
+
+  /// No description provided for @st_group.
+  ///
+  /// In en, this message translates to:
+  /// **'Split by'**
+  String get st_group;
+
+  /// No description provided for @st_group_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing'**
+  String get st_group_none;
+
+  /// No description provided for @st_group_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get st_group_engine;
+
+  /// No description provided for @st_group_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get st_group_queue;
+
+  /// No description provided for @st_timeline.
+  ///
+  /// In en, this message translates to:
+  /// **'Traffic'**
+  String get st_timeline;
+
+  /// No description provided for @st_timeline_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloaded {down}, uploaded {up} in this range.'**
+  String st_timeline_summary(String down, String up);
+
+  /// No description provided for @st_timeline_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No traffic in this range.'**
+  String get st_timeline_empty;
+
+  /// No description provided for @st_all_traffic.
+  ///
+  /// In en, this message translates to:
+  /// **'All traffic'**
+  String get st_all_traffic;
+
+  /// No description provided for @st_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Finished downloads'**
+  String get st_history;
+
+  /// No description provided for @st_history_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search by name or link'**
+  String get st_history_search;
+
+  /// No description provided for @st_history_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No finished downloads.'**
+  String get st_history_empty;
+
+  /// No description provided for @st_history_more.
+  ///
+  /// In en, this message translates to:
+  /// **'Show more'**
+  String get st_history_more;
+
+  /// No description provided for @st_cleanup_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean up'**
+  String get st_cleanup_title;
+
+  /// No description provided for @st_cleanup_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Removes finished downloads from the list. The automatic cleanup of the retention setting never deletes files.'**
+  String get st_cleanup_desc;
+
+  /// No description provided for @st_cleanup_days.
+  ///
+  /// In en, this message translates to:
+  /// **'Older than'**
+  String get st_cleanup_days;
+
+  /// No description provided for @st_days.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get st_days;
+
+  /// No description provided for @st_cleanup_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Also delete the files'**
+  String get st_cleanup_files;
+
+  /// No description provided for @st_cleanup_files_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Off keeps the files on disk and only removes the list entries.'**
+  String get st_cleanup_files_desc;
+
+  /// No description provided for @st_cleanup_preview.
+  ///
+  /// In en, this message translates to:
+  /// **'Check what would go'**
+  String get st_cleanup_preview;
+
+  /// No description provided for @st_cleanup_preview_result.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 download} other{{count} downloads}} ({size}) would be removed.'**
+  String st_cleanup_preview_result(int count, String size);
+
+  /// No description provided for @st_cleanup_go.
+  ///
+  /// In en, this message translates to:
+  /// **'Clean up'**
+  String get st_cleanup_go;
+
+  /// No description provided for @st_cleanup_confirm_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {count, plural, one{1 download} other{{count} downloads}}?'**
+  String st_cleanup_confirm_title(int count);
+
+  /// No description provided for @st_cleanup_confirm_list.
+  ///
+  /// In en, this message translates to:
+  /// **'They leave the list; the files stay where they are.'**
+  String get st_cleanup_confirm_list;
+
+  /// No description provided for @st_cleanup_confirm_files.
+  ///
+  /// In en, this message translates to:
+  /// **'They leave the list and their files are deleted from the disk. This cannot be undone.'**
+  String get st_cleanup_confirm_files;
+
+  /// No description provided for @st_cleanup_done.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed {count, plural, one{1 download} other{{count} downloads}}'**
+  String st_cleanup_done(int count);
+
+  /// No description provided for @st_cleanup_done_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed {deleted}; {failed} could not be removed'**
+  String st_cleanup_done_failed(int deleted, int failed);
 }
 
 class _AppLocalizationsDelegate

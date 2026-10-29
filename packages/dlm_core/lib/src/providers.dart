@@ -11,6 +11,7 @@ import 'sync/sync_engine.dart';
 import 'tasks/add_repository.dart';
 import 'tasks/browser_repository.dart';
 import 'tasks/refresh_repository.dart';
+import 'tasks/stats_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_detail_repository.dart';
 import 'tasks/task_list.dart';
@@ -205,6 +206,11 @@ final cookiesProvider =
 /// Download statistics (read again when invalidated).
 final statsProvider = FutureProvider<StatsBody>(
   (ref) => guard(ref.watch(apiProvider).rest.tasks.getStats),
+);
+
+/// Traffic over time and the cleanup of old downloads.
+final statsRepositoryProvider = Provider<StatsRepository>(
+  (ref) => ApiStatsRepository(ref.watch(apiProvider)),
 );
 
 /// What the daemon says about itself: version, paths and the state of its

@@ -1577,5 +1577,93 @@
       }
     }
   },
-  "tr_export_text": "The exported list"
+  "tr_export_text": "The exported list",
+  "nav_manage_statistics": "Statistics",
+  "st_error": "The statistics could not be read.",
+  "st_totals": "Totals",
+  "st_tasks": "Downloads",
+  "st_downloaded": "Downloaded in all",
+  "st_by_status": "By state",
+  "st_by_engine": "By engine",
+  "st_completed_in": "Finished in the last {period}",
+  "@st_completed_in": {
+    "placeholders": {
+      "period": {
+        "type": "String"
+      }
+    }
+  },
+  "st_bucket": "Bucket",
+  "st_bucket_hour": "Per hour",
+  "st_bucket_day": "Per day",
+  "st_group": "Split by",
+  "st_group_none": "Nothing",
+  "st_group_engine": "Engine",
+  "st_group_queue": "Queue",
+  "st_timeline": "Traffic",
+  "st_timeline_summary": "Downloaded {down}, uploaded {up} in this range.",
+  "@st_timeline_summary": {
+    "placeholders": {
+      "down": {
+        "type": "String"
+      },
+      "up": {
+        "type": "String"
+      }
+    }
+  },
+  "st_timeline_empty": "No traffic in this range.",
+  "st_all_traffic": "All traffic",
+  "st_history": "Finished downloads",
+  "st_history_search": "Search by name or link",
+  "st_history_empty": "No finished downloads.",
+  "st_history_more": "Show more",
+  "st_cleanup_title": "Clean up",
+  "st_cleanup_desc": "Removes finished downloads from the list. The automatic cleanup of the retention setting never deletes files.",
+  "st_cleanup_days": "Older than",
+  "st_days": "days",
+  "st_cleanup_files": "Also delete the files",
+  "st_cleanup_files_desc": "Off keeps the files on disk and only removes the list entries.",
+  "st_cleanup_preview": "Check what would go",
+  "st_cleanup_preview_result": "{count, plural, one{1 download} other{{count} downloads}} ({size}) would be removed.",
+  "@st_cleanup_preview_result": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "st_cleanup_go": "Clean up",
+  "st_cleanup_confirm_title": "Remove {count, plural, one{1 download} other{{count} downloads}}?",
+  "@st_cleanup_confirm_title": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "st_cleanup_confirm_list": "They leave the list; the files stay where they are.",
+  "st_cleanup_confirm_files": "They leave the list and their files are deleted from the disk. This cannot be undone.",
+  "st_cleanup_done": "Removed {count, plural, one{1 download} other{{count} downloads}}",
+  "@st_cleanup_done": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "st_cleanup_done_failed": "Removed {deleted}; {failed} could not be removed",
+  "@st_cleanup_done_failed": {
+    "placeholders": {
+      "deleted": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  }
 }

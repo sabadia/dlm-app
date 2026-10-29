@@ -2621,4 +2621,149 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tr_export_text => 'The exported list';
+
+  @override
+  String get nav_manage_statistics => 'Statistics';
+
+  @override
+  String get st_error => 'The statistics could not be read.';
+
+  @override
+  String get st_totals => 'Totals';
+
+  @override
+  String get st_tasks => 'Downloads';
+
+  @override
+  String get st_downloaded => 'Downloaded in all';
+
+  @override
+  String get st_by_status => 'By state';
+
+  @override
+  String get st_by_engine => 'By engine';
+
+  @override
+  String st_completed_in(String period) {
+    return 'Finished in the last $period';
+  }
+
+  @override
+  String get st_bucket => 'Bucket';
+
+  @override
+  String get st_bucket_hour => 'Per hour';
+
+  @override
+  String get st_bucket_day => 'Per day';
+
+  @override
+  String get st_group => 'Split by';
+
+  @override
+  String get st_group_none => 'Nothing';
+
+  @override
+  String get st_group_engine => 'Engine';
+
+  @override
+  String get st_group_queue => 'Queue';
+
+  @override
+  String get st_timeline => 'Traffic';
+
+  @override
+  String st_timeline_summary(String down, String up) {
+    return 'Downloaded $down, uploaded $up in this range.';
+  }
+
+  @override
+  String get st_timeline_empty => 'No traffic in this range.';
+
+  @override
+  String get st_all_traffic => 'All traffic';
+
+  @override
+  String get st_history => 'Finished downloads';
+
+  @override
+  String get st_history_search => 'Search by name or link';
+
+  @override
+  String get st_history_empty => 'No finished downloads.';
+
+  @override
+  String get st_history_more => 'Show more';
+
+  @override
+  String get st_cleanup_title => 'Clean up';
+
+  @override
+  String get st_cleanup_desc =>
+      'Removes finished downloads from the list. The automatic cleanup of the retention setting never deletes files.';
+
+  @override
+  String get st_cleanup_days => 'Older than';
+
+  @override
+  String get st_days => 'days';
+
+  @override
+  String get st_cleanup_files => 'Also delete the files';
+
+  @override
+  String get st_cleanup_files_desc =>
+      'Off keeps the files on disk and only removes the list entries.';
+
+  @override
+  String get st_cleanup_preview => 'Check what would go';
+
+  @override
+  String st_cleanup_preview_result(int count, String size) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0 ($size) would be removed.';
+  }
+
+  @override
+  String get st_cleanup_go => 'Clean up';
+
+  @override
+  String st_cleanup_confirm_title(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return 'Remove $_temp0?';
+  }
+
+  @override
+  String get st_cleanup_confirm_list =>
+      'They leave the list; the files stay where they are.';
+
+  @override
+  String get st_cleanup_confirm_files =>
+      'They leave the list and their files are deleted from the disk. This cannot be undone.';
+
+  @override
+  String st_cleanup_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return 'Removed $_temp0';
+  }
+
+  @override
+  String st_cleanup_done_failed(int deleted, int failed) {
+    return 'Removed $deleted; $failed could not be removed';
+  }
 }

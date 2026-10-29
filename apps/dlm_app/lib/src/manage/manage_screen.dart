@@ -5,6 +5,7 @@ import 'categories_screen.dart';
 import 'cookies_screen.dart';
 import 'logins_screen.dart';
 import 'plugins_screen.dart';
+import 'statistics_screen.dart';
 import 'transfer_screen.dart';
 import 'webhooks_screen.dart';
 
@@ -17,6 +18,7 @@ const List<String> managePages = [
   'plugins',
   'browser',
   'transfer',
+  'statistics',
 ];
 
 /// One management page.
@@ -36,6 +38,7 @@ class ManageScreen extends StatelessWidget {
     'plugins' => const PluginsScreen(),
     'browser' => const BrowserScreen(),
     'transfer' => const TransferScreen(),
+    'statistics' => const StatisticsScreen(),
     _ => const SizedBox.shrink(),
   };
 }
