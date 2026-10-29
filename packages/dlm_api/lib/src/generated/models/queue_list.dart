@@ -10,7 +10,7 @@ part 'queue_list.g.dart';
 
 @JsonSerializable()
 class QueueList {
-  const QueueList({required this.queues, this.schema});
+  const QueueList({required this.counts, required this.queues, this.schema});
 
   factory QueueList.fromJson(Map<String, Object?> json) =>
       _$QueueListFromJson(json);
@@ -19,6 +19,9 @@ class QueueList {
   /// Incorrect name has been replaced. Original name: `$schema`.
   @JsonKey(name: '\$schema')
   final String? schema;
+
+  /// Per queue ID, the number of tasks in each status (statuses without tasks are left out).
+  final Map<String, Map<String, int>> counts;
 
   /// Every queue, ordered by position.
   final List<Queue>? queues;

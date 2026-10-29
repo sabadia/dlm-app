@@ -15,6 +15,7 @@ BatchItem _$BatchItemFromJson(Map<String, dynamic> json) => BatchItem(
   task: json['task'] == null
       ? null
       : Task.fromJson(json['task'] as Map<String, dynamic>),
+  url: json['url'] as String?,
 );
 
 Map<String, dynamic> _$BatchItemToJson(BatchItem instance) => <String, dynamic>{
@@ -22,4 +23,5 @@ Map<String, dynamic> _$BatchItemToJson(BatchItem instance) => <String, dynamic>{
   'id': instance.id,
   'ok': instance.ok,
   'task': instance.task,
+  'url': instance.url,
 };

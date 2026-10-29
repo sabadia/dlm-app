@@ -4,6 +4,7 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'duplicate_hint.dart';
 import 'resource.dart';
 import 'source.dart';
 
@@ -19,6 +20,7 @@ class ResolveResult {
     required this.resource,
     required this.source,
     this.schema,
+    this.duplicateOf,
   });
 
   factory ResolveResult.fromJson(Map<String, Object?> json) =>
@@ -28,6 +30,7 @@ class ResolveResult {
   /// Incorrect name has been replaced. Original name: `$schema`.
   @JsonKey(name: '\$schema')
   final String? schema;
+  final DuplicateHint? duplicateOf;
   final String engine;
   final DateTime expiresAt;
   final String name;

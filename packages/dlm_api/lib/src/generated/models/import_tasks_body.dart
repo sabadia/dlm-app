@@ -15,6 +15,7 @@ class ImportTasksBody {
     required this.format,
     this.schema,
     this.allowDuplicate,
+    this.dryRun,
     this.expandPatterns,
     this.paused,
     this.queueId,
@@ -33,6 +34,9 @@ class ImportTasksBody {
 
   /// The list to import (at most 8 MiB and 10000 entries).
   final String content;
+
+  /// Create nothing: answer, per entry, whether it would be added (ok) or why not (an invalid link, a duplicate of an existing task's link).
+  final bool? dryRun;
 
   /// Expand ranges in the URLs: file[001-100].jpg becomes 100 tasks.
   final bool? expandPatterns;

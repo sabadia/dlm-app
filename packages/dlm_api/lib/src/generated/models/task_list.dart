@@ -10,7 +10,12 @@ part 'task_list.g.dart';
 
 @JsonSerializable()
 class TaskList {
-  const TaskList({required this.tasks, this.schema, this.nextCursor});
+  const TaskList({
+    required this.tasks,
+    this.schema,
+    this.nextCursor,
+    this.total,
+  });
 
   factory TaskList.fromJson(Map<String, Object?> json) =>
       _$TaskListFromJson(json);
@@ -25,6 +30,9 @@ class TaskList {
 
   /// Tasks of this page.
   final List<Task>? tasks;
+
+  /// The number of tasks matching the filters (all pages); only when total=true was asked.
+  final int? total;
 
   Map<String, Object?> toJson() => _$TaskListToJson(this);
 }

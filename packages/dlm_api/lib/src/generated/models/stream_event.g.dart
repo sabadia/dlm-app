@@ -9,6 +9,33 @@ part of 'stream_event.dart';
 Map<String, dynamic> _$StreamEventToJson(StreamEvent instance) =>
     <String, dynamic>{};
 
+StreamEventLimitsChangedEvent _$StreamEventLimitsChangedEventFromJson(
+  Map<String, dynamic> json,
+) => StreamEventLimitsChangedEvent(
+  data: LimitsChangedData.fromJson(json['data'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  queueId: json['queueId'] as String?,
+  taskId: json['taskId'] as String?,
+  time: DateTime.parse(json['time'] as String),
+  type: LimitsChangedEventType.fromJson(json['type'] as String),
+);
+
+Map<String, dynamic> _$StreamEventLimitsChangedEventToJson(
+  StreamEventLimitsChangedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$LimitsChangedEventTypeEnumMap[instance.type]!,
+};
+
+const _$LimitsChangedEventTypeEnumMap = {
+  LimitsChangedEventType.undefined0: 'limits.changed',
+  LimitsChangedEventType.$unknown: r'$unknown',
+};
+
 StreamEventQueueActionCancelledEvent
 _$StreamEventQueueActionCancelledEventFromJson(Map<String, dynamic> json) =>
     StreamEventQueueActionCancelledEvent(
@@ -198,6 +225,33 @@ const _$QuotaResetEventTypeEnumMap = {
   QuotaResetEventType.$unknown: r'$unknown',
 };
 
+StreamEventResourceChangedEvent _$StreamEventResourceChangedEventFromJson(
+  Map<String, dynamic> json,
+) => StreamEventResourceChangedEvent(
+  data: ResourceChangedData.fromJson(json['data'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  queueId: json['queueId'] as String?,
+  taskId: json['taskId'] as String?,
+  time: DateTime.parse(json['time'] as String),
+  type: ResourceChangedEventType.fromJson(json['type'] as String),
+);
+
+Map<String, dynamic> _$StreamEventResourceChangedEventToJson(
+  StreamEventResourceChangedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$ResourceChangedEventTypeEnumMap[instance.type]!,
+};
+
+const _$ResourceChangedEventTypeEnumMap = {
+  ResourceChangedEventType.undefined0: 'resource.changed',
+  ResourceChangedEventType.$unknown: r'$unknown',
+};
+
 StreamEventSettingsUpdatedEvent _$StreamEventSettingsUpdatedEventFromJson(
   Map<String, dynamic> json,
 ) => StreamEventSettingsUpdatedEvent(
@@ -223,6 +277,33 @@ Map<String, dynamic> _$StreamEventSettingsUpdatedEventToJson(
 const _$SettingsUpdatedEventTypeEnumMap = {
   SettingsUpdatedEventType.undefined0: 'settings.updated',
   SettingsUpdatedEventType.$unknown: r'$unknown',
+};
+
+StreamEventSystemSpeedEvent _$StreamEventSystemSpeedEventFromJson(
+  Map<String, dynamic> json,
+) => StreamEventSystemSpeedEvent(
+  data: SpeedData.fromJson(json['data'] as Map<String, dynamic>),
+  id: (json['id'] as num).toInt(),
+  queueId: json['queueId'] as String?,
+  taskId: json['taskId'] as String?,
+  time: DateTime.parse(json['time'] as String),
+  type: SystemSpeedEventType.fromJson(json['type'] as String),
+);
+
+Map<String, dynamic> _$StreamEventSystemSpeedEventToJson(
+  StreamEventSystemSpeedEvent instance,
+) => <String, dynamic>{
+  'data': instance.data,
+  'id': instance.id,
+  'queueId': instance.queueId,
+  'taskId': instance.taskId,
+  'time': instance.time.toIso8601String(),
+  'type': _$SystemSpeedEventTypeEnumMap[instance.type]!,
+};
+
+const _$SystemSpeedEventTypeEnumMap = {
+  SystemSpeedEventType.undefined0: 'system.speed',
+  SystemSpeedEventType.$unknown: r'$unknown',
 };
 
 StreamEventTaskCreatedEvent _$StreamEventTaskCreatedEventFromJson(

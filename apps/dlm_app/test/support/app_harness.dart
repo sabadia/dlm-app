@@ -262,6 +262,7 @@ SystemInfo systemInfo(List<ToolStatus> tools) => SystemInfo(
   arch: 'arm64',
   databaseBytes: 0,
   engines: const ['http'],
+  fsRoots: const [],
   goVersion: 'go1.26',
   local: true,
   minClientApi: 1,
