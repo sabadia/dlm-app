@@ -1,0 +1,35 @@
+schema_version: 1
+id: 01a18729-ca4d-7499-a90c-d1053549d9c4
+status: draft
+created_at: '2026-10-29T10:17:05Z'
+updated_at: '2026-10-29T10:17:05Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F5.1 and F5.2: a menu-bar icon with speed, pause all, quick add and close-to-tray, and notifications when a download finishes, fails, or its link expires, and when a queue finishes'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/platform/integration_binder.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/tray.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/notifier.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/window_control.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

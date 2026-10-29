@@ -5308,6 +5308,120 @@ abstract class AppLocalizations {
   /// **'Off deletes at once, keeping the files on disk.'**
   String get pref_confirm_delete_desc;
 
+  /// No description provided for @tray_tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm'**
+  String get tray_tooltip;
+
+  /// No description provided for @tray_show.
+  ///
+  /// In en, this message translates to:
+  /// **'Show dlm'**
+  String get tray_show;
+
+  /// No description provided for @tray_pause_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause all'**
+  String get tray_pause_all;
+
+  /// No description provided for @tray_resume_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume all'**
+  String get tray_resume_all;
+
+  /// No description provided for @tray_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add downloads…'**
+  String get tray_add;
+
+  /// No description provided for @tray_quit.
+  ///
+  /// In en, this message translates to:
+  /// **'Quit dlm'**
+  String get tray_quit;
+
+  /// No description provided for @notif_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download finished'**
+  String get notif_completed;
+
+  /// No description provided for @notif_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get notif_failed;
+
+  /// No description provided for @notif_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Link expired'**
+  String get notif_expired;
+
+  /// No description provided for @notif_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get notif_open;
+
+  /// No description provided for @notif_folder.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in folder'**
+  String get notif_folder;
+
+  /// No description provided for @notif_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get notif_retry;
+
+  /// No description provided for @notif_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue finished'**
+  String get notif_queue;
+
+  /// No description provided for @setup_no_tray.
+  ///
+  /// In en, this message translates to:
+  /// **'This system has no menu-bar icon, so closing the window quits the app.'**
+  String get setup_no_tray;
+
+  /// No description provided for @pref_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get pref_notifications;
+
+  /// No description provided for @pref_tray.
+  ///
+  /// In en, this message translates to:
+  /// **'Show an icon in the menu bar or notification area'**
+  String get pref_tray;
+
+  /// No description provided for @pref_tray_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.'**
+  String get pref_tray_desc;
+
+  /// No description provided for @pref_notify.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me when a download finishes or fails'**
+  String get pref_notify;
+
+  /// No description provided for @pref_notify_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A system notification with buttons to open the file or retry.'**
+  String get pref_notify_desc;
+
   /// No description provided for @pref_startup.
   ///
   /// In en, this message translates to:

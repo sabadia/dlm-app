@@ -80,7 +80,7 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
   /// Only the event of the launch itself says so, so it is read once at
   /// registration, which happens during launch.
   private static let launchedAsLoginItem: Bool = {
-    guard let event = NSAppleEventDescriptor.currentAppleEvent,
+    guard let event = NSAppleEventManager.shared().currentAppleEvent,
       event.eventID == AEEventID(kAEOpenApplication),
       let prop = event.paramDescriptor(forKeyword: AEKeyword(keyAEPropData))
     else { return false }

@@ -59,6 +59,38 @@ class PreferencesScreen extends ConsumerWidget {
     }
   }
 
+  /// The tray icon and finish notifications.
+  Widget _presenceGroup(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final tray = ref.watch(trayEnabledProvider);
+    final notify = ref.watch(notifyOnFinishProvider);
+    return DlmFormGroup(
+      title: l.pref_notifications,
+      children: [
+        DlmFormRow(
+          label: l.pref_tray,
+          description: l.pref_tray_desc,
+          control: DlmSwitch(
+            value: tray,
+            semanticLabel: l.pref_tray,
+            onChanged: (v) =>
+                unawaited(ref.read(trayEnabledProvider.notifier).set(v)),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_notify,
+          description: l.pref_notify_desc,
+          control: DlmSwitch(
+            value: notify,
+            semanticLabel: l.pref_notify,
+            onChanged: (v) =>
+                unawaited(ref.read(notifyOnFinishProvider.notifier).set(v)),
+          ),
+        ),
+      ],
+    );
+  }
+
   /// Start at login, start hidden, and the daemon's own login item. Only the
   /// rows this computer can do show: a remote daemon has no login item here.
   Widget _startupGroup(BuildContext context, WidgetRef ref) {
@@ -244,6 +276,8 @@ class PreferencesScreen extends ConsumerWidget {
         ),
         gap,
         _startupGroup(context, ref),
+        gap,
+        _presenceGroup(context, ref),
         gap,
         DlmFormGroup(
           title: l.pref_confirmations,

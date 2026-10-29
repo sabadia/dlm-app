@@ -26,6 +26,9 @@ void main() {
     (w) => w is DlmDropdown && w.semanticLabel == label,
   );
 
+  Finder toggle(String label) =>
+      find.byWidgetPredicate((w) => w is DlmSwitch && w.semanticLabel == label);
+
   appTest('the theme is chosen and remembered', (tester) async {
     final h = await open(tester);
     expect(h.container.read(themeChoiceProvider), ThemeChoice.system);
@@ -75,19 +78,14 @@ void main() {
   appTest('asking before deleting can be switched off', (tester) async {
     final h = await open(tester);
     expect(h.container.read(confirmDeleteProvider), isTrue);
-    await tester.tap(
-      find.byWidgetPredicate(
-        (w) =>
-            w is DlmSwitch &&
-            w.semanticLabel == 'Ask before deleting downloads',
-      ),
-    );
+    // The notification group pushes this switch's centre just past the
+    // window, and more than one scrollable is on screen.
+    await tester.drag(find.byType(PreferencesScreen), const Offset(0, -160));
+    await settle(tester);
+    await tester.tap(toggle('Ask before deleting downloads'));
     await settle(tester);
     expect(h.container.read(confirmDeleteProvider), isFalse);
   });
-
-  Finder toggle(String label) =>
-      find.byWidgetPredicate((w) => w is DlmSwitch && w.semanticLabel == label);
 
   appTest('start at login is turned on and off through the login item', (
     tester,
@@ -113,6 +111,22 @@ void main() {
     expect(item.enabled, isFalse);
     final sw = tester.widget<DlmSwitch>(toggle('Start when I log in'));
     expect(sw.value, isFalse);
+  });
+
+  appTest('the tray icon and finish notices can be switched off', (
+    tester,
+  ) async {
+    final h = await open(tester);
+    expect(h.container.read(trayEnabledProvider), isTrue);
+    expect(h.container.read(notifyOnFinishProvider), isTrue);
+    await tester.tap(
+      toggle('Show an icon in the menu bar or notification area'),
+    );
+    await settle(tester);
+    expect(h.container.read(trayEnabledProvider), isFalse);
+    await tester.tap(toggle('Tell me when a download finishes or fails'));
+    await settle(tester);
+    expect(h.container.read(notifyOnFinishProvider), isFalse);
   });
 
   appTest('start hidden is remembered', (tester) async {

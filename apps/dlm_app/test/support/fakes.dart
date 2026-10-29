@@ -205,7 +205,10 @@ class FakeTaskRepository implements TaskRepository {
   Future<Task> get(String id) async => tasks.firstWhere((t) => t.id == id);
 
   @override
-  Future<Task> restart(String id) => throw UnimplementedError();
+  Future<Task> restart(String id) async {
+    calls.add('restart $id');
+    return tasks.firstWhere((t) => t.id == id);
+  }
 
   @override
   Future<Task> move(String id, String queueId) => throw UnimplementedError();

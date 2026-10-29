@@ -84,3 +84,13 @@ final confirmDeleteProvider = NotifierProvider<PrefNotifier<bool>, bool>(
 final startMinimisedProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.startMinimised),
 );
+
+/// Whether the tray / menu-bar icon shows.
+final trayEnabledProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.trayEnabled),
+);
+
+/// Whether finished and failed downloads are announced.
+final notifyOnFinishProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.notifyOnFinish),
+);

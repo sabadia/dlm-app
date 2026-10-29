@@ -58,6 +58,21 @@ final focusSearchProvider = NotifierProvider<FocusSearchNotifier, int>(
   FocusSearchNotifier.new,
 );
 
+/// Asks the shell to open the add-downloads dialog (a counter), for the tray
+/// and other places outside the page.
+class AddRequestNotifier extends Notifier<int> {
+  @override
+  int build() => 0;
+
+  /// Requests the dialog.
+  void request() => state++;
+}
+
+/// Requests to add downloads.
+final addRequestProvider = NotifierProvider<AddRequestNotifier, int>(
+  AddRequestNotifier.new,
+);
+
 /// The selected downloads as the daemon last reported them (selected ids that
 /// no longer exist are skipped).
 final selectedTasksProvider = Provider<List<Task>>((ref) {

@@ -51,3 +51,19 @@ final daemonServiceStatusProvider =
     AsyncNotifierProvider<DaemonServiceController, DaemonServiceStatus?>(
       DaemonServiceController.new,
     );
+
+/// The tray icon of the app; `main` overrides it with the platform's.
+final trayProvider = Provider<TrayController>((ref) => const UnsupportedTray());
+
+/// The one window; `main` overrides it with the platform's.
+final windowControlProvider = Provider<WindowControl>(
+  (ref) => const UnsupportedWindowControl(),
+);
+
+/// Desktop notifications; `main` overrides it with the platform's.
+final notifierProvider = Provider<DesktopNotifier>(
+  (ref) => const UnsupportedDesktopNotifier(),
+);
+
+/// Whether the system started this run at login; `main` sets it.
+final startedAtLoginProvider = Provider<bool>((ref) => false);

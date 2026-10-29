@@ -30,6 +30,7 @@ void main() {
     WidgetsFlutterBinding.ensureInitialized();
     installCrashHandlers(crashes);
     logger.info('dlm app starting');
+    await WindowManagerControl.ensureInitialized();
 
     final prefs = await PreferencesStore.open(File(dirs.preferencesFile));
     final profiles = ProfileStore(
@@ -38,6 +39,10 @@ void main() {
     );
     const locator = DaemonLocator();
     final executable = locator.find();
+    final login = platformLoginItem(
+      flatpakMarker: File('${dirs.root}/login-item-enabled'),
+    );
+    final atLogin = await login.startedAtLogin(Platform.executableArguments);
     final daemon = executable == null
         ? MissingDaemon(locator.candidates())
         : SupervisedDaemon(
@@ -55,11 +60,13 @@ void main() {
           profileStoreProvider.overrideWithValue(profiles),
           localDaemonProvider.overrideWithValue(daemon),
           windowChromeProvider.overrideWithValue(platformWindowChrome()),
-          loginItemProvider.overrideWithValue(
-            platformLoginItem(
-              flatpakMarker: File('${dirs.root}/login-item-enabled'),
-            ),
+          loginItemProvider.overrideWithValue(login),
+          trayProvider.overrideWithValue(TrayManagerController()),
+          windowControlProvider.overrideWithValue(WindowManagerControl()),
+          notifierProvider.overrideWithValue(
+            LocalDesktopNotifier(appName: 'dlm'),
           ),
+          startedAtLoginProvider.overrideWithValue(atLogin),
           if (executable != null)
             daemonServiceProvider.overrideWithValue(
               DaemonService(executable: executable, home: dirs.daemonHome),

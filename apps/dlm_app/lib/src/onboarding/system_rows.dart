@@ -37,12 +37,15 @@ class SystemRows extends ConsumerWidget {
     };
     final theme = DlmTheme.of(context);
     final isLocal = ref.watch(activeProfileProvider).isLocal;
+    final tray = ref.watch(trayProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         DlmFormGroup(
           title: l.setup_system_title,
-          footer: l.setup_system_desc,
+          footer: tray.supported
+              ? l.setup_system_desc
+              : '${l.setup_system_desc} ${l.setup_no_tray}',
           children: [
             DlmFormRow(
               label: l.setup_login,

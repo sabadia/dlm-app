@@ -3153,6 +3153,66 @@ class AppLocalizationsEn extends AppLocalizations {
       'Off deletes at once, keeping the files on disk.';
 
   @override
+  String get tray_tooltip => 'dlm';
+
+  @override
+  String get tray_show => 'Show dlm';
+
+  @override
+  String get tray_pause_all => 'Pause all';
+
+  @override
+  String get tray_resume_all => 'Resume all';
+
+  @override
+  String get tray_add => 'Add downloads…';
+
+  @override
+  String get tray_quit => 'Quit dlm';
+
+  @override
+  String get notif_completed => 'Download finished';
+
+  @override
+  String get notif_failed => 'Download failed';
+
+  @override
+  String get notif_expired => 'Link expired';
+
+  @override
+  String get notif_open => 'Open';
+
+  @override
+  String get notif_folder => 'Show in folder';
+
+  @override
+  String get notif_retry => 'Retry';
+
+  @override
+  String get notif_queue => 'Queue finished';
+
+  @override
+  String get setup_no_tray =>
+      'This system has no menu-bar icon, so closing the window quits the app.';
+
+  @override
+  String get pref_notifications => 'Notifications';
+
+  @override
+  String get pref_tray => 'Show an icon in the menu bar or notification area';
+
+  @override
+  String get pref_tray_desc =>
+      'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.';
+
+  @override
+  String get pref_notify => 'Tell me when a download finishes or fails';
+
+  @override
+  String get pref_notify_desc =>
+      'A system notification with buttons to open the file or retry.';
+
+  @override
   String get pref_startup => 'Startup';
 
   @override

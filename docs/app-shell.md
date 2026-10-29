@@ -79,8 +79,24 @@ them ([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)).
 On the first start with the app's own download service a dialog shows the download folder
 (chosen with the system's folder dialog and saved as the global `downloadDir`) and the helper
 programs the daemon found (ffmpeg, yt-dlp, browser). It is also in the command palette as
-"Setup and health check". Start at login, the tray icon and the browser extension are added
-with their own work (P13.13, F5.1, F5.10).
+"Setup and health check". It offers start at login and shows whether the browser
+extension is paired. When this system has no menu-bar icon, it says that closing
+the window quits.
+
+## Tray and notifications
+
+`IntegrationBinder` draws nothing. It keeps a menu-bar icon while the tray
+preference is on and this system can show one. Closing the window then hides the
+app; the icon's menu shows the window, adds a download, pauses or resumes
+everything, and quits. The speed is the icon's title on macOS and its tooltip
+on the other desktops. Without an icon, closing the window quits.
+
+A finished download, a failed download, an expired link, and a queue that has
+finished post a system notification while that preference is on. The buttons
+open the file, reveal it, or download it again. On Windows the toast uses the
+AppUserModelID `io.github.sabadia.dlm` and one fixed activator GUID. A button
+there has to carry both its own id and the download id, because Windows hands
+back only one string.
 
 ## What is waiting for the daemon
 
