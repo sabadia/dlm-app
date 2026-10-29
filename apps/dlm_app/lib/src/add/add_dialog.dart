@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io' as io;
 import 'dart:typed_data';
 
 import 'package:dlm_api/dlm_api.dart';
@@ -49,6 +50,56 @@ typedef PickedTorrent = ({String name, Uint8List bytes});
 /// The largest .torrent file the daemon accepts.
 const int maxTorrentBytes = 16 << 20;
 
+/// What reading a `.torrent` the user opened came to.
+sealed class OpenedTorrent {
+  const OpenedTorrent();
+}
+
+/// The file was read.
+class OpenedTorrentReady extends OpenedTorrent {
+  /// Creates the result.
+  const OpenedTorrentReady(this.name, this.bytes);
+
+  /// The file name, without its directory.
+  final String name;
+
+  /// The file contents.
+  final Uint8List bytes;
+}
+
+/// The file is larger than the daemon accepts.
+class OpenedTorrentTooBig extends OpenedTorrent {
+  /// Creates the result.
+  const OpenedTorrentTooBig();
+}
+
+/// The file is not there, or could not be read.
+class OpenedTorrentMissing extends OpenedTorrent {
+  /// Creates the result.
+  const OpenedTorrentMissing();
+}
+
+/// Reads the `.torrent` at [path]. [maxBytes] exists for tests.
+Future<OpenedTorrent> readOpenedTorrent(
+  String path, {
+  int maxBytes = maxTorrentBytes,
+}) async {
+  final file = io.File(path);
+  try {
+    if (await file.length() > maxBytes) return const OpenedTorrentTooBig();
+    final name = path.split(RegExp(r'[\\/]')).last;
+    return OpenedTorrentReady(name, await file.readAsBytes());
+  } on io.FileSystemException {
+    return const OpenedTorrentMissing();
+  }
+}
+
+/// How an opened `.torrent` is read. Tests substitute their own.
+final openedTorrentReaderProvider =
+    Provider<Future<OpenedTorrent> Function(String, {int maxBytes})>(
+      (ref) => readOpenedTorrent,
+    );
+
 /// Asks the user for a .torrent file; null when cancelled. A seam for tests.
 final addTorrentPickerProvider = Provider<Future<PickedTorrent?> Function()>(
   (ref) => () async {
@@ -82,12 +133,16 @@ Future<void> showAddDownload(
   BuildContext context,
   WidgetRef ref, {
   String initialText = '',
+  List<String> initialTorrentPaths = const [],
 }) async {
   final l = AppLocalizations.of(context);
   await showDlmDialog<void>(
     context,
     semanticLabel: l.add_title,
-    builder: (_) => AddDownloadDialog(initialText: initialText),
+    builder: (_) => AddDownloadDialog(
+      initialText: initialText,
+      initialTorrentPaths: initialTorrentPaths,
+    ),
   );
 }
 
@@ -127,10 +182,17 @@ class _Bad extends _Lookup {
 /// they are, where they go, and a warning for what is already there.
 class AddDownloadDialog extends ConsumerStatefulWidget {
   /// Creates the dialog.
-  const AddDownloadDialog({this.initialText = '', super.key});
+  const AddDownloadDialog({
+    this.initialText = '',
+    this.initialTorrentPaths = const [],
+    super.key,
+  });
 
   /// Links to start with.
   final String initialText;
+
+  /// `.torrent` files to start with, as paths.
+  final List<String> initialTorrentPaths;
 
   @override
   ConsumerState<AddDownloadDialog> createState() => _AddDownloadDialogState();
@@ -168,6 +230,36 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
   void initState() {
     super.initState();
     if (widget.initialText.isNotEmpty) _schedule();
+    if (widget.initialTorrentPaths.isNotEmpty) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        for (final path in widget.initialTorrentPaths) {
+          unawaited(_openTorrent(path));
+        }
+      });
+    }
+  }
+
+  Future<void> _openTorrent(String path) async {
+    final opened = await ref.read(openedTorrentReaderProvider)(path);
+    if (!mounted) return;
+    final l = AppLocalizations.of(context);
+    switch (opened) {
+      case OpenedTorrentReady(:final name, :final bytes):
+        setState(() {
+          _torrents.add((name: name, url: torrentDataUrl(bytes)));
+        });
+        _schedule();
+      case OpenedTorrentTooBig():
+        showNotice(context, ref, l.add_torrent_too_big, tone: DlmTone.danger);
+      case OpenedTorrentMissing():
+        showNotice(
+          context,
+          ref,
+          l.add_torrent_unreadable,
+          tone: DlmTone.danger,
+        );
+    }
   }
 
   @override

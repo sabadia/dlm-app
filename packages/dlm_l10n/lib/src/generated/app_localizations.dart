@@ -520,6 +520,36 @@ abstract class AppLocalizations {
   /// **'Command palette'**
   String get palette_label;
 
+  /// No description provided for @menu_file.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get menu_file;
+
+  /// No description provided for @menu_go.
+  ///
+  /// In en, this message translates to:
+  /// **'Go'**
+  String get menu_go;
+
+  /// No description provided for @menu_window.
+  ///
+  /// In en, this message translates to:
+  /// **'Window'**
+  String get menu_window;
+
+  /// No description provided for @menu_help.
+  ///
+  /// In en, this message translates to:
+  /// **'Help'**
+  String get menu_help;
+
+  /// No description provided for @menu_about.
+  ///
+  /// In en, this message translates to:
+  /// **'About dlm'**
+  String get menu_about;
+
   /// No description provided for @command_go_to.
   ///
   /// In en, this message translates to:
@@ -2787,6 +2817,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'That torrent file is too large (16 MiB at most).'**
   String get add_torrent_too_big;
+
+  /// No description provided for @add_torrent_unreadable.
+  ///
+  /// In en, this message translates to:
+  /// **'That torrent file could not be read.'**
+  String get add_torrent_unreadable;
 
   /// No description provided for @add_torrent_remove.
   ///

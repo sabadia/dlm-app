@@ -114,10 +114,37 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
     }
   }
 
+  /// Token from `ProcessInfo.beginActivity`. The display may still sleep; the
+  /// system does not idle-sleep while a download is running.
+  private static var activityToken: NSObjectProtocol?
+
+  /// Channel `dlm/awake`: `set` {awake: bool}.
+  private static func handleAwake(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    guard call.method == "set" else {
+      result(FlutterMethodNotImplemented)
+      return
+    }
+    let awake = (call.arguments as? [String: Any])?["awake"] as? Bool ?? false
+    if awake {
+      if activityToken == nil {
+        activityToken = ProcessInfo.processInfo.beginActivity(
+          options: .idleSystemSleepDisabled,
+          reason: "Downloading")
+      }
+    } else if let token = activityToken {
+      ProcessInfo.processInfo.endActivity(token)
+      activityToken = nil
+    }
+    result(nil)
+  }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     _ = launchedAsLoginItem
+    OpenTargets.install(messenger: registrar.messenger)
     FlutterMethodChannel(name: "dlm/login_item", binaryMessenger: registrar.messenger)
       .setMethodCallHandler(handleLoginItem)
+    FlutterMethodChannel(name: "dlm/awake", binaryMessenger: registrar.messenger)
+      .setMethodCallHandler(handleAwake)
     let channel = FlutterMethodChannel(
       name: "dlm/window_chrome",
       binaryMessenger: registrar.messenger
@@ -255,5 +282,99 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
       width: region.width,
       height: region.height
     )
+  }
+}
+
+/// URLs and documents the system opens with the already-running app.
+///
+/// macOS delivers these as Apple events to this process, so a second process
+/// never starts. `GURL` is `kInternetEventClass` / `kAEGetURL`. `furl` is
+/// `typeFileURL`: a native path, which is what an opened `.torrent` arrives as.
+private final class OpenTargets: NSObject {
+  private static let urlEventClass = AEEventClass(0x4755524C) // 'GURL'
+  private static let urlEventId = AEEventID(0x4755524C) // 'GURL'
+  private static let fileUrl = DescType(0x6675726C) // 'furl'
+  private static var installed: OpenTargets?
+
+  private let channel: FlutterMethodChannel
+  private var pending: [String] = []
+  private var ready = false
+
+  static func install(messenger: FlutterBinaryMessenger) {
+    let targets = OpenTargets(messenger: messenger)
+    installed = targets
+    if let event = NSAppleEventManager.shared().currentAppleEvent {
+      targets.take(event)
+    }
+    let manager = NSAppleEventManager.shared()
+    manager.setEventHandler(
+      targets,
+      andSelector: #selector(handle(_:withReplyEvent:)),
+      forEventClass: AEEventClass(kCoreEventClass),
+      andEventID: AEEventID(kAEOpenDocuments))
+    manager.setEventHandler(
+      targets,
+      andSelector: #selector(handle(_:withReplyEvent:)),
+      forEventClass: urlEventClass,
+      andEventID: urlEventId)
+  }
+
+  init(messenger: FlutterBinaryMessenger) {
+    channel = FlutterMethodChannel(name: "dlm/open_targets", binaryMessenger: messenger)
+    super.init()
+    channel.setMethodCallHandler { [weak self] call, result in
+      guard let self = self else {
+        result(nil)
+        return
+      }
+      if call.method == "pending" {
+        self.ready = true
+        result(self.pending)
+        self.pending = []
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
+  }
+
+  @objc func handle(_ event: NSAppleEventDescriptor, withReplyEvent reply: NSAppleEventDescriptor) {
+    take(event)
+  }
+
+  private func take(_ event: NSAppleEventDescriptor) {
+    let id = event.eventID
+    guard id == AEEventID(kAEOpenDocuments) || id == OpenTargets.urlEventId else { return }
+    deliver(strings(in: event))
+  }
+
+  private func strings(in event: NSAppleEventDescriptor) -> [String] {
+    guard let direct = event.paramDescriptor(forKeyword: keyDirectObject) else { return [] }
+    if direct.numberOfItems == 0 {
+      return [Self.text(of: direct)].compactMap { $0 }
+    }
+    var out: [String] = []
+    for index in 1...direct.numberOfItems {
+      if let item = direct.atIndex(index), let text = Self.text(of: item) {
+        out.append(text)
+      }
+    }
+    return out
+  }
+
+  private static func text(of item: NSAppleEventDescriptor) -> String? {
+    if let text = item.stringValue, !text.isEmpty { return text }
+    if let text = item.coerce(toDescriptorType: fileUrl)?.stringValue, !text.isEmpty {
+      return text
+    }
+    return nil
+  }
+
+  private func deliver(_ items: [String]) {
+    if items.isEmpty { return }
+    if ready {
+      channel.invokeMethod("opened", arguments: items)
+    } else {
+      pending.append(contentsOf: items)
+    }
   }
 }

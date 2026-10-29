@@ -10,6 +10,8 @@ import 'src/app.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
 import 'src/crash_handlers.dart';
+import 'src/platform/activity.dart';
+import 'src/platform/instance_open.dart';
 import 'src/platform/startup.dart';
 import 'src/prefs/pref_providers.dart';
 import 'src/secret_token_vault.dart';
@@ -43,6 +45,15 @@ void main() {
       flatpakMarker: File('${dirs.root}/login-item-enabled'),
     );
     final atLogin = await login.startedAtLogin(Platform.executableArguments);
+    final claim = await InstanceEndpoint(Directory(dirs.root))
+        .claim(Platform.executableArguments);
+    if (claim is InstanceHandedOff) {
+      logger.info('another instance is running; handed off and exiting');
+      exit(0);
+    }
+    final primary = claim as InstancePrimary;
+    final native = NativeOpenEvents();
+    await native.start();
     final daemon = executable == null
         ? MissingDaemon(locator.candidates())
         : SupervisedDaemon(
@@ -67,6 +78,14 @@ void main() {
             LocalDesktopNotifier(appName: 'dlm'),
           ),
           startedAtLoginProvider.overrideWithValue(atLogin),
+          awakeLockProvider.overrideWithValue(PlatformAwakeLock()),
+          openingsProvider.overrideWithValue(
+            Openings(
+              launch: primary.launch,
+              later: primary.incoming,
+              native: native.events,
+            ),
+          ),
           if (executable != null)
             daemonServiceProvider.overrideWithValue(
               DaemonService(executable: executable, home: dirs.daemonHome),

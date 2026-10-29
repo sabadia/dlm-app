@@ -2,11 +2,15 @@
 library;
 
 export 'src/app_dirs.dart';
+export 'src/awake_lock.dart';
 export 'src/daemon/daemon_locator.dart';
 export 'src/daemon/daemon_service.dart';
 export 'src/daemon/daemon_supervisor.dart';
 export 'src/daemon/runtime_info.dart';
+export 'src/handed_open.dart';
+export 'src/instance_endpoint.dart';
 export 'src/login_item.dart';
+export 'src/native_open.dart';
 export 'src/notifier.dart';
 export 'src/secret_store.dart';
 export 'src/tray.dart';

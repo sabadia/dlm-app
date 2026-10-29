@@ -9,6 +9,7 @@ import 'package:dlm_app/src/platform/startup.dart';
 import 'package:dlm_app/src/prefs/pref_providers.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_platform/dlm_platform.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
@@ -86,6 +87,31 @@ class RecordingWindow implements WindowControl {
 
   @override
   Future<void> quit() async => quits++;
+
+  @override
+  Future<void> setProgress(double progress) async {}
+
+  @override
+  Future<void> setBadge(String label) async {}
+
+  @override
+  Future<({double x, double y, double width, double height, bool maximized})?>
+  readFrame() async => null;
+
+  @override
+  Future<void> place({
+    required double x,
+    required double y,
+    required double width,
+    required double height,
+    required bool maximized,
+  }) async {}
+
+  @override
+  Stream<void> get frameChanged => const Stream.empty();
+
+  @override
+  Future<List<Rect>> displays() async => const [];
 }
 
 class RecordingNotifier implements DesktopNotifier {

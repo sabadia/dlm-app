@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18784-4208-7e92-860d-8d3be5a062d1
+status: draft
+created_at: '2026-10-29T11:55:54Z'
+updated_at: '2026-10-29T11:55:54Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F5.8: restore the window where it was, including a second display, and keep it on a screen that is still connected'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/platform/window_placement.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/window_control.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

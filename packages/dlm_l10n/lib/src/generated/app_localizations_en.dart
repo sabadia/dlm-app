@@ -286,6 +286,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get palette_label => 'Command palette';
 
   @override
+  String get menu_file => 'File';
+
+  @override
+  String get menu_go => 'Go';
+
+  @override
+  String get menu_window => 'Window';
+
+  @override
+  String get menu_help => 'Help';
+
+  @override
+  String get menu_about => 'About dlm';
+
+  @override
   String command_go_to(String destination) {
     return 'Go to $destination';
   }
@@ -1652,6 +1667,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get add_torrent_too_big =>
       'That torrent file is too large (16 MiB at most).';
+
+  @override
+  String get add_torrent_unreadable => 'That torrent file could not be read.';
 
   @override
   String add_torrent_remove(String name) {

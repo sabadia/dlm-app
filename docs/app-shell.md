@@ -115,6 +115,51 @@ forward and every two seconds. It offers the first http, https, ftp, magnet
 or ed2k link, and skips a link it has already offered. The clipboard text is
 not written to the log.
 
+## Menus
+
+On macOS the commands live in the system menu bar: the application menu holds
+About and Quit, and the Window menu adds the system's minimise, zoom and full
+screen items. On Windows and Linux the same commands are a menu bar at the top
+of the window, because those systems have no global menu bar. File holds add,
+a new queue, setup, pause all and resume all. Go holds the lists and queues.
+Window holds search, the command palette and the details pane.
+
+## The window's place
+
+The window opens where it was, including on a second display. The frame is
+written back after a move or a resize. If that display is no longer connected,
+the window is fitted onto the first display instead of opening off screen.
+
+## Dock, taskbar and sleep
+
+While the daemon reports downloads in progress, the app keeps the system from
+idle-sleeping (the display may still sleep) and shows them on the dock or
+taskbar. The badge is the number in progress. The bar is their combined
+fraction, or a pulse when a size is not known yet. When nothing is running the
+badge and the bar clear and the system may sleep. On Linux this uses
+`systemd-inhibit` when it is installed. A finished queue that is set to sleep
+or shut down still shows its countdown, and cancelling it stops the queue, so
+the daemon does not run the action.
+
+## Opening a link or a torrent
+
+A second launch hands its arguments to the instance already running, over a
+loopback port stored in the app's data directory, and then exits. The port file
+holds a port number and never the link, and the link is not written to the log.
+An empty hand-off only brings the window forward.
+
+The app accepts `magnet:`, `ed2k:`, `http`, `https` and `ftp` links, a
+`.torrent` file (a path or a `file:` URL), and a `dlm:` link. `dlm:` is either
+`dlm:` plus one of those URLs (`dlm:https://example.com/a.bin`,
+`dlm:magnet:?xt=urn:btih:abc`) or `dlm://add?url=` with that URL
+percent-encoded. A `.torrent` file is read (16 MiB at most) and offered in the
+add dialog; a link is filled into the same dialog.
+
+macOS delivers an open to the running app as an Apple event, and the app bundle
+declares the `magnet`, `ed2k` and `dlm` schemes plus the torrent document type.
+Linux and Windows start a second process, which hands off the same way. The
+installer registers those schemes with the system (F7).
+
 ## What is waiting for the daemon
 
 These need backend phase 13 and are not worked around in the app: sorting by name or size,
