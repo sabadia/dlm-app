@@ -5458,6 +5458,12 @@ abstract class AppLocalizations {
   /// **'A system notification with buttons to open the file or retry.'**
   String get pref_notify_desc;
 
+  /// No description provided for @drop_nothing.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to add: drop .torrent files or text files with links.'**
+  String get drop_nothing;
+
   /// No description provided for @clip_offer_title.
   ///
   /// In en, this message translates to:

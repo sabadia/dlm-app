@@ -7,6 +7,7 @@ export 'src/daemon/daemon_locator.dart';
 export 'src/daemon/daemon_service.dart';
 export 'src/daemon/daemon_supervisor.dart';
 export 'src/daemon/runtime_info.dart';
+export 'src/drop_zone.dart';
 export 'src/handed_open.dart';
 export 'src/instance_endpoint.dart';
 export 'src/login_item.dart';
