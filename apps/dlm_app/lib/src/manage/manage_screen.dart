@@ -7,6 +7,7 @@ import 'cookies_screen.dart';
 import 'daemon_screen.dart';
 import 'logins_screen.dart';
 import 'plugins_screen.dart';
+import 'preferences_screen.dart';
 import 'statistics_screen.dart';
 import 'transfer_screen.dart';
 import 'webhooks_screen.dart';
@@ -23,6 +24,7 @@ const List<String> managePages = [
   'statistics',
   'daemon',
   'access',
+  'preferences',
 ];
 
 /// One management page.
@@ -45,6 +47,7 @@ class ManageScreen extends StatelessWidget {
     'statistics' => const StatisticsScreen(),
     'daemon' => const DaemonScreen(),
     'access' => const AccessScreen(),
+    'preferences' => const PreferencesScreen(),
     _ => const SizedBox.shrink(),
   };
 }

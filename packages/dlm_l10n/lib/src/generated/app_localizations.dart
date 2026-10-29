@@ -5049,6 +5049,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.'**
   String get ac_mcp_token_note;
+
+  /// No description provided for @nav_manage_preferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get nav_manage_preferences;
+
+  /// No description provided for @pref_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'How the app looks and asks. Changes apply at once.'**
+  String get pref_intro;
+
+  /// No description provided for @pref_appearance.
+  ///
+  /// In en, this message translates to:
+  /// **'Appearance'**
+  String get pref_appearance;
+
+  /// No description provided for @pref_theme.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme'**
+  String get pref_theme;
+
+  /// No description provided for @pref_theme_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get pref_theme_system;
+
+  /// No description provided for @pref_theme_light.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get pref_theme_light;
+
+  /// No description provided for @pref_theme_dark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get pref_theme_dark;
+
+  /// No description provided for @pref_accent.
+  ///
+  /// In en, this message translates to:
+  /// **'Accent colour'**
+  String get pref_accent;
+
+  /// No description provided for @pref_accent_default.
+  ///
+  /// In en, this message translates to:
+  /// **'The system\'s'**
+  String get pref_accent_default;
+
+  /// No description provided for @pref_accent_blue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get pref_accent_blue;
+
+  /// No description provided for @pref_accent_green.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get pref_accent_green;
+
+  /// No description provided for @pref_accent_orange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get pref_accent_orange;
+
+  /// No description provided for @pref_accent_red.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get pref_accent_red;
+
+  /// No description provided for @pref_accent_purple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get pref_accent_purple;
+
+  /// No description provided for @pref_accent_pink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get pref_accent_pink;
+
+  /// No description provided for @pref_skin.
+  ///
+  /// In en, this message translates to:
+  /// **'Look and feel'**
+  String get pref_skin;
+
+  /// No description provided for @pref_skin_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The app follows your system; choose another to see the app dressed as on that system.'**
+  String get pref_skin_desc;
+
+  /// No description provided for @pref_skin_auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Match this system'**
+  String get pref_skin_auto;
+
+  /// No description provided for @pref_skin_macos.
+  ///
+  /// In en, this message translates to:
+  /// **'macOS'**
+  String get pref_skin_macos;
+
+  /// No description provided for @pref_skin_fluent.
+  ///
+  /// In en, this message translates to:
+  /// **'Windows (Fluent)'**
+  String get pref_skin_fluent;
+
+  /// No description provided for @pref_skin_adwaita.
+  ///
+  /// In en, this message translates to:
+  /// **'GNOME (Adwaita)'**
+  String get pref_skin_adwaita;
+
+  /// No description provided for @pref_skin_breeze.
+  ///
+  /// In en, this message translates to:
+  /// **'KDE (Breeze)'**
+  String get pref_skin_breeze;
+
+  /// No description provided for @pref_density.
+  ///
+  /// In en, this message translates to:
+  /// **'Row height'**
+  String get pref_density;
+
+  /// No description provided for @pref_confirmations.
+  ///
+  /// In en, this message translates to:
+  /// **'Asking first'**
+  String get pref_confirmations;
+
+  /// No description provided for @pref_confirm_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask before deleting downloads'**
+  String get pref_confirm_delete;
+
+  /// No description provided for @pref_confirm_delete_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Off deletes at once, keeping the files on disk.'**
+  String get pref_confirm_delete_desc;
 }
 
 class _AppLocalizationsDelegate

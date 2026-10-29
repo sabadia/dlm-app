@@ -3008,4 +3008,84 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get ac_mcp_token_note =>
       'Replace <token> with a token from this page. A read-only token lets an assistant look but not change anything.';
+
+  @override
+  String get nav_manage_preferences => 'Preferences';
+
+  @override
+  String get pref_intro => 'How the app looks and asks. Changes apply at once.';
+
+  @override
+  String get pref_appearance => 'Appearance';
+
+  @override
+  String get pref_theme => 'Theme';
+
+  @override
+  String get pref_theme_system => 'System';
+
+  @override
+  String get pref_theme_light => 'Light';
+
+  @override
+  String get pref_theme_dark => 'Dark';
+
+  @override
+  String get pref_accent => 'Accent colour';
+
+  @override
+  String get pref_accent_default => 'The system\'s';
+
+  @override
+  String get pref_accent_blue => 'Blue';
+
+  @override
+  String get pref_accent_green => 'Green';
+
+  @override
+  String get pref_accent_orange => 'Orange';
+
+  @override
+  String get pref_accent_red => 'Red';
+
+  @override
+  String get pref_accent_purple => 'Purple';
+
+  @override
+  String get pref_accent_pink => 'Pink';
+
+  @override
+  String get pref_skin => 'Look and feel';
+
+  @override
+  String get pref_skin_desc =>
+      'The app follows your system; choose another to see the app dressed as on that system.';
+
+  @override
+  String get pref_skin_auto => 'Match this system';
+
+  @override
+  String get pref_skin_macos => 'macOS';
+
+  @override
+  String get pref_skin_fluent => 'Windows (Fluent)';
+
+  @override
+  String get pref_skin_adwaita => 'GNOME (Adwaita)';
+
+  @override
+  String get pref_skin_breeze => 'KDE (Breeze)';
+
+  @override
+  String get pref_density => 'Row height';
+
+  @override
+  String get pref_confirmations => 'Asking first';
+
+  @override
+  String get pref_confirm_delete => 'Ask before deleting downloads';
+
+  @override
+  String get pref_confirm_delete_desc =>
+      'Off deletes at once, keeping the files on disk.';
 }
