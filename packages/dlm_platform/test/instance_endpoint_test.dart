@@ -40,9 +40,8 @@ void main() {
   test('a port nobody listens on is replaced', () async {
     // A port nothing has bound. A just-closed port can swallow the next
     // connection instead of refusing it, and the claim would wait on it.
-    File(
-      '${dir.path}${Platform.pathSeparator}instance.port',
-    ).writeAsStringSync('1\n');
+    File('${dir.path}${Platform.pathSeparator}instance.port')
+        .writeAsStringSync('1\n');
 
     final claim = await InstanceEndpoint(dir)
         .claim(const ['https://example.com/a.bin']);
