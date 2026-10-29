@@ -109,7 +109,10 @@ class DlmFormRow extends StatelessWidget {
                 children: [
                   text,
                   SizedBox(height: m.spacing.sm),
-                  Align(alignment: Alignment.centerLeft, child: control),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: control,
+                  ),
                 ],
               )
             : Row(

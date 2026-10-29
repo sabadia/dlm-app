@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1886a-cc75-7429-9927-536f30e84794
+status: draft
+created_at: '2026-10-29T16:07:42Z'
+updated_at: '2026-10-29T16:07:42Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F6.3: pseudo-locale, ARB consistency checker, no hard-coded text test, direction-neutral kit layout, placeholder wrapping fix found by the pseudo-locale'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_l10n/tool/gen_pseudo.dart
+  start_line: null
+  end_line: null
+- path: tools/dlm_tools/lib/l10n_check.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

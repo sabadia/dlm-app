@@ -164,7 +164,9 @@ class FluentComponents extends DlmBaseComponents {
         width: width,
         height: height,
         padding: const EdgeInsets.symmetric(horizontal: 4),
-        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+        alignment: value
+            ? AlignmentDirectional.centerEnd
+            : AlignmentDirectional.centerStart,
         decoration: BoxDecoration(
           color: value
               ? accent
@@ -358,13 +360,13 @@ class FluentComponents extends DlmBaseComponents {
       visible: states.focusVisible,
       radius: m.radii.control,
       child: Stack(
-        alignment: Alignment.centerLeft,
+        alignment: AlignmentDirectional.centerStart,
         children: [
           Container(
             height: m.controlHeight + 4,
-            padding: EdgeInsets.only(
-              left: m.spacing.md + 2,
-              right: m.spacing.sm,
+            padding: EdgeInsetsDirectional.only(
+              start: m.spacing.md + 2,
+              end: m.spacing.sm,
             ),
             decoration: BoxDecoration(
               color: states.selected

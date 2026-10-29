@@ -476,7 +476,9 @@ class _TreeRowState extends State<_TreeRow> {
                 states: states,
                 odd: false,
                 content: Padding(
-                  padding: EdgeInsets.only(left: indent + m.spacing.sm),
+                  padding: EdgeInsetsDirectional.only(
+                    start: indent + m.spacing.sm,
+                  ),
                   child: Row(
                     children: [
                       SizedBox(

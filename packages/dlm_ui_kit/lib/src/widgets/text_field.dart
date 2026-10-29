@@ -167,7 +167,9 @@ class _DlmTextFieldState extends State<DlmTextField> {
     );
     final placeholder = widget.placeholder;
     final field = Stack(
-      alignment: multiline ? Alignment.topLeft : Alignment.centerLeft,
+      alignment: multiline
+          ? AlignmentDirectional.topStart
+          : AlignmentDirectional.centerStart,
       children: [
         if (placeholder != null)
           ListenableBuilder(
@@ -177,6 +179,9 @@ class _DlmTextFieldState extends State<DlmTextField> {
                     child: ExcludeSemantics(
                       child: Text(
                         placeholder,
+                        // A longer translation must not wrap a one-line field.
+                        maxLines: multiline ? null : 1,
+                        overflow: TextOverflow.ellipsis,
                         style: style.copyWith(color: c.textDisabled),
                       ),
                     ),

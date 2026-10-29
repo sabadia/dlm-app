@@ -25,6 +25,11 @@ jobs:
         run: dart analyze --fatal-infos
       - name: Dependency rules between packages
         run: dart run dlm_tools:check_imports
+      - name: Translations are consistent and the pseudo-locale is current
+        run: |
+          dart run dlm_tools:check_l10n
+          (cd packages/dlm_l10n && dart run tool/gen_pseudo.dart)
+          git diff --exit-code packages/dlm_l10n/lib/l10n
 
   test:
     name: test (${{ matrix.os }})

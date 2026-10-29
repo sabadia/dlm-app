@@ -929,8 +929,8 @@ class _HeaderCell<T> extends StatelessWidget {
             child: cell,
           ),
         ),
-        Positioned(
-          right: 0,
+        PositionedDirectional(
+          end: 0,
           top: 0,
           bottom: 0,
           width: 8,

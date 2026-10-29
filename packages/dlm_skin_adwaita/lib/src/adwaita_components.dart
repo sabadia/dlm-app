@@ -103,7 +103,9 @@ class AdwaitaComponents extends DlmBaseComponents {
         width: width,
         height: height,
         padding: const EdgeInsets.all(3),
-        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+        alignment: value
+            ? AlignmentDirectional.centerEnd
+            : AlignmentDirectional.centerStart,
         decoration: BoxDecoration(
           color: track,
           borderRadius: BorderRadius.circular(height / 2),
@@ -433,7 +435,10 @@ class AdwaitaComponents extends DlmBaseComponents {
       children: [
         if (title != null)
           Padding(
-            padding: EdgeInsets.only(left: m.spacing.xs, bottom: m.spacing.sm),
+            padding: EdgeInsetsDirectional.only(
+              start: m.spacing.xs,
+              bottom: m.spacing.sm,
+            ),
             child: DefaultTextStyle.merge(
               style: t.typography.subtitle.copyWith(
                 fontWeight: FontWeight.w700,
@@ -454,7 +459,10 @@ class AdwaitaComponents extends DlmBaseComponents {
         ),
         if (footer != null)
           Padding(
-            padding: EdgeInsets.only(left: m.spacing.xs, top: m.spacing.sm),
+            padding: EdgeInsetsDirectional.only(
+              start: m.spacing.xs,
+              top: m.spacing.sm,
+            ),
             child: DefaultTextStyle.merge(
               style: t.typography.caption.copyWith(color: c.textSecondary),
               child: footer,
