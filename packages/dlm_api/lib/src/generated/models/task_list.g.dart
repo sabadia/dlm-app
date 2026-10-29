@@ -12,10 +12,12 @@ TaskList _$TaskListFromJson(Map<String, dynamic> json) => TaskList(
       .toList(),
   schema: json[r'$schema'] as String?,
   nextCursor: json['nextCursor'] as String?,
+  total: (json['total'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$TaskListToJson(TaskList instance) => <String, dynamic>{
   r'$schema': instance.schema,
   'nextCursor': instance.nextCursor,
   'tasks': instance.tasks,
+  'total': instance.total,
 };

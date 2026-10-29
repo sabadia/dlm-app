@@ -4,13 +4,19 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-/// position: queue order (priority, then position); created: newest first.
+/// position: queue order (priority, then position); created: by creation time (newest first); name: case-insensitive (A to Z); size: smallest first (unknown sizes first); completed: oldest first (tasks that are not completed first).
 @JsonEnum()
 enum Sort {
   @JsonValue('position')
   position('position'),
   @JsonValue('created')
   created('created'),
+  @JsonValue('name')
+  name('name'),
+  @JsonValue('size')
+  size('size'),
+  @JsonValue('completed')
+  completed('completed'),
 
   /// Default value for all unparsed values, allows backward compatibility when adding new values on the backend.
   $unknown(null);

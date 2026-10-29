@@ -11,7 +11,7 @@ part 'batch_item.g.dart';
 
 @JsonSerializable()
 class BatchItem {
-  const BatchItem({required this.ok, this.error, this.id, this.task});
+  const BatchItem({required this.ok, this.error, this.id, this.task, this.url});
 
   factory BatchItem.fromJson(Map<String, Object?> json) =>
       _$BatchItemFromJson(json);
@@ -27,6 +27,9 @@ class BatchItem {
 
   /// The task's state after the operation (for delete: its last state).
   final Task? task;
+
+  /// The link of an imported entry (import-tasks), so results can be matched to the list after patterns were expanded.
+  final String? url;
 
   Map<String, Object?> toJson() => _$BatchItemToJson(this);
 }

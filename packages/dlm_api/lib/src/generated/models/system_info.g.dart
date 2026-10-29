@@ -14,6 +14,9 @@ SystemInfo _$SystemInfoFromJson(Map<String, dynamic> json) => SystemInfo(
   engines: (json['engines'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
+  fsRoots: (json['fsRoots'] as List<dynamic>?)
+      ?.map((e) => e as String)
+      .toList(),
   goVersion: json['goVersion'] as String,
   local: json['local'] as bool,
   minClientApi: (json['minClientApi'] as num).toInt(),
@@ -40,6 +43,7 @@ Map<String, dynamic> _$SystemInfoToJson(SystemInfo instance) =>
       'commit': instance.commit,
       'databaseBytes': instance.databaseBytes,
       'engines': instance.engines,
+      'fsRoots': instance.fsRoots,
       'goVersion': instance.goVersion,
       'local': instance.local,
       'minClientApi': instance.minClientApi,

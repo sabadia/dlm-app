@@ -8,6 +8,7 @@ import 'package:retrofit/retrofit.dart';
 import '../models/create_webhook_body.dart';
 import '../models/update_webhook_body.dart';
 import '../models/webhook.dart';
+import '../models/webhook_deliveries.dart';
 import '../models/webhook_list.dart';
 
 part 'webhooks_client.g.dart';
@@ -45,6 +46,16 @@ abstract class WebhooksClient {
   Future<Webhook> updateWebhook({
     @Path('id') required String id,
     @Body() required UpdateWebhookBody body,
+  });
+
+  /// List a webhook's recent deliveries.
+  ///
+  /// The last 100 attempts to send an event to the webhook since the daemon started, newest first: when, which event, the attempt number, the HTTP status the endpoint answered (0 when it did not), how long it took, the error, and whether a retry follows. Test deliveries are included.
+  ///
+  /// [id] - Webhook ID.
+  @GET('/v1/webhooks/{id}/deliveries')
+  Future<WebhookDeliveries> listWebhookDeliveries({
+    @Path('id') required String id,
   });
 
   /// Send a test event.

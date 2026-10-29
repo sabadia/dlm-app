@@ -13,6 +13,8 @@ class ProgressData {
     required this.downloaded,
     required this.size,
     required this.speed,
+    this.peers,
+    this.uploadSpeed,
   });
 
   factory ProgressData.fromJson(Map<String, Object?> json) =>
@@ -20,8 +22,10 @@ class ProgressData {
 
   final int connections;
   final int downloaded;
+  final int? peers;
   final int size;
   final int speed;
+  final int? uploadSpeed;
 
   Map<String, Object?> toJson() => _$ProgressDataToJson(this);
 }

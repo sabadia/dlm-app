@@ -42,6 +42,7 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
   refresh: json['refresh'] == null
       ? null
       : RefreshSettings.fromJson(json['refresh'] as Map<String, dynamic>),
+  retentionDays: (json['retentionDays'] as num?)?.toInt(),
   retry: json['retry'] == null
       ? null
       : RetrySettings.fromJson(json['retry'] as Map<String, dynamic>),
@@ -77,6 +78,7 @@ Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
   'proxyRules': instance.proxyRules,
   'quota': instance.quota,
   'refresh': instance.refresh,
+  'retentionDays': instance.retentionDays,
   'retry': instance.retry,
   'schedule': instance.schedule,
   'speedLimit': instance.speedLimit,

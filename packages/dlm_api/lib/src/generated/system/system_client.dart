@@ -5,6 +5,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../models/fs_free.dart';
+import '../models/fs_listing.dart';
 import '../models/health_output_body.dart';
 import '../models/lifecycle_output_body.dart';
 import '../models/system_info.dart';
@@ -14,6 +16,22 @@ part 'system_client.g.dart';
 @RestApi()
 abstract class SystemClient {
   factory SystemClient(Dio dio, {String? baseUrl}) = _SystemClient;
+
+  /// List directories on the daemon's machine.
+  ///
+  /// Lists the sub-directories of a directory below server.fs_roots, for choosing a download directory on a daemon that runs elsewhere. Without a path it lists the roots. 404 fs.disabled when server.fs_roots is empty; 422 for a path outside the roots (also through symbolic links), not absolute or not a directory.
+  ///
+  /// [path] - An absolute directory below server.fs_roots; empty lists the roots.
+  @GET('/v1/fs/browse')
+  Future<FsListing> getFsBrowse({@Query('path') String? path});
+
+  /// Free space of a directory on the daemon's machine.
+  ///
+  /// The bytes available to the daemon in a directory below server.fs_roots. Same errors as get-fs-browse.
+  ///
+  /// [path] - An absolute directory below server.fs_roots; empty lists the roots.
+  @GET('/v1/fs/free')
+  Future<FsFree> getFsFree({@Query('path') String? path});
 
   /// Check daemon health.
   ///

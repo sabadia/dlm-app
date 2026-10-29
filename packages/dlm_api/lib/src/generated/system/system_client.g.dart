@@ -21,6 +21,62 @@ class _SystemClient implements SystemClient {
   final ParseErrorLogger? errorLogger;
 
   @override
+  Future<FsListing> getFsBrowse({String? path}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'path': path};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<FsListing>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/v1/fs/browse',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late FsListing _value;
+    try {
+      _value = FsListing.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<FsFree> getFsFree({String? path}) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'path': path};
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<FsFree>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/v1/fs/free',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late FsFree _value;
+    try {
+      _value = FsFree.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<HealthOutputBody> getHealth() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

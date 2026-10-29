@@ -17,6 +17,7 @@ class SystemInfo {
     required this.arch,
     required this.databaseBytes,
     required this.engines,
+    required this.fsRoots,
     required this.goVersion,
     required this.local,
     required this.minClientApi,
@@ -57,6 +58,9 @@ class SystemInfo {
 
   /// Enabled download engines.
   final List<String>? engines;
+
+  /// Directories clients may browse with get-fs-browse (server.fs_roots); empty means browsing is off.
+  final List<String>? fsRoots;
 
   /// Go toolchain the daemon was built with.
   final String goVersion;

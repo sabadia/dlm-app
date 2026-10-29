@@ -10,6 +10,7 @@ import 'stores/entity_store.dart';
 import 'sync/sync_engine.dart';
 import 'tasks/refresh_repository.dart';
 import 'tasks/task_actions.dart';
+import 'tasks/task_detail_repository.dart';
 import 'tasks/task_list.dart';
 import 'tasks/task_repository.dart';
 import 'tasks/task_store.dart';
@@ -44,6 +45,25 @@ final taskRepositoryProvider = Provider<TaskRepository>(
 final refreshRepositoryProvider = Provider<RefreshRepository>(
   (ref) => ApiRefreshRepository(ref.watch(apiProvider)),
 );
+
+/// Where a task's segments, torrent swarm and chosen files are read and set.
+final taskDetailRepositoryProvider = Provider<TaskDetailRepository>(
+  (ref) => ApiTaskDetailRepository(ref.watch(apiProvider)),
+);
+
+/// The segments of one task. Read again when invalidated (the inspector does
+/// that while the task runs).
+final taskSegmentsProvider = FutureProvider.autoDispose
+    .family<List<Segment>, String>(
+      (ref, id) => ref.watch(taskDetailRepositoryProvider).segments(id),
+    );
+
+/// The swarm of one torrent task (null when there is none). Read again when
+/// invalidated.
+final taskTorrentProvider = FutureProvider.autoDispose
+    .family<TorrentInfo?, String>(
+      (ref, id) => ref.watch(taskDetailRepositoryProvider).torrent(id),
+    );
 
 /// The attempts to renew one task's link. Read again when invalidated (a
 /// `task.refresh` event does that while the inspector shows it).

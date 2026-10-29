@@ -652,5 +652,81 @@
   "toast_link_refreshing": "Asking for a new link",
   "toast_link_waiting": "Waiting for a new link",
   "toast_link_replaced": "Link replaced",
-  "files_skipped": "not downloaded"
+  "files_skipped": "not downloaded",
+  "insp_tab_segments": "Segments",
+  "insp_tab_torrent": "Torrent",
+  "seg_none": "This download is not split into segments.",
+  "seg_summary": "{count} segments, {percent}% done.",
+  "@seg_summary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "seg_label": "Map of the segments of the download",
+  "seg_done": "downloaded",
+  "seg_todo": "still to do",
+  "torrent_none": "There is no swarm to show yet: the torrent has not started.",
+  "torrent_state": "State",
+  "torrent_hash": "Info hash",
+  "torrent_private": "Private torrent",
+  "torrent_yes": "yes",
+  "torrent_no": "no",
+  "torrent_peers": "Peers",
+  "torrent_peers_value": "{connected} connected, {known} known, {seeders} seeders",
+  "@torrent_peers_value": {
+    "placeholders": {
+      "connected": {
+        "type": "int"
+      },
+      "known": {
+        "type": "int"
+      },
+      "seeders": {
+        "type": "int"
+      }
+    }
+  },
+  "torrent_shared": "Shared",
+  "torrent_shared_value": "{uploaded} uploaded, ratio {ratio}",
+  "@torrent_shared_value": {
+    "placeholders": {
+      "uploaded": {
+        "type": "String"
+      },
+      "ratio": {
+        "type": "String"
+      }
+    }
+  },
+  "torrent_seeding_time": "Seeding for",
+  "torrent_trackers": "Trackers",
+  "torrent_peer_list": "Connected peers",
+  "torrent_peer_rate": "{rate} down",
+  "@torrent_peer_rate": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "files_edit": "Choose files",
+  "files_save": "Save selection",
+  "files_cancel": "Cancel",
+  "files_locked": "Pause the download to change which files are downloaded.",
+  "files_select_all": "All files",
+  "files_pick_one": "Select at least one file.",
+  "toast_files_saved": "Selection saved",
+  "files_file_label": "Download {name}",
+  "@files_file_label": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

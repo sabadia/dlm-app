@@ -2019,6 +2019,180 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'not downloaded'**
   String get files_skipped;
+
+  /// No description provided for @insp_tab_segments.
+  ///
+  /// In en, this message translates to:
+  /// **'Segments'**
+  String get insp_tab_segments;
+
+  /// No description provided for @insp_tab_torrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Torrent'**
+  String get insp_tab_torrent;
+
+  /// No description provided for @seg_none.
+  ///
+  /// In en, this message translates to:
+  /// **'This download is not split into segments.'**
+  String get seg_none;
+
+  /// No description provided for @seg_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} segments, {percent}% done.'**
+  String seg_summary(int count, int percent);
+
+  /// No description provided for @seg_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Map of the segments of the download'**
+  String get seg_label;
+
+  /// No description provided for @seg_done.
+  ///
+  /// In en, this message translates to:
+  /// **'downloaded'**
+  String get seg_done;
+
+  /// No description provided for @seg_todo.
+  ///
+  /// In en, this message translates to:
+  /// **'still to do'**
+  String get seg_todo;
+
+  /// No description provided for @torrent_none.
+  ///
+  /// In en, this message translates to:
+  /// **'There is no swarm to show yet: the torrent has not started.'**
+  String get torrent_none;
+
+  /// No description provided for @torrent_state.
+  ///
+  /// In en, this message translates to:
+  /// **'State'**
+  String get torrent_state;
+
+  /// No description provided for @torrent_hash.
+  ///
+  /// In en, this message translates to:
+  /// **'Info hash'**
+  String get torrent_hash;
+
+  /// No description provided for @torrent_private.
+  ///
+  /// In en, this message translates to:
+  /// **'Private torrent'**
+  String get torrent_private;
+
+  /// No description provided for @torrent_yes.
+  ///
+  /// In en, this message translates to:
+  /// **'yes'**
+  String get torrent_yes;
+
+  /// No description provided for @torrent_no.
+  ///
+  /// In en, this message translates to:
+  /// **'no'**
+  String get torrent_no;
+
+  /// No description provided for @torrent_peers.
+  ///
+  /// In en, this message translates to:
+  /// **'Peers'**
+  String get torrent_peers;
+
+  /// No description provided for @torrent_peers_value.
+  ///
+  /// In en, this message translates to:
+  /// **'{connected} connected, {known} known, {seeders} seeders'**
+  String torrent_peers_value(int connected, int known, int seeders);
+
+  /// No description provided for @torrent_shared.
+  ///
+  /// In en, this message translates to:
+  /// **'Shared'**
+  String get torrent_shared;
+
+  /// No description provided for @torrent_shared_value.
+  ///
+  /// In en, this message translates to:
+  /// **'{uploaded} uploaded, ratio {ratio}'**
+  String torrent_shared_value(String uploaded, String ratio);
+
+  /// No description provided for @torrent_seeding_time.
+  ///
+  /// In en, this message translates to:
+  /// **'Seeding for'**
+  String get torrent_seeding_time;
+
+  /// No description provided for @torrent_trackers.
+  ///
+  /// In en, this message translates to:
+  /// **'Trackers'**
+  String get torrent_trackers;
+
+  /// No description provided for @torrent_peer_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected peers'**
+  String get torrent_peer_list;
+
+  /// No description provided for @torrent_peer_rate.
+  ///
+  /// In en, this message translates to:
+  /// **'{rate} down'**
+  String torrent_peer_rate(String rate);
+
+  /// No description provided for @files_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose files'**
+  String get files_edit;
+
+  /// No description provided for @files_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save selection'**
+  String get files_save;
+
+  /// No description provided for @files_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get files_cancel;
+
+  /// No description provided for @files_locked.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause the download to change which files are downloaded.'**
+  String get files_locked;
+
+  /// No description provided for @files_select_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All files'**
+  String get files_select_all;
+
+  /// No description provided for @files_pick_one.
+  ///
+  /// In en, this message translates to:
+  /// **'Select at least one file.'**
+  String get files_pick_one;
+
+  /// No description provided for @toast_files_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Selection saved'**
+  String get toast_files_saved;
+
+  /// No description provided for @files_file_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Download {name}'**
+  String files_file_label(String name);
 }
 
 class _AppLocalizationsDelegate

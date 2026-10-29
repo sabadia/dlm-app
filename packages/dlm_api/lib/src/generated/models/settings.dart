@@ -38,6 +38,7 @@ class Settings {
     this.proxyRules,
     this.quota,
     this.refresh,
+    this.retentionDays,
     this.retry,
     this.schedule,
     this.speedLimit,
@@ -70,6 +71,7 @@ class Settings {
   final List<ProxyRule>? proxyRules;
   final Quota? quota;
   final RefreshSettings? refresh;
+  final int? retentionDays;
   final RetrySettings? retry;
   final Schedule? schedule;
   final int? speedLimit;

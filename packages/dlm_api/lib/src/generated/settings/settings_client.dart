@@ -5,6 +5,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../models/limits_view.dart';
+import '../models/override_limits_body.dart';
 import '../models/schema.dart';
 import '../models/settings.dart';
 
@@ -13,6 +15,26 @@ part 'settings_client.g.dart';
 @RestApi()
 abstract class SettingsClient {
   factory SettingsClient(Dio dio, {String? baseUrl}) = _SettingsClient;
+
+  /// Speed limits and quotas in force.
+  ///
+  /// The global speed limit now in force (and the configured one when a temporary override replaces it), the active speed profile, the quota usage of the global scope, and the same per queue.
+  @GET('/v1/limits')
+  Future<LimitsView> getLimits();
+
+  /// End the temporary speed limit.
+  ///
+  /// Ends a temporary global speed override now; without one it does nothing. Answers like get-limits.
+  @DELETE('/v1/limits/override')
+  Future<LimitsView> clearLimitsOverride();
+
+  /// Temporarily replace the global speed limit.
+  ///
+  /// Replaces the global speed limit by speedLimit (0: unlimited, "turbo") for 1 to 1440 minutes; the configured limit and profiles apply again afterwards. A new override replaces the previous one. Clients are told with a limits.changed event, also when the override ends.
+  @POST('/v1/limits/override')
+  Future<LimitsView> setLimitsOverride({
+    @Body() required OverrideLimitsBody body,
+  });
 
   /// Get the global settings.
   ///

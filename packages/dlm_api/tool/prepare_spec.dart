@@ -22,6 +22,12 @@ void main(List<String> args) {
   // The Last-Event-ID header and the lastEventId query parameter collide in a
   // generated method; the stream is not called through it anyway.
   get.remove('parameters');
+  final logStream =
+      (paths['/v1/logs/stream']! as Map<String, Object?>)['get']!
+          as Map<String, Object?>;
+  (logStream['parameters']! as List<Object?>).removeWhere(
+    (p) => (p! as Map<String, Object?>)['name'] == 'Last-Event-ID',
+  );
   ok['content'] = {
     'application/json': {
       'schema': {r'$ref': '#/components/schemas/StreamEvent'},

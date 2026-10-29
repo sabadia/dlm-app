@@ -5,6 +5,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'action_cancelled_data.dart';
+import 'limits_changed_data.dart';
+import 'limits_changed_event.dart';
+import 'limits_changed_event_type.dart';
 import 'progress_data.dart';
 import 'queue.dart';
 import 'queue_action_cancelled_event.dart';
@@ -24,10 +27,16 @@ import 'quota_exhausted_event_type.dart';
 import 'quota_reset_event.dart';
 import 'quota_reset_event_type.dart';
 import 'refresh_attempt.dart';
+import 'resource_changed_data.dart';
+import 'resource_changed_event.dart';
+import 'resource_changed_event_type.dart';
 import 'settings.dart';
 import 'settings_updated_event.dart';
 import 'settings_updated_event_type.dart';
+import 'speed_data.dart';
 import 'status_data.dart';
+import 'system_speed_event.dart';
+import 'system_speed_event_type.dart';
 import 'task.dart';
 import 'task_created_event.dart';
 import 'task_created_event_type.dart';
@@ -62,6 +71,7 @@ extension StreamEventSealedDeserializer on StreamEvent {
     Map<Type, Object?>? mapping,
   }) {
     final mappingFallback = const <Type, Object?>{
+      StreamEventLimitsChangedEvent: 'limits.changed',
       StreamEventQueueActionCancelledEvent: 'queue.action_cancelled',
       StreamEventQueueCompletedEvent: 'queue.completed',
       StreamEventQueueCreatedEvent: 'queue.created',
@@ -69,7 +79,9 @@ extension StreamEventSealedDeserializer on StreamEvent {
       StreamEventQueueUpdatedEvent: 'queue.updated',
       StreamEventQuotaExhaustedEvent: 'quota.exhausted',
       StreamEventQuotaResetEvent: 'quota.reset',
+      StreamEventResourceChangedEvent: 'resource.changed',
       StreamEventSettingsUpdatedEvent: 'settings.updated',
+      StreamEventSystemSpeedEvent: 'system.speed',
       StreamEventTaskCreatedEvent: 'task.created',
       StreamEventTaskDeletedEvent: 'task.deleted',
       StreamEventTaskProgressEvent: 'task.progress',
@@ -80,6 +92,8 @@ extension StreamEventSealedDeserializer on StreamEvent {
     final value = json[key];
     final effective = mapping ?? mappingFallback;
     return switch (value) {
+      _ when value == effective[StreamEventLimitsChangedEvent] =>
+        StreamEventLimitsChangedEvent.fromJson(json),
       _ when value == effective[StreamEventQueueActionCancelledEvent] =>
         StreamEventQueueActionCancelledEvent.fromJson(json),
       _ when value == effective[StreamEventQueueCompletedEvent] =>
@@ -94,8 +108,12 @@ extension StreamEventSealedDeserializer on StreamEvent {
         StreamEventQuotaExhaustedEvent.fromJson(json),
       _ when value == effective[StreamEventQuotaResetEvent] =>
         StreamEventQuotaResetEvent.fromJson(json),
+      _ when value == effective[StreamEventResourceChangedEvent] =>
+        StreamEventResourceChangedEvent.fromJson(json),
       _ when value == effective[StreamEventSettingsUpdatedEvent] =>
         StreamEventSettingsUpdatedEvent.fromJson(json),
+      _ when value == effective[StreamEventSystemSpeedEvent] =>
+        StreamEventSystemSpeedEvent.fromJson(json),
       _ when value == effective[StreamEventTaskCreatedEvent] =>
         StreamEventTaskCreatedEvent.fromJson(json),
       _ when value == effective[StreamEventTaskDeletedEvent] =>
@@ -113,6 +131,38 @@ extension StreamEventSealedDeserializer on StreamEvent {
       ),
     };
   }
+}
+
+@JsonSerializable()
+class StreamEventLimitsChangedEvent extends StreamEvent
+    implements LimitsChangedEvent {
+  @override
+  final LimitsChangedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final LimitsChangedEventType type;
+
+  const StreamEventLimitsChangedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventLimitsChangedEvent.fromJson(Map<String, dynamic> json) =>
+      _$StreamEventLimitsChangedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$StreamEventLimitsChangedEventToJson(this);
 }
 
 @JsonSerializable()
@@ -342,6 +392,39 @@ class StreamEventQuotaResetEvent extends StreamEvent
 }
 
 @JsonSerializable()
+class StreamEventResourceChangedEvent extends StreamEvent
+    implements ResourceChangedEvent {
+  @override
+  final ResourceChangedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final ResourceChangedEventType type;
+
+  const StreamEventResourceChangedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventResourceChangedEvent.fromJson(Map<String, dynamic> json) =>
+      _$StreamEventResourceChangedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() =>
+      _$StreamEventResourceChangedEventToJson(this);
+}
+
+@JsonSerializable()
 class StreamEventSettingsUpdatedEvent extends StreamEvent
     implements SettingsUpdatedEvent {
   @override
@@ -372,6 +455,38 @@ class StreamEventSettingsUpdatedEvent extends StreamEvent
   @override
   Map<String, dynamic> toJson() =>
       _$StreamEventSettingsUpdatedEventToJson(this);
+}
+
+@JsonSerializable()
+class StreamEventSystemSpeedEvent extends StreamEvent
+    implements SystemSpeedEvent {
+  @override
+  final SpeedData data;
+  @override
+  final int id;
+  @override
+  final String? queueId;
+  @override
+  final String? taskId;
+  @override
+  final DateTime time;
+  @override
+  final SystemSpeedEventType type;
+
+  const StreamEventSystemSpeedEvent({
+    required this.data,
+    required this.id,
+    required this.queueId,
+    required this.taskId,
+    required this.time,
+    required this.type,
+  });
+
+  factory StreamEventSystemSpeedEvent.fromJson(Map<String, dynamic> json) =>
+      _$StreamEventSystemSpeedEventFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$StreamEventSystemSpeedEventToJson(this);
 }
 
 @JsonSerializable()
