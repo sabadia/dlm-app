@@ -1,0 +1,40 @@
+name: Beta feedback
+description: How a beta build worked for you, good or bad
+labels: ["beta"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for trying the beta. A bug with steps to reproduce is better as a *Bug report*; use this for
+        how it felt, what was confusing, and what you expected to find.
+  - type: input
+    id: version
+    attributes:
+      label: App and daemon version
+      description: About page
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+      options: [macOS, Windows 10, Windows 11, Linux (GNOME), Linux (KDE Plasma), Linux (other)]
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What did you try to do?
+    validations:
+      required: true
+  - type: textarea
+    id: felt
+    attributes:
+      label: How did it go? What was confusing or missing?
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: How did you install it?
+      options: [GitHub release, Homebrew, Built from source]

@@ -207,11 +207,11 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 
 ### M8 Docs and launch
 
-- [ ] F8.1 User guide — Getting started, per-feature guides, troubleshooting, shortcuts.
-- [ ] F8.2 Screenshots and GIFs generated from goldens
-- [ ] F8.3 Contributor guide — How to add a component and how to add a skin.
-- [ ] F8.4 Beta programme and feedback templates
-- [ ] F8.5 1.0 criteria and release checklist
+- [x] F8.1 User guide — Getting started, per-feature guides, troubleshooting, shortcuts. `docs/user/`, written from the code and the app's own strings; a first-time-user test with a real person is on the 1.0 checklist.
+- [ ] F8.2 Screenshots and GIFs generated from goldens — Screenshots done: `dart run dlm_tools:export_screenshots` copies the golden images to `docs/images`, CI fails when they are stale, and the guide uses them. **GIFs are not made** (a golden is a still image); they need a recorded session, so this stays open.
+- [x] F8.3 Contributor guide — How to add a component and how to add a skin. `CONTRIBUTING.md` (set-up) and `docs/contributing/` (component, skin, language).
+- [x] F8.4 Beta programme and feedback templates `docs/beta.md`; issue forms for beta feedback and native-look reports next to the bug form.
+- [x] F8.5 1.0 criteria and release checklist `docs/release-checklist.md`: what 1.0 requires and how a release is cut and verified.
 
 **Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 (F5.1, F5.2, F5.3, F5.5, F5.10 and the in-app part of F5.7 are pulled ahead to finish F3.7/F4.11/F4.12) → P13.x as each screen needs them → M5 → M5b → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
 

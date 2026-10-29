@@ -25,3 +25,35 @@ piece of work is a task in it with an issue on the
 
 See "Architecture" in the plan. Feature code depends on `dlm_ui_kit`, never on a
 skin; skins depend only on `dlm_ui_kit`; the API client is generated.
+
+## Setting up
+
+```
+git clone https://github.com/sabadia/dlm-app && cd dlm-app
+fvm install          # the Flutter and Dart versions are pinned in .fvmrc
+dart pub get         # one pub workspace for every package
+dart run dlm_tools:test_all --exclude-tags golden
+```
+
+Run the app on your desktop with `cd apps/dlm_app && flutter run -d macos` (or `windows`, `linux`). It
+starts the `dlm` daemon it finds: set `DLM_DAEMON` to a binary, or put `dlm` on your `PATH`.
+`bash tools/fetch_daemon.sh <version> <dir>` downloads a checksum-verified release.
+Linux needs the packages listed in `.github/workflows/ci.yml` (GTK 3, `libkeybinder-3.0` and friends).
+
+The tools in `tools/dlm_tools` are the checks CI runs; run the same before you push:
+`check_imports` (who may depend on whom), `check_l10n`, `check_licenses`, `test_all`.
+
+## Guides
+
+- [Engineering conventions](docs/CONVENTIONS.md): how code is written. Mandatory.
+- [Add a component to the UI kit](docs/contributing/add-a-component.md)
+- [Add a skin](docs/contributing/add-a-skin.md), and how to add a language
+- [The UI kit](docs/ui-kit.md) and [the app shell](docs/app-shell.md): how the pieces fit
+- [Packaging and releases](docs/packaging.md)
+- [Manual test checklist](docs/manual-tests.md): what only a person on that OS can check
+
+## Intent records
+
+This repository uses [intentline](https://github.com/sabadia/intentline): a change of any size carries a
+short record of why it was made. CI checks it. Drafts are made with `intentline capture`; affirming a
+record is for a human reviewer, never for tooling.

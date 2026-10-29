@@ -30,6 +30,10 @@ jobs:
           dart run dlm_tools:check_l10n
           (cd packages/dlm_l10n && dart run tool/gen_pseudo.dart)
           git diff --exit-code packages/dlm_l10n/lib/l10n
+      - name: The guide's screenshots are the current golden images
+        run: |
+          dart run dlm_tools:export_screenshots
+          git diff --exit-code docs/images
 
   test:
     name: test (${{ matrix.os }})

@@ -1,0 +1,30 @@
+name: It does not look or feel native
+description: A skin looks or behaves differently from other apps on your desktop
+labels: ["area/native-look"]
+body:
+  - type: dropdown
+    id: os
+    attributes:
+      label: Desktop
+      options: [macOS, Windows 10, Windows 11, Linux (GNOME), Linux (KDE Plasma), Linux (other)]
+    validations:
+      required: true
+  - type: input
+    id: osversion
+    attributes:
+      label: System version
+      description: For example macOS 26.1, Windows 11 24H2, GNOME 48, Plasma 6.3
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is different from other apps on your desktop?
+      description: A screenshot of DLM and, if you can, of a native app next to it helps a lot.
+    validations:
+      required: true
+  - type: textarea
+    id: settings
+    attributes:
+      label: Your appearance settings
+      description: Light or dark, accent colour, text size or scale, high contrast, reduce transparency or motion.
