@@ -20,6 +20,8 @@ depends:
 recommends:
   - libkeybinder-3.0-0
   - ffmpeg
+scripts:
+  postremove: packaging/linux/postremove.sh
 contents:
   - src: @BUNDLE@
     dst: /opt/dlm

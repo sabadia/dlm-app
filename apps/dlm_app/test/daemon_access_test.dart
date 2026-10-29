@@ -67,10 +67,12 @@ class FakeDaemon implements DaemonRepository {
     this.failConfig,
     List<Token>? tokens,
     this.waiting = const [],
+    this.hosts = const [Result(browser: 'chrome', status: 'absent')],
   }) : _tokens = tokens ?? [];
 
   final bool pending;
   final List<Pairing> waiting;
+  final List<Result> hosts;
   final WhoAmIScope scope;
   ApiProblem? failConfig;
   final List<Token> _tokens;
@@ -149,11 +151,11 @@ class FakeDaemon implements DaemonRepository {
   }
 
   @override
-  Future<NativeHostStatus> nativeHost() async => const NativeHostStatus(
+  Future<NativeHostStatus> nativeHost() async => NativeHostStatus(
     launcher: '/l',
     launcherExists: true,
     allowedOrigins: ['chrome-extension://abc/'],
-    browsers: [Result(browser: 'chrome', status: 'absent')],
+    browsers: hosts,
   );
 
   @override

@@ -13,6 +13,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../about/diagnostics_providers.dart';
 import '../connection/connection_controller.dart';
 import '../format/dlm_format.dart';
+import '../pairing/native_host_upkeep.dart';
 import '../pairing/pairing_dialog.dart';
 import '../pairing/pairing_requests.dart';
 import '../prefs/pref_providers.dart';
@@ -187,6 +188,8 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
           }
         }
       });
+    // The registration of the browsers is brought up to date once per start.
+    unawaited(ref.read(nativeHostUpkeepProvider.future));
     final l = AppLocalizations.of(context);
     await notifier.init(categories: notificationCategories(l));
     await _syncTray();
