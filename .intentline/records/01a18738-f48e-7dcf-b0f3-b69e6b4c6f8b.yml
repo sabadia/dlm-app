@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18738-f48e-7dcf-b0f3-b69e6b4c6f8b
+status: draft
+created_at: '2026-10-29T10:33:39Z'
+updated_at: '2026-10-29T10:33:39Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: grok
+goal: 'F5.5: watch the clipboard only when asked, offer a download link once, and never log the clipboard text'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/platform/clipboard_watch.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/clipboard_links.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

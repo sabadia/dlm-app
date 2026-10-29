@@ -14,6 +14,15 @@ enum ThemeChoice {
   dark,
 }
 
+/// Which published builds the update check considers.
+enum UpdateChannel {
+  /// Tagged releases only.
+  stable,
+
+  /// Tagged releases and prereleases.
+  beta,
+}
+
 /// How tightly lists are packed.
 enum Density {
   /// Roomy rows.
@@ -139,6 +148,13 @@ abstract final class UiPrefs {
   /// Language code (`de`); null follows the system.
   static const language = Pref<String?>.plain('ui.language', null);
 
+  /// Which GitHub releases count as an update.
+  static final updateChannel = enumPref(
+    'ui.updateChannel',
+    UpdateChannel.values,
+    UpdateChannel.stable,
+  );
+
   /// Whether the tray / menu-bar item shows.
   static const trayEnabled = Pref<bool>.plain('ui.tray', true);
 
@@ -150,6 +166,27 @@ abstract final class UiPrefs {
 
   /// Notify when a download finishes or fails.
   static const notifyOnFinish = Pref<bool>.plain('ui.notifyOnFinish', true);
+
+  /// Watch the clipboard for download links. Off until the user turns it on.
+  static const clipboardWatch = Pref<bool>.plain('ui.clipboardWatch', false);
+
+  /// Shortcut overrides, command id to a chord such as `primary+42`. Empty
+  /// means the built-in chords.
+  static final shortcuts = Pref<Map<String, String>>(
+    'ui.shortcuts',
+    const {},
+    _decodeShortcuts,
+    (v) => v,
+  );
+
+  static Map<String, String>? _decodeShortcuts(Object? raw) {
+    if (raw is! Map) return null;
+    return {
+      for (final e in raw.entries)
+        if (e.key is String && e.value is String)
+          e.key as String: e.value as String,
+    };
+  }
 
   /// The window's place and size.
   static const windowState = Pref<WindowState?>(

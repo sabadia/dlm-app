@@ -65,6 +65,23 @@ final densityProvider = NotifierProvider<PrefNotifier<Density>, Density>(
   () => PrefNotifier(UiPrefs.density),
 );
 
+/// IEC or SI sizes.
+final unitSystemProvider =
+    NotifierProvider<PrefNotifier<UnitSystem>, UnitSystem>(
+      () => PrefNotifier(UiPrefs.unitSystem),
+    );
+
+/// Language code, or null to follow the system.
+final languageProvider = NotifierProvider<PrefNotifier<String?>, String?>(
+  () => PrefNotifier(UiPrefs.language),
+);
+
+/// Stable or beta updates.
+final updateChannelProvider =
+    NotifierProvider<PrefNotifier<UpdateChannel>, UpdateChannel>(
+      () => PrefNotifier(UiPrefs.updateChannel),
+    );
+
 /// Forced skin id, or null for the platform's.
 final skinOverrideProvider = NotifierProvider<PrefNotifier<String?>, String?>(
   () => PrefNotifier(UiPrefs.skinOverride),
@@ -79,3 +96,29 @@ final accentProvider = NotifierProvider<PrefNotifier<int?>, int?>(
 final confirmDeleteProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.confirmDelete),
 );
+
+/// Keep the window hidden when the app is started at login.
+final startMinimisedProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.startMinimised),
+);
+
+/// Whether the tray / menu-bar icon shows.
+final trayEnabledProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.trayEnabled),
+);
+
+/// Whether finished and failed downloads are announced.
+final notifyOnFinishProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.notifyOnFinish),
+);
+
+/// Whether the clipboard is watched for download links. Off by default.
+final clipboardWatchProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.clipboardWatch),
+);
+
+/// Shortcut overrides. An empty map means the built-in chords.
+final shortcutsProvider =
+    NotifierProvider<PrefNotifier<Map<String, String>>, Map<String, String>>(
+      () => PrefNotifier(UiPrefs.shortcuts),
+    );

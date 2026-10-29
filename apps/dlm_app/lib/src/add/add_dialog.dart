@@ -10,6 +10,7 @@ import 'package:file_selector/file_selector.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import '../inspector/files_tab.dart';
 import '../manage/credential_draft.dart';
 import '../manage/logins_screen.dart';
@@ -429,6 +430,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     final roots = buildFileTree(
       files,
       l,
+      sizes: context.bytes,
       picked: picked,
       onToggle: (indexes, on) => setState(() {
         final next = {...picked};
@@ -669,7 +671,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
       case _One(:final result, :final category):
         final files = result.resource.files?.length ?? 0;
         final size = result.resource.size >= 0
-            ? formatBytes(result.resource.size)
+            ? context.bytes(result.resource.size)
             : null;
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,

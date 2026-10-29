@@ -1612,6 +1612,66 @@ abstract class AppLocalizations {
   /// **'Done'**
   String get setup_done;
 
+  /// No description provided for @setup_system_title.
+  ///
+  /// In en, this message translates to:
+  /// **'On this computer'**
+  String get setup_system_title;
+
+  /// No description provided for @setup_system_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. All of this can be changed later in Preferences and under Access.'**
+  String get setup_system_desc;
+
+  /// No description provided for @setup_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Start when I log in'**
+  String get setup_login;
+
+  /// No description provided for @setup_login_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Keeps downloads going without opening the app by hand.'**
+  String get setup_login_desc;
+
+  /// No description provided for @setup_ext.
+  ///
+  /// In en, this message translates to:
+  /// **'Browser extension'**
+  String get setup_ext;
+
+  /// No description provided for @setup_ext_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Send downloads from your browser to this app.'**
+  String get setup_ext_desc;
+
+  /// No description provided for @setup_ext_connected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Set up for 1 browser} other{Set up for {count} browsers}}'**
+  String setup_ext_connected(int count);
+
+  /// No description provided for @setup_ext_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set up'**
+  String get setup_ext_none;
+
+  /// No description provided for @setup_ext_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get setup_ext_unknown;
+
+  /// No description provided for @setup_ext_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up…'**
+  String get setup_ext_open;
+
   /// No description provided for @cmd_setup.
   ///
   /// In en, this message translates to:
@@ -5247,6 +5307,312 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Off deletes at once, keeping the files on disk.'**
   String get pref_confirm_delete_desc;
+
+  /// No description provided for @tray_tooltip.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm'**
+  String get tray_tooltip;
+
+  /// No description provided for @tray_show.
+  ///
+  /// In en, this message translates to:
+  /// **'Show dlm'**
+  String get tray_show;
+
+  /// No description provided for @tray_pause_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause all'**
+  String get tray_pause_all;
+
+  /// No description provided for @tray_resume_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume all'**
+  String get tray_resume_all;
+
+  /// No description provided for @tray_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add downloads…'**
+  String get tray_add;
+
+  /// No description provided for @tray_quit.
+  ///
+  /// In en, this message translates to:
+  /// **'Quit dlm'**
+  String get tray_quit;
+
+  /// No description provided for @notif_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download finished'**
+  String get notif_completed;
+
+  /// No description provided for @notif_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Download failed'**
+  String get notif_failed;
+
+  /// No description provided for @notif_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Link expired'**
+  String get notif_expired;
+
+  /// No description provided for @notif_open.
+  ///
+  /// In en, this message translates to:
+  /// **'Open'**
+  String get notif_open;
+
+  /// No description provided for @notif_folder.
+  ///
+  /// In en, this message translates to:
+  /// **'Show in folder'**
+  String get notif_folder;
+
+  /// No description provided for @notif_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get notif_retry;
+
+  /// No description provided for @notif_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue finished'**
+  String get notif_queue;
+
+  /// No description provided for @setup_no_tray.
+  ///
+  /// In en, this message translates to:
+  /// **'This system has no menu-bar icon, so closing the window quits the app.'**
+  String get setup_no_tray;
+
+  /// No description provided for @pref_notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get pref_notifications;
+
+  /// No description provided for @pref_tray.
+  ///
+  /// In en, this message translates to:
+  /// **'Show an icon in the menu bar or notification area'**
+  String get pref_tray;
+
+  /// No description provided for @pref_tray_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.'**
+  String get pref_tray_desc;
+
+  /// No description provided for @pref_notify.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me when a download finishes or fails'**
+  String get pref_notify;
+
+  /// No description provided for @pref_notify_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A system notification with buttons to open the file or retry.'**
+  String get pref_notify_desc;
+
+  /// No description provided for @clip_offer_title.
+  ///
+  /// In en, this message translates to:
+  /// **'A link is on the clipboard'**
+  String get clip_offer_title;
+
+  /// No description provided for @clip_offer_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get clip_offer_add;
+
+  /// No description provided for @clip_offer_dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get clip_offer_dismiss;
+
+  /// No description provided for @pref_units.
+  ///
+  /// In en, this message translates to:
+  /// **'Sizes'**
+  String get pref_units;
+
+  /// No description provided for @pref_units_iec.
+  ///
+  /// In en, this message translates to:
+  /// **'Kibibytes (KiB)'**
+  String get pref_units_iec;
+
+  /// No description provided for @pref_units_si.
+  ///
+  /// In en, this message translates to:
+  /// **'Kilobytes (kB)'**
+  String get pref_units_si;
+
+  /// No description provided for @pref_language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get pref_language;
+
+  /// No description provided for @pref_language_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get pref_language_system;
+
+  /// No description provided for @pref_clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch the clipboard for links'**
+  String get pref_clipboard;
+
+  /// No description provided for @pref_clipboard_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'When the window is in front, offer to add an http, ftp, magnet or ed2k link that was copied. Off until you turn it on. The clipboard is not written to the log.'**
+  String get pref_clipboard_desc;
+
+  /// No description provided for @pref_shortcuts.
+  ///
+  /// In en, this message translates to:
+  /// **'Shortcuts'**
+  String get pref_shortcuts;
+
+  /// No description provided for @pref_shortcuts_change.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get pref_shortcuts_change;
+
+  /// No description provided for @pref_shortcuts_press.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the new shortcut'**
+  String get pref_shortcuts_press;
+
+  /// No description provided for @pref_shortcuts_reset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset shortcuts'**
+  String get pref_shortcuts_reset;
+
+  /// No description provided for @ab_updates.
+  ///
+  /// In en, this message translates to:
+  /// **'Updates'**
+  String get ab_updates;
+
+  /// No description provided for @ab_channel.
+  ///
+  /// In en, this message translates to:
+  /// **'Channel'**
+  String get ab_channel;
+
+  /// No description provided for @ab_channel_stable.
+  ///
+  /// In en, this message translates to:
+  /// **'Stable'**
+  String get ab_channel_stable;
+
+  /// No description provided for @ab_channel_beta.
+  ///
+  /// In en, this message translates to:
+  /// **'Beta'**
+  String get ab_channel_beta;
+
+  /// No description provided for @ab_check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get ab_check;
+
+  /// No description provided for @ab_checking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get ab_checking;
+
+  /// No description provided for @ab_up_to_date.
+  ///
+  /// In en, this message translates to:
+  /// **'This is the newest version on this channel.'**
+  String get ab_up_to_date;
+
+  /// No description provided for @ab_available.
+  ///
+  /// In en, this message translates to:
+  /// **'{version} is available'**
+  String ab_available(String version);
+
+  /// No description provided for @ab_open_release.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the release'**
+  String get ab_open_release;
+
+  /// No description provided for @ab_check_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'The update check did not succeed.'**
+  String get ab_check_failed;
+
+  /// No description provided for @pref_shortcuts_conflict.
+  ///
+  /// In en, this message translates to:
+  /// **'Already used by {command}'**
+  String pref_shortcuts_conflict(String command);
+
+  /// No description provided for @pref_startup.
+  ///
+  /// In en, this message translates to:
+  /// **'Startup'**
+  String get pref_startup;
+
+  /// No description provided for @pref_login.
+  ///
+  /// In en, this message translates to:
+  /// **'Start when I log in'**
+  String get pref_login;
+
+  /// No description provided for @pref_login_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Opens the app in the background when you sign in to this computer.'**
+  String get pref_login_desc;
+
+  /// No description provided for @pref_start_hidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Start hidden'**
+  String get pref_start_hidden;
+
+  /// No description provided for @pref_start_hidden_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'When started at login, keep the window closed; open it from the tray icon.'**
+  String get pref_start_hidden_desc;
+
+  /// No description provided for @pref_daemon_service.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep downloading without the app'**
+  String get pref_daemon_service;
+
+  /// No description provided for @pref_daemon_service_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts the download service at login on its own, so queues and schedules run while the app is closed.'**
+  String get pref_daemon_service_desc;
 
   /// No description provided for @nav_manage_about.
   ///

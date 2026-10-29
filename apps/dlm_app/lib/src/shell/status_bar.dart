@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import 'feedback.dart';
 import 'status_banners.dart';
 
@@ -93,8 +94,8 @@ class StatusBar extends ConsumerWidget {
       ),
       Text(
         l.status_speed(
-          formatSpeed(speed?.down ?? 0) ?? '0',
-          formatSpeed(speed?.up ?? 0) ?? '0',
+          context.speed(speed?.down ?? 0) ?? '0',
+          context.speed(speed?.up ?? 0) ?? '0',
         ),
         style: caption,
       ),
@@ -117,8 +118,8 @@ class StatusBar extends ConsumerWidget {
             SizedBox(width: theme.metrics.spacing.xs),
             Text(
               l.status_quota(
-                formatBytes(quota.used) ?? '0',
-                formatBytes(quota.bytes) ?? '0',
+                context.bytes(quota.used) ?? '0',
+                context.bytes(quota.bytes) ?? '0',
               ),
               style: caption,
             ),

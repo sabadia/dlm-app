@@ -6,6 +6,8 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
+
 /// How many speed samples the graph keeps (one per progress event, about one
 /// a second).
 const int speedSamples = 120;
@@ -60,8 +62,8 @@ class SpeedTab extends ConsumerWidget {
           : DlmChartFrame(
               title: l.speed_title,
               summary: l.speed_summary(
-                formatSpeed(now) ?? '0',
-                formatSpeed(peak) ?? '0',
+                context.speed(now) ?? '0',
+                context.speed(peak) ?? '0',
                 samples.length,
               ),
               legend: [DlmLegendItem(label: l.speed_series, color: palette[0])],
@@ -69,6 +71,7 @@ class SpeedTab extends ConsumerWidget {
               child: CustomPaint(
                 painter: _SpeedPainter(
                   samples: samples,
+                  peakLabel: context.speed(peak) ?? '',
                   line: palette[0],
                   grid: theme.colors.separator,
                   text: theme.colors.textSecondary,
@@ -84,6 +87,7 @@ class SpeedTab extends ConsumerWidget {
 class _SpeedPainter extends CustomPainter {
   _SpeedPainter({
     required this.samples,
+    required this.peakLabel,
     required this.line,
     required this.grid,
     required this.text,
@@ -91,6 +95,7 @@ class _SpeedPainter extends CustomPainter {
   });
 
   final List<int> samples;
+  final String peakLabel;
   final Color line;
   final Color grid;
   final Color text;
@@ -101,7 +106,7 @@ class _SpeedPainter extends CustomPainter {
     final peak = math.max(1, samples.fold<int>(0, math.max));
     final label = TextPainter(
       text: TextSpan(
-        text: formatSpeed(peak) ?? '',
+        text: peakLabel,
         style: style.copyWith(color: text),
       ),
       textDirection: TextDirection.ltr,
@@ -146,5 +151,8 @@ class _SpeedPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SpeedPainter old) =>
-      old.samples != samples || old.line != line || old.grid != grid;
+      old.samples != samples ||
+      old.peakLabel != peakLabel ||
+      old.line != line ||
+      old.grid != grid;
 }

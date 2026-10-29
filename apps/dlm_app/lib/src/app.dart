@@ -11,7 +11,9 @@ import 'package:go_router/go_router.dart';
 
 import 'appearance.dart';
 import 'connection/connection_gate.dart';
+import 'format/dlm_format.dart';
 import 'manage/manage_screen.dart';
+import 'platform/integration_binder.dart';
 import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
 import 'screens/downloads_screen.dart';
@@ -133,22 +135,30 @@ class DlmApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final accent = ref.watch(accentProvider);
+    final language = ref.watch(languageProvider);
     return WidgetsApp.router(
       routerConfig: ref.watch(routerProvider),
       color: const Color(0xFF000000),
       debugShowCheckedModeBanner: false,
+      locale: language == null ? null : Locale(language),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateTitle: (context) => AppLocalizations.of(context).app_name,
-      builder: (context, child) => DlmThemeScope(
-        skin: ref.watch(skinProvider),
-        source: ref.watch(appearanceSourceProvider),
-        userOverride: appearanceOverrideFor(
-          theme: ref.watch(themeChoiceProvider),
-          density: ref.watch(densityProvider),
-          accent: accent == null ? null : Color(accent),
+      builder: (context, child) => DlmFormat(
+        units: ref.watch(unitSystemProvider),
+        locale: Localizations.localeOf(context).toString(),
+        child: DlmThemeScope(
+          skin: ref.watch(skinProvider),
+          source: ref.watch(appearanceSourceProvider),
+          userOverride: appearanceOverrideFor(
+            theme: ref.watch(themeChoiceProvider),
+            density: ref.watch(densityProvider),
+            accent: accent == null ? null : Color(accent),
+          ),
+          child: _WindowChromeBinder(
+            child: IntegrationBinder(child: ConnectionGate(child: child!)),
+          ),
         ),
-        child: _WindowChromeBinder(child: ConnectionGate(child: child!)),
       ),
     );
   }

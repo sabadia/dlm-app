@@ -951,6 +951,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get setup_done => 'Done';
 
   @override
+  String get setup_system_title => 'On this computer';
+
+  @override
+  String get setup_system_desc =>
+      'Optional. All of this can be changed later in Preferences and under Access.';
+
+  @override
+  String get setup_login => 'Start when I log in';
+
+  @override
+  String get setup_login_desc =>
+      'Keeps downloads going without opening the app by hand.';
+
+  @override
+  String get setup_ext => 'Browser extension';
+
+  @override
+  String get setup_ext_desc => 'Send downloads from your browser to this app.';
+
+  @override
+  String setup_ext_connected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Set up for $count browsers',
+      one: 'Set up for 1 browser',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get setup_ext_none => 'Not set up';
+
+  @override
+  String get setup_ext_unknown => 'Not available';
+
+  @override
+  String get setup_ext_open => 'Set up…';
+
+  @override
   String get cmd_setup => 'Setup and health check…';
 
   @override
@@ -3111,6 +3151,170 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pref_confirm_delete_desc =>
       'Off deletes at once, keeping the files on disk.';
+
+  @override
+  String get tray_tooltip => 'dlm';
+
+  @override
+  String get tray_show => 'Show dlm';
+
+  @override
+  String get tray_pause_all => 'Pause all';
+
+  @override
+  String get tray_resume_all => 'Resume all';
+
+  @override
+  String get tray_add => 'Add downloads…';
+
+  @override
+  String get tray_quit => 'Quit dlm';
+
+  @override
+  String get notif_completed => 'Download finished';
+
+  @override
+  String get notif_failed => 'Download failed';
+
+  @override
+  String get notif_expired => 'Link expired';
+
+  @override
+  String get notif_open => 'Open';
+
+  @override
+  String get notif_folder => 'Show in folder';
+
+  @override
+  String get notif_retry => 'Retry';
+
+  @override
+  String get notif_queue => 'Queue finished';
+
+  @override
+  String get setup_no_tray =>
+      'This system has no menu-bar icon, so closing the window quits the app.';
+
+  @override
+  String get pref_notifications => 'Notifications';
+
+  @override
+  String get pref_tray => 'Show an icon in the menu bar or notification area';
+
+  @override
+  String get pref_tray_desc =>
+      'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.';
+
+  @override
+  String get pref_notify => 'Tell me when a download finishes or fails';
+
+  @override
+  String get pref_notify_desc =>
+      'A system notification with buttons to open the file or retry.';
+
+  @override
+  String get clip_offer_title => 'A link is on the clipboard';
+
+  @override
+  String get clip_offer_add => 'Add';
+
+  @override
+  String get clip_offer_dismiss => 'Not now';
+
+  @override
+  String get pref_units => 'Sizes';
+
+  @override
+  String get pref_units_iec => 'Kibibytes (KiB)';
+
+  @override
+  String get pref_units_si => 'Kilobytes (kB)';
+
+  @override
+  String get pref_language => 'Language';
+
+  @override
+  String get pref_language_system => 'System';
+
+  @override
+  String get pref_clipboard => 'Watch the clipboard for links';
+
+  @override
+  String get pref_clipboard_desc =>
+      'When the window is in front, offer to add an http, ftp, magnet or ed2k link that was copied. Off until you turn it on. The clipboard is not written to the log.';
+
+  @override
+  String get pref_shortcuts => 'Shortcuts';
+
+  @override
+  String get pref_shortcuts_change => 'Change';
+
+  @override
+  String get pref_shortcuts_press => 'Press the new shortcut';
+
+  @override
+  String get pref_shortcuts_reset => 'Reset shortcuts';
+
+  @override
+  String get ab_updates => 'Updates';
+
+  @override
+  String get ab_channel => 'Channel';
+
+  @override
+  String get ab_channel_stable => 'Stable';
+
+  @override
+  String get ab_channel_beta => 'Beta';
+
+  @override
+  String get ab_check => 'Check for updates';
+
+  @override
+  String get ab_checking => 'Checking…';
+
+  @override
+  String get ab_up_to_date => 'This is the newest version on this channel.';
+
+  @override
+  String ab_available(String version) {
+    return '$version is available';
+  }
+
+  @override
+  String get ab_open_release => 'Open the release';
+
+  @override
+  String get ab_check_failed => 'The update check did not succeed.';
+
+  @override
+  String pref_shortcuts_conflict(String command) {
+    return 'Already used by $command';
+  }
+
+  @override
+  String get pref_startup => 'Startup';
+
+  @override
+  String get pref_login => 'Start when I log in';
+
+  @override
+  String get pref_login_desc =>
+      'Opens the app in the background when you sign in to this computer.';
+
+  @override
+  String get pref_start_hidden => 'Start hidden';
+
+  @override
+  String get pref_start_hidden_desc =>
+      'When started at login, keep the window closed; open it from the tray icon.';
+
+  @override
+  String get pref_daemon_service => 'Keep downloading without the app';
+
+  @override
+  String get pref_daemon_service_desc =>
+      'Starts the download service at login on its own, so queues and schedules run while the app is closed.';
 
   @override
   String get nav_manage_about => 'About';

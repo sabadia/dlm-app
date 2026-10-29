@@ -6,6 +6,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../format/dlm_format.dart';
+
 /// Status, progress, destination, times and the last error of one download.
 class OverviewTab extends ConsumerWidget {
   /// Creates the tab for the task [id].
@@ -71,10 +73,10 @@ class OverviewTab extends ConsumerWidget {
                 ),
               ),
             ),
-            _row(l.ov_size, formatBytes(size) ?? l.ov_size_unknown, l),
-            _row(l.ov_downloaded, formatBytes(downloaded) ?? l.ov_none, l),
+            _row(l.ov_size, context.bytes(size) ?? l.ov_size_unknown, l),
+            _row(l.ov_downloaded, context.bytes(downloaded) ?? l.ov_none, l),
             if (running) ...[
-              _row(l.ov_speed, formatSpeed(progress.speed) ?? l.ov_none, l),
+              _row(l.ov_speed, context.speed(progress.speed) ?? l.ov_none, l),
               _row(
                 l.ov_time_left,
                 left == null ? l.ov_none : formatDuration(left),

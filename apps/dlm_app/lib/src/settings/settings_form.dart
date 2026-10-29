@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import '../shell/feedback.dart';
 import 'settings_editors.dart';
 
@@ -364,7 +365,7 @@ class _FieldRow extends StatelessWidget {
               value: value is num ? value.toInt() : null,
               allowEmpty: true,
               parse: parseSize,
-              format: (v) => formatBytes(v) ?? '$v',
+              format: (v) => context.bytes(v) ?? '$v',
               invalidText: l.settings_invalid_size,
               semanticLabel: label,
               suffix: unit == 'bytes/s' ? const Text('/s') : null,

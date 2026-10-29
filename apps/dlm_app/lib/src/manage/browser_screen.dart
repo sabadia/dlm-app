@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../format/dlm_format.dart';
 import '../onboarding/tool_row.dart';
 import '../shell/feedback.dart';
 
@@ -105,7 +106,7 @@ class _BrowserScreenState extends ConsumerState<BrowserScreen> {
               subtitle: [
                 c.kind,
                 if ((c.mime ?? '').isNotEmpty) c.mime!,
-                if (c.size > 0) formatBytes(c.size) ?? '',
+                if (c.size > 0) context.bytes(c.size) ?? '',
                 c.source,
               ].where((e) => e.isNotEmpty).join(' · '),
               leading: const DlmIcon(DlmIconName.download),

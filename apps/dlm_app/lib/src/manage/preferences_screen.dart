@@ -6,8 +6,12 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../connection/connection_controller.dart';
+import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
+import '../shell/feedback.dart';
 import '../skin_registry.dart';
+import 'shortcut_editor.dart';
 
 /// The accent colours offered, by name; the app's own accent is the default.
 const Map<String, int> accentChoices = {
@@ -43,6 +47,126 @@ class PreferencesScreen extends ConsumerWidget {
     'breeze' => l.pref_skin_breeze,
     _ => id,
   };
+
+  Future<void> _change(
+    BuildContext context,
+    WidgetRef ref,
+    Future<void> Function() change,
+  ) async {
+    try {
+      await change();
+    } on Object catch (e) {
+      if (context.mounted) showFailure(context, ref, e);
+    }
+  }
+
+  /// The tray icon and finish notifications.
+  Widget _presenceGroup(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final tray = ref.watch(trayEnabledProvider);
+    final notify = ref.watch(notifyOnFinishProvider);
+    return DlmFormGroup(
+      title: l.pref_notifications,
+      children: [
+        DlmFormRow(
+          label: l.pref_tray,
+          description: l.pref_tray_desc,
+          control: DlmSwitch(
+            value: tray,
+            semanticLabel: l.pref_tray,
+            onChanged: (v) =>
+                unawaited(ref.read(trayEnabledProvider.notifier).set(v)),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_notify,
+          description: l.pref_notify_desc,
+          control: DlmSwitch(
+            value: notify,
+            semanticLabel: l.pref_notify,
+            onChanged: (v) =>
+                unawaited(ref.read(notifyOnFinishProvider.notifier).set(v)),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_clipboard,
+          description: l.pref_clipboard_desc,
+          control: DlmSwitch(
+            value: ref.watch(clipboardWatchProvider),
+            semanticLabel: l.pref_clipboard,
+            onChanged: (v) =>
+                unawaited(ref.read(clipboardWatchProvider.notifier).set(v)),
+          ),
+        ),
+      ],
+    );
+  }
+
+  /// Start at login, start hidden, and the daemon's own login item. Only the
+  /// rows this computer can do show: a remote daemon has no login item here.
+  Widget _startupGroup(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final login = ref.watch(loginItemEnabledProvider);
+    final service = ref.watch(daemonServiceStatusProvider);
+    final hidden = ref.watch(startMinimisedProvider);
+    final hasService =
+        ref.watch(daemonServiceProvider) != null &&
+        ref.watch(activeProfileProvider).isLocal;
+    return DlmFormGroup(
+      title: l.pref_startup,
+      children: [
+        DlmFormRow(
+          label: l.pref_login,
+          description: l.pref_login_desc,
+          control: DlmSwitch(
+            value: login.value ?? false,
+            semanticLabel: l.pref_login,
+            onChanged: login.isLoading
+                ? null
+                : (v) => unawaited(
+                    _change(
+                      context,
+                      ref,
+                      () => ref
+                          .read(loginItemEnabledProvider.notifier)
+                          .set(enabled: v),
+                    ),
+                  ),
+          ),
+        ),
+        DlmFormRow(
+          label: l.pref_start_hidden,
+          description: l.pref_start_hidden_desc,
+          control: DlmSwitch(
+            value: hidden,
+            semanticLabel: l.pref_start_hidden,
+            onChanged: (v) =>
+                unawaited(ref.read(startMinimisedProvider.notifier).set(v)),
+          ),
+        ),
+        if (hasService)
+          DlmFormRow(
+            label: l.pref_daemon_service,
+            description: l.pref_daemon_service_desc,
+            control: DlmSwitch(
+              value: service.value?.installed ?? false,
+              semanticLabel: l.pref_daemon_service,
+              onChanged: service.isLoading
+                  ? null
+                  : (v) => unawaited(
+                      _change(
+                        context,
+                        ref,
+                        () => ref
+                            .read(daemonServiceStatusProvider.notifier)
+                            .set(enabled: v),
+                      ),
+                    ),
+            ),
+          ),
+      ],
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -160,6 +284,57 @@ class PreferencesScreen extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+        gap,
+        _startupGroup(context, ref),
+        gap,
+        _presenceGroup(context, ref),
+        gap,
+        DlmFormGroup(
+          title: l.pref_units,
+          children: [
+            DlmFormRow(
+              label: l.pref_units,
+              control: SizedBox(
+                width: 220,
+                child: DlmDropdown<UnitSystem>(
+                  semanticLabel: l.pref_units,
+                  value: ref.watch(unitSystemProvider),
+                  choices: [
+                    DlmChoice(value: UnitSystem.iec, label: l.pref_units_iec),
+                    DlmChoice(value: UnitSystem.si, label: l.pref_units_si),
+                  ],
+                  onChanged: (v) =>
+                      unawaited(ref.read(unitSystemProvider.notifier).set(v)),
+                ),
+              ),
+            ),
+            DlmFormRow(
+              label: l.pref_language,
+              control: SizedBox(
+                width: 220,
+                child: DlmDropdown<String?>(
+                  semanticLabel: l.pref_language,
+                  value: ref.watch(languageProvider),
+                  choices: [
+                    DlmChoice(value: null, label: l.pref_language_system),
+                    for (final locale in AppLocalizations.supportedLocales)
+                      DlmChoice(
+                        value: locale.languageCode,
+                        label: locale.languageCode,
+                      ),
+                  ],
+                  onChanged: (code) =>
+                      unawaited(ref.read(languageProvider.notifier).set(code)),
+                ),
+              ),
+            ),
+          ],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.pref_shortcuts,
+          children: const [ShortcutEditor()],
         ),
         gap,
         DlmFormGroup(

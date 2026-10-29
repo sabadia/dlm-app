@@ -28,8 +28,16 @@ survives a reconnect.
 completed, failed) and `/queues/<id>`. The shell is the sidebar (a translucent glass pane on
 macOS), the toolbar (title, selection actions, search, command palette, details toggle), the
 page, and the details pane. Panels resize by dragging or with the keyboard and remember their
-width; the details pane closes by itself below 1000 px. Cmd/Ctrl+K opens the command palette,
-Cmd/Ctrl+F focuses the search.
+width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
+map (Command on macOS, Control elsewhere, overridable per command). A chord
+already used by another command is refused, and reset restores the built-in
+ones. Global hotkeys are not part of this map. Preferences also choose the size
+units and the language. Sizes are drawn through one `DlmFormat` above the
+window, so a change redraws every count. The language follows the system
+unless a supported language is chosen. About can check GitHub releases of
+this app: stable ignores prereleases, beta includes them. On Linux the result
+opens the release page. Installing on macOS and Windows waits for the
+packaged updater.
 
 ## Downloads list
 
@@ -79,8 +87,33 @@ them ([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)).
 On the first start with the app's own download service a dialog shows the download folder
 (chosen with the system's folder dialog and saved as the global `downloadDir`) and the helper
 programs the daemon found (ffmpeg, yt-dlp, browser). It is also in the command palette as
-"Setup and health check". Start at login, the tray icon and the browser extension are added
-with their own work (P13.13, F5.1, F5.10).
+"Setup and health check". It offers start at login and shows whether the browser
+extension is paired. When this system has no menu-bar icon, it says that closing
+the window quits. The login item starts the app with `--minimised` (on macOS the
+launch event is used, because the system cannot pass arguments). A separate
+preference installs the daemon's own `dlm service` entry, which keeps downloads
+running without the app.
+
+## Tray and notifications
+
+`IntegrationBinder` draws nothing. It keeps a menu-bar icon while the tray
+preference is on and this system can show one. Closing the window then hides the
+app; the icon's menu shows the window, adds a download, pauses or resumes
+everything, and quits. The speed is the icon's title on macOS and its tooltip
+on the other desktops. Without an icon, closing the window quits.
+
+A finished download, a failed download, an expired link, and a queue that has
+finished post a system notification while that preference is on. The buttons
+open the file, reveal it, or download it again. On Windows the toast uses the
+AppUserModelID `io.github.sabadia.dlm` and one fixed activator GUID. A button
+there has to carry both its own id and the download id, because Windows hands
+back only one string.
+
+While the window is in front and the clipboard preference is on (it stays off
+until the user asks), the app reads the clipboard when the window comes
+forward and every two seconds. It offers the first http, https, ftp, magnet
+or ed2k link, and skips a link it has already offered. The clipboard text is
+not written to the log.
 
 ## What is waiting for the daemon
 
