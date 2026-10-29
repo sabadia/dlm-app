@@ -16,7 +16,7 @@ class BreezeComponents extends DlmBaseComponents {
     if (s.focused || s.focusVisible || s.hovered) return c.accent;
     return t.colors.highContrast
         ? c.border
-        : c.textPrimary.withValues(alpha: 0.3);
+        : c.textPrimary.withValues(alpha: 0.2);
   }
 
   @override
