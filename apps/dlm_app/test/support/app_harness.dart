@@ -551,18 +551,24 @@ Future<AppHarness> pumpApp(
   List<Credential> logins = const [],
   List<CookieInfo> cookies = const [],
   List<Override> overrides = const [],
+  PreferencesStore? preferences,
 }) async {
   tester.view
     ..physicalSize = size
     ..devicePixelRatio = 1;
   addTearDown(tester.view.reset);
 
-  final dir = io.Directory.systemTemp.createTempSync('dlm_app_test');
-  addTearDown(() => dir.deleteSync(recursive: true));
   // Real file I/O never completes inside the test's fake-async zone.
-  final prefs = (await tester.runAsync(
-    () => PreferencesStore.open(io.File('${dir.path}/prefs.json')),
-  ))!;
+  final PreferencesStore prefs;
+  if (preferences != null) {
+    prefs = preferences;
+  } else {
+    final dir = io.Directory.systemTemp.createTempSync('dlm_app_test');
+    addTearDown(() => dir.deleteSync(recursive: true));
+    prefs = (await tester.runAsync(
+      () => PreferencesStore.open(io.File('${dir.path}/prefs.json')),
+    ))!;
+  }
   if (onboarded) {
     await tester.runAsync(() => prefs.set(UiPrefs.onboardingDone, true));
   }

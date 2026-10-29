@@ -115,6 +115,12 @@ forward and every two seconds. It offers the first http, https, ftp, magnet
 or ed2k link, and skips a link it has already offered. The clipboard text is
 not written to the log.
 
+## The window's place
+
+The window opens where it was, including on a second display. The frame is
+written back after a move or a resize. If that display is no longer connected,
+the window is fitted onto the first display instead of opening off screen.
+
 ## Dock, taskbar and sleep
 
 While the daemon reports downloads in progress, the app keeps the system from
