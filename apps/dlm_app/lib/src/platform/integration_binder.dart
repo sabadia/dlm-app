@@ -98,6 +98,7 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
   StreamSubscription<String>? _logs;
   List<TrayEntry>? _shownMenu;
   String? _shownTitle;
+  String? _shownTooltip;
   bool _started = false;
 
   @override
@@ -172,6 +173,8 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
       if (tray.visible) await tray.hide();
       await window.holdClose(hold: false);
       _shownMenu = null;
+      _shownTooltip = null;
+      _shownTitle = null;
       return;
     }
     final l = AppLocalizations.of(context);
@@ -182,26 +185,27 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
             context.speed(speed.down) ?? '0',
             context.speed(speed.up) ?? '0',
           );
-    // The speed sits beside the icon on macOS. Linux has a menu only.
+    // The speed sits beside the icon on macOS. Other desktops keep it in the
+    // tooltip: the title stays null, so a speed change must still be noticed.
     final title = Platform.isMacOS ? text : null;
+    final tooltip = text ?? l.tray_tooltip;
     final menu = _menu(l);
     if (!tray.visible) {
       await tray.show(
         iconAsset: trayIconAsset,
         menu: menu,
-        tooltip: text ?? l.tray_tooltip,
+        tooltip: tooltip,
         title: title,
       );
       await window.holdClose(hold: true);
-    } else if (_shownTitle != title || !listEquals(_shownMenu, menu)) {
-      await tray.update(
-        menu: menu,
-        tooltip: text ?? l.tray_tooltip,
-        title: title,
-      );
+    } else if (_shownTitle != title ||
+        _shownTooltip != tooltip ||
+        !listEquals(_shownMenu, menu)) {
+      await tray.update(menu: menu, tooltip: tooltip, title: title);
     }
     _shownMenu = menu;
     _shownTitle = title;
+    _shownTooltip = tooltip;
   }
 
   Future<void> _onClose() async {
