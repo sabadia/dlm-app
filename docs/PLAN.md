@@ -185,7 +185,7 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 - [x] F6.4 End-to-end tests against a real daemon — Linux headless under xvfb; macOS and Windows runners. `apps/dlm_app/test_e2e` runs the app's client, event stream, cache and actions against a real daemon on all three runners (no display needed, so no xvfb); whole-window UI tests against a daemon are not part of it.
 - [ ] F6.5 Visual regression across skins and themes
 - [ ] F6.6 Threat model and security review — Token at rest, TLS pinning, post-action warnings, plugin consent, deep links, clipboard privacy.
-- [ ] F6.7 Resilience tests — Daemon crash, network loss, version mismatch, 100k tasks, corrupt prefs.
+- [x] F6.7 Resilience tests — Daemon crash, network loss, version mismatch, 100k tasks, corrupt prefs. Scenarios and their tests are listed in `docs/resilience.md`; the daemon crash is also tested against a real daemon.
 - [x] F6.8 Nightly contract job against the newest dlm release `.github/workflows/nightly-contract.yml` (cron and manual): newest release, the e2e tests, and `dlm_tools:check_contract` against the pinned OpenAPI.
 
 ### M7 Packaging and release
