@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a187fe-e896-7bbe-b8d7-9f62b6809cd6
+status: draft
+created_at: '2026-10-29T14:09:52Z'
+updated_at: '2026-10-29T14:09:52Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.12: no scrollbars anywhere; remove the table''s own bar and make DlmScrollBehavior the default under DlmThemeScope'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_ui_kit/lib/src/theme/theme.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/widgets/data_table.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

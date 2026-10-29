@@ -404,27 +404,21 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
       child: LayoutBuilder(
         builder: (context, box) {
           final width = _totalWidth < box.maxWidth ? box.maxWidth : _totalWidth;
-          return RawScrollbar(
+          return SingleChildScrollView(
             controller: _hScroll,
-            thumbColor: theme.colors.border,
-            radius: const Radius.circular(4),
-            thickness: 6,
-            child: SingleChildScrollView(
-              controller: _hScroll,
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: width,
-                height: box.maxHeight.isFinite ? box.maxHeight : null,
-                child: Column(
-                  children: [
-                    _header(context, theme),
-                    Expanded(
-                      child: cursorIsRoot
-                          ? (widget.emptyState ?? const SizedBox.shrink())
-                          : _body(context, theme, rowHeight),
-                    ),
-                  ],
-                ),
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: width,
+              height: box.maxHeight.isFinite ? box.maxHeight : null,
+              child: Column(
+                children: [
+                  _header(context, theme),
+                  Expanded(
+                    child: cursorIsRoot
+                        ? (widget.emptyState ?? const SizedBox.shrink())
+                        : _body(context, theme, rowHeight),
+                  ),
+                ],
               ),
             ),
           );

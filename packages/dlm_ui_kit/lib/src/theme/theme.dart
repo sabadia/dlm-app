@@ -234,10 +234,28 @@ class _DlmThemeScopeState extends State<DlmThemeScope> {
               color: _data.colors.textSecondary,
               size: _data.metrics.icon,
             ),
-            child: widget.child,
+            child: ScrollConfiguration(
+              behavior: const DlmScrollBehavior(),
+              child: widget.child,
+            ),
           ),
         ),
       ),
     );
   }
+}
+
+/// Scrolling without scrollbars: the wheel, trackpad, drag and keyboard all
+/// work, but no bar is drawn. Everything under a [DlmThemeScope], dialogs and
+/// menus included, inherits it.
+class DlmScrollBehavior extends ScrollBehavior {
+  /// Creates the behaviour.
+  const DlmScrollBehavior();
+
+  @override
+  Widget buildScrollbar(
+    BuildContext context,
+    Widget child,
+    ScrollableDetails details,
+  ) => child;
 }
