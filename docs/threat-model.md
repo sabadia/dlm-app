@@ -36,12 +36,15 @@ dlm daemon. The daemon's own model lives in `sabadia/dlm-server`.
 | A plugin does more than it says | Installing shows the permissions (hooks and network hosts) first; switching a plugin on is a grant | `plugins_screen.dart`, plugin tests |
 | Clipboard snooping | The watcher is off by default, reads only while the window is focused, offers links only, never logs, and offers a value once | `clipboard_watch_test.dart` |
 | Secrets shown on screen or copied by accident | Tokens and cookie values appear once on request; copy buttons are explicit | `access_screen.dart`, `cookies_screen.dart` |
-| A remote daemon reachable without TLS | Plain HTTP to a non-loopback address is warned about in the connection editor | connection profile tests |
 | Supply chain | Licences checked against an allow list, SBOM per build, versions pinned by the lock file, the daemon fetched with a checksum check | CI jobs, `tools/fetch_daemon.sh` |
 | Outdated or unreachable daemon | Version compatibility is checked and shown; a daemon of another version is replaced | `compatibility_test.dart` |
 
 ## Open or accepted
 
+- **Remote profiles have no editor in the app yet.** The model and the pinned client exist, and a
+  profile is stored without its token, but the screen that creates one does not. When it is built it
+  must refuse plain `http://` to a non-loopback address (or warn and require a second confirmation)
+  and require a pin for `https://` with a self-signed certificate.
 - **The macOS app is not sandboxed** (`com.apple.security.app-sandbox` is false) because it runs a
   bundled daemon that writes where the user chooses. Hardened runtime and notarisation come with
   packaging (F7.1); Flatpak confines the Linux app (F7.3).
