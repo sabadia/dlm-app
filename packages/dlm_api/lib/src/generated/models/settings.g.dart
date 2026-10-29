@@ -22,7 +22,11 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
   maxActiveDownloadsTotal: (json['maxActiveDownloadsTotal'] as num?)?.toInt(),
   maxConcurrentDownloads: (json['maxConcurrentDownloads'] as num?)?.toInt(),
   maxConnections: (json['maxConnections'] as num?)?.toInt(),
-  onQueueComplete: json['onQueueComplete'],
+  onQueueComplete: json['onQueueComplete'] == null
+      ? null
+      : OnQueueComplete.fromJson(
+          json['onQueueComplete'] as Map<String, dynamic>,
+        ),
   postActions: (json['postActions'] as List<dynamic>?)
       ?.map((e) => PostAction.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -32,7 +36,9 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
   proxyRules: (json['proxyRules'] as List<dynamic>?)
       ?.map((e) => ProxyRule.fromJson(e as Map<String, dynamic>))
       .toList(),
-  quota: json['quota'],
+  quota: json['quota'] == null
+      ? null
+      : Quota.fromJson(json['quota'] as Map<String, dynamic>),
   refresh: json['refresh'] == null
       ? null
       : RefreshSettings.fromJson(json['refresh'] as Map<String, dynamic>),
@@ -43,7 +49,9 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
       ? null
       : Schedule.fromJson(json['schedule'] as Map<String, dynamic>),
   speedLimit: (json['speedLimit'] as num?)?.toInt(),
-  speedProfiles: json['speedProfiles'],
+  speedProfiles: (json['speedProfiles'] as List<dynamic>?)
+      ?.map((e) => SpeedProfile.fromJson(e as Map<String, dynamic>))
+      .toList(),
   tlsVerify: json['tlsVerify'] as bool?,
   torrent: json['torrent'] == null
       ? null

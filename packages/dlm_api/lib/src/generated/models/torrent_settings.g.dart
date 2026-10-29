@@ -9,9 +9,11 @@ part of 'torrent_settings.dart';
 TorrentSettings _$TorrentSettingsFromJson(Map<String, dynamic> json) =>
     TorrentSettings(
       seedKeep: json['seedKeep'] as bool?,
-      seedRatio: json['seedRatio'],
+      seedRatio: (json['seedRatio'] as num?)?.toDouble(),
       seedTime: json['seedTime'] as String?,
-      trackers: json['trackers'],
+      trackers: (json['trackers'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
     );
 
 Map<String, dynamic> _$TorrentSettingsToJson(TorrentSettings instance) =>

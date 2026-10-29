@@ -4,9 +4,6 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
-import 'optional_float64.dart';
-import 'optional_list_string.dart';
-
 part 'torrent_settings.g.dart';
 
 @JsonSerializable()
@@ -22,9 +19,9 @@ class TorrentSettings {
       _$TorrentSettingsFromJson(json);
 
   final bool? seedKeep;
-  final OptionalFloat64? seedRatio;
+  final double? seedRatio;
   final String? seedTime;
-  final OptionalListString? trackers;
+  final List<String>? trackers;
 
   Map<String, Object?> toJson() => _$TorrentSettingsToJson(this);
 }
