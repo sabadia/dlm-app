@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a1850a-5603-75df-ae60-a22189dcfa38
+status: draft
+created_at: '2026-10-29T00:23:29Z'
+updated_at: '2026-10-29T00:23:29Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'App shell: connection state machine and gate, router, sidebar/toolbar/inspector shell, downloads list, bulk actions with context menu, status banners; real startup fixed (zone)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/connection/connection_controller.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/downloads_screen.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

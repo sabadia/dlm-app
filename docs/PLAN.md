@@ -98,30 +98,30 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 ### M1 Foundations
 
-- [ ] F1.1 Package skeleton with enforced dependency rules — Workspace packages dlm_api, dlm_core, dlm_ui_kit, dlm_skin_*, dlm_platform, dlm_l10n and the app; a CI lint fails on forbidden imports (features never import a skin).
-- [ ] F1.2 API client: generator spike, generated models, typed wrapper *(needs P13.11)* — Spike swagger_parser vs openapi-generator dart-dio vs hand-written client over generated models (criteria: OpenAPI 3.0, nullable/optional handling, sealed event unions). Wrapper adds auth, timeouts, cancellation, problem decoding. Contract test against the pinned daemon spec.
-- [ ] F1.3 SSE client and EventHub — Last-Event-ID resume, `reset` event -> refetch, heartbeat timeout, backoff, filters, backpressure; deterministic tests with a fake server.
-- [ ] F1.4 Connection profiles: local (managed) and remote *(needs P13.11, P13.12)* — Secure token storage (Keychain / Credential Manager / libsecret), TLS pinning with a trust-on-first-use dialog, API-version compatibility gate.
-- [ ] F1.5 Daemon supervisor *(needs P13.1)* — Locate the bundled binary, start `dlm serve --home <app data> --address 127.0.0.1:0`, read runtime.json, wait healthy, crash-restart with backoff and a visible reason, graceful quit or keep-running, daemon update after app update, single instance.
+- [x] F1.1 Package skeleton with enforced dependency rules — Workspace packages dlm_api, dlm_core, dlm_ui_kit, dlm_skin_*, dlm_platform, dlm_l10n and the app; a CI lint fails on forbidden imports (features never import a skin).
+- [x] F1.2 API client: generator spike, generated models, typed wrapper *(needs P13.11)* — Spike swagger_parser vs openapi-generator dart-dio vs hand-written client over generated models (criteria: OpenAPI 3.0, nullable/optional handling, sealed event unions). Wrapper adds auth, timeouts, cancellation, problem decoding. Contract test against the pinned daemon spec.
+- [x] F1.3 SSE client and EventHub — Last-Event-ID resume, `reset` event -> refetch, heartbeat timeout, backoff, filters, backpressure; deterministic tests with a fake server.
+- [x] F1.4 Connection profiles: local (managed) and remote *(needs P13.11, P13.12)* — Secure token storage (Keychain / Credential Manager / libsecret), TLS pinning with a trust-on-first-use dialog, API-version compatibility gate.
+- [x] F1.5 Daemon supervisor *(needs P13.1)* — Locate the bundled binary, start `dlm serve --home <app data> --address 127.0.0.1:0`, read runtime.json, wait healthy, crash-restart with backoff and a visible reason, graceful quit or keep-running, daemon update after app update, single instance.
 - [ ] F1.6 Domain layer: repositories and controllers — Tasks (windowed, patched by events), queues, settings (layered + provenance), categories, cookies, credentials, webhooks, plugins, stats, browser; optimistic updates with rollback; normalised entity cache.
-- [ ] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
-- [ ] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
-- [ ] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
-- [ ] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
+- [x] F1.7 Problem-to-message mapping and toast/banner policy *(needs P13.11)* — Map problem `code`/`location` to localised text and field errors; one policy for toasts, banners and dialogs.
+- [x] F1.8 Formatting and units — IEC vs SI sizes, speeds, durations/ETA, relative dates, locale; parsing of size and duration input.
+- [x] F1.9 Preferences store — UI prefs, column layouts, window state, per-profile data, with migrations.
+- [x] F1.10 Local diagnostics — Rotating app log, redacted 'copy diagnostics' bundle, crash capture; no network, no telemetry.
 
 ### M2 UI kit and skins
 
-- [ ] F2.1 Design tokens, skin contract and theme-sync service — DlmSkin: colour roles, type scale, metrics, radii, materials, motion, density; shell patterns per skin.
-- [ ] F2.2 Component inventory and behaviour layer — About 45 components: buttons, toggles, segmented/tabs, inputs (text/search/number/size/duration/password), dropdowns, slider, progress, list row, virtualized data table, tri-state tree, sidebar/nav, toolbar/command/header bars, menus, dialogs/sheets/popovers, toasts/banners, tooltips, badges, empty/loading/error states, grouped form rows, weekday x time window editor, resizable panes, chart wrapper, skeletons. Shared focus/keyboard/semantics.
-- [ ] F2.3 macOS skin: Liquid Glass — Own Swift plugin (NSGlassEffectView on macOS 26+, NSVisualEffectView on 13-25), transparent title bar, system accent and semantic colours, native menu bar. Includes a go/no-go screenshot review.
+- [x] F2.1 Design tokens, skin contract and theme-sync service — DlmSkin: colour roles, type scale, metrics, radii, materials, motion, density; shell patterns per skin.
+- [x] F2.2 Component inventory and behaviour layer — About 45 components: buttons, toggles, segmented/tabs, inputs (text/search/number/size/duration/password), dropdowns, slider, progress, list row, virtualized data table, tri-state tree, sidebar/nav, toolbar/command/header bars, menus, dialogs/sheets/popovers, toasts/banners, tooltips, badges, empty/loading/error states, grouped form rows, weekday x time window editor, resizable panes, chart wrapper, skeletons. Shared focus/keyboard/semantics.
+- [x] F2.3 macOS skin: Liquid Glass — Own Swift plugin (NSGlassEffectView on macOS 26+, NSVisualEffectView on 13-25), transparent title bar, system accent and semantic colours, native menu bar. Includes a go/no-go screenshot review.
 - [ ] F2.4 Windows skin: Fluent / Mica — Built on fluent_ui; Mica/Acrylic (spike flutter_acrylic, fallback own plugin), custom title bar with caption buttons and snap layouts, system accent, NavigationView, ContentDialog; Windows 10 fallback.
 - [ ] F2.5 GNOME skin: Adwaita — Header bars (CSD), split view, preferences rows, toast overlay, dialogs, portal colour-scheme and accent, rounded window with shadow on Wayland/X11.
 - [ ] F2.6 KDE skin: Breeze — Breeze controls, toolbars, System-Settings-style pages, colours and fonts from kdeglobals, system icon theme, server-side title bar.
 - [ ] F2.7 Window chrome layer — Title bar styles, minimum size, restore, fullscreen, translucency toggle per OS in dlm_platform.
-- [ ] F2.8 OS/DE detection, live theme sync, user override — Dark/light, accent, high contrast, reduce motion, text scale; Preferences: Native/Light/Dark, accent, skin override for testing.
-- [ ] F2.9 Semantic icon system and app icons — Per-skin icon map with licence audit; app icon set.
-- [ ] F2.10 Kit gallery app and golden tests — Every component x 4 skins x light/dark/high-contrast.
-- [ ] F2.11 Kit accessibility and keyboard specification — Semantics, focus order, keyboard map, tested.
+- [x] F2.8 OS/DE detection, live theme sync, user override — Dark/light, accent, high contrast, reduce motion, text scale; Preferences: Native/Light/Dark, accent, skin override for testing.
+- [x] F2.9 Semantic icon system and app icons — Per-skin icon map with licence audit; app icon set.
+- [x] F2.10 Kit gallery app and golden tests — Every component x 4 skins x light/dark/high-contrast.
+- [x] F2.11 Kit accessibility and keyboard specification — Semantics, focus order, keyboard map, tested.
 
 ### M3 Core experience
 
@@ -130,10 +130,10 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F3.3 Selection, bulk operations, context menus, drag and drop *(needs P13.5)* — Bulk pause/resume/delete/move/priority/restart/refresh, drag reorder and drop onto a queue, confirm-with-undo for destructive actions.
 - [ ] F3.4 Task inspector *(needs P13.4)* — Overview, Files (tree + selection), Speed graph, Segments map, Source and refresh (edit URL, await link, history), per-task settings overrides, Events/errors.
 - [ ] F3.5 Add-download flow *(needs P13.6)* — Paste/many/pattern with preview, .torrent/.txt/JSON/aria2 files, magnet/ed2k, resolve preview with file tree, duplicate warning with 'add anyway', category preview, queue/dir/name, mirrors, checksum, headers/referrer, cookies/login helpers, yt-dlp/browser modes, batch result sheet.
-- [ ] F3.6 Queues UI — CRUD, start/stop, order, counts, schedule editor, speed profiles, quota, post-queue action with countdown/cancel.
+- [x] F3.6 Queues UI — CRUD, start/stop, order, counts, schedule editor, speed profiles, quota, post-queue action with countdown/cancel.
 - [ ] F3.7 First-run onboarding and health checks — Download folder, tools (ffmpeg/yt-dlp), start at login, tray, browser extension.
-- [ ] F3.8 Status bar and quick controls *(needs P13.7, P13.8)* — Down/up speed, active/queued, turbo toggle, pause/resume all, quota meter, connection state.
-- [ ] F3.9 Empty, error, offline and reconnecting states — Daemon-crashed recovery flow.
+- [x] F3.8 Status bar and quick controls *(needs P13.7, P13.8)* — Down/up speed, active/queued, turbo toggle, pause/resume all, quota meter, connection state.
+- [x] F3.9 Empty, error, offline and reconnecting states — Daemon-crashed recovery flow.
 
 ### M4 Management screens
 

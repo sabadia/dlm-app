@@ -58,6 +58,20 @@ void main() {
     expect(checkWorkspace(root.path, rules), isEmpty);
   });
 
+  test('a skin may import its own library (its tests do)', () {
+    pkg('packages', 'dlm_ui_kit');
+    pkg(
+      'packages',
+      'dlm_skin_macos',
+      deps: ['dlm_ui_kit'],
+      files: {
+        'test/a_test.dart':
+            "import 'package:dlm_skin_macos/dlm_skin_macos.dart';\n",
+      },
+    );
+    expect(checkWorkspace(root.path, rules), isEmpty);
+  });
+
   test('a forbidden pubspec dependency is reported', () {
     pkg('packages', 'dlm_api');
     pkg('packages', 'dlm_ui_kit', deps: ['dlm_api']);

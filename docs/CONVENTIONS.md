@@ -15,7 +15,7 @@ this file covers *how* code is written. Architecture decisions are in `docs/adr/
 
 ## Layout and dependencies
 - Package dependency direction (enforced by `dart run dlm_tools:check_imports` (rules in `tools/import_rules.yaml`), run in CI):
-  `apps/dlm_app → dlm_core, dlm_ui_kit, dlm_platform, dlm_l10n, dlm_skin_*`;
+  `apps/dlm_app → dlm_api (models and failures only), dlm_core, dlm_ui_kit, dlm_platform, dlm_l10n, dlm_skin_*`;
   `dlm_core → dlm_api`; `dlm_skin_* → dlm_ui_kit`; `dlm_platform`, `dlm_api`, `dlm_l10n`
   depend on no other dlm package. The only place a skin is named is the app's skin
   registry. Features never import a skin.

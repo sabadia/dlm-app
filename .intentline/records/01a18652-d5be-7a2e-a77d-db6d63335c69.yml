@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18652-d5be-7a2e-a77d-db6d63335c69
+status: draft
+created_at: '2026-10-29T06:22:18Z'
+updated_at: '2026-10-29T06:22:18Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Show how many downloads each page and queue holds in the sidebar from the daemon's per-queue counts; completes F3.6
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_core/lib/src/queues/queue_counts.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

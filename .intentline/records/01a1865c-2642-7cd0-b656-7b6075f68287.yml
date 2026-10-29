@@ -1,0 +1,35 @@
+schema_version: 1
+id: 01a1865c-2642-7cd0-b656-7b6075f68287
+status: draft
+created_at: '2026-10-29T06:32:28Z'
+updated_at: '2026-10-29T06:32:28Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Add dialog: advanced source options, list-file import with preview, result sheet, daemon folder browser, file choice for multi-file links (F3.5 part)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/add/add_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/add_advanced.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/add_results.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/folder_browser.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

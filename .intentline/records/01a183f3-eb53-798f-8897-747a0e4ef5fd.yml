@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a183f3-eb53-798f-8897-747a0e4ef5fd
+status: draft
+created_at: '2026-10-28T19:19:23Z'
+updated_at: '2026-10-28T19:19:23Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F1.2: generated API client from the daemon''s OpenAPI 3.0 document with a wrapper that adds auth, timeouts, cancellation and typed problems'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_api/lib/src/client.dart
+  start_line: null
+  end_line: null
+- path: docs/adr/0003-api-client-generation.md
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

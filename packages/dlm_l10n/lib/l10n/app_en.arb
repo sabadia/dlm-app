@@ -1,0 +1,970 @@
+{
+  "@@locale": "en",
+  "problem_task_not_found": "That download does not exist (any more).",
+  "problem_queue_not_found": "That queue does not exist (any more).",
+  "problem_category_not_found": "That category does not exist (any more).",
+  "problem_webhook_not_found": "That webhook does not exist (any more).",
+  "problem_credential_not_found": "That login does not exist (any more).",
+  "problem_plugin_not_found": "That plugin does not exist (any more).",
+  "problem_cookie_not_found": "That cookie does not exist (any more).",
+  "problem_engine_not_found": "That download engine does not exist (any more).",
+  "problem_browser_profile_not_found": "That browser profile does not exist (any more).",
+  "problem_browser_result_not_found": "That page result does not exist (any more).",
+  "problem_browser_candidate_not_found": "That download candidate does not exist (any more).",
+  "problem_refresh_attempt_not_found": "That link refresh does not exist (any more).",
+  "problem_resolve_result_not_found": "That link check does not exist (any more).",
+  "problem_queue_name_taken": "A queue with that name already exists.",
+  "problem_category_name_taken": "A category with that name already exists.",
+  "problem_queue_not_empty": "The queue still has downloads. Move or delete them first.",
+  "problem_task_duplicate": "This file is already in your downloads ({status}).",
+  "@problem_task_duplicate": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_task_file_exists": "A file with that name already exists in the target folder.",
+  "problem_task_invalid_state": "This download cannot be {operation} while it is {status}.",
+  "@problem_task_invalid_state": {
+    "placeholders": {
+      "operation": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_task_invalid_transition": "This download cannot change to that state right now.",
+  "problem_task_locked": "This download is busy. Try again in a moment.",
+  "problem_task_state_changed": "This download changed while you were working on it. Check its state and try again.",
+  "problem_browser_running": "The browser is in use. Close its pages first.",
+  "problem_category_bad_dir": "That folder is not allowed for a category.",
+  "problem_settings_invalid": "Some settings are not valid. Check the highlighted fields.",
+  "problem_validation_failed": "Some values are not valid. Check the highlighted fields.",
+  "problem_invalid_argument": "Those values are not valid.",
+  "problem_settings_changed": "The settings were changed somewhere else. The latest settings have been loaded; review your change and apply it again.",
+  "problem_browser_unavailable": "No browser is available. Install Chrome, Chromium, Edge or Brave, or allow downloading one in the settings.",
+  "problem_origin_failed": "The server of the file did not answer properly ({code}).",
+  "@problem_origin_failed": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "problem_request_cancelled": "The request was cancelled.",
+  "problem_service_unavailable": "The download service is not ready yet. Try again in a moment.",
+  "problem_bad_request": "The request was not understood.",
+  "problem_unauthorized": "The access token was rejected. Check the token of this connection.",
+  "problem_forbidden": "You are not allowed to do that.",
+  "problem_not_found": "That does not exist (any more).",
+  "problem_conflict": "That conflicts with the current state. Refresh and try again.",
+  "problem_precondition_failed": "That was changed somewhere else. Refresh and try again.",
+  "problem_too_many_requests": "Too many requests. Wait a moment.",
+  "problem_server_error": "The download service had an internal problem.",
+  "problem_connection_lost": "The download service cannot be reached.",
+  "problem_connection_timeout": "The download service did not answer in time.",
+  "problem_connection_certificate": "The certificate of the download service changed or is not trusted. Do not continue unless you expect this.",
+  "problem_unknown": "Something went wrong.",
+  "relativeJustNow": "just now",
+  "relativeMinutesAgo": "{count, plural, =1{1 minute ago} other{{count} minutes ago}}",
+  "@relativeMinutesAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeHoursAgo": "{count, plural, =1{1 hour ago} other{{count} hours ago}}",
+  "@relativeHoursAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "relativeYesterday": "yesterday",
+  "relativeDaysAgo": "{count, plural, =1{1 day ago} other{{count} days ago}}",
+  "@relativeDaysAgo": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "app_name": "dlm",
+  "nav_label": "Navigation",
+  "nav_all": "All Downloads",
+  "nav_active": "Active",
+  "nav_queued": "Queued",
+  "nav_paused": "Paused",
+  "nav_completed": "Completed",
+  "nav_failed": "Failed",
+  "nav_queues": "Queues",
+  "toolbar_search_placeholder": "Search downloads",
+  "toolbar_search_clear": "Clear search",
+  "toolbar_inspector_show": "Show details",
+  "toolbar_inspector_hide": "Hide details",
+  "toolbar_palette": "Commands",
+  "toolbar_label": "Toolbar",
+  "inspector_empty_title": "No download selected",
+  "inspector_empty_message": "Select a download to see its details.",
+  "inspector_resize": "Resize details",
+  "sidebar_resize": "Resize sidebar",
+  "palette_placeholder": "Type a command",
+  "palette_no_results": "No matching command",
+  "palette_label": "Command palette",
+  "command_go_to": "Go to {destination}",
+  "@command_go_to": {
+    "placeholders": {
+      "destination": {
+        "type": "String"
+      }
+    }
+  },
+  "command_toggle_inspector": "Show or hide details",
+  "command_focus_search": "Search downloads",
+  "connection_connecting_title": "Connecting to the download service",
+  "connection_connecting_message": "Starting {name}…",
+  "@connection_connecting_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_failed_title": "Cannot reach the download service",
+  "connection_failed_message": "The app could not connect to {name}.",
+  "@connection_failed_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_retry": "Try again",
+  "connection_token_rejected_title": "The access token was refused",
+  "connection_token_rejected_message": "{name} did not accept the saved token.",
+  "@connection_token_rejected_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_incompatible_title": "This version of the app cannot talk to that service",
+  "connection_incompatible_message": "Update the app or the service so their versions match.",
+  "connection_trust_title": "Trust this server?",
+  "connection_trust_message": "{name} presented a certificate the app has not seen before. Check that the fingerprint below matches the one on the server.",
+  "@connection_trust_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_trust_accept": "Trust and connect",
+  "connection_trust_reject": "Cancel",
+  "status_connected": "Connected",
+  "connection_trust_subject": "Subject",
+  "connection_trust_issuer": "Issuer",
+  "connection_trust_expires": "Valid until",
+  "connection_trust_fingerprint": "Fingerprint",
+  "connection_certificate_changed": "The server's certificate is different from the one you trusted. Do not continue unless you know it was replaced.",
+  "connection_reason": "Reason: {reason}",
+  "@connection_reason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "col_name": "Name",
+  "col_status": "Status",
+  "col_progress": "Progress",
+  "col_size": "Size",
+  "col_speed": "Speed",
+  "col_eta": "Time left",
+  "col_queue": "Queue",
+  "col_added": "Added",
+  "task_status_queued": "Queued",
+  "task_status_running": "Downloading",
+  "task_status_paused": "Paused",
+  "task_status_awaiting_link": "Waiting for a link",
+  "task_status_refreshing": "Refreshing link",
+  "task_status_postprocessing": "Finishing",
+  "task_status_completed": "Completed",
+  "task_status_error": "Failed",
+  "task_status_unknown": "Unknown",
+  "task_unnamed": "Unnamed download",
+  "task_eta": "{time} left",
+  "@task_eta": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "task_row_label": "{name}, {status}",
+  "@task_row_label": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "table_downloads_label": "Downloads",
+  "table_sorted_ascending": "sorted ascending",
+  "table_sorted_descending": "sorted descending",
+  "table_resize_column": "Resize {column}",
+  "@table_resize_column": {
+    "placeholders": {
+      "column": {
+        "type": "String"
+      }
+    }
+  },
+  "table_loading_row": "Loading",
+  "list_loading": "Loading downloads",
+  "list_empty_title": "No downloads here",
+  "list_empty_message": "Downloads you add will appear in this list.",
+  "list_empty_search_title": "Nothing matches your search",
+  "list_empty_search_message": "Try different words or clear the search.",
+  "list_error_title": "Could not load the downloads",
+  "list_retry": "Try again",
+  "action_pause": "Pause",
+  "action_resume": "Resume",
+  "action_restart": "Download again",
+  "action_delete": "Delete…",
+  "action_copy_link": "Copy link",
+  "action_undo": "Undo",
+  "action_dismiss": "Dismiss",
+  "toast_paused": "{count, plural, =1{Paused 1 download} other{Paused {count} downloads}}",
+  "@toast_paused": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_resumed": "{count, plural, =1{Resumed 1 download} other{Resumed {count} downloads}}",
+  "@toast_resumed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_deleted": "{count, plural, =1{Deleted 1 download} other{Deleted {count} downloads}}",
+  "@toast_deleted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_restarted": "Download restarted",
+  "toast_link_copied": "Link copied",
+  "toast_some_failed": "{count, plural, =1{1 download could not be changed} other{{count} downloads could not be changed}}",
+  "@toast_some_failed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_failure_unknown": "Something went wrong.",
+  "delete_title": "{count, plural, =1{Delete this download?} other{Delete {count} downloads?}}",
+  "@delete_title": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "delete_message": "They are removed from the list. Their files stay on disk unless you choose otherwise.",
+  "delete_files": "Also delete the downloaded files",
+  "delete_confirm": "Delete",
+  "delete_cancel": "Cancel",
+  "selection_count": "{count} selected",
+  "@selection_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "banner_reconnecting_title": "Connection to the download service lost",
+  "banner_reconnecting_message": "Trying to reconnect…",
+  "banner_daemon_restarting_title": "The download service stopped unexpectedly",
+  "banner_daemon_restarting_message": "It is restarting; your downloads continue from where they were.",
+  "banner_daemon_failed_title": "The download service keeps stopping",
+  "banner_daemon_failed_message": "{reason}",
+  "@banner_daemon_failed_message": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "banner_daemon_restart": "Restart service",
+  "banner_dismiss": "Dismiss",
+  "queue_new": "New queue",
+  "queue_new_title": "New queue",
+  "queue_name_label": "Name",
+  "queue_name_placeholder": "For example Night downloads",
+  "queue_name_taken": "A queue with that name already exists.",
+  "queue_create": "Create",
+  "queue_rename": "Rename…",
+  "queue_rename_title": "Rename queue",
+  "queue_save": "Save",
+  "queue_delete": "Delete queue…",
+  "queue_delete_title": "Delete “{name}”?",
+  "@queue_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_delete_message": "Its downloads move to the default queue. Nothing is removed from disk.",
+  "queue_delete_confirm": "Delete queue",
+  "queue_move_up": "Move up",
+  "queue_move_down": "Move down",
+  "queue_start": "Start queue",
+  "queue_stop": "Stop queue",
+  "queue_settings": "Queue settings…",
+  "queue_menu": "Queue actions",
+  "queue_state_running": "Running",
+  "queue_state_stopped": "Stopped",
+  "queue_default": "Default",
+  "toast_queue_created": "Created “{name}”",
+  "@toast_queue_created": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_renamed": "Renamed to “{name}”",
+  "@toast_queue_renamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_deleted": "Deleted “{name}”",
+  "@toast_queue_deleted": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_started": "“{name}” started",
+  "@toast_queue_started": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_stopped": "“{name}” stopped",
+  "@toast_queue_stopped": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_queue_saved": "Saved the settings of “{name}”",
+  "@toast_queue_saved": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_title": "Settings of “{name}”",
+  "@qs_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_intro": "Anything left empty follows the global settings.",
+  "qs_group_speed": "Speed",
+  "qs_speed_limit": "Speed limit",
+  "qs_speed_limit_desc": "Per second, for the whole queue. Empty means no limit of its own.",
+  "qs_speed_placeholder": "For example 2 MB",
+  "qs_invalid_size": "Enter a size like 500K or 2 MB.",
+  "qs_group_schedule": "Schedule",
+  "qs_schedule_on": "Run only at chosen times",
+  "qs_schedule_desc": "Outside these hours the queue waits; downloads resume when the next window opens.",
+  "qs_schedule_grid": "Weekly schedule, one cell per hour",
+  "qs_group_profiles": "Speed profiles",
+  "qs_profiles_desc": "A profile limits the speed while its hours are active.",
+  "qs_profile_title": "Profile {index}",
+  "@qs_profile_title": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "qs_profile_add": "Add a profile",
+  "qs_profile_remove": "Remove",
+  "qs_profile_limit": "Limit while active",
+  "qs_profile_unlimited": "Empty means unlimited while active.",
+  "qs_group_quota": "Quota",
+  "qs_quota_on": "Limit the amount downloaded",
+  "qs_quota_desc": "When the quota is used up the queue waits for the period to roll over.",
+  "qs_quota_bytes": "Amount",
+  "qs_quota_period": "Per period",
+  "qs_quota_period_placeholder": "For example 1 d",
+  "qs_invalid_duration": "Enter a time like 1h, 1d or 90m (at least a minute).",
+  "qs_group_after": "When the queue finishes",
+  "qs_after": "Then",
+  "qs_after_none": "Do nothing",
+  "qs_after_stop": "Stop the queue",
+  "qs_after_sleep": "Put the computer to sleep",
+  "qs_after_shutdown": "Shut the computer down",
+  "qs_after_command": "Run a program",
+  "qs_after_delay": "Wait first",
+  "qs_after_delay_desc": "A grace period in which you can cancel. Empty means 1 minute.",
+  "qs_after_command_path": "Program (full path)",
+  "qs_after_command_args": "Arguments, one per line",
+  "qs_after_command_warning": "This program runs with your permissions whenever the queue finishes. Only use one you trust.",
+  "qs_invalid_path": "Enter the full path of the program.",
+  "qs_cancel": "Cancel",
+  "queue_countdown_title": "“{name}” has finished",
+  "@queue_countdown_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_countdown_message": "{action} in {time}.",
+  "@queue_countdown_message": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "queue_countdown_cancel": "Cancel and stop the queue",
+  "queue_action_cancelled": "The action after “{name}” was cancelled.",
+  "@queue_action_cancelled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "qs_schedule_custom": "These hours include minutes, which the weekly grid cannot show. They are kept as they are until you replace them.",
+  "qs_schedule_use_grid": "Use the hourly grid",
+  "queue_missing_title": "This queue does not exist any more",
+  "queue_missing_message": "It was deleted, perhaps from another window. Pick another one in the sidebar.",
+  "setup_title": "Welcome",
+  "setup_intro": "A quick look at where your downloads go and what the download service found on this computer. You can come back to this from the command palette.",
+  "setup_folder_title": "Download folder",
+  "setup_folder_desc": "New downloads are saved here unless a category or queue says otherwise.",
+  "setup_folder_choose": "Choose…",
+  "setup_folder_dialog": "Choose the download folder",
+  "setup_folder_unset": "Not chosen yet",
+  "setup_folder_saved": "Downloads will be saved in {path}",
+  "@setup_folder_saved": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_tools_title": "Helper programs",
+  "setup_tools_desc": "These are used for some downloads. A missing one is only a problem when a download needs it.",
+  "setup_tools_recheck": "Check again",
+  "setup_tools_loading": "Looking for helper programs…",
+  "setup_tool_ffmpeg": "ffmpeg",
+  "setup_tool_ffmpeg_desc": "Joins video and audio and converts media.",
+  "setup_tool_ytdlp": "yt-dlp",
+  "setup_tool_ytdlp_desc": "Downloads from video sites.",
+  "setup_tool_browser": "Browser",
+  "setup_tool_browser_desc": "Opens pages that only work in a real browser.",
+  "setup_tool_found": "Found · {version}",
+  "@setup_tool_found": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_tool_found_noversion": "Found",
+  "setup_tool_missing": "Not found",
+  "setup_tool_missing_auto": "Not found · installed automatically when needed",
+  "setup_tool_error": "Problem: {error}",
+  "@setup_tool_error": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "setup_done": "Done",
+  "cmd_setup": "Setup and health check…",
+  "insp_label": "Download details",
+  "insp_tab_overview": "Overview",
+  "insp_tab_files": "Files",
+  "insp_tab_speed": "Speed",
+  "insp_tab_source": "Link",
+  "insp_multi": "{count, plural, =1{1 download selected} other{{count} downloads selected}}",
+  "@insp_multi": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insp_multi_hint": "Select a single download to see its details.",
+  "insp_gone": "This download no longer exists.",
+  "ov_group_progress": "Progress",
+  "ov_group_where": "Where it goes",
+  "ov_group_times": "Times",
+  "ov_status": "Status",
+  "ov_progress": "Done",
+  "ov_size": "Size",
+  "ov_size_unknown": "Not known yet",
+  "ov_downloaded": "Downloaded",
+  "ov_speed": "Speed",
+  "ov_time_left": "Time left",
+  "ov_connections": "Connections",
+  "ov_queue": "Queue",
+  "ov_engine": "Engine",
+  "ov_folder": "Folder",
+  "ov_priority": "Priority",
+  "ov_labels": "Labels",
+  "ov_added": "Added",
+  "ov_started": "Started",
+  "ov_completed": "Finished",
+  "ov_none": "—",
+  "ov_priority_low": "Low",
+  "ov_priority_normal": "Normal",
+  "ov_priority_high": "High",
+  "ov_error_title": "It stopped with an error",
+  "ov_error_detail": "{message} ({code})",
+  "@ov_error_detail": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "ov_error_when": "{when}",
+  "@ov_error_when": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "ov_error_retryable": "Trying again may work.",
+  "ov_error_final": "Trying again will not help until something changes.",
+  "files_tree_label": "Files of this download",
+  "files_single": "This download is a single file.",
+  "files_count": "{selected} of {total} files selected",
+  "@files_count": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "files_none_selected": "No files are selected for download.",
+  "speed_title": "Download speed",
+  "speed_summary": "Now {current}, highest {peak} over the last {seconds} seconds.",
+  "@speed_summary": {
+    "placeholders": {
+      "current": {
+        "type": "String"
+      },
+      "peak": {
+        "type": "String"
+      },
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "speed_waiting": "The graph fills in while the download runs.",
+  "speed_series": "Speed",
+  "src_group_link": "Link",
+  "src_group_history": "Link renewals",
+  "src_current": "Current link",
+  "src_original": "First link",
+  "src_page": "Page",
+  "src_referrer": "Referrer",
+  "src_mirrors": "Mirrors",
+  "src_copy": "Copy",
+  "src_refresh": "Renew link now",
+  "src_await": "Wait for a new link",
+  "src_edit": "Replace link…",
+  "src_edit_title": "Replace the link",
+  "src_edit_label": "New link",
+  "src_edit_hint": "The daemon checks it against the file. If it is not the same file, the download starts again.",
+  "src_edit_needs_pause": "Pause the download first to replace its link.",
+  "src_edit_save": "Replace",
+  "src_history_empty": "The link has not needed renewing.",
+  "src_attempt": "{strategy} · {outcome}",
+  "@src_attempt": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "outcome": {
+        "type": "String"
+      }
+    }
+  },
+  "src_attempt_cause": "Cause: {cause}",
+  "@src_attempt_cause": {
+    "placeholders": {
+      "cause": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_link_refreshing": "Asking for a new link",
+  "toast_link_waiting": "Waiting for a new link",
+  "toast_link_replaced": "Link replaced",
+  "files_skipped": "not downloaded",
+  "insp_tab_segments": "Segments",
+  "insp_tab_torrent": "Torrent",
+  "seg_none": "This download is not split into segments.",
+  "seg_summary": "{count} segments, {percent}% done.",
+  "@seg_summary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "seg_label": "Map of the segments of the download",
+  "seg_done": "downloaded",
+  "seg_todo": "still to do",
+  "torrent_none": "There is no swarm to show yet: the torrent has not started.",
+  "torrent_state": "State",
+  "torrent_hash": "Info hash",
+  "torrent_private": "Private torrent",
+  "torrent_yes": "yes",
+  "torrent_no": "no",
+  "torrent_peers": "Peers",
+  "torrent_peers_value": "{connected} connected, {known} known, {seeders} seeders",
+  "@torrent_peers_value": {
+    "placeholders": {
+      "connected": {
+        "type": "int"
+      },
+      "known": {
+        "type": "int"
+      },
+      "seeders": {
+        "type": "int"
+      }
+    }
+  },
+  "torrent_shared": "Shared",
+  "torrent_shared_value": "{uploaded} uploaded, ratio {ratio}",
+  "@torrent_shared_value": {
+    "placeholders": {
+      "uploaded": {
+        "type": "String"
+      },
+      "ratio": {
+        "type": "String"
+      }
+    }
+  },
+  "torrent_seeding_time": "Seeding for",
+  "torrent_trackers": "Trackers",
+  "torrent_peer_list": "Connected peers",
+  "torrent_peer_rate": "{rate} down",
+  "@torrent_peer_rate": {
+    "placeholders": {
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "files_edit": "Choose files",
+  "files_save": "Save selection",
+  "files_cancel": "Cancel",
+  "files_locked": "Pause the download to change which files are downloaded.",
+  "files_select_all": "All files",
+  "files_pick_one": "Select at least one file.",
+  "toast_files_saved": "Selection saved",
+  "files_file_label": "Download {name}",
+  "@files_file_label": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_title": "Add downloads",
+  "add_button": "Add",
+  "add_links": "Links",
+  "add_links_placeholder": "One link per line: web addresses, magnet links, or a pattern like http://host/img[1-20].jpg",
+  "add_looking": "Looking at the link…",
+  "add_files": "{count} files",
+  "@add_files": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_many": "{count} downloads",
+  "@add_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_more": "and more…",
+  "add_duplicate": "Already in the list: {name}",
+  "@add_duplicate": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_anyway": "Add it anyway",
+  "add_queue": "Queue",
+  "add_folder": "Folder",
+  "add_folder_default": "The default download folder",
+  "add_name": "Name",
+  "add_name_placeholder": "Taken from the link",
+  "add_paused": "Add without starting",
+  "add_done_one": "Added {name}",
+  "@add_done_one": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_done_many": "Added {count} downloads",
+  "@add_done_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "cmd_add": "Add downloads…",
+  "toolbar_add": "Add downloads",
+  "view_menu": "View",
+  "view_engine": "Engine",
+  "view_all_engines": "All engines",
+  "view_saved": "Saved views",
+  "view_save": "Save current view…",
+  "view_save_title": "Save this view",
+  "view_delete": "Delete view {name}",
+  "@view_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "col_engine": "Engine",
+  "list_total": "{count} downloads",
+  "@list_total": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "action_refresh_link": "Get a new link",
+  "action_move_to": "Move to queue",
+  "action_priority": "Priority",
+  "priority_high": "High",
+  "priority_normal": "Normal",
+  "priority_low": "Low",
+  "toast_moved": "{count, plural, one{Moved 1 download to {queue}} other{Moved {count} downloads to {queue}}}",
+  "@toast_moved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "queue": {
+        "type": "String"
+      }
+    }
+  },
+  "toast_prioritised": "{count, plural, one{Priority changed for 1 download} other{Priority changed for {count} downloads}}",
+  "@toast_prioritised": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_restarted_many": "{count, plural, one{Restarting 1 download} other{Restarting {count} downloads}}",
+  "@toast_restarted_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_refreshing_many": "{count, plural, one{Asking for a new link for 1 download} other{Asking for new links for {count} downloads}}",
+  "@toast_refreshing_many": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "status_label": "Status bar",
+  "status_reconnecting": "Reconnecting…",
+  "status_speed": "↓ {down}  ↑ {up}",
+  "@status_speed": {
+    "placeholders": {
+      "down": {
+        "type": "String"
+      },
+      "up": {
+        "type": "String"
+      }
+    }
+  },
+  "status_counts": "{active} active, {queued} waiting",
+  "@status_counts": {
+    "placeholders": {
+      "active": {
+        "type": "int"
+      },
+      "queued": {
+        "type": "int"
+      }
+    }
+  },
+  "status_quota": "{used} of {total}",
+  "@status_quota": {
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      }
+    }
+  },
+  "status_quota_label": "Quota used",
+  "status_turbo": "Turbo",
+  "status_turbo_on": "Turbo on",
+  "status_pause_all": "Pause all",
+  "status_resume_all": "Resume all",
+  "add_import": "Import list…",
+  "add_import_title": "Import {name}",
+  "@add_import_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_import_go": "{count, plural, one{Add 1 download} other{Add {count} downloads}}",
+  "@add_import_go": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_results_title": "What happened",
+  "add_results_summary": "{ok} added, {failed} not added.",
+  "@add_results_summary": {
+    "placeholders": {
+      "ok": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "add_result_ok": "Added",
+  "add_result_failed": "Not added",
+  "add_result_duplicate": "Already in the list",
+  "add_close": "Close",
+  "add_folder_browse": "Browse folders",
+  "folder_browser_title": "Choose a folder",
+  "folder_browser_roots": "Places you can choose from",
+  "folder_browser_empty": "No folders here.",
+  "folder_browser_choose": "Choose this folder",
+  "folder_browser_error": "The folders could not be listed.",
+  "add_advanced": "More options",
+  "add_mode": "Treat the link as",
+  "add_mode_auto": "Let the app decide",
+  "add_mode_direct": "A file",
+  "add_mode_ytdlp": "A video or audio page (yt-dlp)",
+  "add_mode_browser": "A page that needs a browser",
+  "add_referrer": "Referrer",
+  "add_headers": "Headers",
+  "add_headers_hint": "One per line, like Name: value",
+  "add_headers_invalid": "Every line needs a name, a colon and a value.",
+  "add_mirrors": "Mirrors",
+  "add_mirrors_hint": "Other places with the same file, one link per line",
+  "add_checksum": "Checksum",
+  "add_checksum_algorithm": "Checksum algorithm",
+  "add_checksum_placeholder": "Expected value in hex",
+  "add_checksum_invalid": "Not a valid value for this algorithm.",
+  "add_torrent": "Torrent file…",
+  "add_torrent_too_big": "That torrent file is too large (16 MiB at most).",
+  "add_torrent_remove": "Remove {name}",
+  "@add_torrent_remove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nav_categories": "Categories",
+  "drag_count": "{count, plural, one{1 download} other{{count} downloads}}",
+  "@drag_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "view_density": "Row height",
+  "view_density_comfortable": "Comfortable",
+  "view_density_compact": "Compact",
+  "view_columns": "Columns",
+  "display_menu": "Display"
+}

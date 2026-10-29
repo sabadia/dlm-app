@@ -1,0 +1,90 @@
+# The app shell (M3)
+
+How the running app is put together. Code: `apps/dlm_app/lib/src/`.
+
+## Start-up
+
+`main` opens the preferences and profile files, locates the bundled `dlm` binary
+(`DLM_DAEMON`, the app bundle, or `PATH`) and runs the app inside one guarded zone (Flutter
+needs the binding and `runApp` in the same zone; crashes are written to the log directory).
+Everything the app needs from the outside is a Riverpod provider overridden in `main`
+(preferences, profile store, local daemon, window chrome, system appearance), so tests run the
+whole app on fakes.
+
+## Connection
+
+`ConnectionController` (a Riverpod notifier) is the only place that talks to the supervisor and
+the connector. For the local profile it starts or adopts the daemon, then connects with the
+address and token it wrote; for a remote profile it uses the stored token and pinned
+certificate. The result is a sealed `ConnectionStatus`: connecting, ready (with the session),
+needs trust, incompatible, token rejected, failed. `ConnectionGate` shows the app only when
+ready and a state screen otherwise. `sessionProvider` is overridden at the root to follow the
+connection, and the task store is recreated per connection, so nothing from another daemon
+survives a reconnect.
+
+## Pages
+
+`go_router` with one `ShellRoute`: `/downloads/<filter>` (all, active, queued, paused,
+completed, failed) and `/queues/<id>`. The shell is the sidebar (a translucent glass pane on
+macOS), the toolbar (title, selection actions, search, command palette, details toggle), the
+page, and the details pane. Panels resize by dragging or with the keyboard and remember their
+width; the details pane closes by itself below 1000 px. Cmd/Ctrl+K opens the command palette,
+Cmd/Ctrl+F focuses the search.
+
+## Downloads list
+
+A virtualized `DlmDataTable` over `taskListProvider`: pages in 100 rows at a time, follows the
+daemon's events, and every cell watches only its own task so a progress tick repaints one row.
+Filters and queues map to daemon queries; search is the daemon's text filter. Selection is
+shared (`selectionProvider`); Pause/Resume/Delete act on it from the toolbar, the right-click
+menu, or the keyboard (Delete). Pause and resume offer Undo; delete asks first (the files stay
+on disk unless the box is ticked) and has no Undo because a removed download cannot come back.
+
+## Details pane
+
+With one download selected the pane has four tabs (the choice stays when another download is
+picked): **Overview** (progress, speed, time left, connections, queue, engine, folder, priority,
+times and the last error), **Files** (a folder tree of the files; files that were not chosen are
+marked), **Speed** (a live graph of the last 120 progress events, kept only while the pane is
+open) and **Link** (current, first, page and referrer links, Renew now, Wait for a new link,
+Replace link, and the renewal history). Replacing the link needs the download paused and asks the
+daemon to start again if the file does not match.
+
+Not there yet: the segments map (P13.4), changing the chosen files after the download exists
+(P13.4), per-download setting overrides (they come with the settings form engine, F4.1) and a
+per-download event log (the daemon has none).
+
+## Queues
+
+The sidebar lists the queues and has a New queue button. A queue page is a header (state,
+Start/Stop, settings, a menu to rename, move up or down and delete) above that queue's downloads.
+Deleting moves its downloads to the default queue, which cannot be deleted. Queue settings are
+edited in a dialog: speed limit and a weekly schedule (a grid with one cell per hour, shown
+as the daemon's time windows). Windows that need minutes, for example written with the command
+line, are kept as they are until the user chooses the hourly grid, so opening and saving never
+changes them.
+
+`SyncEngine.events` exposes the daemon's events after the cache applied them. A finished queue
+with an action at the end shows a banner with the seconds left (counted from the moment the event
+arrived, so a remote daemon's clock does not matter). The daemon cancels the action when its queue
+is stopped, so the banner's button stops the queue.
+
+The dialog also edits speed profiles (a limit while chosen hours are active), a quota (bytes per
+period) and what happens when the queue finishes (nothing, stop, sleep, shut down, or run a
+program with arguments, after a grace period). They need a daemon from v0.3.0 on: older ones refuse
+them ([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)).
+
+## First-run setup
+
+On the first start with the app's own download service a dialog shows the download folder
+(chosen with the system's folder dialog and saved as the global `downloadDir`) and the helper
+programs the daemon found (ffmpeg, yt-dlp, browser). It is also in the command palette as
+"Setup and health check". Start at login, the tray icon and the browser extension are added
+with their own work (P13.13, F5.1, F5.10).
+
+## What is waiting for the daemon
+
+These need backend phase 13 and are not worked around in the app: sorting by name or size,
+filters by engine/category/size/date and per-queue counts in the sidebar (P13.5); the segments
+map (P13.4); pattern preview and duplicate hints in the add flow (P13.6); the live speed and
+quota in the status bar (P13.7, P13.8).

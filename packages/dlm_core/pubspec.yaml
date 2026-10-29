@@ -1,0 +1,12 @@
+name: dlm_core
+description: "Domain layer: repositories, controllers and the entity cache over dlm_api."
+publish_to: none
+resolution: workspace
+environment:
+  sdk: ^3.13.0
+dependencies:
+  dlm_api: any
+  intl: ^0.20.3
+  riverpod: ^3.4.3
+dev_dependencies:
+  test: ">=1.25.0"

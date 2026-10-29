@@ -1,0 +1,35 @@
+schema_version: 1
+id: 01a1862d-2268-74d0-9d8f-598bedd8b808
+status: draft
+created_at: '2026-10-29T05:41:07Z'
+updated_at: '2026-10-29T05:41:07Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Inspector: show the segments map and the torrent swarm, and let the chosen files of a paused download be changed (F3.4, uses P13.4)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/inspector/files_tab.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/inspector/segments_tab.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/inspector/torrent_tab.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_detail_repository.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

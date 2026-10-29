@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18418-0c8e-73a1-87c9-2014b993fe04
+status: draft
+created_at: '2026-10-28T19:58:51Z'
+updated_at: '2026-10-28T19:58:51Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F1.10: local diagnostics: rotating redacted app log, crash capture to local files, copyable redacted diagnostics bundle; no network, no telemetry'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_core/lib/src/diagnostics/redactor.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/crash_handlers.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

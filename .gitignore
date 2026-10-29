@@ -36,3 +36,5 @@ pubspec_overrides.yaml
 /tmp/
 /dist/
 /.claude/worktrees/
+# Test-only self-signed certificate for the TLS pinning tests (it protects nothing).
+!packages/dlm_api/test/fixtures/*.pem

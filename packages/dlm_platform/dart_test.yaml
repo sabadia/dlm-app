@@ -1,0 +1,3 @@
+tags:
+  integration:
+    description: needs the real dlm binary (DLM_BIN)

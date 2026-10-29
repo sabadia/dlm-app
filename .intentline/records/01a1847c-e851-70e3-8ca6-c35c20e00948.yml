@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a1847c-e851-70e3-8ca6-c35c20e00948
+status: draft
+created_at: '2026-10-28T21:49:00Z'
+updated_at: '2026-10-28T21:49:00Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Token-level Fluent, Adwaita and Breeze skins (colours, type, metrics, shell patterns, materials) from the published design guidelines, registered in the gallery; component-level and window-level work for F2.4-F2.6 still to do
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_skin_fluent/lib/src/fluent_skin.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_skin_adwaita/lib/src/adwaita_skin.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_skin_breeze/lib/src/breeze_skin.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

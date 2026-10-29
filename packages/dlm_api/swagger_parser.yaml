@@ -1,0 +1,11 @@
+# Generates lib/src/generated from build/spec.json (spec/openapi-3.0.json with the
+# event stream response simplified, see tool/prepare_spec.dart) (the daemon's OpenAPI
+# 3.0 document, release asset dlm_<version>_openapi-3.0.json).
+# Regenerate: tool/generate.sh. Never edit the output by hand.
+swagger_parser:
+  schema_path: build/spec.json
+  output_directory: lib/src/generated
+  language: dart
+  json_serializer: json_serializable
+  put_in_folder: true
+  squash_clients: false
