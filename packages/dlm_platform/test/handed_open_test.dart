@@ -106,8 +106,9 @@ void main() {
 
     test('a file: argument is only taken when it is a .torrent', () {
       expect(parseHanded(const ['file:///tmp/a.txt']).isEmpty, isTrue);
+      // A file: URL becomes a path in the system's own form.
       expect(parseHanded(const ['file:///tmp/a.torrent']).torrents, [
-        '/tmp/a.torrent',
+        Uri.parse('file:///tmp/a.torrent').toFilePath(),
       ]);
     });
 
