@@ -1,6 +1,5 @@
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/screens/list_views.dart';
-import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
