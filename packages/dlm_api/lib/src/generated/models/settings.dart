@@ -5,15 +5,15 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'checksum.dart';
-import 'optional_list_speed_profile.dart';
-import 'optional_queue_complete_action.dart';
-import 'optional_quota.dart';
+import 'on_queue_complete.dart';
 import 'post_action.dart';
 import 'proxy.dart';
 import 'proxy_rule.dart';
+import 'quota.dart';
 import 'refresh_settings.dart';
 import 'retry_settings.dart';
 import 'schedule.dart';
+import 'speed_profile.dart';
 import 'torrent_settings.dart';
 
 part 'settings.g.dart';
@@ -64,16 +64,16 @@ class Settings {
   final int? maxActiveDownloadsTotal;
   final int? maxConcurrentDownloads;
   final int? maxConnections;
-  final OptionalQueueCompleteAction? onQueueComplete;
+  final OnQueueComplete? onQueueComplete;
   final List<PostAction>? postActions;
   final Proxy? proxy;
   final List<ProxyRule>? proxyRules;
-  final OptionalQuota? quota;
+  final Quota? quota;
   final RefreshSettings? refresh;
   final RetrySettings? retry;
   final Schedule? schedule;
   final int? speedLimit;
-  final OptionalListSpeedProfile? speedProfiles;
+  final List<SpeedProfile>? speedProfiles;
   final bool? tlsVerify;
   final TorrentSettings? torrent;
   final String? userAgent;

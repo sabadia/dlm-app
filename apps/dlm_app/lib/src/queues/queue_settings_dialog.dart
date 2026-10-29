@@ -9,12 +9,6 @@ import 'package:intl/intl.dart';
 import '../shell/feedback.dart';
 import 'queue_settings_draft.dart';
 
-/// Whether the dialog offers the quota, the speed profiles and the action at
-/// the end of the queue. The daemon refuses to save those three today (its
-/// request validation rejects them, dlm-server#128), so they stay out of reach
-/// until that is fixed; then this becomes `true` and the provider goes away.
-final queueLimitsEditableProvider = Provider<bool>((ref) => false);
-
 /// Opens the settings of [queue] (schedule, speed, quota, what happens at the
 /// end) and saves them when the user confirms.
 Future<void> showQueueSettings(
@@ -152,7 +146,6 @@ class _QueueSettingsDialogState extends ConsumerState<QueueSettingsDialog> {
     final theme = DlmTheme.of(context);
     final gap = SizedBox(height: theme.metrics.spacing.lg);
     final d = _draft;
-    final limits = ref.watch(queueLimitsEditableProvider);
 
     final body = Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -196,192 +189,184 @@ class _QueueSettingsDialogState extends ConsumerState<QueueSettingsDialog> {
             if (d.scheduleOn) _grid(context, d.schedule, l.qs_schedule_grid),
           ],
         ),
-        if (limits) ...[
-          gap,
-          DlmFormGroup(
-            title: l.qs_group_profiles,
-            footer: l.qs_profiles_desc,
-            children: [
-              for (var i = 0; i < d.profiles.length; i++) ...[
-                DlmFormRow(
-                  label: l.qs_profile_title(i + 1),
-                  description: l.qs_profile_unlimited,
-                  control: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      _sizeField(
-                        l,
-                        value: d.profiles[i].speedLimit,
-                        label: l.qs_profile_limit,
-                        onChanged: (v) => d.profiles[i].speedLimit = v,
-                      ),
-                      SizedBox(width: theme.metrics.spacing.sm),
-                      DlmIconButton(
-                        icon: const DlmIcon(DlmIconName.trash),
-                        semanticLabel: l.qs_profile_remove,
-                        onPressed: () => _change(() => d.profiles.removeAt(i)),
-                      ),
-                    ],
-                  ),
-                ),
-                _grid(
-                  context,
-                  d.profiles[i].windows,
-                  '${l.qs_profile_title(i + 1)} · ${l.qs_schedule_grid}',
-                ),
-              ],
-              Padding(
-                padding: EdgeInsets.all(theme.metrics.spacing.md),
-                child: Align(
-                  alignment: AlignmentDirectional.centerStart,
-                  child: DlmButton(
-                    label: l.qs_profile_add,
-                    icon: const DlmIcon(DlmIconName.plus),
-                    onPressed: () => _change(
-                      () =>
-                          d.profiles.add(ProfileDraft(windows: WindowsDraft())),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          gap,
-          DlmFormGroup(
-            title: l.qs_group_quota,
-            children: [
+        gap,
+        DlmFormGroup(
+          title: l.qs_group_profiles,
+          footer: l.qs_profiles_desc,
+          children: [
+            for (var i = 0; i < d.profiles.length; i++) ...[
               DlmFormRow(
-                label: l.qs_quota_on,
-                description: l.qs_quota_desc,
-                control: DlmSwitch(
-                  value: d.quotaOn,
-                  semanticLabel: l.qs_quota_on,
-                  onChanged: (v) => _change(() => d.quotaOn = v),
-                ),
-              ),
-              if (d.quotaOn) ...[
-                DlmFormRow(
-                  label: l.qs_quota_bytes,
-                  control: _sizeField(
-                    l,
-                    value: d.quotaBytes,
-                    label: l.qs_quota_bytes,
-                    onChanged: (v) => d.quotaBytes = v,
-                  ),
-                ),
-                DlmFormRow(
-                  label: l.qs_quota_period,
-                  control: SizedBox(
-                    width: 180,
-                    child: DlmParsedField<Duration>(
-                      value: d.quotaPeriod,
-                      allowEmpty: true,
-                      parse: parseDuration,
-                      format: formatDuration,
-                      invalidText: l.qs_invalid_duration,
-                      semanticLabel: l.qs_quota_period,
-                      placeholder: l.qs_quota_period_placeholder,
-                      onChanged: (v) => _change(() => d.quotaPeriod = v),
+                label: l.qs_profile_title(i + 1),
+                description: l.qs_profile_unlimited,
+                control: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _sizeField(
+                      l,
+                      value: d.profiles[i].speedLimit,
+                      label: l.qs_profile_limit,
+                      onChanged: (v) => d.profiles[i].speedLimit = v,
                     ),
-                  ),
-                ),
-              ],
-            ],
-          ),
-          gap,
-          DlmFormGroup(
-            title: l.qs_group_after,
-            children: [
-              DlmFormRow(
-                label: l.qs_after,
-                control: DlmDropdown<QueueFinish>(
-                  semanticLabel: l.qs_after,
-                  value: d.finish,
-                  choices: [
-                    DlmChoice(value: QueueFinish.none, label: l.qs_after_none),
-                    DlmChoice(value: QueueFinish.stop, label: l.qs_after_stop),
-                    DlmChoice(
-                      value: QueueFinish.sleep,
-                      label: l.qs_after_sleep,
-                    ),
-                    DlmChoice(
-                      value: QueueFinish.shutdown,
-                      label: l.qs_after_shutdown,
-                    ),
-                    DlmChoice(
-                      value: QueueFinish.command,
-                      label: l.qs_after_command,
+                    SizedBox(width: theme.metrics.spacing.sm),
+                    DlmIconButton(
+                      icon: const DlmIcon(DlmIconName.trash),
+                      semanticLabel: l.qs_profile_remove,
+                      onPressed: () => _change(() => d.profiles.removeAt(i)),
                     ),
                   ],
-                  onChanged: (v) => _change(() => d.finish = v),
                 ),
               ),
-              if (d.finish != QueueFinish.none)
-                DlmFormRow(
-                  label: l.qs_after_delay,
-                  description: l.qs_after_delay_desc,
-                  control: SizedBox(
-                    width: 180,
-                    child: DlmParsedField<Duration>(
-                      value: d.finishDelay,
-                      allowEmpty: true,
-                      parse: parseDuration,
-                      format: formatDuration,
-                      invalidText: l.qs_invalid_duration,
-                      semanticLabel: l.qs_after_delay,
-                      onChanged: (v) => _change(() => d.finishDelay = v),
-                    ),
-                  ),
-                ),
-              if (d.finish == QueueFinish.command) ...[
-                DlmFormRow(
-                  label: l.qs_after_command_path,
-                  control: SizedBox(
-                    width: 260,
-                    child: DlmTextField(
-                      semanticLabel: l.qs_after_command_path,
-                      controller: _command,
-                      errorText:
-                          d.command.trim().isEmpty ||
-                              QueueSettingsDraft.isAbsolutePath(
-                                d.command.trim(),
-                              )
-                          ? null
-                          : l.qs_invalid_path,
-                      onChanged: (v) => _change(() => d.command = v),
-                    ),
-                  ),
-                ),
-                DlmFormRow(
-                  label: l.qs_after_command_args,
-                  control: SizedBox(
-                    width: 260,
-                    child: DlmTextField(
-                      semanticLabel: l.qs_after_command_args,
-                      controller: _args,
-                      maxLines: 3,
-                      minLines: 2,
-                      onChanged: (v) => _change(() {
-                        d.args
-                          ..clear()
-                          ..addAll(
-                            v.split('\n').where((a) => a.trim().isNotEmpty),
-                          );
-                      }),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(theme.metrics.spacing.md),
-                  child: DlmBanner(
-                    tone: DlmTone.warning,
-                    message: l.qs_after_command_warning,
-                  ),
-                ),
-              ],
+              _grid(
+                context,
+                d.profiles[i].windows,
+                '${l.qs_profile_title(i + 1)} · ${l.qs_schedule_grid}',
+              ),
             ],
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(theme.metrics.spacing.md),
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: DlmButton(
+                  label: l.qs_profile_add,
+                  icon: const DlmIcon(DlmIconName.plus),
+                  onPressed: () => _change(
+                    () => d.profiles.add(ProfileDraft(windows: WindowsDraft())),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.qs_group_quota,
+          children: [
+            DlmFormRow(
+              label: l.qs_quota_on,
+              description: l.qs_quota_desc,
+              control: DlmSwitch(
+                value: d.quotaOn,
+                semanticLabel: l.qs_quota_on,
+                onChanged: (v) => _change(() => d.quotaOn = v),
+              ),
+            ),
+            if (d.quotaOn) ...[
+              DlmFormRow(
+                label: l.qs_quota_bytes,
+                control: _sizeField(
+                  l,
+                  value: d.quotaBytes,
+                  label: l.qs_quota_bytes,
+                  onChanged: (v) => d.quotaBytes = v,
+                ),
+              ),
+              DlmFormRow(
+                label: l.qs_quota_period,
+                control: SizedBox(
+                  width: 180,
+                  child: DlmParsedField<Duration>(
+                    value: d.quotaPeriod,
+                    allowEmpty: true,
+                    parse: parseDuration,
+                    format: formatDuration,
+                    invalidText: l.qs_invalid_duration,
+                    semanticLabel: l.qs_quota_period,
+                    placeholder: l.qs_quota_period_placeholder,
+                    onChanged: (v) => _change(() => d.quotaPeriod = v),
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.qs_group_after,
+          children: [
+            DlmFormRow(
+              label: l.qs_after,
+              control: DlmDropdown<QueueFinish>(
+                semanticLabel: l.qs_after,
+                value: d.finish,
+                choices: [
+                  DlmChoice(value: QueueFinish.none, label: l.qs_after_none),
+                  DlmChoice(value: QueueFinish.stop, label: l.qs_after_stop),
+                  DlmChoice(value: QueueFinish.sleep, label: l.qs_after_sleep),
+                  DlmChoice(
+                    value: QueueFinish.shutdown,
+                    label: l.qs_after_shutdown,
+                  ),
+                  DlmChoice(
+                    value: QueueFinish.command,
+                    label: l.qs_after_command,
+                  ),
+                ],
+                onChanged: (v) => _change(() => d.finish = v),
+              ),
+            ),
+            if (d.finish != QueueFinish.none)
+              DlmFormRow(
+                label: l.qs_after_delay,
+                description: l.qs_after_delay_desc,
+                control: SizedBox(
+                  width: 180,
+                  child: DlmParsedField<Duration>(
+                    value: d.finishDelay,
+                    allowEmpty: true,
+                    parse: parseDuration,
+                    format: formatDuration,
+                    invalidText: l.qs_invalid_duration,
+                    semanticLabel: l.qs_after_delay,
+                    onChanged: (v) => _change(() => d.finishDelay = v),
+                  ),
+                ),
+              ),
+            if (d.finish == QueueFinish.command) ...[
+              DlmFormRow(
+                label: l.qs_after_command_path,
+                control: SizedBox(
+                  width: 260,
+                  child: DlmTextField(
+                    semanticLabel: l.qs_after_command_path,
+                    controller: _command,
+                    errorText:
+                        d.command.trim().isEmpty ||
+                            QueueSettingsDraft.isAbsolutePath(d.command.trim())
+                        ? null
+                        : l.qs_invalid_path,
+                    onChanged: (v) => _change(() => d.command = v),
+                  ),
+                ),
+              ),
+              DlmFormRow(
+                label: l.qs_after_command_args,
+                control: SizedBox(
+                  width: 260,
+                  child: DlmTextField(
+                    semanticLabel: l.qs_after_command_args,
+                    controller: _args,
+                    maxLines: 3,
+                    minLines: 2,
+                    onChanged: (v) => _change(() {
+                      d.args
+                        ..clear()
+                        ..addAll(
+                          v.split('\n').where((a) => a.trim().isNotEmpty),
+                        );
+                    }),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.all(theme.metrics.spacing.md),
+                child: DlmBanner(
+                  tone: DlmTone.warning,
+                  message: l.qs_after_command_warning,
+                ),
+              ),
+            ],
+          ],
+        ),
       ],
     );
 

@@ -69,10 +69,10 @@ with an action at the end shows a banner with the seconds left (counted from the
 arrived, so a remote daemon's clock does not matter). The daemon cancels the action when its queue
 is stopped, so the banner's button stops the queue.
 
-The quota, the speed profiles and the action at the end are written (`queue_settings_draft.dart`,
-the dialog sections) but not offered yet: the daemon's request validation refuses them
-([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)). `queueLimitsEditableProvider`
-turns them on.
+The dialog also edits speed profiles (a limit while chosen hours are active), a quota (bytes per
+period) and what happens when the queue finishes (nothing, stop, sleep, shut down, or run a
+program with arguments, after a grace period). They need a daemon from v0.3.0 on: older ones refuse
+them ([dlm-server#128](https://github.com/sabadia/dlm-server/issues/128)).
 
 ## First-run setup
 

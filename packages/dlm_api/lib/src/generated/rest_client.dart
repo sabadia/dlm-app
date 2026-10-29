@@ -18,7 +18,7 @@ import 'settings/settings_client.dart';
 import 'refresh/refresh_client.dart';
 import 'webhooks/webhooks_client.dart';
 
-/// dlm-server API `vdev`.
+/// dlm-server API `v0.3.0`.
 ///
 /// REST API of the dlm download manager daemon.
 class RestClient {
@@ -27,7 +27,7 @@ class RestClient {
   final Dio _dio;
   final String? _baseUrl;
 
-  static String get version => 'dev';
+  static String get version => '0.3.0';
 
   BrowserClient? _browser;
   CaptureClient? _capture;

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dlm_api/dlm_api.dart';
 
 /// Weekday names on the wire, in grid order (Monday first).
@@ -43,6 +45,11 @@ Duration? parseGoDuration(Object? value) {
       ? Duration(microseconds: micros.round())
       : null;
 }
+
+/// The settings as plain JSON maps and lists (the generated `toJson` leaves
+/// nested objects as objects).
+Map<String, Object?> _plain(Settings settings) =>
+    jsonDecode(jsonEncode(settings.toJson())) as Map<String, Object?>;
 
 String _clock(int hour) => '${hour.toString().padLeft(2, '0')}:00';
 
@@ -243,7 +250,7 @@ class QueueSettingsDraft {
 
   /// Reads the overrides of [settings].
   factory QueueSettingsDraft.from(Settings settings) {
-    final json = settings.toJson();
+    final json = _plain(settings);
     final quota = json['quota'];
     final after = json['onQueueComplete'];
     final profileList = json['speedProfiles'];
@@ -336,7 +343,7 @@ class QueueSettingsDraft {
   /// [base] with the edited overrides applied; the other settings stay as
   /// they were and a cleared override becomes unset again.
   Settings applyTo(Settings base) {
-    final json = Map<String, Object?>.of(base.toJson());
+    final json = _plain(base);
     json['speedLimit'] = speedLimit;
     json['schedule'] = scheduleOn
         ? {

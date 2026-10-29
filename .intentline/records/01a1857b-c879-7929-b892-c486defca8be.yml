@@ -1,0 +1,32 @@
+schema_version: 1
+id: 01a1857b-c879-7929-b892-c486defca8be
+status: draft
+created_at: '2026-10-29T02:27:24Z'
+updated_at: '2026-10-29T02:27:24Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Pin dlm-server v0.3.0 OpenAPI spec, regenerate the client (typed Quota, SpeedProfile, OnQueueComplete) and offer quota, speed profiles and the end action in the queue settings (#128 fixed)
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_api/spec/PINNED.md
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/queues/queue_settings_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/queues/queue_settings_draft.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

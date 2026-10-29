@@ -1,4 +1,3 @@
-`openapi-3.0.json` is the output of `dlm openapi --oas 3.0` of dlm-server commit
-`d8ecf19` (main, 2026-10-29, after P13.1 and P13.11). Replace it with the release asset
-`dlm_<version>_openapi-3.0.json` once a release contains P13.1/P13.11, then run
-`tool/generate.sh`.
+`openapi-3.0.json` is the release asset `dlm_0.3.0_openapi-3.0.json` of dlm-server v0.3.0
+(it contains P13.1, P13.11 and the fix of #128). To update, replace it with the asset of a newer
+release and run `tool/generate.sh`.

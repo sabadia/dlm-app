@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/queues/queue_countdown.dart';
-import 'package:dlm_app/src/queues/queue_settings_dialog.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
@@ -105,29 +104,10 @@ void main() {
     semantics.dispose();
   });
 
-  appTest('until the daemon accepts them, quota, profiles and the end action '
-      'are not offered', (tester) async {
-    await pumpApp(tester, queues: queues);
-    await open(tester, 'Night');
-    final semantics = tester.ensureSemantics();
-    await tester.tap(find.bySemanticsLabel('Queue settings…'));
-    await settle(tester);
-    expect(find.text('Speed limit'), findsOneWidget);
-    expect(find.text('Run only at chosen times'), findsOneWidget);
-    expect(find.text('Quota'), findsNothing);
-    expect(find.text('Speed profiles'), findsNothing);
-    expect(find.text('When the queue finishes'), findsNothing);
-    semantics.dispose();
-  });
-
   appTest('the settings dialog saves a quota and a stop action', (
     tester,
   ) async {
-    final h = await pumpApp(
-      tester,
-      queues: queues,
-      overrides: [queueLimitsEditableProvider.overrideWithValue(true)],
-    );
+    final h = await pumpApp(tester, queues: queues);
     await open(tester, 'Night');
     final semantics = tester.ensureSemantics();
     await tester.tap(find.bySemanticsLabel('Queue settings…'));
@@ -145,18 +125,15 @@ void main() {
     await tester.tap(find.text('Save'));
     await settle(tester);
 
-    final saved = fake(h).savedSettings!.toJson();
-    expect(saved['quota'], {'bytes': 500 * 1048576, 'period': '24h0m0s'});
+    final saved = fake(h).savedSettings!;
+    expect(saved.quota!.bytes, 500 * 1048576);
+    expect(saved.quota!.period, '24h0m0s');
     expect(find.text('Saved the settings of “Night”'), findsOneWidget);
     semantics.dispose();
   });
 
   appTest('save stays off while the quota is incomplete', (tester) async {
-    await pumpApp(
-      tester,
-      queues: queues,
-      overrides: [queueLimitsEditableProvider.overrideWithValue(true)],
-    );
+    await pumpApp(tester, queues: queues);
     await open(tester, 'Night');
     final semantics = tester.ensureSemantics();
     await tester.tap(find.bySemanticsLabel('Queue settings…'));

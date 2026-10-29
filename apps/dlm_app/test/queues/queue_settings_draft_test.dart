@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/queues/queue_settings_draft.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -118,7 +120,8 @@ void main() {
       final out = d.applyTo(
         const Settings(downloadDir: '/data', maxConnections: 4),
       );
-      final json = out.toJson();
+      // What goes on the wire.
+      final json = jsonDecode(jsonEncode(out.toJson())) as Map<String, Object?>;
       expect(out.downloadDir, '/data');
       expect(out.maxConnections, 4);
       expect(out.speedLimit, 2000000);
