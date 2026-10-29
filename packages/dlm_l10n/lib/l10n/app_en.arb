@@ -93,5 +93,225 @@
         "type": "int"
       }
     }
-  }
+  },
+  "app_name": "dlm",
+  "nav_label": "Navigation",
+  "nav_all": "All Downloads",
+  "nav_active": "Active",
+  "nav_queued": "Queued",
+  "nav_paused": "Paused",
+  "nav_completed": "Completed",
+  "nav_failed": "Failed",
+  "nav_queues": "Queues",
+  "toolbar_search_placeholder": "Search downloads",
+  "toolbar_search_clear": "Clear search",
+  "toolbar_inspector_show": "Show details",
+  "toolbar_inspector_hide": "Hide details",
+  "toolbar_palette": "Commands",
+  "toolbar_label": "Toolbar",
+  "inspector_empty_title": "No download selected",
+  "inspector_empty_message": "Select a download to see its details.",
+  "inspector_resize": "Resize details",
+  "sidebar_resize": "Resize sidebar",
+  "palette_placeholder": "Type a command",
+  "palette_no_results": "No matching command",
+  "palette_label": "Command palette",
+  "command_go_to": "Go to {destination}",
+  "@command_go_to": {
+    "placeholders": {
+      "destination": {
+        "type": "String"
+      }
+    }
+  },
+  "command_toggle_inspector": "Show or hide details",
+  "command_focus_search": "Search downloads",
+  "connection_connecting_title": "Connecting to the download service",
+  "connection_connecting_message": "Starting {name}…",
+  "@connection_connecting_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_failed_title": "Cannot reach the download service",
+  "connection_failed_message": "The app could not connect to {name}.",
+  "@connection_failed_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_retry": "Try again",
+  "connection_token_rejected_title": "The access token was refused",
+  "connection_token_rejected_message": "{name} did not accept the saved token.",
+  "@connection_token_rejected_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_incompatible_title": "This version of the app cannot talk to that service",
+  "connection_incompatible_message": "Update the app or the service so their versions match.",
+  "connection_trust_title": "Trust this server?",
+  "connection_trust_message": "{name} presented a certificate the app has not seen before. Check that the fingerprint below matches the one on the server.",
+  "@connection_trust_message": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "connection_trust_accept": "Trust and connect",
+  "connection_trust_reject": "Cancel",
+  "status_connected": "Connected",
+  "connection_trust_subject": "Subject",
+  "connection_trust_issuer": "Issuer",
+  "connection_trust_expires": "Valid until",
+  "connection_trust_fingerprint": "Fingerprint",
+  "connection_certificate_changed": "The server's certificate is different from the one you trusted. Do not continue unless you know it was replaced.",
+  "connection_reason": "Reason: {reason}",
+  "@connection_reason": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "col_name": "Name",
+  "col_status": "Status",
+  "col_progress": "Progress",
+  "col_size": "Size",
+  "col_speed": "Speed",
+  "col_eta": "Time left",
+  "col_queue": "Queue",
+  "col_added": "Added",
+  "task_status_queued": "Queued",
+  "task_status_running": "Downloading",
+  "task_status_paused": "Paused",
+  "task_status_awaiting_link": "Waiting for a link",
+  "task_status_refreshing": "Refreshing link",
+  "task_status_postprocessing": "Finishing",
+  "task_status_completed": "Completed",
+  "task_status_error": "Failed",
+  "task_status_unknown": "Unknown",
+  "task_unnamed": "Unnamed download",
+  "task_eta": "{time} left",
+  "@task_eta": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "task_row_label": "{name}, {status}",
+  "@task_row_label": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "table_downloads_label": "Downloads",
+  "table_sorted_ascending": "sorted ascending",
+  "table_sorted_descending": "sorted descending",
+  "table_resize_column": "Resize {column}",
+  "@table_resize_column": {
+    "placeholders": {
+      "column": {
+        "type": "String"
+      }
+    }
+  },
+  "table_loading_row": "Loading",
+  "list_loading": "Loading downloads",
+  "list_empty_title": "No downloads here",
+  "list_empty_message": "Downloads you add will appear in this list.",
+  "list_empty_search_title": "Nothing matches your search",
+  "list_empty_search_message": "Try different words or clear the search.",
+  "list_error_title": "Could not load the downloads",
+  "list_retry": "Try again",
+  "action_pause": "Pause",
+  "action_resume": "Resume",
+  "action_restart": "Download again",
+  "action_delete": "Delete…",
+  "action_copy_link": "Copy link",
+  "action_undo": "Undo",
+  "action_dismiss": "Dismiss",
+  "toast_paused": "{count, plural, =1{Paused 1 download} other{Paused {count} downloads}}",
+  "@toast_paused": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_resumed": "{count, plural, =1{Resumed 1 download} other{Resumed {count} downloads}}",
+  "@toast_resumed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_deleted": "{count, plural, =1{Deleted 1 download} other{Deleted {count} downloads}}",
+  "@toast_deleted": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_restarted": "Download restarted",
+  "toast_link_copied": "Link copied",
+  "toast_some_failed": "{count, plural, =1{1 download could not be changed} other{{count} downloads could not be changed}}",
+  "@toast_some_failed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "toast_failure_unknown": "Something went wrong.",
+  "delete_title": "{count, plural, =1{Delete this download?} other{Delete {count} downloads?}}",
+  "@delete_title": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "delete_message": "They are removed from the list. Their files stay on disk unless you choose otherwise.",
+  "delete_files": "Also delete the downloaded files",
+  "delete_confirm": "Delete",
+  "delete_cancel": "Cancel",
+  "selection_count": "{count} selected",
+  "@selection_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "banner_reconnecting_title": "Connection to the download service lost",
+  "banner_reconnecting_message": "Trying to reconnect…",
+  "banner_daemon_restarting_title": "The download service stopped unexpectedly",
+  "banner_daemon_restarting_message": "It is restarting; your downloads continue from where they were.",
+  "banner_daemon_failed_title": "The download service keeps stopping",
+  "banner_daemon_failed_message": "{reason}",
+  "@banner_daemon_failed_message": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "banner_daemon_restart": "Restart service",
+  "banner_dismiss": "Dismiss"
 }

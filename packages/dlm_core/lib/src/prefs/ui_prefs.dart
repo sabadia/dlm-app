@@ -109,6 +109,15 @@ abstract final class UiPrefs {
   /// skin's own when the system has none).
   static const accent = Pref<int?>.plain('ui.accent', null);
 
+  /// Width of the sidebar in logical pixels.
+  static const sidebarWidth = Pref<double>.plain('ui.sidebarWidth', 240);
+
+  /// Width of the details pane in logical pixels.
+  static const inspectorWidth = Pref<double>.plain('ui.inspectorWidth', 340);
+
+  /// Whether the details pane is open.
+  static const inspectorVisible = Pref<bool>.plain('ui.inspectorVisible', true);
+
   /// Row density.
   static final density = enumPref(
     'ui.density',

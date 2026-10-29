@@ -25,6 +25,7 @@ export 'src/widgets/badge.dart';
 export 'src/widgets/banner.dart';
 export 'src/widgets/button.dart';
 export 'src/widgets/chart_frame.dart';
+export 'src/widgets/command_palette.dart';
 export 'src/widgets/data_table.dart';
 export 'src/widgets/dialog.dart';
 export 'src/widgets/dropdown.dart';

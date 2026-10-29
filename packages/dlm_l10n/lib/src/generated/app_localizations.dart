@@ -387,6 +387,636 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count, plural, =1{1 day ago} other{{count} days ago}}'**
   String relativeDaysAgo(int count);
+
+  /// No description provided for @app_name.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm'**
+  String get app_name;
+
+  /// No description provided for @nav_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Navigation'**
+  String get nav_label;
+
+  /// No description provided for @nav_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All Downloads'**
+  String get nav_all;
+
+  /// No description provided for @nav_active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get nav_active;
+
+  /// No description provided for @nav_queued.
+  ///
+  /// In en, this message translates to:
+  /// **'Queued'**
+  String get nav_queued;
+
+  /// No description provided for @nav_paused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get nav_paused;
+
+  /// No description provided for @nav_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get nav_completed;
+
+  /// No description provided for @nav_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get nav_failed;
+
+  /// No description provided for @nav_queues.
+  ///
+  /// In en, this message translates to:
+  /// **'Queues'**
+  String get nav_queues;
+
+  /// No description provided for @toolbar_search_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Search downloads'**
+  String get toolbar_search_placeholder;
+
+  /// No description provided for @toolbar_search_clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear search'**
+  String get toolbar_search_clear;
+
+  /// No description provided for @toolbar_inspector_show.
+  ///
+  /// In en, this message translates to:
+  /// **'Show details'**
+  String get toolbar_inspector_show;
+
+  /// No description provided for @toolbar_inspector_hide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide details'**
+  String get toolbar_inspector_hide;
+
+  /// No description provided for @toolbar_palette.
+  ///
+  /// In en, this message translates to:
+  /// **'Commands'**
+  String get toolbar_palette;
+
+  /// No description provided for @toolbar_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Toolbar'**
+  String get toolbar_label;
+
+  /// No description provided for @inspector_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No download selected'**
+  String get inspector_empty_title;
+
+  /// No description provided for @inspector_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a download to see its details.'**
+  String get inspector_empty_message;
+
+  /// No description provided for @inspector_resize.
+  ///
+  /// In en, this message translates to:
+  /// **'Resize details'**
+  String get inspector_resize;
+
+  /// No description provided for @sidebar_resize.
+  ///
+  /// In en, this message translates to:
+  /// **'Resize sidebar'**
+  String get sidebar_resize;
+
+  /// No description provided for @palette_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a command'**
+  String get palette_placeholder;
+
+  /// No description provided for @palette_no_results.
+  ///
+  /// In en, this message translates to:
+  /// **'No matching command'**
+  String get palette_no_results;
+
+  /// No description provided for @palette_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Command palette'**
+  String get palette_label;
+
+  /// No description provided for @command_go_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Go to {destination}'**
+  String command_go_to(String destination);
+
+  /// No description provided for @command_toggle_inspector.
+  ///
+  /// In en, this message translates to:
+  /// **'Show or hide details'**
+  String get command_toggle_inspector;
+
+  /// No description provided for @command_focus_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search downloads'**
+  String get command_focus_search;
+
+  /// No description provided for @connection_connecting_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting to the download service'**
+  String get connection_connecting_title;
+
+  /// No description provided for @connection_connecting_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting {name}…'**
+  String connection_connecting_message(String name);
+
+  /// No description provided for @connection_failed_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Cannot reach the download service'**
+  String get connection_failed_title;
+
+  /// No description provided for @connection_failed_message.
+  ///
+  /// In en, this message translates to:
+  /// **'The app could not connect to {name}.'**
+  String connection_failed_message(String name);
+
+  /// No description provided for @connection_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get connection_retry;
+
+  /// No description provided for @connection_token_rejected_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The access token was refused'**
+  String get connection_token_rejected_title;
+
+  /// No description provided for @connection_token_rejected_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} did not accept the saved token.'**
+  String connection_token_rejected_message(String name);
+
+  /// No description provided for @connection_incompatible_title.
+  ///
+  /// In en, this message translates to:
+  /// **'This version of the app cannot talk to that service'**
+  String get connection_incompatible_title;
+
+  /// No description provided for @connection_incompatible_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Update the app or the service so their versions match.'**
+  String get connection_incompatible_message;
+
+  /// No description provided for @connection_trust_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust this server?'**
+  String get connection_trust_title;
+
+  /// No description provided for @connection_trust_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} presented a certificate the app has not seen before. Check that the fingerprint below matches the one on the server.'**
+  String connection_trust_message(String name);
+
+  /// No description provided for @connection_trust_accept.
+  ///
+  /// In en, this message translates to:
+  /// **'Trust and connect'**
+  String get connection_trust_accept;
+
+  /// No description provided for @connection_trust_reject.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get connection_trust_reject;
+
+  /// No description provided for @status_connected.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected'**
+  String get status_connected;
+
+  /// No description provided for @connection_trust_subject.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get connection_trust_subject;
+
+  /// No description provided for @connection_trust_issuer.
+  ///
+  /// In en, this message translates to:
+  /// **'Issuer'**
+  String get connection_trust_issuer;
+
+  /// No description provided for @connection_trust_expires.
+  ///
+  /// In en, this message translates to:
+  /// **'Valid until'**
+  String get connection_trust_expires;
+
+  /// No description provided for @connection_trust_fingerprint.
+  ///
+  /// In en, this message translates to:
+  /// **'Fingerprint'**
+  String get connection_trust_fingerprint;
+
+  /// No description provided for @connection_certificate_changed.
+  ///
+  /// In en, this message translates to:
+  /// **'The server\'s certificate is different from the one you trusted. Do not continue unless you know it was replaced.'**
+  String get connection_certificate_changed;
+
+  /// No description provided for @connection_reason.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason: {reason}'**
+  String connection_reason(String reason);
+
+  /// No description provided for @col_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get col_name;
+
+  /// No description provided for @col_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get col_status;
+
+  /// No description provided for @col_progress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get col_progress;
+
+  /// No description provided for @col_size.
+  ///
+  /// In en, this message translates to:
+  /// **'Size'**
+  String get col_size;
+
+  /// No description provided for @col_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get col_speed;
+
+  /// No description provided for @col_eta.
+  ///
+  /// In en, this message translates to:
+  /// **'Time left'**
+  String get col_eta;
+
+  /// No description provided for @col_queue.
+  ///
+  /// In en, this message translates to:
+  /// **'Queue'**
+  String get col_queue;
+
+  /// No description provided for @col_added.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get col_added;
+
+  /// No description provided for @task_status_queued.
+  ///
+  /// In en, this message translates to:
+  /// **'Queued'**
+  String get task_status_queued;
+
+  /// No description provided for @task_status_running.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading'**
+  String get task_status_running;
+
+  /// No description provided for @task_status_paused.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get task_status_paused;
+
+  /// No description provided for @task_status_awaiting_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting for a link'**
+  String get task_status_awaiting_link;
+
+  /// No description provided for @task_status_refreshing.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing link'**
+  String get task_status_refreshing;
+
+  /// No description provided for @task_status_postprocessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Finishing'**
+  String get task_status_postprocessing;
+
+  /// No description provided for @task_status_completed.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get task_status_completed;
+
+  /// No description provided for @task_status_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get task_status_error;
+
+  /// No description provided for @task_status_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get task_status_unknown;
+
+  /// No description provided for @task_unnamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Unnamed download'**
+  String get task_unnamed;
+
+  /// No description provided for @task_eta.
+  ///
+  /// In en, this message translates to:
+  /// **'{time} left'**
+  String task_eta(String time);
+
+  /// No description provided for @task_row_label.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}, {status}'**
+  String task_row_label(String name, String status);
+
+  /// No description provided for @table_downloads_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads'**
+  String get table_downloads_label;
+
+  /// No description provided for @table_sorted_ascending.
+  ///
+  /// In en, this message translates to:
+  /// **'sorted ascending'**
+  String get table_sorted_ascending;
+
+  /// No description provided for @table_sorted_descending.
+  ///
+  /// In en, this message translates to:
+  /// **'sorted descending'**
+  String get table_sorted_descending;
+
+  /// No description provided for @table_resize_column.
+  ///
+  /// In en, this message translates to:
+  /// **'Resize {column}'**
+  String table_resize_column(String column);
+
+  /// No description provided for @table_loading_row.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading'**
+  String get table_loading_row;
+
+  /// No description provided for @list_loading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading downloads'**
+  String get list_loading;
+
+  /// No description provided for @list_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No downloads here'**
+  String get list_empty_title;
+
+  /// No description provided for @list_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloads you add will appear in this list.'**
+  String get list_empty_message;
+
+  /// No description provided for @list_empty_search_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing matches your search'**
+  String get list_empty_search_title;
+
+  /// No description provided for @list_empty_search_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Try different words or clear the search.'**
+  String get list_empty_search_message;
+
+  /// No description provided for @list_error_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not load the downloads'**
+  String get list_error_title;
+
+  /// No description provided for @list_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get list_retry;
+
+  /// No description provided for @action_pause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get action_pause;
+
+  /// No description provided for @action_resume.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume'**
+  String get action_resume;
+
+  /// No description provided for @action_restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Download again'**
+  String get action_restart;
+
+  /// No description provided for @action_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete…'**
+  String get action_delete;
+
+  /// No description provided for @action_copy_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy link'**
+  String get action_copy_link;
+
+  /// No description provided for @action_undo.
+  ///
+  /// In en, this message translates to:
+  /// **'Undo'**
+  String get action_undo;
+
+  /// No description provided for @action_dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get action_dismiss;
+
+  /// No description provided for @toast_paused.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Paused 1 download} other{Paused {count} downloads}}'**
+  String toast_paused(int count);
+
+  /// No description provided for @toast_resumed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Resumed 1 download} other{Resumed {count} downloads}}'**
+  String toast_resumed(int count);
+
+  /// No description provided for @toast_deleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Deleted 1 download} other{Deleted {count} downloads}}'**
+  String toast_deleted(int count);
+
+  /// No description provided for @toast_restarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Download restarted'**
+  String get toast_restarted;
+
+  /// No description provided for @toast_link_copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Link copied'**
+  String get toast_link_copied;
+
+  /// No description provided for @toast_some_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 download could not be changed} other{{count} downloads could not be changed}}'**
+  String toast_some_failed(int count);
+
+  /// No description provided for @toast_failure_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong.'**
+  String get toast_failure_unknown;
+
+  /// No description provided for @delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Delete this download?} other{Delete {count} downloads?}}'**
+  String delete_title(int count);
+
+  /// No description provided for @delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'They are removed from the list. Their files stay on disk unless you choose otherwise.'**
+  String get delete_message;
+
+  /// No description provided for @delete_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Also delete the downloaded files'**
+  String get delete_files;
+
+  /// No description provided for @delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete_confirm;
+
+  /// No description provided for @delete_cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get delete_cancel;
+
+  /// No description provided for @selection_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String selection_count(int count);
+
+  /// No description provided for @banner_reconnecting_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection to the download service lost'**
+  String get banner_reconnecting_title;
+
+  /// No description provided for @banner_reconnecting_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Trying to reconnect…'**
+  String get banner_reconnecting_message;
+
+  /// No description provided for @banner_daemon_restarting_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The download service stopped unexpectedly'**
+  String get banner_daemon_restarting_title;
+
+  /// No description provided for @banner_daemon_restarting_message.
+  ///
+  /// In en, this message translates to:
+  /// **'It is restarting; your downloads continue from where they were.'**
+  String get banner_daemon_restarting_message;
+
+  /// No description provided for @banner_daemon_failed_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The download service keeps stopping'**
+  String get banner_daemon_failed_title;
+
+  /// No description provided for @banner_daemon_failed_message.
+  ///
+  /// In en, this message translates to:
+  /// **'{reason}'**
+  String banner_daemon_failed_message(String reason);
+
+  /// No description provided for @banner_daemon_restart.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart service'**
+  String get banner_daemon_restart;
+
+  /// No description provided for @banner_dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get banner_dismiss;
 }
 
 class _AppLocalizationsDelegate

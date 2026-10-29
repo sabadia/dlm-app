@@ -171,6 +171,23 @@ void main() {
     });
   });
 
+  group('toggle labels', () {
+    testWidgets('a long label wraps instead of overflowing', (tester) async {
+      await pumpKit(
+        tester,
+        SizedBox(
+          width: 160,
+          child: DlmCheckbox(
+            value: DlmCheckState.checked,
+            label: 'A very long label that cannot fit on one line',
+            onChanged: (_) {},
+          ),
+        ),
+      );
+      expect(tester.takeException(), isNull);
+    });
+  });
+
   group('DlmCheckbox', () {
     testWidgets('unchecked and mixed become checked, checked unchecks', (
       tester,
