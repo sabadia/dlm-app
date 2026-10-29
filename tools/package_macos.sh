@@ -23,6 +23,9 @@ version="${1:?version, for example 1.0.0}"
 out="${2:-dist}"
 root="$(pwd)"
 daemon_version="${DLM_DAEMON_VERSION:-$(tr -d '[:space:]' < packaging/daemon-version)}"
+# The bundle's own version is digits and dots; a pre-release suffix only goes
+# into the file names.
+build_name="${version%%-*}"
 number="${BUILD_NUMBER:-$(git rev-list --count HEAD 2>/dev/null || echo 1)}"
 app_build="apps/dlm_app/build/macos/Build/Products/Release/DLM.app"
 mkdir -p "$out"
@@ -33,7 +36,7 @@ trap 'rm -rf "$work"' EXIT
 [ -n "${SKIP_BUILD:-}" ] || echo "==> building DLM $version ($number)" >&2
 if [ -z "${SKIP_BUILD:-}" ]; then
   (cd apps/dlm_app && flutter build macos --release \
-    --build-name "$version" --build-number "$number")
+    --build-name "$build_name" --build-number "$number")
 fi
 archs="$(lipo -archs "$app_build/Contents/MacOS/DLM")"
 case "$archs" in *arm64*x86_64*|*x86_64*arm64*) ;; *)

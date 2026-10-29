@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.sabadia.dlm</id>
+  <name>DLM</name>
+  <summary>A download manager for files, torrents and streams</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>Apache-2.0</project_license>
+  <developer id="io.github.sabadia">
+    <name>sabadia</name>
+  </developer>
+  <description>
+    <p>DLM downloads files, torrents and streams with queues, schedules, speed limits and categories. It runs a download service of its own and can also connect to one on another computer.</p>
+    <ul>
+      <li>Queues, schedules, speed profiles and quotas</li>
+      <li>HTTP, FTP, torrents, magnet links, HLS and DASH, yt-dlp</li>
+      <li>Looks native on GNOME, KDE, Windows and macOS</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.sabadia.dlm.desktop</launchable>
+  <url type="homepage">https://github.com/sabadia/dlm-app</url>
+  <url type="bugtracker">https://github.com/sabadia/dlm-app/issues</url>
+  <provides>
+    <binary>dlm-app</binary>
+  </provides>
+  <supports>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <content_rating type="oars-1.1"/>
+  <categories>
+    <category>Network</category>
+    <category>FileTransfer</category>
+  </categories>
+  <releases>
+    <release version="@VERSION@" date="@DATE@"/>
+  </releases>
+</component>

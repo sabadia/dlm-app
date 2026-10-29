@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=DLM
+GenericName=Download manager
+Comment=Download files, torrents and streams
+Exec=dlm-app %U
+Icon=io.github.sabadia.dlm
+Terminal=false
+Categories=Network;FileTransfer;P2P;
+Keywords=download;torrent;magnet;manager;
+MimeType=x-scheme-handler/magnet;x-scheme-handler/ed2k;x-scheme-handler/dlm;application/x-bittorrent;
+StartupWMClass=io.github.sabadia.dlm

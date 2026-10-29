@@ -1,0 +1,171 @@
+name: Release
+
+# A tag v1.2.3 builds the packages of every platform, signs what it has secrets
+# for, and drafts a GitHub release with checksums, an SBOM and a provenance
+# attestation. Changes to the packaging run the same builds as a dry run, with
+# nothing published and nothing signed with a real identity.
+on:
+  push:
+    tags: ["v*"]
+  pull_request:
+    paths:
+      - "packaging/**"
+      - "tools/package_*"
+      - "tools/fetch_daemon.sh"
+      - ".github/workflows/release.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+      publish: ${{ steps.v.outputs.publish }}
+    steps:
+      - id: v
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+            echo "publish=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=0.0.${GITHUB_RUN_NUMBER}-dev" >> "$GITHUB_OUTPUT"
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  macos:
+    name: package (macOS)
+    needs: version
+    runs-on: macos-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+      HAS_CERT: ${{ secrets.MACOS_CERT_P12 != '' }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Import the Developer ID certificate
+        if: env.HAS_CERT == 'true'
+        env:
+          CERT_P12: ${{ secrets.MACOS_CERT_P12 }}
+          CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          NOTARY_KEY: ${{ secrets.MACOS_NOTARY_KEY_P8 }}
+          NOTARY_KEY_ID: ${{ secrets.MACOS_NOTARY_KEY_ID }}
+          NOTARY_ISSUER: ${{ secrets.MACOS_NOTARY_ISSUER }}
+        run: |
+          kc="$RUNNER_TEMP/dlm.keychain-db"
+          pw="$(uuidgen)"
+          security create-keychain -p "$pw" "$kc"
+          security set-keychain-settings -lut 3600 "$kc"
+          security unlock-keychain -p "$pw" "$kc"
+          echo "$CERT_P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$kc" -P "$CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$pw" "$kc"
+          security list-keychains -d user -s "$kc" login.keychain-db
+          rm "$RUNNER_TEMP/cert.p12"
+          identity="$(security find-identity -v -p codesigning "$kc" | sed -n 's/.*"\(Developer ID Application:.*\)"/\1/p' | head -n1)"
+          echo "SIGN_IDENTITY=$identity" >> "$GITHUB_ENV"
+          if [ -n "$NOTARY_KEY" ]; then
+            echo "$NOTARY_KEY" > "$RUNNER_TEMP/notary.p8"
+            xcrun notarytool store-credentials dlm-notary \
+              --key "$RUNNER_TEMP/notary.p8" --key-id "$NOTARY_KEY_ID" \
+              --issuer "$NOTARY_ISSUER" --keychain "$kc"
+            echo "NOTARY_PROFILE=dlm-notary" >> "$GITHUB_ENV"
+          fi
+      - name: Package
+        run: bash tools/package_macos.sh "${{ needs.version.outputs.version }}" dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: macos
+          path: dist/*
+
+  windows:
+    name: package (Windows)
+    needs: version
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+      - name: Package
+        shell: pwsh
+        run: tools/package_windows.ps1 -Version "${{ needs.version.outputs.version }}" -OutDir dist
+      # Signing (Azure Trusted Signing or a certificate) is added here when the
+      # certificate exists; until then the installer is unsigned and SmartScreen
+      # will warn.
+      - uses: actions/upload-artifact@v7
+        with:
+          name: windows
+          path: dist/*
+
+  linux:
+    name: package (Linux)
+    needs: version
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - name: Linux desktop build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends clang cmake ninja-build pkg-config libgtk-3-dev libx11-dev libxi-dev liblzma-dev libsecret-1-dev libayatana-appindicator3-dev libkeybinder-3.0-dev
+      - name: nfpm
+        run: go install github.com/goreleaser/nfpm/v2/cmd/nfpm@v2.41.1
+      - name: Package
+        run: |
+          export PATH="$PATH:$(go env GOPATH)/bin"
+          bash tools/package_linux.sh "${{ needs.version.outputs.version }}" dist
+      - uses: actions/upload-artifact@v7
+        with:
+          name: linux
+          path: dist/*
+
+  release:
+    name: draft the release
+    if: needs.version.outputs.publish == 'true'
+    needs: [version, macos, windows, linux]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup-flutter
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+      - name: SBOM and checksums
+        run: |
+          dart run dlm_tools:sbom "${{ github.sha }}" > "dist/DLM_${{ needs.version.outputs.version }}_sbom.cdx.json"
+          cd dist
+          rm -f SHA256SUMS
+          sha256sum $(ls | grep -v -e '\.sha256$' -e '^SHA256SUMS$') > SHA256SUMS
+      - name: Provenance attestation
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: |
+            dist/DLM_*
+            !dist/*.sha256
+      - name: Draft the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          pre=""
+          case "${{ needs.version.outputs.version }}" in *-*) pre="--prerelease" ;; esac
+          gh release create "$GITHUB_REF_NAME" --draft $pre \
+            --title "DLM ${{ needs.version.outputs.version }}" \
+            --generate-notes dist/*

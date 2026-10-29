@@ -1,0 +1,44 @@
+# .deb and .rpm of DLM, built by tools/package_linux.sh with nfpm. VERSION and
+# BUNDLE come from the environment.
+name: dlm-app
+arch: ${NFPM_ARCH}
+platform: linux
+version: ${VERSION}
+section: net
+priority: optional
+maintainer: sabadia <noreply@github.com>
+description: |
+  A download manager for files, torrents and streams.
+  DLM runs a download service of its own and can connect to one on another computer.
+vendor: sabadia
+homepage: https://github.com/sabadia/dlm-app
+license: Apache-2.0
+depends:
+  - libgtk-3-0
+  - libsecret-1-0
+recommends:
+  - libkeybinder-3.0-0
+  - ffmpeg
+contents:
+  - src: ${BUNDLE}
+    dst: /opt/dlm
+    type: tree
+  - src: /opt/dlm/dlm_app
+    dst: /usr/bin/dlm-app
+    type: symlink
+  - src: packaging/linux/io.github.sabadia.dlm.desktop
+    dst: /usr/share/applications/io.github.sabadia.dlm.desktop
+  - src: packaging/linux/io.github.sabadia.dlm.metainfo.xml.rendered
+    dst: /usr/share/metainfo/io.github.sabadia.dlm.metainfo.xml
+  - src: apps/dlm_app/assets/icon/dlm_256.png
+    dst: /usr/share/icons/hicolor/256x256/apps/io.github.sabadia.dlm.png
+  - src: apps/dlm_app/assets/icon/dlm_128.png
+    dst: /usr/share/icons/hicolor/128x128/apps/io.github.sabadia.dlm.png
+  - src: apps/dlm_app/assets/icon/dlm_64.png
+    dst: /usr/share/icons/hicolor/64x64/apps/io.github.sabadia.dlm.png
+  - src: apps/dlm_app/assets/icon/dlm_48.png
+    dst: /usr/share/icons/hicolor/48x48/apps/io.github.sabadia.dlm.png
+  - src: apps/dlm_app/assets/icon/dlm_32.png
+    dst: /usr/share/icons/hicolor/32x32/apps/io.github.sabadia.dlm.png
+  - src: LICENSE
+    dst: /usr/share/doc/dlm-app/copyright
