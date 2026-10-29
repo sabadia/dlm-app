@@ -4,14 +4,49 @@ import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../inspector/files_tab.dart';
 import '../shell/feedback.dart';
+import 'add_advanced.dart';
 import 'add_input.dart';
+import 'add_results.dart';
+import 'folder_browser.dart';
 
 /// How long the dialog waits after typing before it looks at the link.
 const Duration addLookupDelay = Duration(milliseconds: 400);
+
+/// A list file chosen by the user: its name and text.
+typedef PickedList = ({String name, String content});
+
+/// Asks the user for a list of downloads (a text file of links, an exported
+/// JSON list, an aria2 input file); null when cancelled. A seam for tests.
+final addFilePickerProvider = Provider<Future<PickedList?> Function()>(
+  (ref) => () async {
+    final file = await openFile(
+      acceptedTypeGroups: const [
+        XTypeGroup(
+          label: 'Download lists',
+          extensions: ['txt', 'json', 'aria2', 'input', 'lst'],
+        ),
+      ],
+    );
+    if (file == null) return null;
+    return (name: file.name, content: await file.readAsString());
+  },
+);
+
+/// How a list file is read, from its name.
+ImportTasksBodyFormat importFormatOf(String fileName) {
+  final lower = fileName.toLowerCase();
+  if (lower.endsWith('.json')) return ImportTasksBodyFormat.valueJson;
+  if (lower.endsWith('.aria2') || lower.endsWith('.input')) {
+    return ImportTasksBodyFormat.aria2;
+  }
+  return ImportTasksBodyFormat.urls;
+}
 
 /// Opens the add-download dialog. [initialText] pre-fills the links (the
 /// clipboard, a dropped link).
@@ -83,7 +118,17 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
   bool _paused = false;
   bool _allowDuplicate = false;
   bool _adding = false;
-  List<BatchItem> _failed = const [];
+  bool _showAdvanced = false;
+  final AdvancedDraft _adv = AdvancedDraft();
+  final TextEditingController _referrer = TextEditingController();
+  final TextEditingController _headers = TextEditingController();
+  final TextEditingController _mirrors = TextEditingController();
+  final TextEditingController _digest = TextEditingController();
+
+  /// The indexes of the files to download when the link has several; null
+  /// until the user changes the choice (then the daemon's default applies).
+  Set<int>? _pickedFiles;
+  Set<Object>? _expandedFiles;
 
   @override
   void initState() {
@@ -97,6 +142,10 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     _links.dispose();
     _dir.dispose();
     _name.dispose();
+    _referrer.dispose();
+    _headers.dispose();
+    _mirrors.dispose();
+    _digest.dispose();
     super.dispose();
   }
 
@@ -112,6 +161,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     setState(() {
       _lookup = const _Busy();
       _allowDuplicate = false;
+      _pickedFiles = null;
     });
     _debounce = Timer(addLookupDelay, _look);
   }
@@ -147,16 +197,26 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     setState(() => _lookup = found);
   }
 
-  CreateTaskBody _body(String link, {String? resolveId, String? name}) =>
-      CreateTaskBody(
-        url: link,
-        queueId: _queueId,
-        dir: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
-        name: name == null || name.isEmpty ? null : name,
-        paused: _paused ? true : null,
-        allowDuplicate: _allowDuplicate ? true : null,
-        resolveId: resolveId,
-      );
+  CreateTaskBody _body(
+    String link, {
+    String? resolveId,
+    String? name,
+    bool? paused,
+  }) {
+    final advanced = !_adv.isEmpty;
+    return CreateTaskBody(
+      // The advanced options describe the source, so the link goes in it.
+      url: advanced ? null : link,
+      source: advanced ? _adv.source(link) : null,
+      settings: _adv.settings,
+      queueId: _queueId,
+      dir: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
+      name: name == null || name.isEmpty ? null : name,
+      paused: (paused ?? _paused) ? true : null,
+      allowDuplicate: _allowDuplicate ? true : null,
+      resolveId: advanced ? null : resolveId,
+    );
+  }
 
   bool get _duplicateBlocks =>
       _lookup is _One &&
@@ -165,6 +225,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
 
   bool get _canAdd =>
       !_adding &&
+      _adv.valid &&
       _lookup is! _Idle &&
       _lookup is! _Busy &&
       _lookup is! _Bad &&
@@ -178,14 +239,33 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     try {
       final lookup = _lookup;
       if (lookup is _One) {
-        final task = await repo.create(
+        final files = lookup.result.resource.files ?? const <File>[];
+        final picked = _pickedFiles;
+        // A changed file choice is applied after the task exists, while it is
+        // still paused (an active task cannot change its files).
+        final changed =
+            picked != null &&
+            files.length > 1 &&
+            files.any((f) => f.selected != picked.contains(f.index));
+        var task = await repo.create(
           _body(
             _typed.single,
             resolveId: lookup.result.resolveId,
             name: _name.text.trim(),
+            paused: changed ? true : null,
           ),
         );
-        store.tasks.put(task.id, task);
+        if (changed) {
+          task = await ref
+              .read(taskDetailRepositoryProvider)
+              .setFiles(task.id, picked.toList()..sort());
+          store.tasks.put(task.id, task);
+          if (!_paused) {
+            await ref.read(taskActionsProvider).resume([task.id]);
+          }
+        } else {
+          store.tasks.put(task.id, task);
+        }
         if (!mounted) return;
         showNotice(context, ref, l.add_done_one(task.name ?? _typed.single));
         Navigator.of(context).pop();
@@ -194,31 +274,240 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
       final results = await repo.createMany([
         for (final link in _typed) _body(link),
       ]);
-      for (final r in results) {
-        final t = r.task;
-        if (r.ok && t != null) store.tasks.put(t.id, t);
-      }
-      final failed = [
-        for (final r in results)
-          if (!r.ok) r,
-      ];
-      if (!mounted) return;
-      if (failed.isEmpty) {
-        showNotice(
-          context,
-          ref,
-          l.add_done_many(results.where((r) => r.ok).length),
-        );
-        Navigator.of(context).pop();
-      } else {
-        // Keep the dialog open and say which links failed.
-        setState(() => _failed = failed);
-      }
+      await _finish(results);
     } on Object catch (e) {
       if (mounted) showFailure(context, ref, e);
     } finally {
       if (mounted) setState(() => _adding = false);
     }
+  }
+
+  /// Puts the created tasks in the cache and reports a batch: a short notice
+  /// when all went through, the result sheet when some did not.
+  Future<void> _finish(List<BatchItem> results) async {
+    final l = AppLocalizations.of(context);
+    final store = ref.read(taskStoreProvider);
+    for (final r in results) {
+      final t = r.task;
+      if (r.ok && t != null) store.tasks.put(t.id, t);
+    }
+    final added = results.where((r) => r.ok).length;
+    if (results.any((r) => !r.ok)) {
+      await showAddResults(
+        context,
+        title: l.add_results_title,
+        results: results,
+      );
+      if (mounted && added > 0) Navigator.of(context).pop();
+      return;
+    }
+    if (!mounted) return;
+    showNotice(context, ref, l.add_done_many(added));
+    Navigator.of(context).pop();
+  }
+
+  Future<void> _import() async {
+    final l = AppLocalizations.of(context);
+    final repo = ref.read(addRepositoryProvider);
+    try {
+      final picked = await ref.read(addFilePickerProvider)();
+      if (picked == null || !mounted) return;
+      final format = importFormatOf(picked.name);
+      final preview = await repo.importList(
+        picked.content,
+        format,
+        queueId: _queueId,
+        paused: _paused,
+        dryRun: true,
+      );
+      if (!mounted) return;
+      final go = await showAddResults(
+        context,
+        title: l.add_import_title(picked.name),
+        results: preview,
+        confirmLabel: l.add_import_go(preview.where((r) => r.ok).length),
+      );
+      if (!go || !mounted) return;
+      setState(() => _adding = true);
+      final results = await repo.importList(
+        picked.content,
+        format,
+        queueId: _queueId,
+        paused: _paused,
+      );
+      await _finish(results);
+    } on Object catch (e) {
+      if (mounted) showFailure(context, ref, e);
+    } finally {
+      if (mounted) setState(() => _adding = false);
+    }
+  }
+
+  Future<void> _browse() async {
+    final chosen = await pickDaemonFolder(
+      context,
+      start: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
+    );
+    if (chosen != null && mounted) setState(() => _dir.text = chosen);
+  }
+
+  /// The tree of the files of a multi-file link with a checkbox on each.
+  Widget _fileChoice(AppLocalizations l, DlmThemeData theme, List<File> files) {
+    final picked =
+        _pickedFiles ??
+        {
+          for (final f in files)
+            if (f.selected) f.index,
+        };
+    final roots = buildFileTree(
+      files,
+      l,
+      picked: picked,
+      onToggle: (indexes, on) => setState(() {
+        final next = {...picked};
+        on ? next.addAll(indexes) : next.removeAll(indexes);
+        _pickedFiles = next;
+      }),
+    );
+    _expandedFiles ??= {
+      for (final n in roots)
+        if (n.children.isNotEmpty) n.id,
+    };
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          picked.isEmpty
+              ? l.files_pick_one
+              : l.files_count(picked.length, files.length),
+          style: theme.typography.caption.copyWith(
+            color: theme.colors.textSecondary,
+          ),
+        ),
+        SizedBox(
+          height: 180,
+          child: DlmTree(
+            roots: roots,
+            semanticLabel: l.files_tree_label,
+            expandedIds: _expandedFiles!,
+            onExpandedChanged: (ids) => setState(() => _expandedFiles = ids),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _advancedSection(AppLocalizations l, DlmThemeData theme) {
+    final gap = SizedBox(height: theme.metrics.spacing.sm);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: DlmButton(
+            label: l.add_advanced,
+            icon: DlmIcon(
+              _showAdvanced
+                  ? DlmIconName.chevronDown
+                  : DlmIconName.chevronRight,
+            ),
+            variant: DlmButtonVariant.plain,
+            onPressed: () => setState(() => _showAdvanced = !_showAdvanced),
+          ),
+        ),
+        if (_showAdvanced) ...[
+          DlmFormGroup(
+            children: [
+              DlmFormRow(
+                label: l.add_mode,
+                control: DlmDropdown<AddMode>(
+                  semanticLabel: l.add_mode,
+                  value: _adv.mode,
+                  choices: [
+                    DlmChoice(value: AddMode.auto, label: l.add_mode_auto),
+                    DlmChoice(value: AddMode.direct, label: l.add_mode_direct),
+                    DlmChoice(value: AddMode.ytdlp, label: l.add_mode_ytdlp),
+                    DlmChoice(
+                      value: AddMode.browser,
+                      label: l.add_mode_browser,
+                    ),
+                  ],
+                  onChanged: (v) => setState(() => _adv.mode = v),
+                ),
+              ),
+              DlmFormRow(
+                label: l.add_referrer,
+                control: DlmTextField(
+                  controller: _referrer,
+                  semanticLabel: l.add_referrer,
+                  onChanged: (v) => setState(() => _adv.referrer = v),
+                ),
+              ),
+              DlmFormRow(
+                label: l.add_headers,
+                description: l.add_headers_hint,
+                control: DlmTextField(
+                  controller: _headers,
+                  semanticLabel: l.add_headers,
+                  minLines: 2,
+                  maxLines: 4,
+                  errorText: _adv.parsedHeaders == null
+                      ? l.add_headers_invalid
+                      : null,
+                  onChanged: (v) => setState(() => _adv.headers = v),
+                ),
+              ),
+              DlmFormRow(
+                label: l.add_mirrors,
+                description: l.add_mirrors_hint,
+                control: DlmTextField(
+                  controller: _mirrors,
+                  semanticLabel: l.add_mirrors,
+                  minLines: 2,
+                  maxLines: 4,
+                  onChanged: (v) => setState(() => _adv.mirrors = v),
+                ),
+              ),
+              DlmFormRow(
+                label: l.add_checksum,
+                control: SizedBox(
+                  width: 340,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 120,
+                        child: DlmDropdown<String>(
+                          semanticLabel: l.add_checksum_algorithm,
+                          value: _adv.algorithm,
+                          choices: [
+                            for (final a in checksumHexLength.keys)
+                              DlmChoice(value: a, label: a),
+                          ],
+                          onChanged: (v) => setState(() => _adv.algorithm = v),
+                        ),
+                      ),
+                      SizedBox(width: theme.metrics.spacing.sm),
+                      Expanded(
+                        child: DlmTextField(
+                          controller: _digest,
+                          semanticLabel: l.add_checksum,
+                          placeholder: l.add_checksum_placeholder,
+                          errorText: _adv.digestValid
+                              ? null
+                              : l.add_checksum_invalid,
+                          onChanged: (v) => setState(() => _adv.digest = v),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          gap,
+        ],
+      ],
+    );
   }
 
   Widget _summary(AppLocalizations l, DlmThemeData theme) {
@@ -316,17 +605,22 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
           maxLines: 6,
           onChanged: (_) => _schedule(),
         ),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: DlmButton(
+            label: l.add_import,
+            icon: const DlmIcon(DlmIconName.importIcon),
+            variant: DlmButtonVariant.plain,
+            onPressed: _adding ? null : _import,
+          ),
+        ),
         gap,
         _summary(l, theme),
-        for (final f in _failed)
-          Padding(
-            padding: EdgeInsets.only(top: theme.metrics.spacing.xs),
-            child: DlmBanner(
-              tone: DlmTone.danger,
-              message:
-                  '${f.url ?? ''}: ${f.error?.detail ?? f.error?.title ?? ''}',
-            ),
-          ),
+        if (_lookup case _One(:final result)
+            when (result.resource.files?.length ?? 0) > 1) ...[
+          gap,
+          _fileChoice(l, theme, result.resource.files!),
+        ],
         gap,
         DlmFormGroup(
           children: [
@@ -352,10 +646,22 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
               ),
             DlmFormRow(
               label: l.add_folder,
-              control: DlmTextField(
-                controller: _dir,
-                semanticLabel: l.add_folder,
-                placeholder: defaultDir ?? l.add_folder_default,
+              control: Row(
+                children: [
+                  Expanded(
+                    child: DlmTextField(
+                      controller: _dir,
+                      semanticLabel: l.add_folder,
+                      placeholder: defaultDir ?? l.add_folder_default,
+                    ),
+                  ),
+                  SizedBox(width: theme.metrics.spacing.xs),
+                  DlmIconButton(
+                    icon: const DlmIcon(DlmIconName.folder),
+                    semanticLabel: l.add_folder_browse,
+                    onPressed: _browse,
+                  ),
+                ],
               ),
             ),
             if (single)
@@ -377,6 +683,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
             ),
           ],
         ),
+        _advancedSection(l, theme),
       ],
     );
 

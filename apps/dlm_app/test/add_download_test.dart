@@ -1,6 +1,7 @@
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/add/add_dialog.dart';
 import 'package:dlm_app/src/add/add_input.dart';
+import 'package:dlm_app/src/add/add_results.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/services.dart';
@@ -13,12 +14,19 @@ import 'support/fakes.dart';
 /// The add service in memory: it records what is asked and answers from the
 /// given fixtures.
 class FakeAdd implements AddRepository {
-  FakeAdd({this.duplicate, this.patternCount = 20, this.failUrl});
+  FakeAdd({this.duplicate, this.patternCount = 20, this.failUrl, this.files});
+
+  final List<File>? files;
 
   final DuplicateHint? duplicate;
   final int patternCount;
   final String? failUrl;
   final List<CreateTaskBody> created = [];
+  final List<(String, bool)> imports = [];
+  final Map<String?, List<String>> folders = {
+    null: ['/data'],
+    '/data': ['/data/a', '/data/b'],
+  };
   final List<List<CreateTaskBody>> batches = [];
 
   @override
@@ -29,10 +37,11 @@ class FakeAdd implements AddRepository {
         expiresAt: DateTime.utc(2030),
         name: 'ubuntu.iso',
         resolveId: 'r1',
-        resource: const Resource(
+        resource: Resource(
           name: 'ubuntu.iso',
           rangeSupported: true,
           size: 2048,
+          files: files,
         ),
         source: Source(
           currentUrl: url,
@@ -46,6 +55,50 @@ class FakeAdd implements AddRepository {
         count: patternCount,
         urls: [for (var i = 1; i <= preview; i++) 'http://h/img$i.jpg'],
       );
+
+  @override
+  Future<FsListing> browse(String? path) async => FsListing(
+    path: path ?? '',
+    parent: path == null || path == '/data' ? null : '/data',
+    entries: [
+      for (final f in folders[path] ?? const <String>[])
+        FsEntry(name: f.split('/').last, path: f),
+    ],
+  );
+
+  @override
+  Future<FsFree> freeSpace(String? path) async =>
+      FsFree(freeBytes: 1 << 30, path: path ?? '');
+
+  @override
+  Future<List<BatchItem>> importList(
+    String content,
+    ImportTasksBodyFormat format, {
+    String? queueId,
+    bool paused = false,
+    bool dryRun = false,
+    bool allowDuplicate = false,
+  }) async {
+    imports.add((content, dryRun));
+    return [
+      for (final (i, url) in content.split('\n').indexed)
+        if (url.startsWith('bad'))
+          BatchItem(
+            ok: false,
+            url: url,
+            error: const Problem(
+              code: 'task.duplicate',
+              type: 'urn:dlm:problem:task.duplicate',
+            ),
+          )
+        else
+          BatchItem(
+            ok: true,
+            url: url,
+            task: dryRun ? null : task('i$i', name: 'i$i'),
+          ),
+    ];
+  }
 
   @override
   Future<Task> create(CreateTaskBody body) async {
@@ -172,16 +225,178 @@ void main() {
     expect(add.batches.single.single.url, 'http://h/img[1-20].jpg');
   });
 
-  appTest('a link that fails stays in the dialog with its reason', (
-    tester,
-  ) async {
+  appTest('a link that fails is listed with its reason', (tester) async {
     final add = FakeAdd(failUrl: 'bad://x');
     await pump(tester, add);
     await openDialog(tester);
     await type(tester, 'http://h/a\nbad://x');
     await tester.tap(addButton());
     await settle(tester);
-    expect(find.textContaining('bad://x: unsupported scheme'), findsOneWidget);
-    expect(find.text('Add downloads'), findsWidgets);
+    // The sheet says which link failed and why.
+    expect(find.text('What happened'), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byType(AddResultsSheet),
+        matching: find.text('bad://x'),
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('unsupported scheme'), findsOneWidget);
+    expect(find.text('1 added, 1 not added.'), findsOneWidget);
   });
+
+  appTest('the advanced options describe the source of the task', (
+    tester,
+  ) async {
+    final add = FakeAdd();
+    await pump(tester, add);
+    await openDialog(tester);
+    await type(tester, 'http://h/page');
+    await tester.tap(find.text('More options'));
+    await settle(tester);
+    Future<void> fill(String label, String text) async {
+      await tester.enterText(
+        find
+            .descendant(
+              of: find.byType(AddDownloadDialog),
+              matching: find.byWidgetPredicate(
+                (w) => w is DlmTextField && w.semanticLabel == label,
+              ),
+            )
+            .first,
+        text,
+      );
+      await tester.pump();
+    }
+
+    await fill('Headers', 'X-Token: abc');
+    await fill('Mirrors', 'http://m/f');
+    await tester.tap(find.text('Add'));
+    await settle(tester);
+    final body = add.created.single;
+    expect(body.url, isNull);
+    expect(body.source?.currentUrl, 'http://h/page');
+    expect(body.source?.headers, {'X-Token': 'abc'});
+    expect(body.source?.mirrors, ['http://m/f']);
+  });
+
+  appTest('a wrong header line stops the add', (tester) async {
+    final add = FakeAdd();
+    await pump(tester, add);
+    await openDialog(tester);
+    await type(tester, 'http://h/page');
+    await tester.tap(find.text('More options'));
+    await settle(tester);
+    await tester.enterText(
+      find
+          .descendant(
+            of: find.byType(AddDownloadDialog),
+            matching: find.byWidgetPredicate(
+              (w) => w is DlmTextField && w.semanticLabel == 'Headers',
+            ),
+          )
+          .first,
+      'nonsense',
+    );
+    await tester.pump();
+    expect(enabled(tester), isFalse);
+    expect(
+      find.text('Every line needs a name, a colon and a value.'),
+      findsOneWidget,
+    );
+  });
+
+  appTest('a list file is previewed, then added', (tester) async {
+    final add = FakeAdd();
+    await pumpApp(
+      tester,
+      queues: [queue('main', 'Default')],
+      overrides: [
+        addRepositoryProvider.overrideWithValue(add),
+        addFilePickerProvider.overrideWithValue(
+          () async => (name: 'list.txt', content: 'http://h/a\nbad://x'),
+        ),
+      ],
+    );
+    await openDialog(tester);
+    await tester.tap(find.text('Import list…'));
+    await settle(tester);
+    expect(find.text('Import list.txt'), findsOneWidget);
+    expect(find.text('1 added, 1 not added.'), findsOneWidget);
+    expect(find.text('Already in the list'), findsOneWidget);
+    await tester.tap(find.text('Add 1 download'));
+    await settle(tester);
+    expect(add.imports.map((i) => i.$2), [true, false]);
+  });
+
+  appTest('a folder is picked from the daemon\'s own list', (tester) async {
+    final add = FakeAdd();
+    await pump(tester, add);
+    final semantics = tester.ensureSemantics();
+    await openDialog(tester);
+    await tester.tap(find.bySemanticsLabel('Browse folders'));
+    await settle(tester);
+    await tester.tap(find.text('data'));
+    await settle(tester);
+    expect(find.text('a'), findsOneWidget);
+    await tester.tap(find.text('Choose this folder'));
+    await settle(tester);
+    final field = tester.widget<DlmTextField>(
+      find.byWidgetPredicate(
+        (w) => w is DlmTextField && w.semanticLabel == 'Folder',
+      ),
+    );
+    expect(field.controller?.text, '/data');
+    semantics.dispose();
+  });
+
+  appTest('a changed file choice is set while paused, then resumed', (
+    tester,
+  ) async {
+    final add = FakeAdd(
+      files: const [
+        File(index: 0, name: 'a.bin', path: 'a.bin', selected: true, size: 1),
+        File(index: 1, name: 'b.bin', path: 'b.bin', selected: true, size: 2),
+      ],
+    );
+    final detail = _RecordingDetail();
+    final h = await pumpApp(
+      tester,
+      queues: [queue('main', 'Default')],
+      overrides: [
+        addRepositoryProvider.overrideWithValue(add),
+        taskDetailRepositoryProvider.overrideWithValue(detail),
+      ],
+    );
+    await openDialog(tester);
+    await type(tester, 'magnet:?xt=urn:btih:abc');
+    expect(find.text('2 of 2 files selected'), findsOneWidget);
+    // The first box is the dialog's checkbox of file a.bin.
+    await tester.tap(find.byType(DlmCheckbox).first);
+    await settle(tester);
+    expect(find.text('1 of 2 files selected'), findsOneWidget);
+    await tester.tap(find.text('Add'));
+    await settle(tester);
+    expect(add.created.single.paused, isTrue);
+    expect(detail.chosen, [
+      [1],
+    ]);
+    expect(h.tasks.calls, isEmpty, reason: 'resume goes through the actions');
+  });
+}
+
+class _RecordingDetail implements TaskDetailRepository {
+  final List<List<int>> chosen = [];
+
+  @override
+  Future<List<Segment>> segments(String id) async => const [];
+
+  @override
+  Future<TorrentInfo?> torrent(String id) async => null;
+
+  @override
+  Future<Task> setFiles(String id, List<int> selected) async {
+    chosen.add(selected);
+    return task(id, status: 'paused', name: 'ubuntu.iso');
+  }
 }

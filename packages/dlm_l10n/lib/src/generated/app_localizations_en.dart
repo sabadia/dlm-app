@@ -1475,4 +1475,111 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get status_resume_all => 'Resume all';
+
+  @override
+  String get add_import => 'Import list…';
+
+  @override
+  String add_import_title(String name) {
+    return 'Import $name';
+  }
+
+  @override
+  String add_import_go(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Add $count downloads',
+      one: 'Add 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get add_results_title => 'What happened';
+
+  @override
+  String add_results_summary(int ok, int failed) {
+    return '$ok added, $failed not added.';
+  }
+
+  @override
+  String get add_result_ok => 'Added';
+
+  @override
+  String get add_result_failed => 'Not added';
+
+  @override
+  String get add_result_duplicate => 'Already in the list';
+
+  @override
+  String get add_close => 'Close';
+
+  @override
+  String get add_folder_browse => 'Browse folders';
+
+  @override
+  String get folder_browser_title => 'Choose a folder';
+
+  @override
+  String get folder_browser_roots => 'Places you can choose from';
+
+  @override
+  String get folder_browser_empty => 'No folders here.';
+
+  @override
+  String get folder_browser_choose => 'Choose this folder';
+
+  @override
+  String get folder_browser_error => 'The folders could not be listed.';
+
+  @override
+  String get add_advanced => 'More options';
+
+  @override
+  String get add_mode => 'Treat the link as';
+
+  @override
+  String get add_mode_auto => 'Let the app decide';
+
+  @override
+  String get add_mode_direct => 'A file';
+
+  @override
+  String get add_mode_ytdlp => 'A video or audio page (yt-dlp)';
+
+  @override
+  String get add_mode_browser => 'A page that needs a browser';
+
+  @override
+  String get add_referrer => 'Referrer';
+
+  @override
+  String get add_headers => 'Headers';
+
+  @override
+  String get add_headers_hint => 'One per line, like Name: value';
+
+  @override
+  String get add_headers_invalid =>
+      'Every line needs a name, a colon and a value.';
+
+  @override
+  String get add_mirrors => 'Mirrors';
+
+  @override
+  String get add_mirrors_hint =>
+      'Other places with the same file, one link per line';
+
+  @override
+  String get add_checksum => 'Checksum';
+
+  @override
+  String get add_checksum_algorithm => 'Checksum algorithm';
+
+  @override
+  String get add_checksum_placeholder => 'Expected value in hex';
+
+  @override
+  String get add_checksum_invalid => 'Not a valid value for this algorithm.';
 }

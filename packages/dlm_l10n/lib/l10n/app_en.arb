@@ -887,5 +887,60 @@
   "status_turbo": "Turbo",
   "status_turbo_on": "Turbo on",
   "status_pause_all": "Pause all",
-  "status_resume_all": "Resume all"
+  "status_resume_all": "Resume all",
+  "add_import": "Import list…",
+  "add_import_title": "Import {name}",
+  "@add_import_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "add_import_go": "{count, plural, one{Add 1 download} other{Add {count} downloads}}",
+  "@add_import_go": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "add_results_title": "What happened",
+  "add_results_summary": "{ok} added, {failed} not added.",
+  "@add_results_summary": {
+    "placeholders": {
+      "ok": {
+        "type": "int"
+      },
+      "failed": {
+        "type": "int"
+      }
+    }
+  },
+  "add_result_ok": "Added",
+  "add_result_failed": "Not added",
+  "add_result_duplicate": "Already in the list",
+  "add_close": "Close",
+  "add_folder_browse": "Browse folders",
+  "folder_browser_title": "Choose a folder",
+  "folder_browser_roots": "Places you can choose from",
+  "folder_browser_empty": "No folders here.",
+  "folder_browser_choose": "Choose this folder",
+  "folder_browser_error": "The folders could not be listed.",
+  "add_advanced": "More options",
+  "add_mode": "Treat the link as",
+  "add_mode_auto": "Let the app decide",
+  "add_mode_direct": "A file",
+  "add_mode_ytdlp": "A video or audio page (yt-dlp)",
+  "add_mode_browser": "A page that needs a browser",
+  "add_referrer": "Referrer",
+  "add_headers": "Headers",
+  "add_headers_hint": "One per line, like Name: value",
+  "add_headers_invalid": "Every line needs a name, a colon and a value.",
+  "add_mirrors": "Mirrors",
+  "add_mirrors_hint": "Other places with the same file, one link per line",
+  "add_checksum": "Checksum",
+  "add_checksum_algorithm": "Checksum algorithm",
+  "add_checksum_placeholder": "Expected value in hex",
+  "add_checksum_invalid": "Not a valid value for this algorithm."
 }

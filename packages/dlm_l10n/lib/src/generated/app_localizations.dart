@@ -2487,6 +2487,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resume all'**
   String get status_resume_all;
+
+  /// No description provided for @add_import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import list…'**
+  String get add_import;
+
+  /// No description provided for @add_import_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {name}'**
+  String add_import_title(String name);
+
+  /// No description provided for @add_import_go.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Add 1 download} other{Add {count} downloads}}'**
+  String add_import_go(int count);
+
+  /// No description provided for @add_results_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened'**
+  String get add_results_title;
+
+  /// No description provided for @add_results_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{ok} added, {failed} not added.'**
+  String add_results_summary(int ok, int failed);
+
+  /// No description provided for @add_result_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get add_result_ok;
+
+  /// No description provided for @add_result_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not added'**
+  String get add_result_failed;
+
+  /// No description provided for @add_result_duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in the list'**
+  String get add_result_duplicate;
+
+  /// No description provided for @add_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get add_close;
+
+  /// No description provided for @add_folder_browse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse folders'**
+  String get add_folder_browse;
+
+  /// No description provided for @folder_browser_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a folder'**
+  String get folder_browser_title;
+
+  /// No description provided for @folder_browser_roots.
+  ///
+  /// In en, this message translates to:
+  /// **'Places you can choose from'**
+  String get folder_browser_roots;
+
+  /// No description provided for @folder_browser_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No folders here.'**
+  String get folder_browser_empty;
+
+  /// No description provided for @folder_browser_choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose this folder'**
+  String get folder_browser_choose;
+
+  /// No description provided for @folder_browser_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The folders could not be listed.'**
+  String get folder_browser_error;
+
+  /// No description provided for @add_advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get add_advanced;
+
+  /// No description provided for @add_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Treat the link as'**
+  String get add_mode;
+
+  /// No description provided for @add_mode_auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the app decide'**
+  String get add_mode_auto;
+
+  /// No description provided for @add_mode_direct.
+  ///
+  /// In en, this message translates to:
+  /// **'A file'**
+  String get add_mode_direct;
+
+  /// No description provided for @add_mode_ytdlp.
+  ///
+  /// In en, this message translates to:
+  /// **'A video or audio page (yt-dlp)'**
+  String get add_mode_ytdlp;
+
+  /// No description provided for @add_mode_browser.
+  ///
+  /// In en, this message translates to:
+  /// **'A page that needs a browser'**
+  String get add_mode_browser;
+
+  /// No description provided for @add_referrer.
+  ///
+  /// In en, this message translates to:
+  /// **'Referrer'**
+  String get add_referrer;
+
+  /// No description provided for @add_headers.
+  ///
+  /// In en, this message translates to:
+  /// **'Headers'**
+  String get add_headers;
+
+  /// No description provided for @add_headers_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line, like Name: value'**
+  String get add_headers_hint;
+
+  /// No description provided for @add_headers_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Every line needs a name, a colon and a value.'**
+  String get add_headers_invalid;
+
+  /// No description provided for @add_mirrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Mirrors'**
+  String get add_mirrors;
+
+  /// No description provided for @add_mirrors_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Other places with the same file, one link per line'**
+  String get add_mirrors_hint;
+
+  /// No description provided for @add_checksum.
+  ///
+  /// In en, this message translates to:
+  /// **'Checksum'**
+  String get add_checksum;
+
+  /// No description provided for @add_checksum_algorithm.
+  ///
+  /// In en, this message translates to:
+  /// **'Checksum algorithm'**
+  String get add_checksum_algorithm;
+
+  /// No description provided for @add_checksum_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected value in hex'**
+  String get add_checksum_placeholder;
+
+  /// No description provided for @add_checksum_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a valid value for this algorithm.'**
+  String get add_checksum_invalid;
 }
 
 class _AppLocalizationsDelegate
