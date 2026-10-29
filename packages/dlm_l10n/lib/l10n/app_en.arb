@@ -1990,6 +1990,8 @@
     }
   },
   "nav_tools": "Tools",
+  "hub_button": "Tools, manage and settings",
+  "hub_close": "Close",
   "add_category": "Will be sorted into {name}: {dir}",
   "@add_category": {
     "placeholders": {

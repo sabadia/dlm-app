@@ -3459,6 +3459,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nav_tools => 'Tools';
 
   @override
+  String get hub_button => 'Tools, manage and settings';
+
+  @override
+  String get hub_close => 'Close';
+
+  @override
   String add_category(String name, String dir) {
     return 'Will be sorted into $name: $dir';
   }

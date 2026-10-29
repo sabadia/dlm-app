@@ -25,8 +25,11 @@ survives a reconnect.
 ## Pages
 
 `go_router` with one `ShellRoute`: `/downloads/<filter>` (all, active, queued, paused,
-completed, failed) and `/queues/<id>`. The shell is the sidebar (a translucent glass pane on
-macOS), the toolbar (title, selection actions, search, command palette, details toggle), the
+completed, failed) and `/queues/<id>`. The sidebar (a translucent glass pane on
+macOS) lists the downloads filters, queues and categories; a gear button at its foot opens a menu
+(Tools, Manage, Settings) and each opens a large window with its own list of pages
+(`SettingsHub`). `/manage/<page>` and `/settings/<group>` are links into that window: it opens and
+the page behind returns to the downloads. The shell is also the toolbar (title, selection actions, search, command palette, details toggle), the
 page, and the details pane. Panels resize by dragging or with the keyboard and remember their
 width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
 map (Command on macOS, Control elsewhere, overridable per command). A chord

@@ -13,7 +13,6 @@ import 'package:go_router/go_router.dart';
 
 import '../add/add_dialog.dart';
 import '../inspector/inspector_pane.dart';
-import '../manage/manage_screen.dart';
 import '../onboarding/setup_dialog.dart';
 import '../platform/activity.dart';
 import '../platform/clipboard_watch.dart';
@@ -29,6 +28,7 @@ import 'app_commands.dart';
 import 'app_menus.dart';
 import 'feedback.dart';
 import 'queue_commands.dart';
+import 'settings_hub.dart';
 import 'shell_state.dart';
 import 'shortcuts.dart';
 import 'status_banners.dart';
@@ -76,6 +76,31 @@ class _AppShellState extends ConsumerState<AppShell> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) unawaited(showSetupOnFirstRun(context, ref));
     });
+    _openHubFor(widget.location);
+  }
+
+  @override
+  void didUpdateWidget(AppShell old) {
+    super.didUpdateWidget(old);
+    if (old.location != widget.location) _openHubFor(widget.location);
+  }
+
+  /// `/manage/<page>` and `/settings/<group>` are links into the settings
+  /// window: it opens, and the page behind goes back to the downloads.
+  void _openHubFor(Uri location) {
+    final segments = location.pathSegments;
+    if (segments.length < 2) return;
+    final target = switch (segments.first) {
+      'manage' => (sectionOfManagePage(segments[1]), segments[1]),
+      'settings' => (HubSection.settings, segments[1]),
+      _ => null,
+    };
+    if (target == null) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      unawaited(showSettingsHub(context, section: target.$1, page: target.$2));
+      context.go(homePath);
+    });
   }
 
   @override
@@ -86,39 +111,12 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   static int? _positive(int n) => n > 0 ? n : null;
 
-  static String _manageTitle(AppLocalizations l, String page) => switch (page) {
-    'categories' => l.nav_manage_categories,
-    'logins' => l.nav_manage_logins,
-    'cookies' => l.nav_manage_cookies,
-    'webhooks' => l.nav_manage_webhooks,
-    'plugins' => l.nav_manage_plugins,
-    'browser' => l.nav_manage_browser,
-    'transfer' => l.nav_manage_transfer,
-    'statistics' => l.nav_manage_statistics,
-    'daemon' => l.nav_manage_daemon,
-    'access' => l.nav_manage_access,
-    'preferences' => l.nav_manage_preferences,
-    'about' => l.nav_manage_about,
-    _ => page,
-  };
-
   ({String sidebarId, String title}) _current(
     AppLocalizations l,
     List<Queue> queues,
     List<Category> categories,
   ) {
     final segments = widget.location.pathSegments;
-    if (segments.length >= 2 && segments.first == 'manage') {
-      final page = segments[1];
-      return (sidebarId: manageSidebarId(page), title: _manageTitle(l, page));
-    }
-    if (segments.length >= 2 && segments.first == 'settings') {
-      final group = segments[1];
-      return (
-        sidebarId: settingsSidebarId(group),
-        title: '${l.nav_settings}: ${humaniseSetting(group)}',
-      );
-    }
     if (segments.length >= 2 && segments.first == 'categories') {
       final id = segments[1];
       final name = categories.where((c) => c.id == id).firstOrNull?.name ?? id;
@@ -203,11 +201,7 @@ class _AppShellState extends ConsumerState<AppShell> {
           ref.read(unsavedSettingsProvider.notifier).mark(dirty: false);
         }
         if (!context.mounted) return;
-        if (id.startsWith('manage:')) {
-          context.go(managePath(id.substring('manage:'.length)));
-        } else if (id.startsWith('settings:')) {
-          context.go(settingsPath(id.substring('settings:'.length)));
-        } else if (id.startsWith('queue:')) {
+        if (id.startsWith('queue:')) {
           context.go(queuePath(id.substring('queue:'.length)));
         } else if (id.startsWith('category:')) {
           context.go(categoryPath(id.substring('category:'.length)));
@@ -221,11 +215,41 @@ class _AppShellState extends ConsumerState<AppShell> {
       header: SizedBox(height: theme.titleBarInset + theme.metrics.spacing.sm),
       footer: Padding(
         padding: EdgeInsets.all(theme.metrics.spacing.sm),
-        child: DlmButton(
-          label: l.queue_new,
-          icon: const DlmIcon(DlmIconName.plus),
-          variant: DlmButtonVariant.plain,
-          onPressed: () => createQueue(context, ref),
+        child: Row(
+          children: [
+            Expanded(
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: DlmButton(
+                    label: l.queue_new,
+                    icon: const DlmIcon(DlmIconName.plus),
+                    variant: DlmButtonVariant.plain,
+                    onPressed: () => createQueue(context, ref),
+                  ),
+                ),
+              ),
+            ),
+            DlmMenuButton(
+              icon: const DlmIcon(DlmIconName.settings),
+              semanticLabel: l.hub_button,
+              variant: DlmButtonVariant.plain,
+              entries: [
+                for (final (section, icon) in [
+                  (HubSection.tools, DlmIconName.chart),
+                  (HubSection.manage, DlmIconName.tag),
+                  (HubSection.settings, DlmIconName.settings),
+                ])
+                  DlmMenuItem(
+                    label: hubSectionTitle(l, section),
+                    icon: DlmIcon(icon),
+                    onPressed: () =>
+                        unawaited(showSettingsHub(context, section: section)),
+                  ),
+              ],
+            ),
+          ],
         ),
       ),
       sections: [
@@ -271,43 +295,6 @@ class _AppShellState extends ConsumerState<AppShell> {
                 ),
             ],
           ),
-        DlmSidebarSection(
-          title: l.nav_tools,
-          items: [
-            for (final page in toolPages)
-              DlmSidebarItem(
-                id: manageSidebarId(page),
-                label: _manageTitle(l, page),
-                icon: DlmIcon(switch (page) {
-                  'browser' => DlmIconName.globe,
-                  'transfer' => DlmIconName.importIcon,
-                  _ => DlmIconName.chart,
-                }),
-              ),
-          ],
-        ),
-        DlmSidebarSection(
-          title: l.nav_manage,
-          items: [
-            for (final page in setupPages)
-              DlmSidebarItem(
-                id: manageSidebarId(page),
-                label: _manageTitle(l, page),
-                icon: const DlmIcon(DlmIconName.tag),
-              ),
-          ],
-        ),
-        DlmSidebarSection(
-          title: l.nav_settings,
-          items: [
-            for (final g in settingsGroups)
-              DlmSidebarItem(
-                id: settingsSidebarId(g),
-                label: humaniseSetting(g),
-                icon: const DlmIcon(DlmIconName.settings),
-              ),
-          ],
-        ),
       ],
     );
 

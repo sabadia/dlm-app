@@ -5866,6 +5866,18 @@ abstract class AppLocalizations {
   /// **'Tools'**
   String get nav_tools;
 
+  /// No description provided for @hub_button.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools, manage and settings'**
+  String get hub_button;
+
+  /// No description provided for @hub_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get hub_close;
+
   /// No description provided for @add_category.
   ///
   /// In en, this message translates to:

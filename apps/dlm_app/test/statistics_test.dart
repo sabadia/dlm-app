@@ -139,6 +139,12 @@ void main() {
       )
       .first;
 
+  // The downloads list stays behind the window, so look inside the page.
+  Finder inPage(String text) => find.descendant(
+    of: find.byType(StatisticsScreen),
+    matching: find.text(text),
+  );
+
   appTest('totals, state and engines are shown', (tester) async {
     await open(tester, FakeStats(_timeline));
     expect(find.text('5'), findsWidgets);
@@ -181,13 +187,13 @@ void main() {
       ],
     );
     await tester.scrollUntilVisible(
-      find.text('ubuntu.iso'),
+      inPage('ubuntu.iso'),
       300,
       scrollable: pageScroll(),
     );
-    expect(find.text('ubuntu.iso'), findsOneWidget);
-    expect(find.text('movie.mkv'), findsOneWidget);
-    expect(find.text('still-going.zip'), findsNothing);
+    expect(inPage('ubuntu.iso'), findsOneWidget);
+    expect(inPage('movie.mkv'), findsOneWidget);
+    expect(inPage('still-going.zip'), findsNothing);
     await tester.enterText(
       find
           .descendant(
@@ -199,8 +205,8 @@ void main() {
     );
     await tester.pump(const Duration(milliseconds: 100));
     await settle(tester);
-    expect(find.text('ubuntu.iso'), findsNothing);
-    expect(find.text('movie.mkv'), findsOneWidget);
+    expect(inPage('ubuntu.iso'), findsNothing);
+    expect(inPage('movie.mkv'), findsOneWidget);
   });
 
   appTest('cleanup is previewed, then confirmed', (tester) async {
