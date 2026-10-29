@@ -5205,6 +5205,162 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Off deletes at once, keeping the files on disk.'**
   String get pref_confirm_delete_desc;
+
+  /// No description provided for @nav_manage_about.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get nav_manage_about;
+
+  /// No description provided for @ab_title.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm'**
+  String get ab_title;
+
+  /// No description provided for @ab_blurb.
+  ///
+  /// In en, this message translates to:
+  /// **'A download manager for files, torrents and streams, made of this app and a download service that does the work.'**
+  String get ab_blurb;
+
+  /// No description provided for @ab_app.
+  ///
+  /// In en, this message translates to:
+  /// **'This app'**
+  String get ab_app;
+
+  /// No description provided for @ab_daemon.
+  ///
+  /// In en, this message translates to:
+  /// **'The download service'**
+  String get ab_daemon;
+
+  /// No description provided for @ab_version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get ab_version;
+
+  /// No description provided for @ab_api.
+  ///
+  /// In en, this message translates to:
+  /// **'Talks API revision'**
+  String get ab_api;
+
+  /// No description provided for @ab_api_value.
+  ///
+  /// In en, this message translates to:
+  /// **'revision {current}, works with {oldest} and newer'**
+  String ab_api_value(int current, int oldest);
+
+  /// No description provided for @ab_system.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get ab_system;
+
+  /// No description provided for @ab_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Listens on'**
+  String get ab_address;
+
+  /// No description provided for @ab_compat.
+  ///
+  /// In en, this message translates to:
+  /// **'Together'**
+  String get ab_compat;
+
+  /// No description provided for @ab_compat_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'They work together.'**
+  String get ab_compat_ok;
+
+  /// No description provided for @ab_compat_app_old.
+  ///
+  /// In en, this message translates to:
+  /// **'The service needs a newer version of this app.'**
+  String get ab_compat_app_old;
+
+  /// No description provided for @ab_compat_daemon_old.
+  ///
+  /// In en, this message translates to:
+  /// **'The service is older than this app supports.'**
+  String get ab_compat_daemon_old;
+
+  /// No description provided for @ab_compat_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not connected.'**
+  String get ab_compat_unknown;
+
+  /// No description provided for @ab_support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get ab_support;
+
+  /// No description provided for @ab_diagnostics.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics'**
+  String get ab_diagnostics;
+
+  /// No description provided for @ab_diagnostics_copy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy diagnostics'**
+  String get ab_diagnostics_copy;
+
+  /// No description provided for @ab_diagnostics_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Puts versions, the connections (without tokens) and the recent log on the clipboard, with secrets removed, for you to paste into a bug report.'**
+  String get ab_diagnostics_desc;
+
+  /// No description provided for @ab_diagnostics_copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Diagnostics copied'**
+  String get ab_diagnostics_copied;
+
+  /// No description provided for @ab_licences.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licences'**
+  String get ab_licences;
+
+  /// No description provided for @ab_licences_list.
+  ///
+  /// In en, this message translates to:
+  /// **'Packages'**
+  String get ab_licences_list;
+
+  /// No description provided for @ab_licences_show.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the licences'**
+  String get ab_licences_show;
+
+  /// No description provided for @ab_licences_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'dlm is built from open-source packages. Their licences are listed here.'**
+  String get ab_licences_desc;
+
+  /// No description provided for @ab_licences_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No licences are registered in this build.'**
+  String get ab_licences_none;
+
+  /// No description provided for @ab_licences_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 licence text} other{{count} licence texts}}'**
+  String ab_licences_count(int count);
 }
 
 class _AppLocalizationsDelegate

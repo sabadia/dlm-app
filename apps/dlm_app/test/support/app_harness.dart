@@ -654,32 +654,33 @@ Future<void> settle(WidgetTester tester) async {
 }
 
 /// What a daemon reports about itself, with the given tools.
-SystemInfo systemInfo(List<ToolStatus> tools) => SystemInfo(
-  address: '127.0.0.1:1',
-  apiVersion: 1,
-  arch: 'arm64',
-  databaseBytes: 0,
-  engines: const ['http'],
-  fsRoots: const [],
-  goVersion: 'go1.26',
-  local: true,
-  minClientApi: 1,
-  os: 'darwin',
-  paths: const SystemPaths(
-    cache: '/c',
-    config: '/cfg',
-    data: '/d',
-    database: '/db',
-    downloads: '/dl',
-    log: '/l',
-  ),
-  pid: 1,
-  startedAt: DateTime.utc(2026, 10, 29),
-  tls: false,
-  tools: tools,
-  uptimeSeconds: 1,
-  version: '0.2.1',
-);
+SystemInfo systemInfo(List<ToolStatus> tools, {int minClientApi = 1}) =>
+    SystemInfo(
+      address: '127.0.0.1:1',
+      apiVersion: 1,
+      arch: 'arm64',
+      databaseBytes: 0,
+      engines: const ['http'],
+      fsRoots: const [],
+      goVersion: 'go1.26',
+      local: true,
+      minClientApi: minClientApi,
+      os: 'darwin',
+      paths: const SystemPaths(
+        cache: '/c',
+        config: '/cfg',
+        data: '/d',
+        database: '/db',
+        downloads: '/dl',
+        log: '/l',
+      ),
+      pid: 1,
+      startedAt: DateTime.utc(2026, 10, 29),
+      tls: false,
+      tools: tools,
+      uptimeSeconds: 1,
+      version: '0.2.1',
+    );
 
 /// Global settings in memory that record the patches sent to them. A patch
 /// is applied as an RFC 7396 merge patch; [failWith] makes the next one fail.

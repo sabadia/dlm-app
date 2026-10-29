@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../about/about_screen.dart';
 import 'access_screen.dart';
 import 'browser_screen.dart';
 import 'categories_screen.dart';
@@ -25,6 +26,7 @@ const List<String> managePages = [
   'daemon',
   'access',
   'preferences',
+  'about',
 ];
 
 /// One management page.
@@ -48,6 +50,7 @@ class ManageScreen extends StatelessWidget {
     'daemon' => const DaemonScreen(),
     'access' => const AccessScreen(),
     'preferences' => const PreferencesScreen(),
+    'about' => const AboutScreen(),
     _ => const SizedBox.shrink(),
   };
 }

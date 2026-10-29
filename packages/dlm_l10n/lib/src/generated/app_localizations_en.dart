@@ -3088,4 +3088,97 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get pref_confirm_delete_desc =>
       'Off deletes at once, keeping the files on disk.';
+
+  @override
+  String get nav_manage_about => 'About';
+
+  @override
+  String get ab_title => 'dlm';
+
+  @override
+  String get ab_blurb =>
+      'A download manager for files, torrents and streams, made of this app and a download service that does the work.';
+
+  @override
+  String get ab_app => 'This app';
+
+  @override
+  String get ab_daemon => 'The download service';
+
+  @override
+  String get ab_version => 'Version';
+
+  @override
+  String get ab_api => 'Talks API revision';
+
+  @override
+  String ab_api_value(int current, int oldest) {
+    return 'revision $current, works with $oldest and newer';
+  }
+
+  @override
+  String get ab_system => 'System';
+
+  @override
+  String get ab_address => 'Listens on';
+
+  @override
+  String get ab_compat => 'Together';
+
+  @override
+  String get ab_compat_ok => 'They work together.';
+
+  @override
+  String get ab_compat_app_old =>
+      'The service needs a newer version of this app.';
+
+  @override
+  String get ab_compat_daemon_old =>
+      'The service is older than this app supports.';
+
+  @override
+  String get ab_compat_unknown => 'Not connected.';
+
+  @override
+  String get ab_support => 'Support';
+
+  @override
+  String get ab_diagnostics => 'Diagnostics';
+
+  @override
+  String get ab_diagnostics_copy => 'Copy diagnostics';
+
+  @override
+  String get ab_diagnostics_desc =>
+      'Puts versions, the connections (without tokens) and the recent log on the clipboard, with secrets removed, for you to paste into a bug report.';
+
+  @override
+  String get ab_diagnostics_copied => 'Diagnostics copied';
+
+  @override
+  String get ab_licences => 'Open-source licences';
+
+  @override
+  String get ab_licences_list => 'Packages';
+
+  @override
+  String get ab_licences_show => 'Show the licences';
+
+  @override
+  String get ab_licences_desc =>
+      'dlm is built from open-source packages. Their licences are listed here.';
+
+  @override
+  String get ab_licences_none => 'No licences are registered in this build.';
+
+  @override
+  String ab_licences_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count licence texts',
+      one: '1 licence text',
+    );
+    return '$_temp0';
+  }
 }

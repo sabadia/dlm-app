@@ -1835,5 +1835,48 @@
   "pref_density": "Row height",
   "pref_confirmations": "Asking first",
   "pref_confirm_delete": "Ask before deleting downloads",
-  "pref_confirm_delete_desc": "Off deletes at once, keeping the files on disk."
+  "pref_confirm_delete_desc": "Off deletes at once, keeping the files on disk.",
+  "nav_manage_about": "About",
+  "ab_title": "dlm",
+  "ab_blurb": "A download manager for files, torrents and streams, made of this app and a download service that does the work.",
+  "ab_app": "This app",
+  "ab_daemon": "The download service",
+  "ab_version": "Version",
+  "ab_api": "Talks API revision",
+  "ab_api_value": "revision {current}, works with {oldest} and newer",
+  "@ab_api_value": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "oldest": {
+        "type": "int"
+      }
+    }
+  },
+  "ab_system": "System",
+  "ab_address": "Listens on",
+  "ab_compat": "Together",
+  "ab_compat_ok": "They work together.",
+  "ab_compat_app_old": "The service needs a newer version of this app.",
+  "ab_compat_daemon_old": "The service is older than this app supports.",
+  "ab_compat_unknown": "Not connected.",
+  "ab_support": "Support",
+  "ab_diagnostics": "Diagnostics",
+  "ab_diagnostics_copy": "Copy diagnostics",
+  "ab_diagnostics_desc": "Puts versions, the connections (without tokens) and the recent log on the clipboard, with secrets removed, for you to paste into a bug report.",
+  "ab_diagnostics_copied": "Diagnostics copied",
+  "ab_licences": "Open-source licences",
+  "ab_licences_list": "Packages",
+  "ab_licences_show": "Show the licences",
+  "ab_licences_desc": "dlm is built from open-source packages. Their licences are listed here.",
+  "ab_licences_none": "No licences are registered in this build.",
+  "ab_licences_count": "{count, plural, one{1 licence text} other{{count} licence texts}}",
+  "@ab_licences_count": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
