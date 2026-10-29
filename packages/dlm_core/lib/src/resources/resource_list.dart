@@ -215,6 +215,15 @@ class PluginsController extends ResourceList<Plugin> {
     ],
   );
 
+  /// The latest log records of a plugin (at least [level]; containing [q]).
+  Future<LogList> logs(String name, {Level? level, String? q}) => guard(
+    () => ref
+        .read(apiProvider)
+        .rest
+        .plugins
+        .getPluginLogs(name: name, level: level, q: q),
+  );
+
   /// Removes a plugin.
   Future<void> remove(String name) => mutate(
     (api) => api.rest.plugins.deletePlugin(name: name),

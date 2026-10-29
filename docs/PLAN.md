@@ -142,7 +142,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F4.3 Categories manager — Rules, drag order, live match tester.
 - [x] F4.4 Logins and Cookies managers — Domain tree, Netscape/JSON import-export, reveal on demand.
 - [x] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
-- [ ] F4.6 Plugins manager *(needs P13.9)* — Install from folder/git, permission review (hooks + net hosts), enable/disable/remove, logs.
+- [x] F4.6 Plugins manager *(needs P13.9)* — Install from folder/git, permission review (hooks + net hosts), enable/disable/remove, logs.
 - [ ] F4.7 Browser tool — Resolve a page, candidates list, download, profile cleanup, tool status.
 - [ ] F4.8 Import/Export wizard *(needs P13.6)* — JSON/URL list/aria2, dry-run preview, results.
 - [ ] F4.9 Statistics, history and cleanup *(needs P13.7, P13.14)* — Charts by day/engine/queue, totals, completed history search, cleanup.

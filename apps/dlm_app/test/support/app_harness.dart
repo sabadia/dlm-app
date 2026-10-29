@@ -331,6 +331,86 @@ class FakeWebhooks extends WebhooksController {
   }
 }
 
+/// The plugins in memory.
+class FakePlugins extends PluginsController {
+  FakePlugins(this.plugins, {this.records = const []});
+
+  List<Plugin> plugins;
+  final List<Record> records;
+  final List<String> calls = [];
+
+  @override
+  Future<List<Plugin>> build() async => plugins;
+
+  @override
+  Future<Plugin> install(InstallPluginBody body) async {
+    calls.add(
+      'install ${body.source} ${body.ref} ${body.replace} ${body.disabled}',
+    );
+    final p = Plugin(
+      enabled: body.disabled != true,
+      installedAt: DateTime.utc(2026),
+      name: 'fresh',
+      source: body.source,
+      updatedAt: DateTime.utc(2026),
+      version: '0.1.0',
+      title: 'Fresh plugin',
+      description: 'Does things',
+      hooks: const ['download.completed'],
+      net: const ['api.example.com'],
+    );
+    plugins = [...plugins, p];
+    state = AsyncData(plugins);
+    return p;
+  }
+
+  @override
+  Future<Plugin> setEnabled(String name, {required bool enabled}) async {
+    calls.add('enabled $name $enabled');
+    final old = plugins.firstWhere((p) => p.name == name);
+    final p = Plugin(
+      enabled: enabled,
+      installedAt: old.installedAt,
+      name: old.name,
+      source: old.source,
+      updatedAt: old.updatedAt,
+      version: old.version,
+      title: old.title,
+      description: old.description,
+      hooks: old.hooks,
+      net: old.net,
+      error: old.error,
+    );
+    plugins = [
+      for (final o in plugins)
+        if (o.name == name) p else o,
+    ];
+    state = AsyncData(plugins);
+    return p;
+  }
+
+  @override
+  Future<void> remove(String name) async {
+    calls.add('remove $name');
+    plugins = [
+      for (final p in plugins)
+        if (p.name != name) p,
+    ];
+    state = AsyncData(plugins);
+  }
+
+  @override
+  Future<LogList> logs(String name, {Level? level, String? q}) async {
+    calls.add('logs $name ${level?.json} $q');
+    return LogList(
+      bootId: 'b',
+      hasMore: false,
+      lastId: records.isEmpty ? 0 : records.last.id,
+      records: records,
+    );
+  }
+}
+
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 

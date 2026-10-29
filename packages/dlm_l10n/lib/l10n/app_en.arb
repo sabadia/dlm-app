@@ -1393,5 +1393,90 @@
     }
   },
   "wh_delete_message": "Events will no longer be sent there.",
-  "wh_delete_confirm": "Delete webhook"
+  "wh_delete_confirm": "Delete webhook",
+  "nav_manage_plugins": "Plugins",
+  "log_level": "Level",
+  "log_level_all": "All levels",
+  "log_level_info": "Info and above",
+  "log_level_warn": "Warnings and errors",
+  "log_level_error": "Errors only",
+  "log_search": "Search the log",
+  "log_refresh": "Refresh",
+  "log_empty": "No log records.",
+  "log_error": "The log could not be read.",
+  "pl_intro": "Plugins are JavaScript extensions that resolve links, renew expired ones and react to downloads starting, failing and finishing. They run inside the daemon.",
+  "pl_install": "Install a plugin",
+  "pl_install_title": "Install a plugin",
+  "pl_install_message": "The plugin is installed switched off. You review what it may do before it runs.",
+  "pl_install_go": "Install",
+  "pl_source": "Where from",
+  "pl_source_desc": "A folder on the computer the daemon runs on, or a git address.",
+  "pl_ref": "Version",
+  "pl_ref_desc": "A branch, tag or commit, for a git address. Optional.",
+  "pl_replace": "Replace a plugin of the same name",
+  "pl_empty_title": "No plugins installed",
+  "pl_empty_message": "Install one from a folder or a git address.",
+  "pl_enabled": "Run {name}",
+  "@pl_enabled": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_permissions": "Permissions",
+  "pl_logs": "Log",
+  "pl_remove": "Remove {name}",
+  "@pl_remove": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_remove_title": "Remove {name}?",
+  "@pl_remove_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_remove_message": "The plugin, its files and the data it stored are deleted.",
+  "pl_remove_confirm": "Remove plugin",
+  "pl_logs_title": "Log of {name}",
+  "@pl_logs_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_review_title": "What {name} may do",
+  "@pl_review_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_review_fresh": "The plugin is installed but not running.",
+  "pl_review_source": "From {source}, version {version}.",
+  "@pl_review_source": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      },
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "pl_hooks": "It reacts to",
+  "pl_hooks_none": "No events.",
+  "pl_hosts": "It may contact",
+  "pl_hosts_none": "No other computers.",
+  "pl_trust_warning": "A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.",
+  "pl_keep_off": "Keep it off",
+  "pl_enable": "Switch it on"
 }

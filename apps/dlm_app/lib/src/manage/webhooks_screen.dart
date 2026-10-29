@@ -466,7 +466,9 @@ class _DeliveriesDialogState extends ConsumerState<DeliveriesDialog> {
         actions: [
           DlmButton(
             label: l.wh_log_refresh,
-            onPressed: () => setState(() => _future = _load()),
+            onPressed: () => setState(() {
+              _future = _load();
+            }),
           ),
           DlmButton(
             label: l.add_close,

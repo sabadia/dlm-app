@@ -3873,6 +3873,246 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete webhook'**
   String get wh_delete_confirm;
+
+  /// No description provided for @nav_manage_plugins.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugins'**
+  String get nav_manage_plugins;
+
+  /// No description provided for @log_level.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get log_level;
+
+  /// No description provided for @log_level_all.
+  ///
+  /// In en, this message translates to:
+  /// **'All levels'**
+  String get log_level_all;
+
+  /// No description provided for @log_level_info.
+  ///
+  /// In en, this message translates to:
+  /// **'Info and above'**
+  String get log_level_info;
+
+  /// No description provided for @log_level_warn.
+  ///
+  /// In en, this message translates to:
+  /// **'Warnings and errors'**
+  String get log_level_warn;
+
+  /// No description provided for @log_level_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Errors only'**
+  String get log_level_error;
+
+  /// No description provided for @log_search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search the log'**
+  String get log_search;
+
+  /// No description provided for @log_refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get log_refresh;
+
+  /// No description provided for @log_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No log records.'**
+  String get log_empty;
+
+  /// No description provided for @log_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The log could not be read.'**
+  String get log_error;
+
+  /// No description provided for @pl_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Plugins are JavaScript extensions that resolve links, renew expired ones and react to downloads starting, failing and finishing. They run inside the daemon.'**
+  String get pl_intro;
+
+  /// No description provided for @pl_install.
+  ///
+  /// In en, this message translates to:
+  /// **'Install a plugin'**
+  String get pl_install;
+
+  /// No description provided for @pl_install_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Install a plugin'**
+  String get pl_install_title;
+
+  /// No description provided for @pl_install_message.
+  ///
+  /// In en, this message translates to:
+  /// **'The plugin is installed switched off. You review what it may do before it runs.'**
+  String get pl_install_message;
+
+  /// No description provided for @pl_install_go.
+  ///
+  /// In en, this message translates to:
+  /// **'Install'**
+  String get pl_install_go;
+
+  /// No description provided for @pl_source.
+  ///
+  /// In en, this message translates to:
+  /// **'Where from'**
+  String get pl_source;
+
+  /// No description provided for @pl_source_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A folder on the computer the daemon runs on, or a git address.'**
+  String get pl_source_desc;
+
+  /// No description provided for @pl_ref.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get pl_ref;
+
+  /// No description provided for @pl_ref_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'A branch, tag or commit, for a git address. Optional.'**
+  String get pl_ref_desc;
+
+  /// No description provided for @pl_replace.
+  ///
+  /// In en, this message translates to:
+  /// **'Replace a plugin of the same name'**
+  String get pl_replace;
+
+  /// No description provided for @pl_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No plugins installed'**
+  String get pl_empty_title;
+
+  /// No description provided for @pl_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Install one from a folder or a git address.'**
+  String get pl_empty_message;
+
+  /// No description provided for @pl_enabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Run {name}'**
+  String pl_enabled(String name);
+
+  /// No description provided for @pl_permissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Permissions'**
+  String get pl_permissions;
+
+  /// No description provided for @pl_logs.
+  ///
+  /// In en, this message translates to:
+  /// **'Log'**
+  String get pl_logs;
+
+  /// No description provided for @pl_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String pl_remove(String name);
+
+  /// No description provided for @pl_remove_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}?'**
+  String pl_remove_title(String name);
+
+  /// No description provided for @pl_remove_message.
+  ///
+  /// In en, this message translates to:
+  /// **'The plugin, its files and the data it stored are deleted.'**
+  String get pl_remove_message;
+
+  /// No description provided for @pl_remove_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove plugin'**
+  String get pl_remove_confirm;
+
+  /// No description provided for @pl_logs_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Log of {name}'**
+  String pl_logs_title(String name);
+
+  /// No description provided for @pl_review_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What {name} may do'**
+  String pl_review_title(String name);
+
+  /// No description provided for @pl_review_fresh.
+  ///
+  /// In en, this message translates to:
+  /// **'The plugin is installed but not running.'**
+  String get pl_review_fresh;
+
+  /// No description provided for @pl_review_source.
+  ///
+  /// In en, this message translates to:
+  /// **'From {source}, version {version}.'**
+  String pl_review_source(String source, String version);
+
+  /// No description provided for @pl_hooks.
+  ///
+  /// In en, this message translates to:
+  /// **'It reacts to'**
+  String get pl_hooks;
+
+  /// No description provided for @pl_hooks_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No events.'**
+  String get pl_hooks_none;
+
+  /// No description provided for @pl_hosts.
+  ///
+  /// In en, this message translates to:
+  /// **'It may contact'**
+  String get pl_hosts;
+
+  /// No description provided for @pl_hosts_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No other computers.'**
+  String get pl_hosts_none;
+
+  /// No description provided for @pl_trust_warning.
+  ///
+  /// In en, this message translates to:
+  /// **'A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.'**
+  String get pl_trust_warning;
+
+  /// No description provided for @pl_keep_off.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it off'**
+  String get pl_keep_off;
+
+  /// No description provided for @pl_enable.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch it on'**
+  String get pl_enable;
 }
 
 class _AppLocalizationsDelegate

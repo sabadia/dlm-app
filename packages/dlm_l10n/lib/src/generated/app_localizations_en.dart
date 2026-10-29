@@ -2306,4 +2306,142 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get wh_delete_confirm => 'Delete webhook';
+
+  @override
+  String get nav_manage_plugins => 'Plugins';
+
+  @override
+  String get log_level => 'Level';
+
+  @override
+  String get log_level_all => 'All levels';
+
+  @override
+  String get log_level_info => 'Info and above';
+
+  @override
+  String get log_level_warn => 'Warnings and errors';
+
+  @override
+  String get log_level_error => 'Errors only';
+
+  @override
+  String get log_search => 'Search the log';
+
+  @override
+  String get log_refresh => 'Refresh';
+
+  @override
+  String get log_empty => 'No log records.';
+
+  @override
+  String get log_error => 'The log could not be read.';
+
+  @override
+  String get pl_intro =>
+      'Plugins are JavaScript extensions that resolve links, renew expired ones and react to downloads starting, failing and finishing. They run inside the daemon.';
+
+  @override
+  String get pl_install => 'Install a plugin';
+
+  @override
+  String get pl_install_title => 'Install a plugin';
+
+  @override
+  String get pl_install_message =>
+      'The plugin is installed switched off. You review what it may do before it runs.';
+
+  @override
+  String get pl_install_go => 'Install';
+
+  @override
+  String get pl_source => 'Where from';
+
+  @override
+  String get pl_source_desc =>
+      'A folder on the computer the daemon runs on, or a git address.';
+
+  @override
+  String get pl_ref => 'Version';
+
+  @override
+  String get pl_ref_desc =>
+      'A branch, tag or commit, for a git address. Optional.';
+
+  @override
+  String get pl_replace => 'Replace a plugin of the same name';
+
+  @override
+  String get pl_empty_title => 'No plugins installed';
+
+  @override
+  String get pl_empty_message => 'Install one from a folder or a git address.';
+
+  @override
+  String pl_enabled(String name) {
+    return 'Run $name';
+  }
+
+  @override
+  String get pl_permissions => 'Permissions';
+
+  @override
+  String get pl_logs => 'Log';
+
+  @override
+  String pl_remove(String name) {
+    return 'Remove $name';
+  }
+
+  @override
+  String pl_remove_title(String name) {
+    return 'Remove $name?';
+  }
+
+  @override
+  String get pl_remove_message =>
+      'The plugin, its files and the data it stored are deleted.';
+
+  @override
+  String get pl_remove_confirm => 'Remove plugin';
+
+  @override
+  String pl_logs_title(String name) {
+    return 'Log of $name';
+  }
+
+  @override
+  String pl_review_title(String name) {
+    return 'What $name may do';
+  }
+
+  @override
+  String get pl_review_fresh => 'The plugin is installed but not running.';
+
+  @override
+  String pl_review_source(String source, String version) {
+    return 'From $source, version $version.';
+  }
+
+  @override
+  String get pl_hooks => 'It reacts to';
+
+  @override
+  String get pl_hooks_none => 'No events.';
+
+  @override
+  String get pl_hosts => 'It may contact';
+
+  @override
+  String get pl_hosts_none => 'No other computers.';
+
+  @override
+  String get pl_trust_warning =>
+      'A plugin runs inside the daemon and can contact the hosts listed. Only switch on plugins you trust.';
+
+  @override
+  String get pl_keep_off => 'Keep it off';
+
+  @override
+  String get pl_enable => 'Switch it on';
 }

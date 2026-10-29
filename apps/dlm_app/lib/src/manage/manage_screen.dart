@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'categories_screen.dart';
 import 'cookies_screen.dart';
 import 'logins_screen.dart';
+import 'plugins_screen.dart';
 import 'webhooks_screen.dart';
 
 /// The management pages of the sidebar, by their path segment.
@@ -11,6 +12,7 @@ const List<String> managePages = [
   'logins',
   'cookies',
   'webhooks',
+  'plugins',
 ];
 
 /// One management page.
@@ -27,6 +29,7 @@ class ManageScreen extends StatelessWidget {
     'logins' => const LoginsScreen(),
     'cookies' => const CookiesScreen(),
     'webhooks' => const WebhooksScreen(),
+    'plugins' => const PluginsScreen(),
     _ => const SizedBox.shrink(),
   };
 }

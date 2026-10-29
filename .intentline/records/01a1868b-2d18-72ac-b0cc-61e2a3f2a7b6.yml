@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1868b-2d18-72ac-b0cc-61e2a3f2a7b6
+status: draft
+created_at: '2026-10-29T07:23:50Z'
+updated_at: '2026-10-29T07:23:50Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'Plugins manager: install off, permission review, enable/disable/remove, logs; reusable log view (F4.6, uses P13.9)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/manage/plugins_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/log_view.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

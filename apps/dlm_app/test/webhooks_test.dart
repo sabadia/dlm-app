@@ -199,7 +199,7 @@ void main() {
   });
 
   appTest('the delivery log lists the attempts', (tester) async {
-    await open(
+    final h = await open(
       tester,
       hooks: [_hook],
       deliveries: [
@@ -235,6 +235,15 @@ void main() {
     expect(find.text('connection refused'), findsOneWidget);
     expect(find.textContaining('no answer'), findsOneWidget);
     expect(find.textContaining('will retry'), findsOneWidget);
+    // Refresh reads the log again.
+    await tester.tap(
+      find.descendant(
+        of: find.byType(DeliveriesDialog),
+        matching: find.text('Refresh'),
+      ),
+    );
+    await settle(tester);
+    expect(fake(h).calls.where((c) => c.startsWith('deliveries')).length, 2);
   });
 
   appTest('deleting asks first', (tester) async {
