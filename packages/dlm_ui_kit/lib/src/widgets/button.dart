@@ -65,7 +65,16 @@ class DlmButton extends StatelessWidget {
             ?icon,
             if (icon != null && label != null)
               SizedBox(width: theme.metrics.spacing.sm),
-            if (label != null) Text(label!),
+            // Large text or a long translation shortens the label with an
+            // ellipsis rather than overflowing the button.
+            if (label != null)
+              Flexible(
+                child: Text(
+                  label!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
           ],
         ),
       ),

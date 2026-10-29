@@ -3552,3 +3552,3596 @@ class AppLocalizationsEn extends AppLocalizations {
   String get ev_note =>
       'This is what the app has seen since it connected; the daemon does not keep a longer history.';
 }
+
+/// The translations for English (`en_XA`).
+class AppLocalizationsEnXa extends AppLocalizationsEn {
+  AppLocalizationsEnXa() : super('en_XA');
+
+  @override
+  String get problem_task_not_found =>
+      '[Thàt dôwñlôàd dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_queue_not_found =>
+      '[Thàt qûéûé dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_category_not_found =>
+      '[Thàt çàtégôrý dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_webhook_not_found =>
+      '[Thàt wébhôôk dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_credential_not_found =>
+      '[Thàt lôgîñ dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_plugin_not_found =>
+      '[Thàt plûgîñ dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_cookie_not_found =>
+      '[Thàt çôôkîé dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~]';
+
+  @override
+  String get problem_engine_not_found =>
+      '[Thàt dôwñlôàd éñgîñé dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_browser_profile_not_found =>
+      '[Thàt brôwšér prôfîlé dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_browser_result_not_found =>
+      '[Thàt pàgé réšûlt dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_browser_candidate_not_found =>
+      '[Thàt dôwñlôàd çàñdîdàté dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_refresh_attempt_not_found =>
+      '[Thàt lîñk réfréšh dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_resolve_result_not_found =>
+      '[Thàt lîñk çhéçk dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_queue_name_taken =>
+      '[Â qûéûé wîth thàt ñàmé àlréàdý éxîštš.~~~~~~~~~~~~]';
+
+  @override
+  String get problem_category_name_taken =>
+      '[Â çàtégôrý wîth thàt ñàmé àlréàdý éxîštš.~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_queue_not_empty =>
+      '[Thé qûéûé štîll hàš dôwñlôàdš. Môvé ôr délété thém fîršt.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String problem_task_duplicate(String status) {
+    return '[Thîš fîlé îš àlréàdý îñ ýôûr dôwñlôàdš ($status).~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get problem_task_file_exists =>
+      '[Â fîlé wîth thàt ñàmé àlréàdý éxîštš îñ thé tàrgét fôldér.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String problem_task_invalid_state(String operation, String status) {
+    return '[Thîš dôwñlôàd çàññôt bé $operation whîlé ît îš $status.~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get problem_task_invalid_transition =>
+      '[Thîš dôwñlôàd çàññôt çhàñgé tô thàt štàté rîght ñôw.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_task_locked =>
+      '[Thîš dôwñlôàd îš bûšý. Trý àgàîñ îñ à môméñt.~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_task_state_changed =>
+      '[Thîš dôwñlôàd çhàñgéd whîlé ýôû wéré wôrkîñg ôñ ît. Çhéçk îtš štàté àñd trý àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_browser_running =>
+      '[Thé brôwšér îš îñ ûšé. Çlôšé îtš pàgéš fîršt.~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_category_bad_dir =>
+      '[Thàt fôldér îš ñôt àllôwéd fôr à çàtégôrý.~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_settings_invalid =>
+      '[Šômé šéttîñgš àré ñôt vàlîd. Çhéçk thé hîghlîghtéd fîéldš.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_validation_failed =>
+      '[Šômé vàlûéš àré ñôt vàlîd. Çhéçk thé hîghlîghtéd fîéldš.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_invalid_argument =>
+      '[Thôšé vàlûéš àré ñôt vàlîd.~~~~~~~~~]';
+
+  @override
+  String get problem_settings_changed =>
+      '[Thé šéttîñgš wéré çhàñgéd šôméwhéré élšé. Thé làtéšt šéttîñgš hàvé bééñ lôàdéd; révîéw ýôûr çhàñgé àñd àpplý ît àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_browser_unavailable =>
+      '[Ñô brôwšér îš àvàîlàblé. Îñštàll Çhrômé, Çhrômîûm, Édgé ôr Bràvé, ôr àllôw dôwñlôàdîñg ôñé îñ thé šéttîñgš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String problem_origin_failed(String code) {
+    return '[Thé šérvér ôf thé fîlé dîd ñôt àñšwér prôpérlý ($code).~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get problem_request_cancelled =>
+      '[Thé réqûéšt wàš çàñçélléd.~~~~~~~~]';
+
+  @override
+  String get problem_service_unavailable =>
+      '[Thé dôwñlôàd šérvîçé îš ñôt réàdý ýét. Trý àgàîñ îñ à môméñt.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_bad_request =>
+      '[Thé réqûéšt wàš ñôt ûñdérštôôd.~~~~~~~~~~]';
+
+  @override
+  String get problem_unauthorized =>
+      '[Thé àççéšš tôkéñ wàš réjéçtéd. Çhéçk thé tôkéñ ôf thîš çôññéçtîôñ.~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_forbidden => '[Ýôû àré ñôt àllôwéd tô dô thàt.~~~~~~~~~~]';
+
+  @override
+  String get problem_not_found => '[Thàt dôéš ñôt éxîšt (àñý môré).~~~~~~~~~~]';
+
+  @override
+  String get problem_conflict =>
+      '[Thàt çôñflîçtš wîth thé çûrréñt štàté. Réfréšh àñd trý àgàîñ.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_precondition_failed =>
+      '[Thàt wàš çhàñgéd šôméwhéré élšé. Réfréšh àñd trý àgàîñ.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_too_many_requests =>
+      '[Tôô màñý réqûéštš. Wàît à môméñt.~~~~~~~~~~]';
+
+  @override
+  String get problem_server_error =>
+      '[Thé dôwñlôàd šérvîçé hàd àñ îñtérñàl prôblém.~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_connection_lost =>
+      '[Thé dôwñlôàd šérvîçé çàññôt bé réàçhéd.~~~~~~~~~~~~]';
+
+  @override
+  String get problem_connection_timeout =>
+      '[Thé dôwñlôàd šérvîçé dîd ñôt àñšwér îñ tîmé.~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_connection_certificate =>
+      '[Thé çértîfîçàté ôf thé dôwñlôàd šérvîçé çhàñgéd ôr îš ñôt trûštéd. Dô ñôt çôñtîñûé ûñléšš ýôû éxpéçt thîš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get problem_unknown => '[Šôméthîñg wéñt wrôñg.~~~~~~~]';
+
+  @override
+  String get relativeJustNow => '[jûšt ñôw~~~]';
+
+  @override
+  String relativeMinutesAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count mîñûtéš àgô',
+      one: '1 mîñûté àgô',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String relativeHoursAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count hôûrš àgô',
+      one: '1 hôûr àgô',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get relativeYesterday => '[ýéštérdàý~~~]';
+
+  @override
+  String relativeDaysAgo(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dàýš àgô',
+      one: '1 dàý àgô',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get app_name => '[DLM~]';
+
+  @override
+  String get nav_label => '[Ñàvîgàtîôñ~~~]';
+
+  @override
+  String get nav_all => '[Âll Dôwñlôàdš~~~~]';
+
+  @override
+  String get nav_active => '[Âçtîvé~~]';
+
+  @override
+  String get nav_queued => '[Qûéûéd~~]';
+
+  @override
+  String get nav_paused => '[Pàûšéd~~]';
+
+  @override
+  String get nav_completed => '[Çômplétéd~~~]';
+
+  @override
+  String get nav_failed => '[Fàîléd~~]';
+
+  @override
+  String get nav_queues => '[Qûéûéš~~]';
+
+  @override
+  String get toolbar_search_placeholder => '[Šéàrçh dôwñlôàdš~~~~~]';
+
+  @override
+  String get toolbar_search_clear => '[Çléàr šéàrçh~~~~]';
+
+  @override
+  String get toolbar_inspector_show => '[Šhôw détàîlš~~~~]';
+
+  @override
+  String get toolbar_inspector_hide => '[Hîdé détàîlš~~~~]';
+
+  @override
+  String get toolbar_palette => '[Çômmàñdš~~~]';
+
+  @override
+  String get toolbar_label => '[Tôôlbàr~~~]';
+
+  @override
+  String get inspector_empty_title => '[Ñô dôwñlôàd šéléçtéd~~~~~~]';
+
+  @override
+  String get inspector_empty_message =>
+      '[Šéléçt à dôwñlôàd tô šéé îtš détàîlš.~~~~~~~~~~~~]';
+
+  @override
+  String get inspector_resize => '[Réšîžé détàîlš~~~~~]';
+
+  @override
+  String get sidebar_resize => '[Réšîžé šîdébàr~~~~~]';
+
+  @override
+  String get palette_placeholder => '[Týpé à çômmàñd~~~~~]';
+
+  @override
+  String get palette_no_results => '[Ñô màtçhîñg çômmàñd~~~~~~]';
+
+  @override
+  String get palette_label => '[Çômmàñd pàlétté~~~~~]';
+
+  @override
+  String get menu_file => '[Fîlé~~]';
+
+  @override
+  String get menu_go => '[Gô~]';
+
+  @override
+  String get menu_window => '[Wîñdôw~~]';
+
+  @override
+  String get menu_help => '[Hélp~~]';
+
+  @override
+  String get menu_about => '[Âbôût DLM~~~]';
+
+  @override
+  String command_go_to(String destination) {
+    return '[Gô tô $destination~~~~~~]';
+  }
+
+  @override
+  String get command_toggle_inspector => '[Šhôw ôr hîdé détàîlš~~~~~~]';
+
+  @override
+  String get command_focus_search => '[Šéàrçh dôwñlôàdš~~~~~]';
+
+  @override
+  String get connection_connecting_title =>
+      '[Çôññéçtîñg tô thé dôwñlôàd šérvîçé~~~~~~~~~~~]';
+
+  @override
+  String connection_connecting_message(String name) {
+    return '[Štàrtîñg $name…~~~~~]';
+  }
+
+  @override
+  String get connection_failed_title =>
+      '[Çàññôt réàçh thé dôwñlôàd šérvîçé~~~~~~~~~~]';
+
+  @override
+  String connection_failed_message(String name) {
+    return '[Thé àpp çôûld ñôt çôññéçt tô $name.~~~~~~~~~~~]';
+  }
+
+  @override
+  String get connection_retry => '[Trý àgàîñ~~~]';
+
+  @override
+  String get connection_token_rejected_title =>
+      '[Thé àççéšš tôkéñ wàš réfûšéd~~~~~~~~~]';
+
+  @override
+  String connection_token_rejected_message(String name) {
+    return '[$name dîd ñôt àççépt thé šàvéd tôkéñ.~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get connection_incompatible_title =>
+      '[Thîš véršîôñ ôf thé àpp çàññôt tàlk tô thàt šérvîçé~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get connection_incompatible_message =>
+      '[Ûpdàté thé àpp ôr thé šérvîçé šô théîr véršîôñš màtçh.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get connection_trust_title => '[Trûšt thîš šérvér?~~~~~~]';
+
+  @override
+  String connection_trust_message(String name) {
+    return '[$name préšéñtéd à çértîfîçàté thé àpp hàš ñôt šééñ béfôré. Çhéçk thàt thé fîñgérprîñt bélôw màtçhéš thé ôñé ôñ thé šérvér.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get connection_trust_accept => '[Trûšt àñd çôññéçt~~~~~~]';
+
+  @override
+  String get connection_trust_reject => '[Çàñçél~~]';
+
+  @override
+  String get status_connected => '[Çôññéçtéd~~~]';
+
+  @override
+  String get connection_trust_subject => '[Šûbjéçt~~~]';
+
+  @override
+  String get connection_trust_issuer => '[Îššûér~~]';
+
+  @override
+  String get connection_trust_expires => '[Vàlîd ûñtîl~~~~]';
+
+  @override
+  String get connection_trust_fingerprint => '[Fîñgérprîñt~~~~]';
+
+  @override
+  String get connection_certificate_changed =>
+      '[Thé šérvér\'š çértîfîçàté îš dîfféréñt frôm thé ôñé ýôû trûštéd. Dô ñôt çôñtîñûé ûñléšš ýôû kñôw ît wàš réplàçéd.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String connection_reason(String reason) {
+    return '[Réàšôñ: $reason~~~~~]';
+  }
+
+  @override
+  String get col_name => '[Ñàmé~~]';
+
+  @override
+  String get col_status => '[Štàtûš~~]';
+
+  @override
+  String get col_progress => '[Prôgréšš~~~]';
+
+  @override
+  String get col_size => '[Šîžé~~]';
+
+  @override
+  String get col_speed => '[Špééd~~]';
+
+  @override
+  String get col_eta => '[Tîmé léft~~~]';
+
+  @override
+  String get col_queue => '[Qûéûé~~]';
+
+  @override
+  String get col_added => '[Âddéd~~]';
+
+  @override
+  String get task_status_queued => '[Qûéûéd~~]';
+
+  @override
+  String get task_status_running => '[Dôwñlôàdîñg~~~~]';
+
+  @override
+  String get task_status_paused => '[Pàûšéd~~]';
+
+  @override
+  String get task_status_awaiting_link => '[Wàîtîñg fôr à lîñk~~~~~~]';
+
+  @override
+  String get task_status_refreshing => '[Réfréšhîñg lîñk~~~~~]';
+
+  @override
+  String get task_status_postprocessing => '[Fîñîšhîñg~~~]';
+
+  @override
+  String get task_status_completed => '[Çômplétéd~~~]';
+
+  @override
+  String get task_status_error => '[Fàîléd~~]';
+
+  @override
+  String get task_status_unknown => '[Ûñkñôwñ~~~]';
+
+  @override
+  String get task_unnamed => '[Ûññàméd dôwñlôàd~~~~~]';
+
+  @override
+  String task_eta(String time) {
+    return '[$time léft~~~~]';
+  }
+
+  @override
+  String task_row_label(String name, String status) {
+    return '[$name, $status~~~~~]';
+  }
+
+  @override
+  String get table_downloads_label => '[Dôwñlôàdš~~~]';
+
+  @override
+  String get table_sorted_ascending => '[šôrtéd àšçéñdîñg~~~~~]';
+
+  @override
+  String get table_sorted_descending => '[šôrtéd déšçéñdîñg~~~~~~]';
+
+  @override
+  String table_resize_column(String column) {
+    return '[Réšîžé $column~~~~~]';
+  }
+
+  @override
+  String get table_loading_row => '[Lôàdîñg~~~]';
+
+  @override
+  String get list_loading => '[Lôàdîñg dôwñlôàdš~~~~~~]';
+
+  @override
+  String get list_empty_title => '[Ñô dôwñlôàdš héré~~~~~~]';
+
+  @override
+  String get list_empty_message =>
+      '[Dôwñlôàdš ýôû àdd wîll àppéàr îñ thîš lîšt.~~~~~~~~~~~~~]';
+
+  @override
+  String get list_empty_search_title =>
+      '[Ñôthîñg màtçhéš ýôûr šéàrçh~~~~~~~~~]';
+
+  @override
+  String get list_empty_search_message =>
+      '[Trý dîfféréñt wôrdš ôr çléàr thé šéàrçh.~~~~~~~~~~~~]';
+
+  @override
+  String get list_error_title => '[Çôûld ñôt lôàd thé dôwñlôàdš~~~~~~~~~]';
+
+  @override
+  String get list_retry => '[Trý àgàîñ~~~]';
+
+  @override
+  String get action_pause => '[Pàûšé~~]';
+
+  @override
+  String get action_resume => '[Réšûmé~~]';
+
+  @override
+  String get action_restart => '[Dôwñlôàd àgàîñ~~~~~]';
+
+  @override
+  String get action_delete => '[Délété…~~~]';
+
+  @override
+  String get action_copy_link => '[Çôpý lîñk~~~]';
+
+  @override
+  String get action_undo => '[Ûñdô~~]';
+
+  @override
+  String get action_dismiss => '[Dîšmîšš~~~]';
+
+  @override
+  String toast_paused(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Pàûšéd $count dôwñlôàdš',
+      one: 'Pàûšéd 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String toast_resumed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Réšûméd $count dôwñlôàdš',
+      one: 'Réšûméd 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String toast_deleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Délétéd $count dôwñlôàdš',
+      one: 'Délétéd 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get toast_restarted => '[Dôwñlôàd réštàrtéd~~~~~~]';
+
+  @override
+  String get toast_link_copied => '[Lîñk çôpîéd~~~~]';
+
+  @override
+  String toast_some_failed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš çôûld ñôt bé çhàñgéd',
+      one: '1 dôwñlôàd çôûld ñôt bé çhàñgéd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get toast_failure_unknown => '[Šôméthîñg wéñt wrôñg.~~~~~~~]';
+
+  @override
+  String delete_title(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Délété $count dôwñlôàdš?',
+      one: 'Délété thîš dôwñlôàd?',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get delete_message =>
+      '[Théý àré rémôvéd frôm thé lîšt. Théîr fîléš štàý ôñ dîšk ûñléšš ýôû çhôôšé ôthérwîšé.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get delete_files => '[Âlšô délété thé dôwñlôàdéd fîléš~~~~~~~~~~]';
+
+  @override
+  String get delete_confirm => '[Délété~~]';
+
+  @override
+  String get delete_cancel => '[Çàñçél~~]';
+
+  @override
+  String selection_count(int count) {
+    return '[$count šéléçtéd~~~~~]';
+  }
+
+  @override
+  String get banner_reconnecting_title =>
+      '[Çôññéçtîôñ tô thé dôwñlôàd šérvîçé lôšt~~~~~~~~~~~~]';
+
+  @override
+  String get banner_reconnecting_message => '[Trýîñg tô réçôññéçt…~~~~~~]';
+
+  @override
+  String get banner_daemon_restarting_title =>
+      '[Thé dôwñlôàd šérvîçé štôppéd ûñéxpéçtédlý~~~~~~~~~~~~~]';
+
+  @override
+  String get banner_daemon_restarting_message =>
+      '[Ît îš réštàrtîñg; ýôûr dôwñlôàdš çôñtîñûé frôm whéré théý wéré.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get banner_daemon_failed_title =>
+      '[Thé dôwñlôàd šérvîçé kéépš štôppîñg~~~~~~~~~~~]';
+
+  @override
+  String banner_daemon_failed_message(String reason) {
+    return '[$reason~~~]';
+  }
+
+  @override
+  String get banner_daemon_restart => '[Réštàrt šérvîçé~~~~~]';
+
+  @override
+  String get banner_dismiss => '[Dîšmîšš~~~]';
+
+  @override
+  String get queue_new => '[Ñéw qûéûé~~~]';
+
+  @override
+  String get queue_new_title => '[Ñéw qûéûé~~~]';
+
+  @override
+  String get queue_name_label => '[Ñàmé~~]';
+
+  @override
+  String get queue_name_placeholder => '[Fôr éxàmplé Ñîght dôwñlôàdš~~~~~~~~~]';
+
+  @override
+  String get queue_name_taken =>
+      '[Â qûéûé wîth thàt ñàmé àlréàdý éxîštš.~~~~~~~~~~~~]';
+
+  @override
+  String get queue_create => '[Çréàté~~]';
+
+  @override
+  String get queue_rename => '[Réñàmé…~~~]';
+
+  @override
+  String get queue_rename_title => '[Réñàmé qûéûé~~~~]';
+
+  @override
+  String get queue_save => '[Šàvé~~]';
+
+  @override
+  String get queue_delete => '[Délété qûéûé…~~~~]';
+
+  @override
+  String queue_delete_title(String name) {
+    return '[Délété “$name”?~~~~~]';
+  }
+
+  @override
+  String get queue_delete_message =>
+      '[Îtš dôwñlôàdš môvé tô thé défàûlt qûéûé. Ñôthîñg îš rémôvéd frôm dîšk.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get queue_delete_confirm => '[Délété qûéûé~~~~]';
+
+  @override
+  String get queue_move_up => '[Môvé ûp~~~]';
+
+  @override
+  String get queue_move_down => '[Môvé dôwñ~~~]';
+
+  @override
+  String get queue_start => '[Štàrt qûéûé~~~~]';
+
+  @override
+  String get queue_stop => '[Štôp qûéûé~~~]';
+
+  @override
+  String get queue_settings => '[Qûéûé šéttîñgš…~~~~~]';
+
+  @override
+  String get queue_menu => '[Qûéûé àçtîôñš~~~~]';
+
+  @override
+  String get queue_state_running => '[Rûññîñg~~~]';
+
+  @override
+  String get queue_state_stopped => '[Štôppéd~~~]';
+
+  @override
+  String get queue_default => '[Défàûlt~~~]';
+
+  @override
+  String toast_queue_created(String name) {
+    return '[Çréàtéd “$name”~~~~~]';
+  }
+
+  @override
+  String toast_queue_renamed(String name) {
+    return '[Réñàméd tô “$name”~~~~~~]';
+  }
+
+  @override
+  String toast_queue_deleted(String name) {
+    return '[Délétéd “$name”~~~~~]';
+  }
+
+  @override
+  String toast_queue_started(String name) {
+    return '[“$name” štàrtéd~~~~~]';
+  }
+
+  @override
+  String toast_queue_stopped(String name) {
+    return '[“$name” štôppéd~~~~~]';
+  }
+
+  @override
+  String toast_queue_saved(String name) {
+    return '[Šàvéd thé šéttîñgš ôf “$name”~~~~~~~~~]';
+  }
+
+  @override
+  String qs_title(String name) {
+    return '[Šéttîñgš ôf “$name”~~~~~~]';
+  }
+
+  @override
+  String get qs_intro =>
+      '[Âñýthîñg léft émptý fôllôwš thé glôbàl šéttîñgš.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_group_speed => '[Špééd~~]';
+
+  @override
+  String get qs_speed_limit => '[Špééd lîmît~~~~]';
+
+  @override
+  String get qs_speed_limit_desc =>
+      '[Pér šéçôñd, fôr thé whôlé qûéûé. Émptý méàñš ñô lîmît ôf îtš ôwñ.~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_speed_placeholder => '[Fôr éxàmplé 2 MB~~~~~]';
+
+  @override
+  String get qs_invalid_size => '[Éñtér à šîžé lîké 500K ôr 2 MB.~~~~~~~~~~]';
+
+  @override
+  String get qs_group_schedule => '[Šçhédûlé~~~]';
+
+  @override
+  String get qs_schedule_on => '[Rûñ ôñlý àt çhôšéñ tîméš~~~~~~~~]';
+
+  @override
+  String get qs_schedule_desc =>
+      '[Ôûtšîdé théšé hôûrš thé qûéûé wàîtš; dôwñlôàdš réšûmé whéñ thé ñéxt wîñdôw ôpéñš.~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_schedule_grid =>
+      '[Wééklý šçhédûlé, ôñé çéll pér hôûr~~~~~~~~~~~]';
+
+  @override
+  String get qs_group_profiles => '[Špééd prôfîléš~~~~~]';
+
+  @override
+  String get qs_profiles_desc =>
+      '[Â prôfîlé lîmîtš thé špééd whîlé îtš hôûrš àré àçtîvé.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String qs_profile_title(int index) {
+    return '[Prôfîlé $index~~~~~]';
+  }
+
+  @override
+  String get qs_profile_add => '[Âdd à prôfîlé~~~~]';
+
+  @override
+  String get qs_profile_remove => '[Rémôvé~~]';
+
+  @override
+  String get qs_profile_limit => '[Lîmît whîlé àçtîvé~~~~~~]';
+
+  @override
+  String get qs_profile_unlimited =>
+      '[Émptý méàñš ûñlîmîtéd whîlé àçtîvé.~~~~~~~~~~~]';
+
+  @override
+  String get qs_group_quota => '[Qûôtà~~]';
+
+  @override
+  String get qs_quota_on => '[Lîmît thé àmôûñt dôwñlôàdéd~~~~~~~~~]';
+
+  @override
+  String get qs_quota_desc =>
+      '[Whéñ thé qûôtà îš ûšéd ûp thé qûéûé wàîtš fôr thé pérîôd tô rôll ôvér.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_quota_bytes => '[Âmôûñt~~]';
+
+  @override
+  String get qs_quota_period => '[Pér pérîôd~~~]';
+
+  @override
+  String get qs_quota_period_placeholder => '[Fôr éxàmplé 1 d~~~~~]';
+
+  @override
+  String get qs_invalid_duration =>
+      '[Éñtér à tîmé lîké 1h, 1d ôr 90m (àt léàšt à mîñûté).~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_group_after => '[Whéñ thé qûéûé fîñîšhéš~~~~~~~]';
+
+  @override
+  String get qs_after => '[Théñ~~]';
+
+  @override
+  String get qs_after_none => '[Dô ñôthîñg~~~]';
+
+  @override
+  String get qs_after_stop => '[Štôp thé qûéûé~~~~~]';
+
+  @override
+  String get qs_after_sleep => '[Pût thé çômpûtér tô šléép~~~~~~~~]';
+
+  @override
+  String get qs_after_shutdown => '[Šhût thé çômpûtér dôwñ~~~~~~~]';
+
+  @override
+  String get qs_after_command => '[Rûñ à prôgràm~~~~]';
+
+  @override
+  String get qs_after_delay => '[Wàît fîršt~~~]';
+
+  @override
+  String get qs_after_delay_desc =>
+      '[Â gràçé pérîôd îñ whîçh ýôû çàñ çàñçél. Émptý méàñš 1 mîñûté.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_after_command_path => '[Prôgràm (fûll pàth)~~~~~~]';
+
+  @override
+  String get qs_after_command_args => '[Ârgûméñtš, ôñé pér lîñé~~~~~~~]';
+
+  @override
+  String get qs_after_command_warning =>
+      '[Thîš prôgràm rûñš wîth ýôûr pérmîššîôñš whéñévér thé qûéûé fîñîšhéš. Ôñlý ûšé ôñé ýôû trûšt.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_invalid_path =>
+      '[Éñtér thé fûll pàth ôf thé prôgràm.~~~~~~~~~~~]';
+
+  @override
+  String get qs_cancel => '[Çàñçél~~]';
+
+  @override
+  String queue_countdown_title(String name) {
+    return '[“$name” hàš fîñîšhéd~~~~~~~]';
+  }
+
+  @override
+  String queue_countdown_message(String action, String time) {
+    return '[$action îñ $time.~~~~~~]';
+  }
+
+  @override
+  String get queue_countdown_cancel => '[Çàñçél àñd štôp thé qûéûé~~~~~~~~]';
+
+  @override
+  String queue_action_cancelled(String name) {
+    return '[Thé àçtîôñ àftér “$name” wàš çàñçélléd.~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get qs_schedule_custom =>
+      '[Théšé hôûrš îñçlûdé mîñûtéš, whîçh thé wééklý grîd çàññôt šhôw. Théý àré képt àš théý àré ûñtîl ýôû réplàçé thém.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get qs_schedule_use_grid => '[Ûšé thé hôûrlý grîd~~~~~~]';
+
+  @override
+  String get queue_missing_title =>
+      '[Thîš qûéûé dôéš ñôt éxîšt àñý môré~~~~~~~~~~~]';
+
+  @override
+  String get queue_missing_message =>
+      '[Ît wàš délétéd, pérhàpš frôm àñôthér wîñdôw. Pîçk àñôthér ôñé îñ thé šîdébàr.~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_title => '[Wélçômé~~~]';
+
+  @override
+  String get setup_intro =>
+      '[Â qûîçk lôôk àt whéré ýôûr dôwñlôàdš gô àñd whàt thé dôwñlôàd šérvîçé fôûñd ôñ thîš çômpûtér. Ýôû çàñ çômé bàçk tô thîš frôm thé çômmàñd pàlétté.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_folder_title => '[Dôwñlôàd fôldér~~~~~]';
+
+  @override
+  String get setup_folder_desc =>
+      '[Ñéw dôwñlôàdš àré šàvéd héré ûñléšš à çàtégôrý ôr qûéûé šàýš ôthérwîšé.~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_folder_choose => '[Çhôôšé…~~~]';
+
+  @override
+  String get setup_folder_dialog => '[Çhôôšé thé dôwñlôàd fôldér~~~~~~~~]';
+
+  @override
+  String get setup_folder_unset => '[Ñôt çhôšéñ ýét~~~~~]';
+
+  @override
+  String setup_folder_saved(String path) {
+    return '[Dôwñlôàdš wîll bé šàvéd îñ $path~~~~~~~~~~]';
+  }
+
+  @override
+  String get setup_tools_title => '[Hélpér prôgràmš~~~~~]';
+
+  @override
+  String get setup_tools_desc =>
+      '[Théšé àré ûšéd fôr šômé dôwñlôàdš. Â mîššîñg ôñé îš ôñlý à prôblém whéñ à dôwñlôàd ñéédš ît.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_tools_recheck => '[Çhéçk àgàîñ~~~~]';
+
+  @override
+  String get setup_tools_loading => '[Lôôkîñg fôr hélpér prôgràmš…~~~~~~~~~]';
+
+  @override
+  String get setup_tool_ffmpeg => '[ffmpég~~]';
+
+  @override
+  String get setup_tool_ffmpeg_desc =>
+      '[Jôîñš vîdéô àñd àûdîô àñd çôñvértš médîà.~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_tool_ytdlp => '[ýt-dlp~~]';
+
+  @override
+  String get setup_tool_ytdlp_desc => '[Dôwñlôàdš frôm vîdéô šîtéš.~~~~~~~~~]';
+
+  @override
+  String get setup_tool_browser => '[Brôwšér~~~]';
+
+  @override
+  String get setup_tool_browser_desc =>
+      '[Ôpéñš pàgéš thàt ôñlý wôrk îñ à réàl brôwšér.~~~~~~~~~~~~~~]';
+
+  @override
+  String setup_tool_found(String version) {
+    return '[Fôûñd · $version~~~~~~]';
+  }
+
+  @override
+  String get setup_tool_found_noversion => '[Fôûñd~~]';
+
+  @override
+  String get setup_tool_missing => '[Ñôt fôûñd~~~]';
+
+  @override
+  String get setup_tool_missing_auto =>
+      '[Ñôt fôûñd · îñštàlléd àûtômàtîçàllý whéñ ñéédéd~~~~~~~~~~~~~~~]';
+
+  @override
+  String setup_tool_error(String error) {
+    return '[Prôblém: $error~~~~~]';
+  }
+
+  @override
+  String get setup_done => '[Dôñé~~]';
+
+  @override
+  String get setup_system_title => '[Ôñ thîš çômpûtér~~~~~]';
+
+  @override
+  String get setup_system_desc =>
+      '[Ôptîôñàl. Âll ôf thîš çàñ bé çhàñgéd làtér îñ Préféréñçéš àñd ûñdér Âççéšš.~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_login => '[Štàrt whéñ Î lôg îñ~~~~~~]';
+
+  @override
+  String get setup_login_desc =>
+      '[Kéépš dôwñlôàdš gôîñg wîthôût ôpéñîñg thé àpp bý hàñd.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get setup_ext => '[Brôwšér éxtéñšîôñ~~~~~~]';
+
+  @override
+  String get setup_ext_desc =>
+      '[Šéñd dôwñlôàdš frôm ýôûr brôwšér tô thîš àpp.~~~~~~~~~~~~~~]';
+
+  @override
+  String setup_ext_connected(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Šét ûp fôr $count brôwšérš',
+      one: 'Šét ûp fôr 1 brôwšér',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get setup_ext_none => '[Ñôt šét ûp~~~]';
+
+  @override
+  String get setup_ext_unknown => '[Ñôt àvàîlàblé~~~~]';
+
+  @override
+  String get setup_ext_open => '[Šét ûp…~~~]';
+
+  @override
+  String get cmd_setup => '[Šétûp àñd héàlth çhéçk…~~~~~~~]';
+
+  @override
+  String get insp_label => '[Dôwñlôàd détàîlš~~~~~]';
+
+  @override
+  String get insp_tab_overview => '[Ôvérvîéw~~~]';
+
+  @override
+  String get insp_tab_files => '[Fîléš~~]';
+
+  @override
+  String get insp_tab_speed => '[Špééd~~]';
+
+  @override
+  String get insp_tab_source => '[Lîñk~~]';
+
+  @override
+  String insp_multi(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš šéléçtéd',
+      one: '1 dôwñlôàd šéléçtéd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get insp_multi_hint =>
+      '[Šéléçt à šîñglé dôwñlôàd tô šéé îtš détàîlš.~~~~~~~~~~~~~~]';
+
+  @override
+  String get insp_gone => '[Thîš dôwñlôàd ñô lôñgér éxîštš.~~~~~~~~~~]';
+
+  @override
+  String get ov_group_progress => '[Prôgréšš~~~]';
+
+  @override
+  String get ov_group_where => '[Whéré ît gôéš~~~~]';
+
+  @override
+  String get ov_group_times => '[Tîméš~~]';
+
+  @override
+  String get ov_status => '[Štàtûš~~]';
+
+  @override
+  String get ov_progress => '[Dôñé~~]';
+
+  @override
+  String get ov_size => '[Šîžé~~]';
+
+  @override
+  String get ov_size_unknown => '[Ñôt kñôwñ ýét~~~~]';
+
+  @override
+  String get ov_downloaded => '[Dôwñlôàdéd~~~]';
+
+  @override
+  String get ov_speed => '[Špééd~~]';
+
+  @override
+  String get ov_time_left => '[Tîmé léft~~~]';
+
+  @override
+  String get ov_connections => '[Çôññéçtîôñš~~~~]';
+
+  @override
+  String get ov_queue => '[Qûéûé~~]';
+
+  @override
+  String get ov_engine => '[Éñgîñé~~]';
+
+  @override
+  String get ov_folder => '[Fôldér~~]';
+
+  @override
+  String get ov_priority => '[Prîôrîtý~~~]';
+
+  @override
+  String get ov_labels => '[Làbélš~~]';
+
+  @override
+  String get ov_added => '[Âddéd~~]';
+
+  @override
+  String get ov_started => '[Štàrtéd~~~]';
+
+  @override
+  String get ov_completed => '[Fîñîšhéd~~~]';
+
+  @override
+  String get ov_none => '[—~]';
+
+  @override
+  String get ov_priority_low => '[Lôw~]';
+
+  @override
+  String get ov_priority_normal => '[Ñôrmàl~~]';
+
+  @override
+  String get ov_priority_high => '[Hîgh~~]';
+
+  @override
+  String get ov_error_title => '[Ît štôppéd wîth àñ érrôr~~~~~~~~]';
+
+  @override
+  String ov_error_detail(String message, String code) {
+    return '[$message ($code)~~~~~~]';
+  }
+
+  @override
+  String ov_error_when(String when) {
+    return '[$when~~]';
+  }
+
+  @override
+  String get ov_error_retryable => '[Trýîñg àgàîñ màý wôrk.~~~~~~~]';
+
+  @override
+  String get ov_error_final =>
+      '[Trýîñg àgàîñ wîll ñôt hélp ûñtîl šôméthîñg çhàñgéš.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get files_tree_label => '[Fîléš ôf thîš dôwñlôàd~~~~~~~]';
+
+  @override
+  String get files_single => '[Thîš dôwñlôàd îš à šîñglé fîlé.~~~~~~~~~~]';
+
+  @override
+  String files_count(int selected, int total) {
+    return '[$selected ôf $total fîléš šéléçtéd~~~~~~~~~~~]';
+  }
+
+  @override
+  String get files_none_selected =>
+      '[Ñô fîléš àré šéléçtéd fôr dôwñlôàd.~~~~~~~~~~~]';
+
+  @override
+  String get speed_title => '[Dôwñlôàd špééd~~~~~]';
+
+  @override
+  String speed_summary(String current, String peak, int seconds) {
+    return '[Ñôw $current, hîghéšt $peak ôvér thé làšt $seconds šéçôñdš.~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get speed_waiting =>
+      '[Thé gràph fîllš îñ whîlé thé dôwñlôàd rûñš.~~~~~~~~~~~~~]';
+
+  @override
+  String get speed_series => '[Špééd~~]';
+
+  @override
+  String get src_group_link => '[Lîñk~~]';
+
+  @override
+  String get src_group_history => '[Lîñk réñéwàlš~~~~]';
+
+  @override
+  String get src_current => '[Çûrréñt lîñk~~~~]';
+
+  @override
+  String get src_original => '[Fîršt lîñk~~~]';
+
+  @override
+  String get src_page => '[Pàgé~~]';
+
+  @override
+  String get src_referrer => '[Référrér~~~]';
+
+  @override
+  String get src_mirrors => '[Mîrrôrš~~~]';
+
+  @override
+  String get src_copy => '[Çôpý~~]';
+
+  @override
+  String get src_refresh => '[Réñéw lîñk ñôw~~~~~]';
+
+  @override
+  String get src_await => '[Wàît fôr à ñéw lîñk~~~~~~]';
+
+  @override
+  String get src_edit => '[Réplàçé lîñk…~~~~]';
+
+  @override
+  String get src_edit_title => '[Réplàçé thé lîñk~~~~~]';
+
+  @override
+  String get src_edit_label => '[Ñéw lîñk~~~]';
+
+  @override
+  String get src_edit_hint =>
+      '[Thé dàémôñ çhéçkš ît àgàîñšt thé fîlé. Îf ît îš ñôt thé šàmé fîlé, thé dôwñlôàd štàrtš àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get src_edit_needs_pause =>
+      '[Pàûšé thé dôwñlôàd fîršt tô réplàçé îtš lîñk.~~~~~~~~~~~~~~]';
+
+  @override
+  String get src_edit_save => '[Réplàçé~~~]';
+
+  @override
+  String get src_history_empty =>
+      '[Thé lîñk hàš ñôt ñéédéd réñéwîñg.~~~~~~~~~~]';
+
+  @override
+  String src_attempt(String strategy, String outcome) {
+    return '[$strategy · $outcome~~~~~~~]';
+  }
+
+  @override
+  String src_attempt_cause(String cause) {
+    return '[Çàûšé: $cause~~~~~]';
+  }
+
+  @override
+  String get toast_link_refreshing => '[Âškîñg fôr à ñéw lîñk~~~~~~~]';
+
+  @override
+  String get toast_link_waiting => '[Wàîtîñg fôr à ñéw lîñk~~~~~~~]';
+
+  @override
+  String get toast_link_replaced => '[Lîñk réplàçéd~~~~]';
+
+  @override
+  String get files_skipped => '[ñôt dôwñlôàdéd~~~~~]';
+
+  @override
+  String get insp_tab_segments => '[Šégméñtš~~~]';
+
+  @override
+  String get insp_tab_torrent => '[Tôrréñt~~~]';
+
+  @override
+  String get seg_none =>
+      '[Thîš dôwñlôàd îš ñôt šplît îñtô šégméñtš.~~~~~~~~~~~~~]';
+
+  @override
+  String seg_summary(int count, int percent) {
+    return '[$count šégméñtš, $percent% dôñé.~~~~~~~~~~~]';
+  }
+
+  @override
+  String get seg_label => '[Màp ôf thé šégméñtš ôf thé dôwñlôàd~~~~~~~~~~~]';
+
+  @override
+  String get seg_done => '[dôwñlôàdéd~~~]';
+
+  @override
+  String get seg_todo => '[štîll tô dô~~~~]';
+
+  @override
+  String get torrent_none =>
+      '[Théré îš ñô šwàrm tô šhôw ýét: thé tôrréñt hàš ñôt štàrtéd.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get torrent_state => '[Štàté~~]';
+
+  @override
+  String get torrent_hash => '[Îñfô hàšh~~~]';
+
+  @override
+  String get torrent_private => '[Prîvàté tôrréñt~~~~~]';
+
+  @override
+  String get torrent_yes => '[ýéš~]';
+
+  @override
+  String get torrent_no => '[ñô~]';
+
+  @override
+  String get torrent_peers => '[Péérš~~]';
+
+  @override
+  String torrent_peers_value(int connected, int known, int seeders) {
+    return '[$connected çôññéçtéd, $known kñôwñ, $seeders šéédérš~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get torrent_shared => '[Šhàréd~~]';
+
+  @override
+  String torrent_shared_value(String uploaded, String ratio) {
+    return '[$uploaded ûplôàdéd, ràtîô $ratio~~~~~~~~~~~]';
+  }
+
+  @override
+  String get torrent_seeding_time => '[Šéédîñg fôr~~~~]';
+
+  @override
+  String get torrent_trackers => '[Tràçkérš~~~]';
+
+  @override
+  String get torrent_peer_list => '[Çôññéçtéd péérš~~~~~]';
+
+  @override
+  String torrent_peer_rate(String rate) {
+    return '[$rate dôwñ~~~~]';
+  }
+
+  @override
+  String get files_edit => '[Çhôôšé fîléš~~~~]';
+
+  @override
+  String get files_save => '[Šàvé šéléçtîôñ~~~~~]';
+
+  @override
+  String get files_cancel => '[Çàñçél~~]';
+
+  @override
+  String get files_locked =>
+      '[Pàûšé thé dôwñlôàd tô çhàñgé whîçh fîléš àré dôwñlôàdéd.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get files_select_all => '[Âll fîléš~~~]';
+
+  @override
+  String get files_pick_one => '[Šéléçt àt léàšt ôñé fîlé.~~~~~~~~]';
+
+  @override
+  String get toast_files_saved => '[Šéléçtîôñ šàvéd~~~~~]';
+
+  @override
+  String files_file_label(String name) {
+    return '[Dôwñlôàd $name~~~~~]';
+  }
+
+  @override
+  String get add_title => '[Âdd dôwñlôàdš~~~~]';
+
+  @override
+  String get add_button => '[Âdd~]';
+
+  @override
+  String get add_links => '[Lîñkš~~]';
+
+  @override
+  String get add_links_placeholder =>
+      '[Ôñé lîñk pér lîñé: wéb àddréššéš, màgñét lîñkš, ôr à pàttérñ lîké http://hôšt/îmg[1-20].jpg~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get add_looking => '[Lôôkîñg àt thé lîñk…~~~~~~]';
+
+  @override
+  String add_files(int count) {
+    return '[$count fîléš~~~~]';
+  }
+
+  @override
+  String add_many(int count) {
+    return '[$count dôwñlôàdš~~~~~~]';
+  }
+
+  @override
+  String get add_more => '[àñd môré…~~~]';
+
+  @override
+  String add_duplicate(String name) {
+    return '[Âlréàdý îñ thé lîšt: $name~~~~~~~~~]';
+  }
+
+  @override
+  String get add_anyway => '[Âdd ît àñýwàý~~~~]';
+
+  @override
+  String get add_queue => '[Qûéûé~~]';
+
+  @override
+  String get add_folder => '[Fôldér~~]';
+
+  @override
+  String get add_folder_default => '[Thé défàûlt dôwñlôàd fôldér~~~~~~~~~]';
+
+  @override
+  String get add_name => '[Ñàmé~~]';
+
+  @override
+  String get add_name_placeholder => '[Tàkéñ frôm thé lîñk~~~~~~]';
+
+  @override
+  String get add_paused => '[Âdd wîthôût štàrtîñg~~~~~~]';
+
+  @override
+  String add_done_one(String name) {
+    return '[Âddéd $name~~~~]';
+  }
+
+  @override
+  String add_done_many(int count) {
+    return '[Âddéd $count dôwñlôàdš~~~~~~~]';
+  }
+
+  @override
+  String get cmd_add => '[Âdd dôwñlôàdš…~~~~~]';
+
+  @override
+  String get toolbar_add => '[Âdd dôwñlôàdš~~~~]';
+
+  @override
+  String get view_menu => '[Vîéw~~]';
+
+  @override
+  String get view_engine => '[Éñgîñé~~]';
+
+  @override
+  String get view_all_engines => '[Âll éñgîñéš~~~~]';
+
+  @override
+  String get view_sort => '[Šôrt bý~~~]';
+
+  @override
+  String get view_sort_default => '[Défàûlt ôrdér~~~~]';
+
+  @override
+  String get view_sort_added => '[Dàté àddéd~~~]';
+
+  @override
+  String get view_sort_name => '[Ñàmé~~]';
+
+  @override
+  String get view_sort_size => '[Šîžé~~]';
+
+  @override
+  String get view_sort_completed => '[Dàté çômplétéd~~~~~]';
+
+  @override
+  String get view_sort_asc => '[Âšçéñdîñg~~~]';
+
+  @override
+  String get view_sort_desc => '[Déšçéñdîñg~~~]';
+
+  @override
+  String get view_group => '[Grôûp bý~~~]';
+
+  @override
+  String get view_group_none => '[Ñô grôûpîñg~~~~]';
+
+  @override
+  String get view_group_status => '[Štàtûš~~]';
+
+  @override
+  String get view_group_queue => '[Qûéûé~~]';
+
+  @override
+  String get view_group_engine => '[Éñgîñé~~]';
+
+  @override
+  String group_header(String name, int count) {
+    return '[$name ($count)~~~~~]';
+  }
+
+  @override
+  String get view_saved => '[Šàvéd vîéwš~~~~]';
+
+  @override
+  String get view_save => '[Šàvé çûrréñt vîéw…~~~~~~]';
+
+  @override
+  String get view_save_title => '[Šàvé thîš vîéw~~~~~]';
+
+  @override
+  String view_delete(String name) {
+    return '[Délété vîéw $name~~~~~~]';
+  }
+
+  @override
+  String get col_engine => '[Éñgîñé~~]';
+
+  @override
+  String get col_category => '[Çàtégôrý~~~]';
+
+  @override
+  String list_total(int count) {
+    return '[$count dôwñlôàdš~~~~~~]';
+  }
+
+  @override
+  String get action_refresh_link => '[Gét à ñéw lîñk~~~~~]';
+
+  @override
+  String get action_move_to => '[Môvé tô qûéûé~~~~]';
+
+  @override
+  String get action_priority => '[Prîôrîtý~~~]';
+
+  @override
+  String get priority_high => '[Hîgh~~]';
+
+  @override
+  String get priority_normal => '[Ñôrmàl~~]';
+
+  @override
+  String get priority_low => '[Lôw~]';
+
+  @override
+  String toast_moved(int count, String queue) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Môvéd $count dôwñlôàdš tô $queue',
+      one: 'Môvéd 1 dôwñlôàd tô $queue',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String toast_prioritised(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Prîôrîtý çhàñgéd fôr $count dôwñlôàdš',
+      one: 'Prîôrîtý çhàñgéd fôr 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String toast_restarted_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Réštàrtîñg $count dôwñlôàdš',
+      one: 'Réštàrtîñg 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String toast_refreshing_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Âškîñg fôr ñéw lîñkš fôr $count dôwñlôàdš',
+      one: 'Âškîñg fôr à ñéw lîñk fôr 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get status_label => '[Štàtûš bàr~~~]';
+
+  @override
+  String get status_reconnecting => '[Réçôññéçtîñg…~~~~]';
+
+  @override
+  String status_speed(String down, String up) {
+    return '[↓ $down  ↑ $up~~~~~]';
+  }
+
+  @override
+  String status_counts(int active, int queued) {
+    return '[$active àçtîvé, $queued wàîtîñg~~~~~~~~~~]';
+  }
+
+  @override
+  String status_quota(String used, String total) {
+    return '[$used ôf $total~~~~~~]';
+  }
+
+  @override
+  String get status_quota_label => '[Qûôtà ûšéd~~~]';
+
+  @override
+  String get status_turbo => '[Tûrbô~~]';
+
+  @override
+  String get status_turbo_on => '[Tûrbô ôñ~~~]';
+
+  @override
+  String get status_pause_all => '[Pàûšé àll~~~]';
+
+  @override
+  String get status_resume_all => '[Réšûmé àll~~~]';
+
+  @override
+  String get add_import => '[Împôrt lîšt…~~~~]';
+
+  @override
+  String add_import_title(String name) {
+    return '[Împôrt $name~~~~]';
+  }
+
+  @override
+  String add_import_go(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Âdd $count dôwñlôàdš',
+      one: 'Âdd 1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get add_results_title => '[Whàt hàppéñéd~~~~]';
+
+  @override
+  String add_results_summary(int ok, int failed) {
+    return '[$ok àddéd, $failed ñôt àddéd.~~~~~~~~~~]';
+  }
+
+  @override
+  String get add_result_ok => '[Âddéd~~]';
+
+  @override
+  String get add_result_failed => '[Ñôt àddéd~~~]';
+
+  @override
+  String get add_result_duplicate => '[Âlréàdý îñ thé lîšt~~~~~~]';
+
+  @override
+  String get add_close => '[Çlôšé~~]';
+
+  @override
+  String get add_folder_browse => '[Brôwšé fôldérš~~~~~]';
+
+  @override
+  String get folder_browser_title => '[Çhôôšé à fôldér~~~~~]';
+
+  @override
+  String get folder_browser_roots => '[Plàçéš ýôû çàñ çhôôšé frôm~~~~~~~~]';
+
+  @override
+  String get folder_browser_empty => '[Ñô fôldérš héré.~~~~~]';
+
+  @override
+  String get folder_browser_choose => '[Çhôôšé thîš fôldér~~~~~~]';
+
+  @override
+  String get folder_browser_error =>
+      '[Thé fôldérš çôûld ñôt bé lîštéd.~~~~~~~~~~]';
+
+  @override
+  String get add_advanced => '[Môré ôptîôñš~~~~]';
+
+  @override
+  String get add_mode => '[Tréàt thé lîñk àš~~~~~~]';
+
+  @override
+  String get add_mode_auto => '[Lét thé àpp déçîdé~~~~~~]';
+
+  @override
+  String get add_mode_direct => '[Â fîlé~~]';
+
+  @override
+  String get add_mode_ytdlp => '[Â vîdéô ôr àûdîô pàgé (ýt-dlp)~~~~~~~~~]';
+
+  @override
+  String get add_mode_browser => '[Â pàgé thàt ñéédš à brôwšér~~~~~~~~~]';
+
+  @override
+  String get add_referrer => '[Référrér~~~]';
+
+  @override
+  String get add_headers => '[Héàdérš~~~]';
+
+  @override
+  String get add_headers_hint => '[Ôñé pér lîñé, lîké Ñàmé: vàlûé~~~~~~~~~]';
+
+  @override
+  String get add_headers_invalid =>
+      '[Évérý lîñé ñéédš à ñàmé, à çôlôñ àñd à vàlûé.~~~~~~~~~~~~~~]';
+
+  @override
+  String get add_mirrors => '[Mîrrôrš~~~]';
+
+  @override
+  String get add_mirrors_hint =>
+      '[Ôthér plàçéš wîth thé šàmé fîlé, ôñé lîñk pér lîñé~~~~~~~~~~~~~~~]';
+
+  @override
+  String get add_checksum => '[Çhéçkšûm~~~]';
+
+  @override
+  String get add_checksum_algorithm => '[Çhéçkšûm àlgôrîthm~~~~~~]';
+
+  @override
+  String get add_checksum_placeholder => '[Éxpéçtéd vàlûé îñ héx~~~~~~~]';
+
+  @override
+  String get add_checksum_invalid =>
+      '[Ñôt à vàlîd vàlûé fôr thîš àlgôrîthm.~~~~~~~~~~~~]';
+
+  @override
+  String get add_torrent => '[Tôrréñt fîlé…~~~~]';
+
+  @override
+  String get add_torrent_too_big =>
+      '[Thàt tôrréñt fîlé îš tôô làrgé (16 MîB àt môšt).~~~~~~~~~~~~~~~]';
+
+  @override
+  String get add_torrent_unreadable =>
+      '[Thàt tôrréñt fîlé çôûld ñôt bé réàd.~~~~~~~~~~~]';
+
+  @override
+  String add_torrent_remove(String name) {
+    return '[Rémôvé $name~~~~]';
+  }
+
+  @override
+  String get nav_categories => '[Çàtégôrîéš~~~]';
+
+  @override
+  String drag_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš',
+      one: '1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get view_density => '[Rôw héîght~~~]';
+
+  @override
+  String get view_density_comfortable => '[Çômfôrtàblé~~~~]';
+
+  @override
+  String get view_density_compact => '[Çômpàçt~~~]';
+
+  @override
+  String get view_columns => '[Çôlûmñš~~~]';
+
+  @override
+  String get display_menu => '[Dîšplàý~~~]';
+
+  @override
+  String get settings_search => '[Šéàrçh šéttîñgš~~~~~]';
+
+  @override
+  String get settings_save => '[Šàvé~~]';
+
+  @override
+  String get settings_revert => '[Révért~~]';
+
+  @override
+  String get settings_saved => '[Šéttîñgš šàvéd~~~~~]';
+
+  @override
+  String get settings_unsaved => '[Ûñšàvéd çhàñgéš~~~~~]';
+
+  @override
+  String get settings_no_match => '[Ñô šéttîñg màtçhéš ýôûr šéàrçh.~~~~~~~~~~]';
+
+  @override
+  String get settings_changed_elsewhere =>
+      '[Thé šéttîñgš wéré çhàñgéd šôméwhéré élšé. Théîr véršîôñ îš šhôwñ ñôw; màké ýôûr çhàñgéš àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get settings_level_default => '[Défàûlt~~~]';
+
+  @override
+  String get settings_level_global => '[Glôbàl~~]';
+
+  @override
+  String get settings_level_queue => '[Qûéûé~~]';
+
+  @override
+  String get settings_level_task => '[Thîš dôwñlôàd~~~~]';
+
+  @override
+  String get settings_restart => '[Ñéédš réštàrt~~~~]';
+
+  @override
+  String get settings_unset => '[Ñôt šét~~~]';
+
+  @override
+  String settings_reset(String name) {
+    return '[Réšét $name tô thé îñhérîtéd vàlûé~~~~~~~~~~~]';
+  }
+
+  @override
+  String get settings_invalid_size =>
+      '[Ñôt à šîžé, šûçh àš 10 MB ôr 512 K.~~~~~~~~~~~]';
+
+  @override
+  String get settings_invalid_number =>
+      '[Ñôt à ñûmbér îñ thé àllôwéd ràñgé.~~~~~~~~~~~]';
+
+  @override
+  String get settings_invalid_duration =>
+      '[Ûšé à dûràtîôñ lîké 30š, 5m ôr 1h30m.~~~~~~~~~~~~]';
+
+  @override
+  String get settings_leave_title => '[Léàvé wîthôût šàvîñg?~~~~~~~]';
+
+  @override
+  String get settings_leave_message =>
+      '[Ýôû çhàñgéd šéttîñgš thàt àré ñôt šàvéd ýét.~~~~~~~~~~~~~~]';
+
+  @override
+  String get settings_leave_confirm => '[Léàvé~~]';
+
+  @override
+  String get settings_leave_stay => '[Kéép édîtîñg~~~~]';
+
+  @override
+  String get nav_settings => '[Šéttîñgš~~~]';
+
+  @override
+  String get insp_tab_settings => '[Šéttîñgš~~~]';
+
+  @override
+  String get se_name => '[Ñàmé~~]';
+
+  @override
+  String get se_value => '[Vàlûé~~]';
+
+  @override
+  String get se_remove => '[Rémôvé~~]';
+
+  @override
+  String get se_add => '[Âdd~]';
+
+  @override
+  String get se_add_rule => '[Âdd à rûlé~~~]';
+
+  @override
+  String get se_proxy_mode => '[Prôxý~~]';
+
+  @override
+  String get se_proxy_none => '[Ñô prôxý~~~]';
+
+  @override
+  String get se_proxy_system => '[Thé šýštém\'š prôxý~~~~~~]';
+
+  @override
+  String get se_proxy_custom => '[Â prôxý Î çhôôšé~~~~~]';
+
+  @override
+  String get se_proxy_url => '[Prôxý àddréšš~~~~]';
+
+  @override
+  String get se_rule_hosts => '[Hôštš~~]';
+
+  @override
+  String get se_rule_hosts_hint => '[éxàmplé.çôm, *.çdñ.ñét~~~~~~~]';
+
+  @override
+  String get se_lines => '[Ôñé éñtrý pér lîñé~~~~~~]';
+
+  @override
+  String get se_move_up => '[Môvé ûp~~~]';
+
+  @override
+  String get se_move_down => '[Môvé dôwñ~~~]';
+
+  @override
+  String get se_pa_add => '[Âdd àñ àçtîôñ~~~~]';
+
+  @override
+  String get se_pa_extract => '[Ûñpàçk àrçhîvéš~~~~~]';
+
+  @override
+  String get se_pa_add_torrent => '[Âdd à dôwñlôàdéd .tôrréñt fîlé~~~~~~~~~]';
+
+  @override
+  String get se_pa_command => '[Rûñ à prôgràm~~~~]';
+
+  @override
+  String get se_pa_av_scan => '[Šçàñ fôr vîrûšéš~~~~~]';
+
+  @override
+  String get se_pa_dir => '[Fôldér~~]';
+
+  @override
+  String get se_pa_dir_hint => '[Ñéxt tô thé fîlé~~~~~]';
+
+  @override
+  String get se_pa_delete => '[Délété thé fîlé àftérwàrdš~~~~~~~~]';
+
+  @override
+  String get se_pa_password => '[Pàššwôrd~~~]';
+
+  @override
+  String get se_pa_cmd => '[Prôgràm~~~]';
+
+  @override
+  String get se_pa_cmd_hint => '[Fûll pàth, é.g. /ûšr/bîñ/çlàmšçàñ~~~~~~~~~~]';
+
+  @override
+  String get se_pa_args => '[Ârgûméñtš~~~]';
+
+  @override
+  String se_pa_args_hint(String token) {
+    return '[Ôñé pér lîñé; $token îš thé fîlé~~~~~~~~~~]';
+  }
+
+  @override
+  String get se_pa_timeout => '[Tîmé lîmît~~~]';
+
+  @override
+  String get se_pa_infected_exit => '[Îñféçtéd éxît çôdé~~~~~~]';
+
+  @override
+  String get se_pa_on_infected => '[Whéñ îñféçtéd~~~~]';
+
+  @override
+  String get se_pa_infected_delete => '[Délété thé fîlé~~~~~]';
+
+  @override
+  String get se_pa_infected_keep => '[Kéép thé fîlé~~~~]';
+
+  @override
+  String get se_pa_command_warning =>
+      '[Thîš rûñš à prôgràm ôñ évérý fîñîšhéd dôwñlôàd. Ôñlý ûšé à prôgràm ýôû trûšt.~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get se_pa_av_warning =>
+      '[Âñ îñféçtéd fîlé fàîlš thé dôwñlôàd àñd, ûñléšš ýôû kéép ît, îš délétéd. Ôñlý ûšé à šçàññér ýôû trûšt.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get se_quota_bytes => '[Âmôûñt~~]';
+
+  @override
+  String get se_quota_per => '[pér~]';
+
+  @override
+  String get se_quota_period => '[Pérîôd~~]';
+
+  @override
+  String get nav_manage => '[Màñàgé~~]';
+
+  @override
+  String get nav_manage_categories => '[Çàtégôrîéš~~~]';
+
+  @override
+  String get cat_intro =>
+      '[Â çàtégôrý šôrtš à fîñîšhéd dôwñlôàd îñtô à fôldér bý îtš fîlé éxtéñšîôñ ôr çôñtéñt týpé. Thé fîršt çàtégôrý thàt màtçhéš wîñš, šô thé ôrdér màttérš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get cat_add => '[Âdd à çàtégôrý~~~~~]';
+
+  @override
+  String get cat_add_title => '[Âdd à çàtégôrý~~~~~]';
+
+  @override
+  String get cat_edit_title => '[Édît thé çàtégôrý~~~~~~]';
+
+  @override
+  String get cat_saved => '[Çàtégôrý šàvéd~~~~~]';
+
+  @override
+  String get cat_empty_title => '[Ñô çàtégôrîéš ýét~~~~~~]';
+
+  @override
+  String get cat_empty_message =>
+      '[Âdd ôñé tô hàvé fîñîšhéd dôwñlôàdš šôrtéd îñtô fôldérš.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get cat_name => '[Ñàmé~~]';
+
+  @override
+  String get cat_folder => '[Fôldér~~]';
+
+  @override
+  String get cat_folder_desc =>
+      '[Whéré fîléš ôf thîš çàtégôrý àré pût.~~~~~~~~~~~~]';
+
+  @override
+  String get cat_extensions => '[Éxtéñšîôñš~~~]';
+
+  @override
+  String get cat_extensions_desc =>
+      '[Šépàràtéd bý çômmàš ôr špàçéš, lîké mkv, mp4.~~~~~~~~~~~~~~]';
+
+  @override
+  String get cat_extensions_invalid =>
+      '[Éxtéñšîôñš àré léttérš àñd dîgîtš ôñlý.~~~~~~~~~~~~]';
+
+  @override
+  String get cat_mime => '[Çôñtéñt týpéš~~~~]';
+
+  @override
+  String get cat_mime_desc =>
+      '[Ôñé pér lîñé, lîké vîdéô/* ôr àpplîçàtîôñ/pdf.~~~~~~~~~~~~~~]';
+
+  @override
+  String get cat_mime_invalid =>
+      '[Ûšé thé fôrm týpé/šûbtýpé, ôr týpé/*.~~~~~~~~~~~~]';
+
+  @override
+  String cat_drag(String name) {
+    return '[Dràg $name tô çhàñgé îtš ôrdér~~~~~~~~~~]';
+  }
+
+  @override
+  String cat_move_up(String name) {
+    return '[Môvé $name ûp~~~~~]';
+  }
+
+  @override
+  String cat_move_down(String name) {
+    return '[Môvé $name dôwñ~~~~~]';
+  }
+
+  @override
+  String cat_edit(String name) {
+    return '[Édît $name~~~~]';
+  }
+
+  @override
+  String cat_delete(String name) {
+    return '[Délété $name~~~~]';
+  }
+
+  @override
+  String cat_delete_title(String name) {
+    return '[Délété thé çàtégôrý $name?~~~~~~~~~]';
+  }
+
+  @override
+  String get cat_delete_message =>
+      '[Fîléš àlréàdý šôrtéd bý ît štàý whéré théý àré.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get cat_delete_confirm => '[Délété çàtégôrý~~~~~]';
+
+  @override
+  String get cat_test_title => '[Trý à fîlé~~~]';
+
+  @override
+  String get cat_test_name => '[Fîlé ñàmé~~~]';
+
+  @override
+  String get cat_test_mime => '[Çôñtéñt týpé~~~~]';
+
+  @override
+  String get cat_test_none =>
+      '[Ñô çàtégôrý màtçhéš: thé fîlé štàýš îñ thé ñôrmàl dôwñlôàd fôldér.~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String cat_test_found(String name, String dir) {
+    return '[Gôéš tô $name: $dir~~~~~~~]';
+  }
+
+  @override
+  String get cat_test_error => '[Thé dàémôñ çôûld ñôt bé àškéd.~~~~~~~~~]';
+
+  @override
+  String get nav_manage_logins => '[Lôgîñš~~]';
+
+  @override
+  String get nav_manage_cookies => '[Çôôkîéš~~~]';
+
+  @override
+  String get field_show => '[Šhôw~~]';
+
+  @override
+  String get field_hide => '[Hîdé~~]';
+
+  @override
+  String get login_intro =>
+      '[Lôgîñš àré šéñt tô šîtéš thàt àšk fôr à ûšér ñàmé àñd pàššwôrd. Thé pàššwôrd štàýš îñ thé dôwñlôàd šérvîçé: ît îš ñévér šhôwñ héré àgàîñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get login_add => '[Âdd à lôgîñ~~~~]';
+
+  @override
+  String get login_add_title => '[Âdd à lôgîñ~~~~]';
+
+  @override
+  String get login_edit_title => '[Édît thé lôgîñ~~~~~]';
+
+  @override
+  String get login_saved => '[Lôgîñ šàvéd~~~~]';
+
+  @override
+  String get login_empty_title => '[Ñô lôgîñš ýét~~~~]';
+
+  @override
+  String get login_empty_message =>
+      '[Âdd ôñé fôr à šîté thàt ñéédš à ûšér ñàmé àñd pàššwôrd.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get login_host => '[Šîté~~]';
+
+  @override
+  String get login_host_desc =>
+      '[Â hôšt ñàmé lîké éxàmplé.çôm, ôr *.éxàmplé.çôm fôr àll îtš šûbdômàîñš.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get login_user => '[Ûšér ñàmé~~~]';
+
+  @override
+  String get login_password => '[Pàššwôrd~~~]';
+
+  @override
+  String get login_password_keep =>
+      '[Léàvé émptý tô kéép thé štôréd pàššwôrd.~~~~~~~~~~~~]';
+
+  @override
+  String get login_scheme => '[Méthôd~~]';
+
+  @override
+  String get login_scheme_auto => '[Lét thé šîté déçîdé~~~~~~]';
+
+  @override
+  String get login_scheme_basic => '[Bàšîç~~]';
+
+  @override
+  String get login_scheme_digest => '[Dîgéšt~~]';
+
+  @override
+  String login_updated(String date) {
+    return '[çhàñgéd $date~~~~~]';
+  }
+
+  @override
+  String login_edit(String host) {
+    return '[Édît thé lôgîñ fôr $host~~~~~~~~]';
+  }
+
+  @override
+  String login_delete(String host) {
+    return '[Délété thé lôgîñ fôr $host~~~~~~~~~]';
+  }
+
+  @override
+  String login_delete_title(String host) {
+    return '[Délété thé lôgîñ fôr $host?~~~~~~~~~]';
+  }
+
+  @override
+  String get login_delete_message =>
+      '[Dôwñlôàdš frôm thàt šîté wîll ñô lôñgér šîgñ îñ.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get login_delete_confirm => '[Délété lôgîñ~~~~]';
+
+  @override
+  String get ck_intro =>
+      '[Çôôkîéš kéép ýôû šîgñéd îñ tô šîtéš. Théîr vàlûéš štàý îñ thé dôwñlôàd šérvîçé; àñ éxpôrt îš thé ôñlý wàý tô šéé thém.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ck_import => '[Împôrt çôôkîéš…~~~~~]';
+
+  @override
+  String get ck_export => '[Éxpôrt àll…~~~~]';
+
+  @override
+  String get ck_empty_title => '[Ñô çôôkîéš štôréd~~~~~~]';
+
+  @override
+  String get ck_empty_message =>
+      '[Împôrt à çôôkîéš fîlé, ôr lét thé brôwšér éxtéñšîôñ šéñd thém.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ck_tree_label => '[Çôôkîéš bý dômàîñ~~~~~~]';
+
+  @override
+  String ck_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count çôôkîéš',
+      one: '1 çôôkîé',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ck_secure => '[Šéçûré~~]';
+
+  @override
+  String get ck_http_only => '[HTTP ôñlý~~~]';
+
+  @override
+  String get ck_session => '[Šéššîôñ~~~]';
+
+  @override
+  String ck_export_domain(String domain) {
+    return '[Éxpôrt thé çôôkîéš ôf $domain~~~~~~~~~]';
+  }
+
+  @override
+  String ck_delete_domain(String domain) {
+    return '[Délété thé çôôkîéš ôf $domain~~~~~~~~~]';
+  }
+
+  @override
+  String ck_delete_cookie(String name) {
+    return '[Délété thé çôôkîé $name~~~~~~~~]';
+  }
+
+  @override
+  String ck_delete_domain_title(String domain) {
+    return '[Délété thé çôôkîéš ôf $domain?~~~~~~~~~~]';
+  }
+
+  @override
+  String ck_delete_domain_message(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count çôôkîéš wîll bé délétéd.',
+      one: '1 çôôkîé wîll bé délétéd.',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ck_delete_confirm => '[Délété çôôkîéš~~~~~]';
+
+  @override
+  String ck_import_title(String name) {
+    return '[Împôrt $name~~~~]';
+  }
+
+  @override
+  String ck_import_summary(int imported, int skipped) {
+    return '[$imported împôrtéd, $skipped škîppéd.~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ck_export_title => '[Éxpôrt çôôkîéš~~~~~]';
+
+  @override
+  String get ck_export_all => '[Âll štôréd çôôkîéš.~~~~~~]';
+
+  @override
+  String ck_export_one(String domain) {
+    return '[Thé çôôkîéš ôf $domain.~~~~~~~~]';
+  }
+
+  @override
+  String get ck_format => '[Fîlé týpé~~~]';
+
+  @override
+  String get ck_format_netscape => '[Ñétšçàpé çôôkîéš.txt~~~~~~]';
+
+  @override
+  String get ck_format_json => '[JŠÔÑ~~]';
+
+  @override
+  String get ck_export_warning =>
+      '[Thé éxpôrt çôñtàîñš thé çôôkîé vàlûéš. Âñýôñé whô hàš thém çàñ šîgñ îñ àš ýôû. Révéàl thém ôñlý whéré ýôû çàñ kéép thém šàfé.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ck_reveal => '[Révéàl thé çôôkîéš~~~~~~]';
+
+  @override
+  String ck_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count çôôkîéš',
+      one: '1 çôôkîé',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ck_export_text => '[Thé éxpôrtéd çôôkîéš~~~~~~]';
+
+  @override
+  String get ck_copy => '[Çôpý~~]';
+
+  @override
+  String get ck_copied => '[Çôpîéd~~]';
+
+  @override
+  String get ck_save => '[Šàvé tô à fîlé…~~~~~]';
+
+  @override
+  String get ck_saved => '[Fîlé šàvéd~~~]';
+
+  @override
+  String get nav_manage_webhooks => '[Wébhôôkš~~~]';
+
+  @override
+  String get wh_intro =>
+      '[Â wébhôôk îš àñ àddréšš thàt îš šéñt thé dàémôñ\'š évéñtš àš théý hàppéñ, fôr éxàmplé whéñ à dôwñlôàd fîñîšhéš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_add => '[Âdd à wébhôôk~~~~]';
+
+  @override
+  String get wh_add_title => '[Âdd à wébhôôk~~~~]';
+
+  @override
+  String get wh_edit_title => '[Édît thé wébhôôk~~~~~]';
+
+  @override
+  String get wh_saved => '[Wébhôôk šàvéd~~~~]';
+
+  @override
+  String get wh_empty_title => '[Ñô wébhôôkš ýét~~~~~]';
+
+  @override
+  String get wh_empty_message =>
+      '[Âdd ôñé tô hàvé évéñtš šéñt tô àñôthér prôgràm.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_url => '[Âddréšš~~~]';
+
+  @override
+  String get wh_url_invalid =>
+      '[Ûšé àñ àddréšš thàt štàrtš wîth http:// ôr httpš://.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_secret => '[Šéçrét~~]';
+
+  @override
+  String get wh_secret_desc =>
+      '[Délîvérîéš àré šîgñéd wîth ît, šô thé réçéîvér çàñ çhéçk whéré théý çàmé frôm. Ôptîôñàl.~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_secret_keep =>
+      '[Léàvé émptý tô kéép thé štôréd šéçrét.~~~~~~~~~~~~]';
+
+  @override
+  String get wh_secret_remove => '[Rémôvé thé šéçrét~~~~~~]';
+
+  @override
+  String get wh_enabled_label => '[Šéñd délîvérîéš~~~~~]';
+
+  @override
+  String wh_enabled(String url) {
+    return '[Šéñd délîvérîéš tô $url~~~~~~~~]';
+  }
+
+  @override
+  String get wh_events => '[Évéñtš~~]';
+
+  @override
+  String get wh_events_desc =>
+      '[Léàvé àll ûñtîçkéd tô réçéîvé évérý évéñt.~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_all_events => '[Âll évéñtš~~~]';
+
+  @override
+  String wh_events_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count évéñtš',
+      one: '1 évéñt',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get wh_signed => '[Šîgñéd~~]';
+
+  @override
+  String get wh_test => '[Téšt~~]';
+
+  @override
+  String wh_test_ok(String url) {
+    return '[$url àççéptéd thé téšt évéñt.~~~~~~~~~]';
+  }
+
+  @override
+  String wh_test_failed(String url) {
+    return '[$url dîd ñôt àççépt thé téšt évéñt.~~~~~~~~~~~]';
+  }
+
+  @override
+  String get wh_log => '[Délîvérîéš~~~]';
+
+  @override
+  String wh_log_title(String url) {
+    return '[Délîvérîéš tô $url~~~~~~]';
+  }
+
+  @override
+  String get wh_log_desc =>
+      '[Thé làšt àttémptš šîñçé thé dàémôñ štàrtéd, ñéwéšt fîršt.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get wh_log_empty => '[Ñôthîñg wàš šéñt ýét.~~~~~~~]';
+
+  @override
+  String get wh_log_error => '[Thé délîvérîéš çôûld ñôt bé réàd.~~~~~~~~~~]';
+
+  @override
+  String get wh_log_refresh => '[Réfréšh~~~]';
+
+  @override
+  String get wh_log_no_answer => '[ñô àñšwér~~~]';
+
+  @override
+  String wh_log_status(int status) {
+    return '[HTTP $status~~~~]';
+  }
+
+  @override
+  String wh_log_attempt(int n) {
+    return '[àttémpt $n~~~~]';
+  }
+
+  @override
+  String get wh_log_retry => '[wîll rétrý~~~]';
+
+  @override
+  String wh_edit(String url) {
+    return '[Édît $url~~~]';
+  }
+
+  @override
+  String wh_delete(String url) {
+    return '[Délété $url~~~~]';
+  }
+
+  @override
+  String wh_delete_title(String url) {
+    return '[Délété thé wébhôôk $url?~~~~~~~~]';
+  }
+
+  @override
+  String get wh_delete_message =>
+      '[Évéñtš wîll ñô lôñgér bé šéñt théré.~~~~~~~~~~~]';
+
+  @override
+  String get wh_delete_confirm => '[Délété wébhôôk~~~~~]';
+
+  @override
+  String get nav_manage_plugins => '[Plûgîñš~~~]';
+
+  @override
+  String get log_level => '[Lévél~~]';
+
+  @override
+  String get log_level_all => '[Âll lévélš~~~]';
+
+  @override
+  String get log_level_info => '[Îñfô àñd àbôvé~~~~~]';
+
+  @override
+  String get log_level_warn => '[Wàrñîñgš àñd érrôrš~~~~~~]';
+
+  @override
+  String get log_level_error => '[Érrôrš ôñlý~~~~]';
+
+  @override
+  String get log_search => '[Šéàrçh thé lôg~~~~~]';
+
+  @override
+  String get log_refresh => '[Réfréšh~~~]';
+
+  @override
+  String get log_empty => '[Ñô lôg réçôrdš.~~~~~]';
+
+  @override
+  String get log_error => '[Thé lôg çôûld ñôt bé réàd.~~~~~~~~]';
+
+  @override
+  String get pl_intro =>
+      '[Plûgîñš àré JàvàŠçrîpt éxtéñšîôñš thàt réšôlvé lîñkš, réñéw éxpîréd ôñéš àñd réàçt tô dôwñlôàdš štàrtîñg, fàîlîñg àñd fîñîšhîñg. Théý rûñ îñšîdé thé dàémôñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_install => '[Îñštàll à plûgîñ~~~~~]';
+
+  @override
+  String get pl_install_title => '[Îñštàll à plûgîñ~~~~~]';
+
+  @override
+  String get pl_install_message =>
+      '[Thé plûgîñ îš îñštàlléd šwîtçhéd ôff. Ýôû révîéw whàt ît màý dô béfôré ît rûñš.~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_install_go => '[Îñštàll~~~]';
+
+  @override
+  String get pl_source => '[Whéré frôm~~~]';
+
+  @override
+  String get pl_source_desc =>
+      '[Â fôldér ôñ thé çômpûtér thé dàémôñ rûñš ôñ, ôr à gît àddréšš.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_ref => '[Véršîôñ~~~]';
+
+  @override
+  String get pl_ref_desc =>
+      '[Â bràñçh, tàg ôr çômmît, fôr à gît àddréšš. Ôptîôñàl.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_replace => '[Réplàçé à plûgîñ ôf thé šàmé ñàmé~~~~~~~~~~]';
+
+  @override
+  String get pl_empty_title => '[Ñô plûgîñš îñštàlléd~~~~~~]';
+
+  @override
+  String get pl_empty_message =>
+      '[Îñštàll ôñé frôm à fôldér ôr à gît àddréšš.~~~~~~~~~~~~~]';
+
+  @override
+  String pl_enabled(String name) {
+    return '[Rûñ $name~~~]';
+  }
+
+  @override
+  String get pl_permissions => '[Pérmîššîôñš~~~~]';
+
+  @override
+  String get pl_logs => '[Lôg~]';
+
+  @override
+  String pl_remove(String name) {
+    return '[Rémôvé $name~~~~]';
+  }
+
+  @override
+  String pl_remove_title(String name) {
+    return '[Rémôvé $name?~~~~~]';
+  }
+
+  @override
+  String get pl_remove_message =>
+      '[Thé plûgîñ, îtš fîléš àñd thé dàtà ît štôréd àré délétéd.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_remove_confirm => '[Rémôvé plûgîñ~~~~]';
+
+  @override
+  String pl_logs_title(String name) {
+    return '[Lôg ôf $name~~~~]';
+  }
+
+  @override
+  String pl_review_title(String name) {
+    return '[Whàt $name màý dô~~~~~~]';
+  }
+
+  @override
+  String get pl_review_fresh =>
+      '[Thé plûgîñ îš îñštàlléd bût ñôt rûññîñg.~~~~~~~~~~~~]';
+
+  @override
+  String pl_review_source(String source, String version) {
+    return '[Frôm $source, véršîôñ $version.~~~~~~~~~~]';
+  }
+
+  @override
+  String get pl_hooks => '[Ît réàçtš tô~~~~]';
+
+  @override
+  String get pl_hooks_none => '[Ñô évéñtš.~~~]';
+
+  @override
+  String get pl_hosts => '[Ît màý çôñtàçt~~~~~]';
+
+  @override
+  String get pl_hosts_none => '[Ñô ôthér çômpûtérš.~~~~~~]';
+
+  @override
+  String get pl_trust_warning =>
+      '[Â plûgîñ rûñš îñšîdé thé dàémôñ àñd çàñ çôñtàçt thé hôštš lîštéd. Ôñlý šwîtçh ôñ plûgîñš ýôû trûšt.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pl_keep_off => '[Kéép ît ôff~~~~]';
+
+  @override
+  String get pl_enable => '[Šwîtçh ît ôñ~~~~]';
+
+  @override
+  String get nav_manage_browser => '[Brôwšér tôôl~~~~]';
+
+  @override
+  String get br_intro =>
+      '[Šômé pàgéš ôñlý šhôw théîr dôwñlôàdš îñ à réàl brôwšér. Ôpéñ ôñé héré àñd thé dàémôñ\'š héàdléšš brôwšér lîštš whàt thé pàgé léàdš tô: fîléš, vîdéô àñd àûdîô štréàmš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get br_open_title => '[Ôpéñ à pàgé~~~~]';
+
+  @override
+  String get br_url => '[Pàgé àddréšš~~~~]';
+
+  @override
+  String get br_url_invalid =>
+      '[Ûšé àñ àddréšš thàt štàrtš wîth http:// ôr httpš://.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get br_open => '[Ôpéñ~~]';
+
+  @override
+  String get br_opening => '[Ôpéñîñg…~~~]';
+
+  @override
+  String get br_error => '[Thé pàgé çôûld ñôt bé ôpéñéd.~~~~~~~~~]';
+
+  @override
+  String br_result_info(String url, String group) {
+    return '[Ôpéñéd $url îñ thé grôûp $group.~~~~~~~~~~~]';
+  }
+
+  @override
+  String get br_none => '[Thé pàgé léd tô ñô dôwñlôàdš.~~~~~~~~~]';
+
+  @override
+  String get br_download => '[Dôwñlôàd~~~]';
+
+  @override
+  String br_added(String name) {
+    return '[Âddéd $name~~~~]';
+  }
+
+  @override
+  String get br_profiles_title => '[Brôwšér prôfîléš~~~~~]';
+
+  @override
+  String get br_profiles_desc =>
+      '[Éàçh šîté grôûp hàš îtš ôwñ prôfîlé, whîçh kéépš thé lôgîñš ôf thé pàgéš ôpéñéd théré.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get br_profiles_none => '[Ñô prôfîléš ýét.~~~~~]';
+
+  @override
+  String get br_profiles_error =>
+      '[Thé prôfîléš çôûld ñôt bé lîštéd.~~~~~~~~~~]';
+
+  @override
+  String br_profile_delete(String group) {
+    return '[Délété thé prôfîlé $group~~~~~~~~]';
+  }
+
+  @override
+  String br_profile_delete_title(String group) {
+    return '[Délété thé prôfîlé ôf $group?~~~~~~~~~]';
+  }
+
+  @override
+  String get br_profile_delete_message =>
+      '[Îtš çôôkîéš àñd štôréd dàtà àré rémôvéd. Ît çàññôt bé délétéd whîlé îtš brôwšér rûñš.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get br_profile_delete_confirm => '[Délété prôfîlé~~~~~]';
+
+  @override
+  String get br_state_title => '[Thé héàdléšš brôwšér~~~~~~]';
+
+  @override
+  String get br_state_in_use => '[Îñ ûšé~~]';
+
+  @override
+  String get br_state_unused => '[Ñôt ûšéd ýét~~~~]';
+
+  @override
+  String get br_state_running => '[Rûññîñg~~~]';
+
+  @override
+  String get br_state_none => '[Ñôñé~~]';
+
+  @override
+  String get br_state_max => '[Ât môšt àt ôñçé~~~~~]';
+
+  @override
+  String get br_tools_title => '[Prôgràmš~~~]';
+
+  @override
+  String get nav_manage_transfer => '[Împôrt àñd éxpôrt~~~~~~]';
+
+  @override
+  String get tr_intro =>
+      '[Âdd màñý dôwñlôàdš frôm à lîšt, ôr wrîté ýôûr dôwñlôàdš ôût àš à lîšt. Ñôthîñg îš àddéd ûñtîl ýôû hàvé šééñ whàt wôûld hàppéñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get tr_import_title => '[Împôrt à lîšt~~~~]';
+
+  @override
+  String get tr_list => '[Thé lîšt~~~]';
+
+  @override
+  String get tr_list_desc => '[Pàšté ît héré, ôr çhôôšé à fîlé.~~~~~~~~~~]';
+
+  @override
+  String get tr_choose => '[Çhôôšé à fîlé…~~~~~]';
+
+  @override
+  String get tr_format => '[Kîñd ôf lîšt~~~~]';
+
+  @override
+  String get tr_format_urls => '[Ôñé lîñk pér lîñé~~~~~~]';
+
+  @override
+  String get tr_format_json => '[DLM JŠÔÑ~~~]';
+
+  @override
+  String get tr_format_aria2 => '[àrîà2 îñpût fîlé~~~~~]';
+
+  @override
+  String get tr_default_queue => '[Thé défàûlt qûéûé~~~~~~]';
+
+  @override
+  String get tr_duplicates => '[Âdd dûplîçàtéš tôô~~~~~~]';
+
+  @override
+  String get tr_duplicates_desc =>
+      '[Ôthérwîšé lîñkš thàt àré àlréàdý îñ thé lîšt àré škîppéd.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get tr_preview => '[Prévîéw~~~]';
+
+  @override
+  String tr_preview_summary(int ok, int failed) {
+    return '[Wôûld àdd $ok, wôûld ñôt àdd $failed.~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get tr_export_title => '[Éxpôrt dôwñlôàdš~~~~~]';
+
+  @override
+  String get tr_export_format => '[Fîlé kîñd tô éxpôrt~~~~~~]';
+
+  @override
+  String get tr_export_queue => '[Qûéûé~~]';
+
+  @override
+  String get tr_all_queues => '[Âll qûéûéš~~~]';
+
+  @override
+  String get tr_export_status => '[Whîçh dôwñlôàdš~~~~~]';
+
+  @override
+  String get tr_all_statuses => '[Âll ôf thém~~~~]';
+
+  @override
+  String get tr_export => '[Éxpôrt~~]';
+
+  @override
+  String tr_export_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš',
+      one: '1 dôwñlôàd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get tr_export_text => '[Thé éxpôrtéd lîšt~~~~~~]';
+
+  @override
+  String get nav_manage_statistics => '[Štàtîštîçš~~~]';
+
+  @override
+  String get st_error => '[Thé štàtîštîçš çôûld ñôt bé réàd.~~~~~~~~~~]';
+
+  @override
+  String get st_totals => '[Tôtàlš~~]';
+
+  @override
+  String get st_tasks => '[Dôwñlôàdš~~~]';
+
+  @override
+  String get st_downloaded => '[Dôwñlôàdéd îñ àll~~~~~~]';
+
+  @override
+  String get st_by_status => '[Bý štàté~~~]';
+
+  @override
+  String get st_by_engine => '[Bý éñgîñé~~~]';
+
+  @override
+  String st_completed_in(String period) {
+    return '[Fîñîšhéd îñ thé làšt $period~~~~~~~~~]';
+  }
+
+  @override
+  String get st_bucket => '[Bûçkét~~]';
+
+  @override
+  String get st_bucket_hour => '[Pér hôûr~~~]';
+
+  @override
+  String get st_bucket_day => '[Pér dàý~~~]';
+
+  @override
+  String get st_group => '[Šplît bý~~~]';
+
+  @override
+  String get st_group_none => '[Ñôthîñg~~~]';
+
+  @override
+  String get st_group_engine => '[Éñgîñé~~]';
+
+  @override
+  String get st_group_queue => '[Qûéûé~~]';
+
+  @override
+  String get st_timeline => '[Tràffîç~~~]';
+
+  @override
+  String st_timeline_summary(String down, String up) {
+    return '[Dôwñlôàdéd $down, ûplôàdéd $up îñ thîš ràñgé.~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get st_timeline_empty => '[Ñô tràffîç îñ thîš ràñgé.~~~~~~~~]';
+
+  @override
+  String get st_all_traffic => '[Âll tràffîç~~~~]';
+
+  @override
+  String get st_history => '[Fîñîšhéd dôwñlôàdš~~~~~~]';
+
+  @override
+  String get st_history_search => '[Šéàrçh bý ñàmé ôr lîñk~~~~~~~]';
+
+  @override
+  String get st_history_empty => '[Ñô fîñîšhéd dôwñlôàdš.~~~~~~~]';
+
+  @override
+  String get st_history_more => '[Šhôw môré~~~]';
+
+  @override
+  String get st_cleanup_title => '[Çléàñ ûp~~~]';
+
+  @override
+  String get st_cleanup_desc =>
+      '[Rémôvéš fîñîšhéd dôwñlôàdš frôm thé lîšt. Thé àûtômàtîç çléàñûp ôf thé rétéñtîôñ šéttîñg ñévér délétéš fîléš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get st_cleanup_days => '[Ôldér thàñ~~~]';
+
+  @override
+  String get st_days => '[dàýš~~]';
+
+  @override
+  String get st_cleanup_files => '[Âlšô délété thé fîléš~~~~~~~]';
+
+  @override
+  String get st_cleanup_files_desc =>
+      '[Ôff kéépš thé fîléš ôñ dîšk àñd ôñlý rémôvéš thé lîšt éñtrîéš.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get st_cleanup_preview => '[Çhéçk whàt wôûld gô~~~~~~]';
+
+  @override
+  String st_cleanup_preview_result(int count, String size) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš',
+      one: '1 dôwñlôàd',
+    );
+    return '[$_temp0 ($size) wôûld bé rémôvéd.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get st_cleanup_go => '[Çléàñ ûp~~~]';
+
+  @override
+  String st_cleanup_confirm_title(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš',
+      one: '1 dôwñlôàd',
+    );
+    return '[Rémôvé $_temp0?~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get st_cleanup_confirm_list =>
+      '[Théý léàvé thé lîšt; thé fîléš štàý whéré théý àré.~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get st_cleanup_confirm_files =>
+      '[Théý léàvé thé lîšt àñd théîr fîléš àré délétéd frôm thé dîšk. Thîš çàññôt bé ûñdôñé.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String st_cleanup_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš',
+      one: '1 dôwñlôàd',
+    );
+    return '[Rémôvéd $_temp0~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String st_cleanup_done_failed(int deleted, int failed) {
+    return '[Rémôvéd $deleted; $failed çôûld ñôt bé rémôvéd~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get nav_manage_daemon => '[Dàémôñ~~]';
+
+  @override
+  String get dm_intro =>
+      '[Hôw thé dôwñlôàd šérvîçé îtšélf štàrtš: whéré ît lîštéñš, îtš éñgîñéš àñd prôgràmš, îtš lôggîñg. Môšt çhàñgéš tàké éfféçt àftér à réštàrt.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String dm_file(String file) {
+    return '[Réàd frôm $file~~~~~]';
+  }
+
+  @override
+  String dm_file_error(String error) {
+    return '[Thé çôñfîgûràtîôñ fîlé hàš à prôblém: $error~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get dm_pending_title => '[Â réštàrt îš ñéédéd~~~~~~]';
+
+  @override
+  String get dm_pending_message =>
+      '[Šômé šàvéd çhàñgéš àré wàîtîñg fôr thé dàémôñ tô réštàrt.~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get dm_restart_now => '[Réštàrt ñôw~~~~]';
+
+  @override
+  String dm_pending_value(String value) {
+    return '[àftér thé réštàrt: $value~~~~~~~~]';
+  }
+
+  @override
+  String get dm_read_only => '[šét bý à flàg ôr thé éñvîrôñméñt~~~~~~~~~~]';
+
+  @override
+  String get dm_saved => '[Çôñfîgûràtîôñ šàvéd~~~~~~]';
+
+  @override
+  String get dm_needs_restart =>
+      '[Théšé çhàñgéš tàké éfféçt àftér à réštàrt.~~~~~~~~~~~~~]';
+
+  @override
+  String get dm_restart_title => '[Réštàrt thé dàémôñ?~~~~~~]';
+
+  @override
+  String get dm_restart_message =>
+      '[Dôwñlôàdš thàt àré rûññîñg àré réqûéûéd àñd štàrt àgàîñ àftérwàrdš.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get dm_restart_confirm => '[Réštàrt~~~]';
+
+  @override
+  String get dm_restarting => '[Thé dàémôñ îš réštàrtîñg~~~~~~~~]';
+
+  @override
+  String get dm_log_title => '[Lôg~]';
+
+  @override
+  String get nav_manage_access => '[Âççéšš~~]';
+
+  @override
+  String get ac_identity => '[Thîš àpp~~~]';
+
+  @override
+  String get ac_signed_in => '[Šîgñéd îñ àš~~~~]';
+
+  @override
+  String ac_who(String name, String scope, String kind) {
+    return '[$name ($scope, $kind)~~~~~~~~]';
+  }
+
+  @override
+  String get ac_scope_admin => '[çàñ çhàñgé évérýthîñg~~~~~~~]';
+
+  @override
+  String get ac_scope_read => '[réàd ôñlý~~~]';
+
+  @override
+  String get ac_primary => '[thé màîñ tôkéñ~~~~~]';
+
+  @override
+  String get ac_named => '[à ñàméd tôkéñ~~~~]';
+
+  @override
+  String get ac_rotate => '[Réplàçé thé màîñ tôkéñ~~~~~~~]';
+
+  @override
+  String get ac_rotate_desc =>
+      '[Màkéš à ñéw màîñ tôkéñ àñd štôpš thé ôld ôñé wôrkîñg àt ôñçé.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_rotate_title => '[Réplàçé thé màîñ tôkéñ?~~~~~~~]';
+
+  @override
+  String get ac_rotate_message =>
+      '[Évérý çlîéñt thàt ûšéš thé ôld tôkéñ, šûçh àš à brôwšér éxtéñšîôñ ôr à šçrîpt, štôpš wôrkîñg ûñtîl ît îš gîvéñ thé ñéw ôñé. Thîš àpp îš šîgñéd îñ àgàîñ àûtômàtîçàllý.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_rotate_confirm => '[Réplàçé ît~~~]';
+
+  @override
+  String get ac_rotated_title => '[Thé ñéw màîñ tôkéñ~~~~~~]';
+
+  @override
+  String get ac_tokens => '[Ñàméd tôkéñš~~~~]';
+
+  @override
+  String get ac_tokens_desc =>
+      '[Gîvé à dàšhbôàrd, à šçrîpt ôr àñôthér dévîçé à tôkéñ ôf îtš ôwñ, àñd révôké ît whéñ ît îš ñô lôñgér ñéédéd.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_tokens_none => '[Ñô ñàméd tôkéñš.~~~~~]';
+
+  @override
+  String get ac_tokens_error => '[Thé tôkéñš çôûld ñôt bé lîštéd.~~~~~~~~~~]';
+
+  @override
+  String get ac_add => '[Âdd à tôkéñ~~~~]';
+
+  @override
+  String get ac_add_title => '[Âdd à tôkéñ~~~~]';
+
+  @override
+  String get ac_name => '[Ñàmé~~]';
+
+  @override
+  String get ac_name_hint => '[dàšhbôàrd~~~]';
+
+  @override
+  String get ac_scope => '[Çàñ~]';
+
+  @override
+  String get ac_scope_desc =>
+      '[Â réàd-ôñlý tôkéñ çàñ lôôk àt évérýthîñg éxçépt çôôkîéš, àñd çhàñgé ñôthîñg.~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_create => '[Çréàté~~]';
+
+  @override
+  String ac_created_title(String name) {
+    return '[Thé tôkéñ $name~~~~~]';
+  }
+
+  @override
+  String ac_created(String date) {
+    return '[çréàtéd $date~~~~~]';
+  }
+
+  @override
+  String get ac_never_used => '[ñévér ûšéd~~~]';
+
+  @override
+  String ac_last_used(String date) {
+    return '[làšt ûšéd $date~~~~~]';
+  }
+
+  @override
+  String ac_delete(String name) {
+    return '[Révôké thé tôkéñ $name~~~~~~~]';
+  }
+
+  @override
+  String ac_delete_title(String name) {
+    return '[Révôké thé tôkéñ $name?~~~~~~~~]';
+  }
+
+  @override
+  String get ac_delete_message => '[Whàtévér ûšéš ît štôpš wôrkîñg.~~~~~~~~~~]';
+
+  @override
+  String get ac_delete_confirm => '[Révôké tôkéñ~~~~]';
+
+  @override
+  String get ac_secret_once =>
+      '[Thîš îš thé ôñlý tîmé thé tôkéñ îš šhôwñ. Çôpý ît ñôw àñd kéép ît šôméwhéré šàfé.~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_secret_done => '[Î hàvé çôpîéd ît~~~~~]';
+
+  @override
+  String get ac_secret_gone => '[Thé tôkéñ îš ñôt šhôwñ àgàîñ~~~~~~~~~]';
+
+  @override
+  String get ac_nh_title => '[Brôwšér éxtéñšîôñ~~~~~~]';
+
+  @override
+  String get ac_nh_desc =>
+      '[Thé éxtéñšîôñ tàlkš tô thé dôwñlôàd šérvîçé thrôûgh à ñàtîvé hôšt thàt îš régîštéréd wîth éàçh brôwšér. Îñštàllîñg wôrkš ôñlý ôñ thé çômpûtér thé dàémôñ rûñš ôñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_nh_origins => '[Âllôwéd éxtéñšîôñš~~~~~~]';
+
+  @override
+  String get ac_nh_no_origins => '[Ñôñé ýét~~~]';
+
+  @override
+  String get ac_nh_error =>
+      '[Thé éxtéñšîôñ hôšt çàññôt bé màñàgéd frôm héré.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_nh_ids => '[Éxtéñšîôñ ÎDš~~~~]';
+
+  @override
+  String get ac_nh_ids_desc =>
+      '[Šépàràtéd bý çômmàš ôr špàçéš. Ñéédéd tô îñštàll.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_nh_install => '[Îñštàll fôr àll brôwšérš~~~~~~~~]';
+
+  @override
+  String get ac_nh_remove => '[Rémôvé~~]';
+
+  @override
+  String ac_nh_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Dôñé fôr $count brôwšérš',
+      one: 'Dôñé fôr 1 brôwšér',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ac_mcp_title => '[Âššîštàñtš (MÇP)~~~~~]';
+
+  @override
+  String get ac_mcp_desc =>
+      '[Âñ ÂÎ àššîštàñt thàt špéàkš thé Môdél Çôñtéxt Prôtôçôl çàñ àdd àñd màñàgé dôwñlôàdš. Ît šîgñš îñ wîth à tôkéñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ac_mcp_url => '[Âddréšš~~~]';
+
+  @override
+  String get ac_mcp_claude => '[Çlàûdé Çôdé~~~~]';
+
+  @override
+  String get ac_mcp_json => '[Šéttîñgš fîlé (JŠÔÑ)~~~~~~]';
+
+  @override
+  String get ac_mcp_token_note =>
+      '[Réplàçé <tôkéñ> wîth à tôkéñ frôm thîš pàgé. Â réàd-ôñlý tôkéñ létš àñ àššîštàñt lôôk bût ñôt çhàñgé àñýthîñg.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get nav_manage_preferences => '[Préféréñçéš~~~~]';
+
+  @override
+  String get pref_intro =>
+      '[Hôw thé àpp lôôkš àñd àškš. Çhàñgéš àpplý àt ôñçé.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_appearance => '[Âppéàràñçé~~~]';
+
+  @override
+  String get pref_theme => '[Thémé~~]';
+
+  @override
+  String get pref_theme_system => '[Šýštém~~]';
+
+  @override
+  String get pref_theme_light => '[Lîght~~]';
+
+  @override
+  String get pref_theme_dark => '[Dàrk~~]';
+
+  @override
+  String get pref_accent => '[Âççéñt çôlôûr~~~~]';
+
+  @override
+  String get pref_accent_default => '[Thé šýštém\'š~~~~]';
+
+  @override
+  String get pref_accent_indigo => '[DLM îñdîgô~~~]';
+
+  @override
+  String get pref_accent_custom => '[Çûštôm çôlôûr~~~~]';
+
+  @override
+  String get pref_accent_blue => '[Blûé~~]';
+
+  @override
+  String get pref_accent_green => '[Grééñ~~]';
+
+  @override
+  String get pref_accent_orange => '[Ôràñgé~~]';
+
+  @override
+  String get pref_accent_red => '[Réd~]';
+
+  @override
+  String get pref_accent_purple => '[Pûrplé~~]';
+
+  @override
+  String get pref_accent_pink => '[Pîñk~~]';
+
+  @override
+  String get pref_skin => '[Lôôk àñd féél~~~~]';
+
+  @override
+  String get pref_skin_desc =>
+      '[Thé àpp fôllôwš ýôûr šýštém; çhôôšé àñôthér tô šéé thé àpp dréššéd àš ôñ thàt šýštém.~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_skin_auto => '[Màtçh thîš šýštém~~~~~~]';
+
+  @override
+  String get pref_skin_macos => '[màçÔŠ~~]';
+
+  @override
+  String get pref_skin_fluent => '[Wîñdôwš (Flûéñt)~~~~~]';
+
+  @override
+  String get pref_skin_adwaita => '[GÑÔMÉ (Âdwàîtà)~~~~~]';
+
+  @override
+  String get pref_skin_breeze => '[KDÉ (Brééžé)~~~~]';
+
+  @override
+  String get pref_density => '[Rôw héîght~~~]';
+
+  @override
+  String get pref_confirmations => '[Âškîñg fîršt~~~~]';
+
+  @override
+  String get pref_confirm_delete => '[Âšk béfôré délétîñg dôwñlôàdš~~~~~~~~~]';
+
+  @override
+  String get pref_confirm_delete_desc =>
+      '[Ôff délétéš àt ôñçé, kéépîñg thé fîléš ôñ dîšk.~~~~~~~~~~~~~~~]';
+
+  @override
+  String get tray_tooltip => '[DLM~]';
+
+  @override
+  String get tray_show => '[Šhôw DLM~~~]';
+
+  @override
+  String get tray_pause_all => '[Pàûšé àll~~~]';
+
+  @override
+  String get tray_resume_all => '[Réšûmé àll~~~]';
+
+  @override
+  String get tray_add => '[Âdd dôwñlôàdš…~~~~~]';
+
+  @override
+  String get tray_quit => '[Qûît DLM~~~]';
+
+  @override
+  String get notif_completed => '[Dôwñlôàd fîñîšhéd~~~~~~]';
+
+  @override
+  String get notif_failed => '[Dôwñlôàd fàîléd~~~~~]';
+
+  @override
+  String get notif_expired => '[Lîñk éxpîréd~~~~]';
+
+  @override
+  String get notif_open => '[Ôpéñ~~]';
+
+  @override
+  String get notif_folder => '[Šhôw îñ fôldér~~~~~]';
+
+  @override
+  String get notif_retry => '[Rétrý~~]';
+
+  @override
+  String get notif_queue => '[Qûéûé fîñîšhéd~~~~~]';
+
+  @override
+  String get setup_no_tray =>
+      '[Thîš šýštém hàš ñô méñû-bàr îçôñ, šô çlôšîñg thé wîñdôw qûîtš thé àpp.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_notifications => '[Ñôtîfîçàtîôñš~~~~]';
+
+  @override
+  String get pref_tray =>
+      '[Šhôw àñ îçôñ îñ thé méñû bàr ôr ñôtîfîçàtîôñ àréà~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_tray_desc =>
+      '[Çlôšîñg thé wîñdôw théñ kéépš thé àpp rûññîñg; qûît frôm thé îçôñ\'š méñû. Wîthôût àñ îçôñ, çlôšîñg thé wîñdôw qûîtš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_notify =>
+      '[Téll mé whéñ à dôwñlôàd fîñîšhéš ôr fàîlš~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_notify_desc =>
+      '[Â šýštém ñôtîfîçàtîôñ wîth bûttôñš tô ôpéñ thé fîlé ôr rétrý.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get drop_nothing =>
+      '[Ñôthîñg tô àdd: drôp .tôrréñt fîléš ôr téxt fîléš wîth lîñkš.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get clip_offer_title => '[Â lîñk îš ôñ thé çlîpbôàrd~~~~~~~~]';
+
+  @override
+  String get clip_offer_add => '[Âdd~]';
+
+  @override
+  String get clip_offer_dismiss => '[Ñôt ñôw~~~]';
+
+  @override
+  String get pref_units => '[Šîžéš~~]';
+
+  @override
+  String get pref_units_iec => '[Kîbîbýtéš (KîB)~~~~~]';
+
+  @override
+  String get pref_units_si => '[Kîlôbýtéš (kB)~~~~~]';
+
+  @override
+  String get pref_language => '[Làñgûàgé~~~]';
+
+  @override
+  String get pref_language_system => '[Šýštém~~]';
+
+  @override
+  String get pref_clipboard => '[Wàtçh thé çlîpbôàrd fôr lîñkš~~~~~~~~~]';
+
+  @override
+  String get pref_clipboard_desc =>
+      '[Whéñ thé wîñdôw îš îñ frôñt, ôffér tô àdd àñ http, ftp, màgñét ôr éd2k lîñk thàt wàš çôpîéd. Ôff ûñtîl ýôû tûrñ ît ôñ. Thé çlîpbôàrd îš ñôt wrîttéñ tô thé lôg.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_shortcuts => '[Šhôrtçûtš~~~]';
+
+  @override
+  String get pref_global => '[Glôbàl šhôrtçûtš~~~~~]';
+
+  @override
+  String get pref_global_desc =>
+      '[Wôrk whîlé àñôthér prôgràm hàš thé fôçûš. Ôff ûñtîl ýôû šét à çhôrd; à çhôrd ñéédš Çtrl, Âlt, Šhîft ôr thé šýštém kéý.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_global_unsupported =>
+      '[Ñôt àvàîlàblé héré: à Wàýlàñd šéššîôñ dôéš ñôt lét àppš çlàîm kéýš fôr thé whôlé déšktôp.~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get cmd_global_toggle => '[Šhôw ôr hîdé DLM~~~~~]';
+
+  @override
+  String get cmd_global_clipboard => '[Âdd thé lîñk ôñ thé çlîpbôàrd~~~~~~~~~]';
+
+  @override
+  String get pref_shortcuts_clear => '[Çléàr~~]';
+
+  @override
+  String get pref_shortcuts_none => '[Ñôt šét~~~]';
+
+  @override
+  String get pref_shortcuts_change => '[Çhàñgé~~]';
+
+  @override
+  String get pref_shortcuts_press => '[Préšš thé ñéw šhôrtçût~~~~~~~]';
+
+  @override
+  String get pref_shortcuts_reset => '[Réšét šhôrtçûtš~~~~~]';
+
+  @override
+  String get ab_updates => '[Ûpdàtéš~~~]';
+
+  @override
+  String get ab_channel => '[Çhàññél~~~]';
+
+  @override
+  String get ab_channel_stable => '[Štàblé~~]';
+
+  @override
+  String get ab_channel_beta => '[Bétà~~]';
+
+  @override
+  String get ab_check => '[Çhéçk fôr ûpdàtéš~~~~~~]';
+
+  @override
+  String get ab_checking => '[Çhéçkîñg…~~~]';
+
+  @override
+  String get ab_up_to_date =>
+      '[Thîš îš thé ñéwéšt véršîôñ ôñ thîš çhàññél.~~~~~~~~~~~~~]';
+
+  @override
+  String ab_available(String version) {
+    return '[$version îš àvàîlàblé~~~~~~~]';
+  }
+
+  @override
+  String get ab_open_release => '[Ôpéñ thé réléàšé~~~~~]';
+
+  @override
+  String get ab_check_failed => '[Thé ûpdàté çhéçk dîd ñôt šûççééd.~~~~~~~~~~]';
+
+  @override
+  String pref_shortcuts_conflict(String command) {
+    return '[Âlréàdý ûšéd bý $command~~~~~~~~]';
+  }
+
+  @override
+  String get pref_startup => '[Štàrtûp~~~]';
+
+  @override
+  String get pref_login => '[Štàrt whéñ Î lôg îñ~~~~~~]';
+
+  @override
+  String get pref_login_desc =>
+      '[Ôpéñš thé àpp îñ thé bàçkgrôûñd whéñ ýôû šîgñ îñ tô thîš çômpûtér.~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_start_hidden => '[Štàrt hîddéñ~~~~]';
+
+  @override
+  String get pref_start_hidden_desc =>
+      '[Whéñ štàrtéd àt lôgîñ, kéép thé wîñdôw çlôšéd; ôpéñ ît frôm thé tràý îçôñ.~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get pref_daemon_service =>
+      '[Kéép dôwñlôàdîñg wîthôût thé àpp~~~~~~~~~~]';
+
+  @override
+  String get pref_daemon_service_desc =>
+      '[Štàrtš thé dôwñlôàd šérvîçé àt lôgîñ ôñ îtš ôwñ, šô qûéûéš àñd šçhédûléš rûñ whîlé thé àpp îš çlôšéd.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get nav_manage_about => '[Âbôût~~]';
+
+  @override
+  String get ab_title => '[DLM~]';
+
+  @override
+  String get ab_blurb =>
+      '[Â dôwñlôàd màñàgér fôr fîléš, tôrréñtš àñd štréàmš, màdé ôf thîš àpp àñd à dôwñlôàd šérvîçé thàt dôéš thé wôrk.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ab_app => '[Thîš àpp~~~]';
+
+  @override
+  String get ab_daemon => '[Thé dôwñlôàd šérvîçé~~~~~~]';
+
+  @override
+  String get ab_version => '[Véršîôñ~~~]';
+
+  @override
+  String get ab_api => '[Tàlkš ÂPÎ révîšîôñ~~~~~~]';
+
+  @override
+  String ab_api_value(int current, int oldest) {
+    return '[révîšîôñ $current, wôrkš wîth $oldest àñd ñéwér~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ab_system => '[Šýštém~~]';
+
+  @override
+  String get ab_address => '[Lîštéñš ôñ~~~]';
+
+  @override
+  String get ab_compat => '[Tôgéthér~~~]';
+
+  @override
+  String get ab_compat_ok => '[Théý wôrk tôgéthér.~~~~~~]';
+
+  @override
+  String get ab_compat_app_old =>
+      '[Thé šérvîçé ñéédš à ñéwér véršîôñ ôf thîš àpp.~~~~~~~~~~~~~~]';
+
+  @override
+  String get ab_compat_daemon_old =>
+      '[Thé šérvîçé îš ôldér thàñ thîš àpp šûppôrtš.~~~~~~~~~~~~~~]';
+
+  @override
+  String get ab_compat_unknown => '[Ñôt çôññéçtéd.~~~~~]';
+
+  @override
+  String get ab_support => '[Šûppôrt~~~]';
+
+  @override
+  String get ab_diagnostics => '[Dîàgñôštîçš~~~~]';
+
+  @override
+  String get ab_diagnostics_copy => '[Çôpý dîàgñôštîçš~~~~~]';
+
+  @override
+  String get ab_diagnostics_desc =>
+      '[Pûtš véršîôñš, thé çôññéçtîôñš (wîthôût tôkéñš) àñd thé réçéñt lôg ôñ thé çlîpbôàrd, wîth šéçrétš rémôvéd, fôr ýôû tô pàšté îñtô à bûg répôrt.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ab_diagnostics_copied => '[Dîàgñôštîçš çôpîéd~~~~~~]';
+
+  @override
+  String get ab_licences => '[Ôpéñ-šôûrçé lîçéñçéš~~~~~~]';
+
+  @override
+  String get ab_licences_list => '[Pàçkàgéš~~~]';
+
+  @override
+  String get ab_licences_show => '[Šhôw thé lîçéñçéš~~~~~~]';
+
+  @override
+  String get ab_licences_desc =>
+      '[DLM îš bûîlt frôm ôpéñ-šôûrçé pàçkàgéš. Théîr lîçéñçéš àré lîštéd héré.~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ab_licences_none =>
+      '[Ñô lîçéñçéš àré régîštéréd îñ thîš bûîld.~~~~~~~~~~~~~]';
+
+  @override
+  String ab_licences_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count lîçéñçé téxtš',
+      one: '1 lîçéñçé téxt',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get nav_tools => '[Tôôlš~~]';
+
+  @override
+  String get hub_button => '[Tôôlš, màñàgé àñd šéttîñgš~~~~~~~~]';
+
+  @override
+  String get hub_close => '[Çlôšé~~]';
+
+  @override
+  String add_category(String name, String dir) {
+    return '[Wîll bé šôrtéd îñtô $name: $dir~~~~~~~~~~]';
+  }
+
+  @override
+  String add_login_stored(String host) {
+    return '[Â lôgîñ îš štôréd fôr $host~~~~~~~~~]';
+  }
+
+  @override
+  String get add_login_add => '[Âdd à lôgîñ~~~~]';
+
+  @override
+  String add_cookies_stored(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count çôôkîéš àré štôréd fôr thîš šîté',
+      one: '1 çôôkîé îš štôréd fôr thîš šîté',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get add_cookies_none =>
+      '[Ñô çôôkîéš àré štôréd fôr thîš šîté~~~~~~~~~~~]';
+
+  @override
+  String add_login_none(String host) {
+    return '[Ñô lôgîñ îš štôréd fôr $host~~~~~~~~~]';
+  }
+
+  @override
+  String get insp_tab_events => '[Évéñtš~~]';
+
+  @override
+  String get ev_created => '[Âddéd tô thé lîšt~~~~~~]';
+
+  @override
+  String ev_status(String from, String to) {
+    return '[$from → $to~~~~]';
+  }
+
+  @override
+  String ev_refresh(String strategy, String outcome) {
+    return '[Lîñk réñéwàl wîth $strategy: $outcome~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get ev_current_error => '[Fàîléd~~]';
+
+  @override
+  String get ev_none =>
+      '[Ñôthîñg hàš hàppéñéd tô thîš dôwñlôàd šîñçé thé àpp çôññéçtéd.~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get ev_note =>
+      '[Thîš îš whàt thé àpp hàš šééñ šîñçé ît çôññéçtéd; thé dàémôñ dôéš ñôt kéép à lôñgér hîštôrý.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+}

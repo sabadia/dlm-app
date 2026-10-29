@@ -490,8 +490,8 @@ class _FieldRow extends StatelessWidget {
         ),
         for (final e in errors)
           Padding(
-            padding: EdgeInsets.only(
-              left: theme.metrics.spacing.md,
+            padding: EdgeInsetsDirectional.only(
+              start: theme.metrics.spacing.md,
               bottom: theme.metrics.spacing.xs,
             ),
             child: Text(

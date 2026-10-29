@@ -67,6 +67,24 @@ download (a large file) and one small one ready.
       why global shortcuts are missing.
 - [ ] Window restore on Wayland and X11.
 
+## Screen readers (a tester on each system)
+
+Turn the reader on (VoiceOver on macOS, Narrator or NVDA on Windows, Orca on Linux) and use only the
+keyboard.
+
+- [ ] The sidebar is read as a list with the selected item announced; the counts are read.
+- [ ] A download card is read with its name and status; Space and Enter select and act; the
+      progress is announced as a value.
+- [ ] The toolbar buttons are announced by name (Add downloads, Pause, Resume, Delete, Display,
+      View, Search, Command palette, Details).
+- [ ] The add dialog: the links field, each option and the Add button are announced; an error is
+      announced when it appears.
+- [ ] The settings window: the gear menu, the page list and every field are announced with their
+      label and description; a saved change or an error is announced.
+- [ ] Notifications and toasts are announced when they appear.
+- [ ] Nothing important is only a colour: failed downloads say Failed, not just red.
+- [ ] Text 200 % (system setting) and high contrast: every screen is still usable.
+
 ## Both daemons
 
 - [ ] A remote daemon profile hides the login item for the daemon and the extension row.

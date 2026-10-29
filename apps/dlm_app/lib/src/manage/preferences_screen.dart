@@ -332,11 +332,12 @@ class PreferencesScreen extends ConsumerWidget {
                   value: ref.watch(languageProvider),
                   choices: [
                     DlmChoice(value: null, label: l.pref_language_system),
-                    for (final locale in AppLocalizations.supportedLocales)
-                      DlmChoice(
-                        value: locale.languageCode,
-                        label: locale.languageCode,
-                      ),
+                    // The pseudo-locale (country XA) is for testing only.
+                    for (final code in {
+                      for (final locale in AppLocalizations.supportedLocales)
+                        if (locale.countryCode != 'XA') locale.languageCode,
+                    })
+                      DlmChoice(value: code, label: code),
                   ],
                   onChanged: (code) =>
                       unawaited(ref.read(languageProvider.notifier).set(code)),

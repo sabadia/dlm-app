@@ -70,4 +70,54 @@ void main() {
       const HandedOpen(links: ['https://example.com/a']),
     );
   });
+
+  group('hostile links', () {
+    test('a link cannot carry a second line or a space into the dialog', () {
+      final open = parseHanded(const [
+        // After decoding, a newline followed by another link.
+        'dlm://add?url=https%3A%2F%2Fa.test%2Fx%0Ahttps%3A%2F%2Fevil.test%2Fy',
+        'dlm:https://a.test/x\nhttps://evil.test/y',
+        'magnet:?xt=urn:btih:abc\nhttps://evil.test/y',
+        'https://a.test/with space',
+        'https://a.test/tab\there',
+        'ed2k://|file|a|1|/\r\nhttps://evil.test',
+      ]);
+      expect(open.isEmpty, isTrue, reason: '${open.links}');
+    });
+
+    test('schemes that would read or run something are not downloads', () {
+      for (final arg in const [
+        'dlm:file:///etc/passwd',
+        'dlm://add?url=file%3A%2F%2F%2Fetc%2Fpasswd',
+        'dlm:javascript:alert(1)',
+        'dlm:data:text/html;base64,AAAA',
+        'dlm:ftps://',
+        'dlm:http://',
+        'dlm://evil?url=https%3A%2F%2Fa.test',
+        'dlm:',
+        'dlm://',
+        'javascript:alert(1)',
+        'file:///etc/passwd',
+        'smb://server/share/a.bin',
+      ]) {
+        expect(parseHanded([arg]).isEmpty, isTrue, reason: arg);
+      }
+    });
+
+    test('a file: argument is only taken when it is a .torrent', () {
+      expect(parseHanded(const ['file:///tmp/a.txt']).isEmpty, isTrue);
+      // A file: URL becomes a path in the system's own form.
+      expect(parseHanded(const ['file:///tmp/a.torrent']).torrents, [
+        Uri.parse('file:///tmp/a.torrent').toFilePath(),
+      ]);
+    });
+
+    test('absurdly long and malformed input does not throw', () {
+      final long = 'https://a.test/${'a' * 200000}';
+      expect(
+        () => parseHanded([long, 'dlm://[::', '%', '\u0000']),
+        returnsNormally,
+      );
+    });
+  });
 }

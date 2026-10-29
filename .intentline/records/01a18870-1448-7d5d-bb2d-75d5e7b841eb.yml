@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a18870-1448-7d5d-bb2d-75d5e7b841eb
+status: draft
+created_at: '2026-10-29T16:13:29Z'
+updated_at: '2026-10-29T16:13:29Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F6.2: automated accessibility pass on the real screens; fixes for link contrast, form-row overflow, button label overflow and the text scale the harness could not see'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/test/accessibility_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_ui_kit/lib/src/theme/colors.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

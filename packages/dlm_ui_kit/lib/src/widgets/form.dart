@@ -109,14 +109,22 @@ class DlmFormRow extends StatelessWidget {
                 children: [
                   text,
                   SizedBox(height: m.spacing.sm),
-                  Align(alignment: Alignment.centerLeft, child: control),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: control,
+                  ),
                 ],
               )
             : Row(
                 children: [
                   Expanded(child: text),
                   SizedBox(width: m.spacing.lg),
-                  control,
+                  // A control keeps its own size up to 60 % of the row, so a
+                  // long value or large text wraps instead of overflowing.
+                  ConstrainedBox(
+                    constraints: BoxConstraints(maxWidth: box.maxWidth * 0.6),
+                    child: control,
+                  ),
                 ],
               ),
       ),

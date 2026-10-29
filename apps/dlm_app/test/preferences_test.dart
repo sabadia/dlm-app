@@ -188,9 +188,15 @@ void main() {
   appTest('a stored colour that is not in the list shows as custom', (
     tester,
   ) async {
-    final h = await open(tester);
-    // Real file I/O never completes inside the test's fake-async zone.
-    unawaited(h.container.read(accentProvider.notifier).set(0xFF123456));
+    final h = await open(
+      tester,
+      overrides: [
+        accentProvider.overrideWith(
+          () => MemoryPref<int?>(UiPrefs.accent, null),
+        ),
+      ],
+    );
+    await h.container.read(accentProvider.notifier).set(0xFF123456);
     await settle(tester);
     expect(
       tester.widget<DlmDropdown<String?>>(dropdown('Accent colour')).value,

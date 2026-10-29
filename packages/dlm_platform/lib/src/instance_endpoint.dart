@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data' show BytesBuilder;
 
 import 'handed_open.dart';
 
@@ -159,14 +160,25 @@ class InstanceEndpoint {
     }
   }
 
+  /// Reads one line from [socket], at most [maxLineBytes] of it: a peer that
+  /// sends more, or never ends the line, is cut off at the limit (null), so a
+  /// local process cannot make this one buffer without bound.
+  Future<String?> _readLine(Socket socket) async {
+    final bytes = BytesBuilder(copy: false);
+    await for (final chunk in socket) {
+      final newline = chunk.indexOf(10);
+      final take = newline < 0 ? chunk.length : newline;
+      if (bytes.length + take > maxLineBytes) return null;
+      bytes.add(newline < 0 ? chunk : chunk.sublist(0, newline));
+      if (newline >= 0) return utf8.decode(bytes.takeBytes());
+    }
+    return null;
+  }
+
   Future<void> _serve(Socket socket, void Function(HandedOpen) add) async {
     try {
-      final line = await utf8.decoder
-          .bind(socket)
-          .transform(const LineSplitter())
-          .first
-          .timeout(_ioTimeout);
-      final open = line.length > maxLineBytes ? null : decodeHanded(line);
+      final line = await _readLine(socket).timeout(_ioTimeout);
+      final open = line == null ? null : decodeHanded(line);
       if (open != null) add(open);
       socket.write('{"ok":true}\n');
       await socket.flush();

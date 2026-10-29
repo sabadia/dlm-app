@@ -51,3 +51,23 @@ Code: `packages/dlm_ui_kit/lib/src/behavior/`, tests in `packages/dlm_ui_kit/tes
 
 Manual checks with real screen readers (VoiceOver, Narrator/NVDA, Orca), 200 % text and high
 contrast on each OS are F6.2.
+
+## On the real screens (F6.2)
+
+`apps/dlm_app/test/accessibility_test.dart` checks the app itself, not only the kit:
+
+- every tappable thing on the downloads page has a name, and text meets WCAG contrast, in all four
+  skins, light and dark, and in high contrast;
+- the downloads page, the add dialog and four settings pages lay out at 200 % text, and three
+  pages at 900 px and 150 %, without overflow;
+- Tab walks through at least twelve controls and never loses the focus; the gear menu and the
+  settings window work from the keyboard and Escape closes the window.
+
+What the pass found and fixed: accent-coloured text (plain buttons, links) was below 4.5:1 on the
+window and sidebar, so the link colour is now checked against every surface; form rows overflowed
+when a value was long (a control now takes at most 60 % of the row); button labels overflowed at
+large text (they shorten with an ellipsis); and the test harness did not see the system text scale
+at all, which hid all of this until it read it from the binding.
+
+Not automated: a screen reader reading the screens. VoiceOver, Narrator, NVDA and Orca are tried by
+hand with the steps in `docs/manual-tests.md`.

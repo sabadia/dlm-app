@@ -162,7 +162,7 @@ class _TrustPrompt extends StatelessWidget {
               ),
               SizedBox(height: theme.metrics.spacing.lg),
               Align(
-                alignment: Alignment.centerRight,
+                alignment: AlignmentDirectional.centerEnd,
                 child: DlmButton(
                   label: l.connection_trust_accept,
                   variant: DlmButtonVariant.primary,

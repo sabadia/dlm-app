@@ -94,10 +94,10 @@ class DlmToastHost extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = DlmTheme.of(context);
     final alignment = switch (theme.shell.feedback) {
-      DlmFeedbackStyle.floatingBanner => Alignment.topRight,
-      DlmFeedbackStyle.infoBar => Alignment.bottomRight,
+      DlmFeedbackStyle.floatingBanner => AlignmentDirectional.topEnd,
+      DlmFeedbackStyle.infoBar => AlignmentDirectional.bottomEnd,
       DlmFeedbackStyle.toastOverlay => Alignment.bottomCenter,
-      DlmFeedbackStyle.inlineMessage => Alignment.bottomRight,
+      DlmFeedbackStyle.inlineMessage => AlignmentDirectional.bottomEnd,
     };
     return Stack(
       children: [
@@ -115,7 +115,8 @@ class DlmToastHost extends StatelessWidget {
                     constraints: const BoxConstraints(maxWidth: 380),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      verticalDirection: alignment.y < 0
+                      verticalDirection:
+                          alignment.resolve(Directionality.of(context)).y < 0
                           ? VerticalDirection.down
                           : VerticalDirection.up,
                       children: [

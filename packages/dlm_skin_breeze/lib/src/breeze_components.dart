@@ -108,7 +108,9 @@ class BreezeComponents extends DlmBaseComponents {
         width: width,
         height: height,
         padding: const EdgeInsets.all(2),
-        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+        alignment: value
+            ? AlignmentDirectional.centerEnd
+            : AlignmentDirectional.centerStart,
         decoration: BoxDecoration(
           color: value ? active : c.controlFill,
           borderRadius: BorderRadius.circular(height / 2),
