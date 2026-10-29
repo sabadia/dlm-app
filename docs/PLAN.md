@@ -175,7 +175,7 @@ Added 2026-10-29 after the first look at the app (user feedback). One branch, on
 - [x] F5.15 Toolbar icons — New glyphs `group`, `columns`, `viewOptions`, `cards`; the gear stays only for settings.
 - [x] F5.16 Settings hub — One gear button in the sidebar footer opens a small menu (Tools / Manage / Settings); each opens a large popup window with its own left list of that section's pages. The sidebar loses those three sections; the `/manage` and `/settings` routes stay as deep links that open the hub; unsaved-changes guard kept.
 - [x] F5.17 Theme defaults and accent — Brightness and accent follow the OS (already true); one brand accent only when the OS reports none; a stored custom accent shown correctly in Preferences.
-- [ ] F5.18 Manual test checklist — `docs/manual-tests.md`: per OS steps for tray, notifications, login item, start hidden, sleep hold, taskbar progress, file drop, menus, window restore. The macOS part is run by the user; Windows and Linux by a tester before beta.
+- [x] F5.18 Manual test checklist — `docs/manual-tests.md`: per OS steps for tray, notifications, login item, start hidden, sleep hold, taskbar progress, file drop, menus, window restore. The macOS part is run by the user; Windows and Linux by a tester before beta.
 
 ### M6 Quality
 
