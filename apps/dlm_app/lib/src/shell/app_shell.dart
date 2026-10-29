@@ -17,6 +17,7 @@ import '../manage/manage_screen.dart';
 import '../onboarding/setup_dialog.dart';
 import '../platform/activity.dart';
 import '../platform/clipboard_watch.dart';
+import '../platform/dropped_files.dart';
 import '../platform/instance_open.dart';
 import '../platform/window_placement.dart';
 import '../prefs/pref_providers.dart';
@@ -26,6 +27,7 @@ import '../screens/list_views.dart';
 import '../settings/settings_form.dart';
 import 'app_commands.dart';
 import 'app_menus.dart';
+import 'feedback.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
 import 'shortcuts.dart';
@@ -443,31 +445,43 @@ class _AppShellState extends ConsumerState<AppShell> {
             controller: ref.watch(toastControllerProvider),
             child: PlatformMenuBar(
               menus: platformMenuItems(menus, mac: isMac),
-              child: Column(
-                children: [
-                  if (!isMac) ApplicationMenuStrip(menus: menus),
-                  Expanded(
-                    child: DlmSplitView(
-                      primarySize: sidebarWidth,
-                      minPrimary: theme.metrics.sidebarWidth.min,
-                      minSecondary: 520,
-                      initialSize: theme.metrics.sidebarWidth.ideal,
-                      dividerLabel: l.sidebar_resize,
-                      onResized: ref.read(sidebarWidthProvider.notifier).set,
-                      primary: BackdropRegion(
-                        chrome: chrome,
-                        child: theme.components.sidebarSurface(
-                          context,
-                          child: sidebar,
+              child: DropZone(
+                highlight: theme.colors.accent,
+                onDrop: (paths) => unawaited(() async {
+                  final open = await openFromDrop(paths);
+                  if (!context.mounted) return;
+                  if (open.isEmpty) {
+                    showNotice(context, ref, l.drop_nothing);
+                    return;
+                  }
+                  await ref.read(handedPresenterProvider)(context, ref, open);
+                }()),
+                child: Column(
+                  children: [
+                    if (!isMac) ApplicationMenuStrip(menus: menus),
+                    Expanded(
+                      child: DlmSplitView(
+                        primarySize: sidebarWidth,
+                        minPrimary: theme.metrics.sidebarWidth.min,
+                        minSecondary: 520,
+                        initialSize: theme.metrics.sidebarWidth.ideal,
+                        dividerLabel: l.sidebar_resize,
+                        onResized: ref.read(sidebarWidthProvider.notifier).set,
+                        primary: BackdropRegion(
+                          chrome: chrome,
+                          child: theme.components.sidebarSurface(
+                            context,
+                            child: sidebar,
+                          ),
+                        ),
+                        secondary: ColoredBox(
+                          color: theme.colors.content,
+                          child: content,
                         ),
                       ),
-                      secondary: ColoredBox(
-                        color: theme.colors.content,
-                        child: content,
-                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

@@ -1895,6 +1895,7 @@
   "pref_tray_desc": "Closing the window then keeps the app running; quit from the icon's menu. Without an icon, closing the window quits.",
   "pref_notify": "Tell me when a download finishes or fails",
   "pref_notify_desc": "A system notification with buttons to open the file or retry.",
+  "drop_nothing": "Nothing to add: drop .torrent files or text files with links.",
   "clip_offer_title": "A link is on the clipboard",
   "clip_offer_add": "Add",
   "clip_offer_dismiss": "Not now",

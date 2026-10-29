@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a187cf-2af4-79c9-94f1-bdbfc323375d
+status: draft
+created_at: '2026-10-29T13:17:43Z'
+updated_at: '2026-10-29T13:17:43Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'F5.5: dropping .torrent and link-list files on the window opens the add dialog (the plan item names drag-and-drop, only the clipboard watcher existed)'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/dlm_platform/lib/src/drop_zone.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/dropped_files.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

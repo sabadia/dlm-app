@@ -3231,6 +3231,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'A system notification with buttons to open the file or retry.';
 
   @override
+  String get drop_nothing =>
+      'Nothing to add: drop .torrent files or text files with links.';
+
+  @override
   String get clip_offer_title => 'A link is on the clipboard';
 
   @override
