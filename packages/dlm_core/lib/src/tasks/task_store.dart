@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dlm_api/dlm_api.dart';
 
 import '../stores/entity_store.dart';
+import 'task_log.dart';
 import 'task_status.dart';
 
 /// The cached tasks, their live progress and the queues, patched by the
@@ -23,6 +24,8 @@ class TaskStore {
   final _membership = StreamController<void>.broadcast(sync: true);
   final _speed = StreamController<SpeedData>.broadcast(sync: true);
   final _limits = StreamController<void>.broadcast(sync: true);
+  final _log = <String, List<TaskLogEntry>>{};
+  final _logChanged = StreamController<String>.broadcast(sync: true);
   final _resources = StreamController<ResourceChangedData>.broadcast(
     sync: true,
   );
@@ -30,6 +33,20 @@ class TaskStore {
   /// The latest total speed and counts the daemon reported, or null before the
   /// first report.
   SpeedData? speed;
+
+  /// What the app has seen happen to the task [id], oldest first. The daemon
+  /// keeps no such history: it starts when the app connects.
+  List<TaskLogEntry> logOf(String id) =>
+      List.unmodifiable(_log[id] ?? const []);
+
+  /// Fires with the id of a task whose log grew.
+  Stream<String> get logChanged => _logChanged.stream;
+
+  void _record(String id, TaskLogEntry entry) {
+    final list = _log.putIfAbsent(id, () => [])..add(entry);
+    if (list.length > taskLogLimit) list.removeAt(0);
+    _logChanged.add(id);
+  }
 
   /// Fires with each `system.speed` report (about once a second).
   Stream<SpeedData> get speedChanged => _speed.stream;
@@ -50,8 +67,9 @@ class TaskStore {
   /// Applies one daemon event.
   void apply(StreamEvent event) {
     switch (event) {
-      case StreamEventTaskCreatedEvent(:final data):
+      case StreamEventTaskCreatedEvent(:final data, :final time):
         tasks.put(data.id, data);
+        _record(data.id, TaskLogEntry(time: time, kind: TaskLogKind.created));
         _membership.add(null);
       case StreamEventTaskUpdatedEvent(:final data):
         tasks.put(data.id, data);
@@ -59,6 +77,17 @@ class TaskStore {
       case StreamEventTaskStatusEvent(:final taskId, :final data, :final time):
         final id = taskId;
         if (id == null) return;
+        _record(
+          id,
+          TaskLogEntry(
+            time: time,
+            kind: TaskLogKind.status,
+            from: data.from,
+            to: data.to,
+            errorCode: data.error?.code,
+            errorMessage: data.error?.message,
+          ),
+        );
         final current = tasks[id];
         if (current != null) {
           final done = TaskStatus.parse(data.to) == TaskStatus.completed;
@@ -92,6 +121,19 @@ class TaskStore {
       case StreamEventSystemSpeedEvent(:final data):
         speed = data;
         _speed.add(data);
+      case StreamEventTaskRefreshEvent(:final taskId, :final data, :final time):
+        if (taskId != null) {
+          _record(
+            taskId,
+            TaskLogEntry(
+              time: time,
+              kind: TaskLogKind.refresh,
+              strategy: data.strategy,
+              outcome: data.outcome,
+              errorMessage: data.error,
+            ),
+          );
+        }
       case StreamEventResourceChangedEvent(:final data):
         _resources.add(data);
       case StreamEventLimitsChangedEvent() ||
@@ -109,6 +151,7 @@ class TaskStore {
     progress.clear();
     queues.clear();
     speed = null;
+    _log.clear();
     _limits.add(null);
   }
 
@@ -118,5 +161,6 @@ class TaskStore {
     await _speed.close();
     await _limits.close();
     await _resources.close();
+    await _logChanged.close();
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -16,6 +18,7 @@ import 'tasks/stats_repository.dart';
 import 'tasks/task_actions.dart';
 import 'tasks/task_detail_repository.dart';
 import 'tasks/task_list.dart';
+import 'tasks/task_log.dart';
 import 'tasks/task_repository.dart';
 import 'tasks/task_store.dart';
 
@@ -119,6 +122,17 @@ final syncEngineProvider = Provider<SyncEngine>((ref) {
 final taskProvider = Provider.family<Task?, String>(
   (ref, id) => _watchEntity(ref, ref.watch(taskStoreProvider).tasks, id),
 );
+
+/// What the app has seen happen to one task (status changes, refresh
+/// attempts), oldest first; it grows as events arrive.
+final taskLogProvider = Provider.family<List<TaskLogEntry>, String>((ref, id) {
+  final store = ref.watch(taskStoreProvider);
+  final sub = store.logChanged
+      .where((changed) => changed == id)
+      .listen((_) => ref.invalidateSelf());
+  ref.onDispose(() => unawaited(sub.cancel()));
+  return store.logOf(id);
+});
 
 /// The live progress of one task, by id.
 final taskProgressProvider = Provider.family<ProgressData?, String>(

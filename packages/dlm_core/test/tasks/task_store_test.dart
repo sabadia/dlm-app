@@ -204,4 +204,67 @@ void main() {
     expect(calls, 2);
     unawaited(sub.cancel());
   });
+
+  test('the log records what happened to a task, oldest first', () {
+    store
+      ..apply(taskEvent('task.created', task('a')))
+      ..apply(statusEvent('a', 'queued', 'running'))
+      ..apply(
+        statusEvent(
+          'a',
+          'running',
+          'error',
+          error: TaskError(
+            at: DateTime.utc(2026, 10, 30, 10),
+            code: 'http_404',
+            message: 'not found',
+            retryable: false,
+          ),
+        ),
+      )
+      ..apply(
+        StreamEvent.fromJson({
+          'id': 9,
+          'type': 'task.refresh',
+          'taskId': 'a',
+          'time': '2026-10-30T10:00:05Z',
+          'data': {
+            'cause': 'http_403',
+            'createdAt': '2026-10-30T10:00:05Z',
+            'downloaded': 0,
+            'id': 'r1',
+            'outcome': 'failed',
+            'strategy': 'origin-redirect',
+            'taskId': 'a',
+            'error': 'no new link',
+          },
+        }),
+      );
+    final log = store.logOf('a');
+    expect(log.map((e) => e.kind), [
+      TaskLogKind.created,
+      TaskLogKind.status,
+      TaskLogKind.status,
+      TaskLogKind.refresh,
+    ]);
+    expect(log[1].to, 'running');
+    expect(log[2].isFailure, isTrue);
+    expect(log[2].errorCode, 'http_404');
+    expect(log[3].strategy, 'origin-redirect');
+    expect(log[3].errorMessage, 'no new link');
+    expect(store.logOf('other'), isEmpty);
+  });
+
+  test('the log is bounded and announced', () async {
+    final seen = <String>[];
+    final sub = store.logChanged.listen(seen.add);
+    for (var i = 0; i < taskLogLimit + 5; i++) {
+      store.apply(statusEvent('b', 'queued', 'running'));
+    }
+    expect(store.logOf('b'), hasLength(taskLogLimit));
+    expect(seen.length, taskLogLimit + 5);
+    store.clear();
+    expect(store.logOf('b'), isEmpty);
+    await sub.cancel();
+  });
 }

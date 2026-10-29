@@ -36,6 +36,7 @@ export 'src/tasks/stats_repository.dart';
 export 'src/tasks/task_actions.dart';
 export 'src/tasks/task_detail_repository.dart';
 export 'src/tasks/task_list.dart';
+export 'src/tasks/task_log.dart';
 export 'src/tasks/task_repository.dart';
 export 'src/tasks/task_status.dart';
 export 'src/tasks/task_store.dart';

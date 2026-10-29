@@ -3216,4 +3216,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String add_login_none(String host) {
     return 'No login is stored for $host';
   }
+
+  @override
+  String get insp_tab_events => 'Events';
+
+  @override
+  String get ev_created => 'Added to the list';
+
+  @override
+  String ev_status(String from, String to) {
+    return '$from → $to';
+  }
+
+  @override
+  String ev_refresh(String strategy, String outcome) {
+    return 'Link renewal with $strategy: $outcome';
+  }
+
+  @override
+  String get ev_current_error => 'Failed';
+
+  @override
+  String get ev_none =>
+      'Nothing has happened to this download since the app connected.';
+
+  @override
+  String get ev_note =>
+      'This is what the app has seen since it connected; the daemon does not keep a longer history.';
 }

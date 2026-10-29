@@ -5403,6 +5403,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No login is stored for {host}'**
   String add_login_none(String host);
+
+  /// No description provided for @insp_tab_events.
+  ///
+  /// In en, this message translates to:
+  /// **'Events'**
+  String get insp_tab_events;
+
+  /// No description provided for @ev_created.
+  ///
+  /// In en, this message translates to:
+  /// **'Added to the list'**
+  String get ev_created;
+
+  /// No description provided for @ev_status.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to}'**
+  String ev_status(String from, String to);
+
+  /// No description provided for @ev_refresh.
+  ///
+  /// In en, this message translates to:
+  /// **'Link renewal with {strategy}: {outcome}'**
+  String ev_refresh(String strategy, String outcome);
+
+  /// No description provided for @ev_current_error.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed'**
+  String get ev_current_error;
+
+  /// No description provided for @ev_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing has happened to this download since the app connected.'**
+  String get ev_none;
+
+  /// No description provided for @ev_note.
+  ///
+  /// In en, this message translates to:
+  /// **'This is what the app has seen since it connected; the daemon does not keep a longer history.'**
+  String get ev_note;
 }
 
 class _AppLocalizationsDelegate

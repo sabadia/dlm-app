@@ -1916,5 +1916,32 @@
         "type": "String"
       }
     }
-  }
+  },
+  "insp_tab_events": "Events",
+  "ev_created": "Added to the list",
+  "ev_status": "{from} → {to}",
+  "@ev_status": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "ev_refresh": "Link renewal with {strategy}: {outcome}",
+  "@ev_refresh": {
+    "placeholders": {
+      "strategy": {
+        "type": "String"
+      },
+      "outcome": {
+        "type": "String"
+      }
+    }
+  },
+  "ev_current_error": "Failed",
+  "ev_none": "Nothing has happened to this download since the app connected.",
+  "ev_note": "This is what the app has seen since it connected; the daemon does not keep a longer history."
 }
