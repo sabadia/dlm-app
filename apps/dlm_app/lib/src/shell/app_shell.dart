@@ -70,6 +70,8 @@ class _AppShellState extends ConsumerState<AppShell> {
     super.dispose();
   }
 
+  static int? _positive(int n) => n > 0 ? n : null;
+
   ({String sidebarId, String title}) _current(
     AppLocalizations l,
     List<Queue> queues,
@@ -96,6 +98,7 @@ class _AppShellState extends ConsumerState<AppShell> {
     final l = AppLocalizations.of(context);
     final theme = DlmTheme.of(context);
     final queues = ref.watch(queuesProvider).value ?? const <Queue>[];
+    final counts = ref.watch(queueCountsProvider);
     final current = _current(l, queues);
     final sidebarWidth = ref.watch(sidebarWidthProvider);
     final inspectorWidth = ref.watch(inspectorWidthProvider);
@@ -157,6 +160,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                 id: downloadsSidebarId(f),
                 label: filterLabel(l, f),
                 icon: DlmIcon(filterIcon(f)),
+                count: _positive(counts.count(statuses: f.statuses)),
               ),
           ],
         ),
@@ -169,6 +173,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                   id: queueSidebarId(q.id),
                   label: q.name,
                   icon: const DlmIcon(DlmIconName.queue),
+                  count: _positive(counts.open(q.id)),
                 ),
             ],
           ),

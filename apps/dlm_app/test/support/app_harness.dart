@@ -161,6 +161,7 @@ Future<AppHarness> pumpApp(
   Size size = const Size(1400, 900),
   bool liveSync = false,
   bool onboarded = true,
+  Map<String, Map<String, int>> counts = const {},
   List<Override> overrides = const [],
 }) async {
   tester.view
@@ -206,6 +207,7 @@ Future<AppHarness> pumpApp(
           ),
         ),
       queuesProvider.overrideWith(() => FakeQueues(queues)),
+      queueCountsSourceProvider.overrideWithValue(() async => counts),
       clockProvider.overrideWithValue(tester.binding.clock.now),
       ...overrides,
     ],

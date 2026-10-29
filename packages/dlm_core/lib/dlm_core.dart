@@ -17,6 +17,7 @@ export 'src/prefs/saved_view.dart';
 export 'src/prefs/ui_prefs.dart';
 export 'src/problems/failure_presentation.dart';
 export 'src/providers.dart';
+export 'src/queues/queue_counts.dart';
 export 'src/queues/queues_controller.dart';
 export 'src/resources/resource_list.dart';
 export 'src/session.dart';
