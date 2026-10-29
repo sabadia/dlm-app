@@ -114,11 +114,37 @@ public final class DlmPlatformPlugin: NSObject, FlutterPlugin {
     }
   }
 
+  /// Token from `ProcessInfo.beginActivity`. The display may still sleep; the
+  /// system does not idle-sleep while a download is running.
+  private static var activityToken: NSObjectProtocol?
+
+  /// Channel `dlm/awake`: `set` {awake: bool}.
+  private static func handleAwake(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
+    guard call.method == "set" else {
+      result(FlutterMethodNotImplemented)
+      return
+    }
+    let awake = (call.arguments as? [String: Any])?["awake"] as? Bool ?? false
+    if awake {
+      if activityToken == nil {
+        activityToken = ProcessInfo.processInfo.beginActivity(
+          options: .idleSystemSleepDisabled,
+          reason: "Downloading")
+      }
+    } else if let token = activityToken {
+      ProcessInfo.processInfo.endActivity(token)
+      activityToken = nil
+    }
+    result(nil)
+  }
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     _ = launchedAsLoginItem
     OpenTargets.install(messenger: registrar.messenger)
     FlutterMethodChannel(name: "dlm/login_item", binaryMessenger: registrar.messenger)
       .setMethodCallHandler(handleLoginItem)
+    FlutterMethodChannel(name: "dlm/awake", binaryMessenger: registrar.messenger)
+      .setMethodCallHandler(handleAwake)
     let channel = FlutterMethodChannel(
       name: "dlm/window_chrome",
       binaryMessenger: registrar.messenger

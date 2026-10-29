@@ -15,6 +15,7 @@ import '../add/add_dialog.dart';
 import '../inspector/inspector_pane.dart';
 import '../manage/manage_screen.dart';
 import '../onboarding/setup_dialog.dart';
+import '../platform/activity.dart';
 import '../platform/clipboard_watch.dart';
 import '../platform/instance_open.dart';
 import '../prefs/pref_providers.dart';
@@ -389,6 +390,7 @@ class _AppShellState extends ConsumerState<AppShell> {
         const StatusBanners(),
         const ClipboardWatcher(),
         const InstanceOpenBinder(),
+        const ActivityBinder(),
         const ClipboardOfferBanner(),
         const QueueCountdownBanners(),
         Expanded(

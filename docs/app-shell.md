@@ -115,6 +115,17 @@ forward and every two seconds. It offers the first http, https, ftp, magnet
 or ed2k link, and skips a link it has already offered. The clipboard text is
 not written to the log.
 
+## Dock, taskbar and sleep
+
+While the daemon reports downloads in progress, the app keeps the system from
+idle-sleeping (the display may still sleep) and shows them on the dock or
+taskbar. The badge is the number in progress. The bar is their combined
+fraction, or a pulse when a size is not known yet. When nothing is running the
+badge and the bar clear and the system may sleep. On Linux this uses
+`systemd-inhibit` when it is installed. A finished queue that is set to sleep
+or shut down still shows its countdown, and cancelling it stops the queue, so
+the daemon does not run the action.
+
 ## Opening a link or a torrent
 
 A second launch hands its arguments to the instance already running, over a

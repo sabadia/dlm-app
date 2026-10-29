@@ -86,6 +86,12 @@ class RecordingWindow implements WindowControl {
 
   @override
   Future<void> quit() async => quits++;
+
+  @override
+  Future<void> setProgress(double progress) async {}
+
+  @override
+  Future<void> setBadge(String label) async {}
 }
 
 class RecordingNotifier implements DesktopNotifier {

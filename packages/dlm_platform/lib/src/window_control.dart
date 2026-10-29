@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:window_manager/window_manager.dart';
 
 /// Showing, hiding and closing the one window, and hearing that the user
@@ -21,6 +22,13 @@ abstract interface class WindowControl {
 
   /// Closes the window for good, which ends the app.
   Future<void> quit();
+
+  /// Dock or taskbar progress. Below 0 clears it. Above 1 is indeterminate.
+  /// A value from 0 to 1 is a fraction.
+  Future<void> setProgress(double progress);
+
+  /// The dock badge. Empty clears it. macOS only; other systems ignore it.
+  Future<void> setBadge(String label);
 }
 
 /// Nothing to control: closing the window just closes it.
@@ -42,6 +50,12 @@ class UnsupportedWindowControl implements WindowControl {
 
   @override
   Future<void> quit() async {}
+
+  @override
+  Future<void> setProgress(double progress) async {}
+
+  @override
+  Future<void> setBadge(String label) async {}
 }
 
 /// [WindowControl] over `window_manager`.
@@ -80,5 +94,18 @@ class WindowManagerControl with WindowListener implements WindowControl {
   Future<void> quit() async {
     await windowManager.setPreventClose(false);
     await windowManager.destroy();
+  }
+
+  @override
+  Future<void> setProgress(double progress) =>
+      windowManager.setProgressBar(progress);
+
+  @override
+  Future<void> setBadge(String label) async {
+    try {
+      await windowManager.setBadgeLabel(label);
+    } on MissingPluginException {
+      // The dock badge is macOS. Windows and Linux use the progress bar.
+    }
   }
 }

@@ -10,6 +10,7 @@ import 'src/app.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
 import 'src/crash_handlers.dart';
+import 'src/platform/activity.dart';
 import 'src/platform/instance_open.dart';
 import 'src/platform/startup.dart';
 import 'src/prefs/pref_providers.dart';
@@ -77,6 +78,7 @@ void main() {
             LocalDesktopNotifier(appName: 'dlm'),
           ),
           startedAtLoginProvider.overrideWithValue(atLogin),
+          awakeLockProvider.overrideWithValue(PlatformAwakeLock()),
           openingsProvider.overrideWithValue(
             Openings(
               launch: primary.launch,
