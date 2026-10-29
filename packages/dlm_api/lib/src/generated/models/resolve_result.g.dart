@@ -18,6 +18,9 @@ ResolveResult _$ResolveResultFromJson(Map<String, dynamic> json) =>
       duplicateOf: json['duplicateOf'] == null
           ? null
           : DuplicateHint.fromJson(json['duplicateOf'] as Map<String, dynamic>),
+      formats: (json['formats'] as List<dynamic>?)
+          ?.map((e) => Format.fromJson(e as String))
+          .toList(),
     );
 
 Map<String, dynamic> _$ResolveResultToJson(ResolveResult instance) =>
@@ -26,8 +29,15 @@ Map<String, dynamic> _$ResolveResultToJson(ResolveResult instance) =>
       'duplicateOf': instance.duplicateOf,
       'engine': instance.engine,
       'expiresAt': instance.expiresAt.toIso8601String(),
+      'formats': instance.formats?.map((e) => _$FormatEnumMap[e]!).toList(),
       'name': instance.name,
       'resolveId': instance.resolveId,
       'resource': instance.resource,
       'source': instance.source,
     };
+
+const _$FormatEnumMap = {
+  Format.valueJson: 'json',
+  Format.netscape: 'netscape',
+  Format.$unknown: r'$unknown',
+};

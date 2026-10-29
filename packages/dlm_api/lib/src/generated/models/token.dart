@@ -13,13 +13,21 @@ class Token {
     required this.id,
     required this.name,
     required this.scope,
+    this.browser,
+    this.clientId,
+    this.clientVersion,
+    this.kind,
     this.lastUsedAt,
   });
 
   factory Token.fromJson(Map<String, Object?> json) => _$TokenFromJson(json);
 
+  final String? browser;
+  final String? clientId;
+  final String? clientVersion;
   final DateTime createdAt;
   final String id;
+  final String? kind;
   final DateTime? lastUsedAt;
   final String name;
   final String scope;

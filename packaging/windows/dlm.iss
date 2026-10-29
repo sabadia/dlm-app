@@ -62,5 +62,10 @@ Root: HKA; Subkey: "Software\Classes\DLM.torrent\shell\open\command"; ValueType:
 ; the two stay in step.
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: "dlm"; ValueType: string; ValueData: """{app}\{#AppExe}"" --minimised"; Tasks: startup; Flags: uninsdeletevalue
 
+[UninstallRun]
+; Takes the browser registrations of the extension host out, so no key points
+; at a program that is gone. The daemon's home is where the app keeps it.
+Filename: "{app}\bin\dlm.exe"; Parameters: "--home ""{localappdata}\dlm\daemon"" native-host uninstall"; Flags: runhidden; RunOnceId: "NativeHostUninstall"
+
 [Run]
 Filename: "{app}\{#AppExe}"; Description: "Start DLM"; Flags: nowait postinstall skipifsilent

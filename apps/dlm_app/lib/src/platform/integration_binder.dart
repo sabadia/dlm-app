@@ -13,11 +13,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../about/diagnostics_providers.dart';
 import '../connection/connection_controller.dart';
 import '../format/dlm_format.dart';
+import '../pairing/native_host_upkeep.dart';
+import '../pairing/pairing_dialog.dart';
+import '../pairing/pairing_requests.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
+import '../refresh/link_requests.dart';
 import '../shell/shell_state.dart';
 import 'file_opener.dart';
 import 'startup.dart';
+import 'url_opener.dart';
 
 /// The asset of the tray icon: a monochrome template in the macOS menu bar,
 /// the coloured mark elsewhere.
@@ -62,6 +67,15 @@ abstract final class NotifyIds {
 
   /// The category of a queue that ran out of work.
   static const queue = 'queue';
+
+  /// The category of a browser extension that asks to connect.
+  static const pairing = 'pairing';
+
+  /// The category of a download that waits for a new link.
+  static const link = 'link';
+
+  /// Open the page the download came from.
+  static const openPage = 'open-page';
 }
 
 /// The buttons per notification category, which macOS needs at start-up.
@@ -73,6 +87,7 @@ Map<String, List<NotificationButton>> notificationCategories(
     NotificationButton(NotifyIds.folder, l.notif_folder),
   ],
   NotifyIds.failed: [NotificationButton(NotifyIds.retry, l.notif_retry)],
+  NotifyIds.link: [NotificationButton(NotifyIds.openPage, l.notif_open_page)],
 };
 
 /// Where the downloaded file of [task] is, or null when the daemon did not say.
@@ -165,6 +180,23 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
         (_, store) => _watchTasks(store),
         fireImmediately: true,
       )
+      ..listenManual(pairingRequestsProvider, (previous, next) {
+        // An extension that asks to connect needs an answer: bring the window
+        // forward, where the prompt is, and tell the system.
+        final before = {for (final p in previous ?? const <Pairing>[]) p.id};
+        if (next.any((p) => !before.contains(p.id))) {
+          unawaited(window.show());
+          unawaited(_announcePairing(next.last));
+        }
+      })
+      ..listenManual(linkRequestsProvider, (previous, next) {
+        final before = {
+          for (final r in previous ?? const <LinkRequest>[]) r.taskId,
+        };
+        for (final r in next) {
+          if (!before.contains(r.taskId)) unawaited(_announceLink(r));
+        }
+      })
       ..listenManual(pendingQueueActionsProvider, (previous, next) {
         final before = previous?.keys.toSet() ?? const {};
         for (final entry in next.entries) {
@@ -173,6 +205,8 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
           }
         }
       });
+    // The registration of the browsers is brought up to date once per start.
+    unawaited(ref.read(nativeHostUpkeepProvider.future));
     final l = AppLocalizations.of(context);
     await notifier.init(categories: notificationCategories(l));
     await _syncTray();
@@ -325,6 +359,49 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     }
   }
 
+  Future<void> _announceLink(LinkRequest r) async {
+    if (!mounted || !ref.read(notifyOnFinishProvider)) return;
+    final l = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(notifierProvider)
+          .show(
+            AppNotification(
+              id: r.taskId.hashCode,
+              title: l.notif_link_wait,
+              body: r.name,
+              category: NotifyIds.link,
+              payload: '${NotifyIds.link}:${r.taskId}',
+              buttons: [
+                NotificationButton(NotifyIds.openPage, l.notif_open_page),
+              ],
+            ),
+          );
+    } on Object catch (e) {
+      ref.read(appLoggerProvider).warning('notification failed: $e');
+    }
+  }
+
+  Future<void> _announcePairing(Pairing p) async {
+    if (!mounted) return;
+    final l = AppLocalizations.of(context);
+    try {
+      await ref
+          .read(notifierProvider)
+          .show(
+            AppNotification(
+              id: p.id.hashCode,
+              title: l.pair_notification,
+              body: '${p.name} · ${spacedCode(p.code)}',
+              category: NotifyIds.pairing,
+              payload: p.id,
+            ),
+          );
+    } on Object catch (e) {
+      ref.read(appLoggerProvider).warning('notification failed: $e');
+    }
+  }
+
   Future<void> _announceQueue(PendingQueueAction action) async {
     if (!mounted || !ref.read(notifyOnFinishProvider)) return;
     final l = AppLocalizations.of(context);
@@ -357,6 +434,23 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
   Future<void> _handleTap(String id, String? button) async {
     if (id.startsWith('${NotifyIds.queue}:')) {
       await ref.read(windowControlProvider).show();
+      return;
+    }
+    if (id.startsWith('${NotifyIds.link}:')) {
+      final taskId = id.substring(NotifyIds.link.length + 1);
+      final waiting = ref
+          .read(linkRequestsProvider)
+          .where((r) => r.taskId == taskId)
+          .firstOrNull;
+      try {
+        if (button == NotifyIds.openPage && waiting != null) {
+          await ref.read(urlOpenerProvider).open(waiting.pageUrl);
+        } else {
+          await ref.read(windowControlProvider).show();
+        }
+      } on Object catch (e) {
+        ref.read(appLoggerProvider).warning('notification action failed: $e');
+      }
       return;
     }
     final task = ref.read(taskStoreProvider).tasks[id];

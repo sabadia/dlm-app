@@ -554,6 +554,49 @@ class _TasksClient implements TasksClient {
   }
 
   @override
+  Future<Task> addTorrentFile({
+    required File body,
+    String? queueId,
+    String? name,
+    String? dir,
+    Priority? priority,
+    bool? paused,
+    bool? allowDuplicate,
+  }) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'queueId': queueId,
+      r'name': name,
+      r'dir': dir,
+      r'priority': priority,
+      r'paused': paused,
+      r'allowDuplicate': allowDuplicate,
+    };
+    queryParameters.removeWhere((k, v) => v == null);
+    final _headers = <String, dynamic>{};
+    final _data = body.openRead();
+    final _options = _setStreamType<Task>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/v1/tasks/torrent',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, Object?>>(_options);
+    late Task _value;
+    try {
+      _value = Task.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options, response: _result);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
   Future<BatchOutputBody> updateTasks({required UpdateTasksBody body}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

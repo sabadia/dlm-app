@@ -16,7 +16,7 @@ abstract class CaptureClient {
 
   /// Capture a download from the browser extension.
   ///
-  /// Creates a task from a download the browser extension intercepted, keeping the context needed to refresh the link later (original and final URL, page, referrer, headers, user agent, cookie domains, media hint). The request's cookies are stored before the task is queued, so the first request already carries them. The extension's origin must be listed in the server's allowed origins.
+  /// Creates a task from a download the browser extension intercepted, keeping the context needed to refresh the link later (original and final URL, page, referrer, headers, user agent, cookie domains, media hint). The request's cookies are stored before the task is queued, so the first request already carries them. The cookies of a browser-extension token are kept for this download only (cookieScope).
   @POST('/v1/capture')
   Future<CaptureOutput> captureDownload({@Body() required CaptureBody body});
 }

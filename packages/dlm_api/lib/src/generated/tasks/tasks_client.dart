@@ -2,6 +2,8 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, unused_import, invalid_annotation_target, unnecessary_import
 
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -23,6 +25,7 @@ import '../models/move_task_body.dart';
 import '../models/move_tasks_body.dart';
 import '../models/order.dart';
 import '../models/position_body.dart';
+import '../models/priority.dart';
 import '../models/resolve_result.dart';
 import '../models/resolve_task_body.dart';
 import '../models/resolve_tasks_body.dart';
@@ -227,6 +230,32 @@ abstract class TasksClient {
   /// Queues each selected paused or failed task again. Returns one result per task.
   @POST('/v1/tasks/resume')
   Future<BatchOutputBody> resumeTasks({@Body() required TaskSelector body});
+
+  /// Add a download from a .torrent file.
+  ///
+  /// Creates a torrent task from the content of a .torrent file, sent as the request body (Content-Type application/x-bittorrent), up to 16 MiB. Use it instead of a data: URL in create-task, which is limited to the 1 MiB of an ordinary request.
+  ///
+  /// [queueId] - Queue to add the task to (default: the Main queue).
+  ///
+  /// [name] - File or folder name without directories (default: the torrent's name).
+  ///
+  /// [dir] - Absolute download directory (default: the effective downloadDir).
+  ///
+  /// [priority] - Priority within the queue (default normal).
+  ///
+  /// [paused] - Create the task paused instead of queued.
+  ///
+  /// [allowDuplicate] - Add the task even when the same torrent is already a task.
+  @POST('/v1/tasks/torrent')
+  Future<Task> addTorrentFile({
+    @Body() required File body,
+    @Query('queueId') String? queueId,
+    @Query('name') String? name,
+    @Query('dir') String? dir,
+    @Query('priority') Priority? priority,
+    @Query('paused') bool? paused,
+    @Query('allowDuplicate') bool? allowDuplicate,
+  });
 
   /// Change several tasks at once.
   ///

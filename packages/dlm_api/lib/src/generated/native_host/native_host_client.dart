@@ -23,7 +23,7 @@ abstract class NativeHostClient {
 
   /// Register or remove the browser extension host.
   ///
-  /// Writes (install) or removes (uninstall) the Native Messaging host registration of the selected browsers, as `dlm native-host install|uninstall` does. Install needs the extension ID(s): Chromium browsers also need the extension's origin in server.allowed_origins. Only from the machine the daemon runs on (403 native_host.local_only otherwise).
+  /// Writes (install) or removes (uninstall) the Native Messaging host registration of the selected browsers, as `dlm native-host install|uninstall` does. The published DLM extension is always registered; extensionIds and firefoxIds add others (another Chromium extension also needs its origin in server.allowed_origins). Only from the machine the daemon runs on (403 native_host.local_only otherwise).
   @POST('/v1/native-host')
   Future<List<Result>?> updateNativeHost({
     @Body() required NativeHostRequest body,

@@ -32,10 +32,10 @@ class NativeHostRequest {
   /// Limit to these browsers (see get-native-host for the names); default: all.
   final List<String>? browsers;
 
-  /// Chromium extension IDs or chrome-extension://ID/ origins to allow (install); default: the chrome-extension:// entries of server.allowed_origins.
+  /// More Chromium extension IDs or chrome-extension://ID/ origins to allow (install), besides the published extension; default: the chrome-extension:// entries of server.allowed_origins.
   final List<String>? extensionIds;
 
-  /// Firefox add-on IDs to allow (install).
+  /// More Firefox add-on IDs to allow (install), besides the published extension.
   final List<String>? firefoxIds;
 
   Map<String, Object?> toJson() => _$NativeHostRequestToJson(this);

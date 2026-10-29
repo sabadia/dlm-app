@@ -16,13 +16,14 @@ import 'system/system_client.dart';
 import 'settings/settings_client.dart';
 import 'logs/logs_client.dart';
 import 'native_host/native_host_client.dart';
+import 'pairing/pairing_client.dart';
 import 'plugins/plugins_client.dart';
 import 'queues/queues_client.dart';
 import 'tasks/tasks_client.dart';
 import 'refresh/refresh_client.dart';
 import 'webhooks/webhooks_client.dart';
 
-/// dlm-server API `v0.5.0`.
+/// dlm-server API `v0.6.0`.
 ///
 /// REST API of the dlm download manager daemon.
 class RestClient {
@@ -31,7 +32,7 @@ class RestClient {
   final Dio _dio;
   final String? _baseUrl;
 
-  static String get version => '0.5.0';
+  static String get version => '0.6.0';
 
   AuthClient? _auth;
   BrowserClient? _browser;
@@ -45,6 +46,7 @@ class RestClient {
   SettingsClient? _settings;
   LogsClient? _logs;
   NativeHostClient? _nativeHost;
+  PairingClient? _pairing;
   PluginsClient? _plugins;
   QueuesClient? _queues;
   TasksClient? _tasks;
@@ -81,6 +83,9 @@ class RestClient {
 
   NativeHostClient get nativeHost =>
       _nativeHost ??= NativeHostClient(_dio, baseUrl: _baseUrl);
+
+  PairingClient get pairing =>
+      _pairing ??= PairingClient(_dio, baseUrl: _baseUrl);
 
   PluginsClient get plugins =>
       _plugins ??= PluginsClient(_dio, baseUrl: _baseUrl);

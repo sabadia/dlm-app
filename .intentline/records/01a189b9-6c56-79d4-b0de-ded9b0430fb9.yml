@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a189b9-6c56-79d4-b0de-ded9b0430fb9
+status: draft
+created_at: '2026-10-29T22:13:12Z'
+updated_at: '2026-10-29T22:13:12Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: The extension host registration is kept current on start and removed on uninstall (Inno Setup, cask zap, deb/rpm postremove)
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/pairing/native_host_upkeep.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

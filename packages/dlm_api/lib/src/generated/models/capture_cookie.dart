@@ -17,6 +17,7 @@ class CaptureCookie {
     this.expiresAt,
     this.hostOnly,
     this.httpOnly,
+    this.partitionKey,
     this.path,
     this.sameSite,
     this.secure,
@@ -35,6 +36,9 @@ class CaptureCookie {
   final bool? hostOnly;
   final bool? httpOnly;
   final String name;
+
+  /// Partition key of a partitioned cookie (CHIPS), as the browser reports it. Kept as it is in the cookie store; dropped for a task's own cookies (cookieScope task), which are sent like ordinary ones.
+  final String? partitionKey;
 
   /// Default /.
   final String? path;

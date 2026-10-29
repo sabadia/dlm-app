@@ -113,6 +113,12 @@ Download links often expire halfway. DLM remembers the page each link came from 
 you**, even from pages that need a real browser, a login or cookies. Your download carries on as if nothing
 happened.
 
+### Your browser's downloads, in DLM
+
+The [DLM browser extension](docs/user/browser-extension.md) (Chrome, Edge, Brave, Opera, Vivaldi and
+Firefox) sends your browser's downloads to DLM. You allow each extension once, in the app, and can
+revoke it any time. When a link has expired, DLM tells you and opens the page for a new one.
+
 ### Always within reach
 
 - 🔔 **Notifications** when a download finishes, fails or a queue ends, with buttons to open the file, show

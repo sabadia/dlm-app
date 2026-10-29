@@ -5,8 +5,8 @@ import 'package:dlm_api/dlm_api.dart';
 typedef ConfigView = View;
 
 /// What the app asks of the daemon about itself: its boot configuration and
-/// restart, its log, who may use it (tokens), and the browser extension's
-/// native host.
+/// restart, its log, who may use it (tokens), the browser extension's native
+/// host, and the extensions that ask to be paired.
 abstract interface class DaemonRepository {
   /// The effective boot configuration with the source of every value.
   Future<ConfigView> config();
@@ -46,6 +46,15 @@ abstract interface class DaemonRepository {
     List<String> firefoxIds = const [],
     List<String> browsers = const [],
   });
+
+  /// The browser extensions waiting for the user to allow or refuse them.
+  Future<List<Pairing>> pairings();
+
+  /// Allows a pairing: the extension is issued a token of its own.
+  Future<Pairing> approvePairing(String id);
+
+  /// Refuses a pairing.
+  Future<Pairing> denyPairing(String id);
 }
 
 /// The REST implementation.
@@ -115,4 +124,16 @@ class ApiDaemonRepository implements DaemonRepository {
     );
     return out ?? const [];
   }
+
+  @override
+  Future<List<Pairing>> pairings() async =>
+      (await guard(_rest.pairing.listPairings)).pairings ?? const [];
+
+  @override
+  Future<Pairing> approvePairing(String id) =>
+      guard(() => _rest.pairing.approvePairing(id: id));
+
+  @override
+  Future<Pairing> denyPairing(String id) =>
+      guard(() => _rest.pairing.denyPairing(id: id));
 }

@@ -24,6 +24,7 @@ class Source {
     this.redirectUrl,
     this.referrer,
     this.resolverKind,
+    this.streamKind,
     this.userAgent,
   });
 
@@ -42,6 +43,7 @@ class Source {
   final String? redirectUrl;
   final String? referrer;
   final String? resolverKind;
+  final String? streamKind;
   final String? userAgent;
 
   Map<String, Object?> toJson() => _$SourceToJson(this);

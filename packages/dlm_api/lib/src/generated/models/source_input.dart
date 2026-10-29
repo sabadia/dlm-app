@@ -5,6 +5,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import 'source_input_resolver_kind.dart';
+import 'source_input_stream_kind.dart';
 
 part 'source_input.g.dart';
 
@@ -22,6 +23,7 @@ class SourceInput {
     this.pageUrl,
     this.referrer,
     this.resolverKind,
+    this.streamKind,
     this.userAgent,
   });
 
@@ -60,6 +62,9 @@ class SourceInput {
 
   /// How the link was obtained (default direct).
   final SourceInputResolverKind? resolverKind;
+
+  /// Says the link is an HLS or DASH manifest although its path does not end in .m3u8 or .mpd.
+  final SourceInputStreamKind? streamKind;
 
   /// User agent captured with the link.
   final String? userAgent;

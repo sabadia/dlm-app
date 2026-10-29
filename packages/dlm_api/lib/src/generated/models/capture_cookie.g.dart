@@ -16,6 +16,7 @@ CaptureCookie _$CaptureCookieFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['expiresAt'] as String),
       hostOnly: json['hostOnly'] as bool?,
       httpOnly: json['httpOnly'] as bool?,
+      partitionKey: json['partitionKey'] as String?,
       path: json['path'] as String?,
       sameSite: json['sameSite'] == null
           ? null
@@ -30,6 +31,7 @@ Map<String, dynamic> _$CaptureCookieToJson(CaptureCookie instance) =>
       'hostOnly': instance.hostOnly,
       'httpOnly': instance.httpOnly,
       'name': instance.name,
+      'partitionKey': instance.partitionKey,
       'path': instance.path,
       'sameSite': _$CaptureCookieSameSiteEnumMap[instance.sameSite],
       'secure': instance.secure,

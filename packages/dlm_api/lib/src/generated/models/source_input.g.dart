@@ -26,6 +26,9 @@ SourceInput _$SourceInputFromJson(Map<String, dynamic> json) => SourceInput(
   resolverKind: json['resolverKind'] == null
       ? null
       : SourceInputResolverKind.fromJson(json['resolverKind'] as String),
+  streamKind: json['streamKind'] == null
+      ? null
+      : SourceInputStreamKind.fromJson(json['streamKind'] as String),
   userAgent: json['userAgent'] as String?,
 );
 
@@ -42,6 +45,7 @@ Map<String, dynamic> _$SourceInputToJson(SourceInput instance) =>
       'pageUrl': instance.pageUrl,
       'referrer': instance.referrer,
       'resolverKind': _$SourceInputResolverKindEnumMap[instance.resolverKind],
+      'streamKind': _$SourceInputStreamKindEnumMap[instance.streamKind],
       'userAgent': instance.userAgent,
     };
 
@@ -51,4 +55,10 @@ const _$SourceInputResolverKindEnumMap = {
   SourceInputResolverKind.ytdlp: 'ytdlp',
   SourceInputResolverKind.plugin: 'plugin',
   SourceInputResolverKind.$unknown: r'$unknown',
+};
+
+const _$SourceInputStreamKindEnumMap = {
+  SourceInputStreamKind.hls: 'hls',
+  SourceInputStreamKind.dash: 'dash',
+  SourceInputStreamKind.$unknown: r'$unknown',
 };
