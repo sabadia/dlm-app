@@ -76,14 +76,14 @@ class AboutScreen extends ConsumerWidget {
         DlmFormGroup(
           title: l.ab_app,
           children: [
-            DlmFormRow(label: l.ab_version, control: const Text(appVersion)),
+            DlmFormRow(label: l.ab_version, control: const _Value(appVersion)),
             DlmFormRow(
               label: l.ab_api,
               control: Text(l.ab_api_value(appApiVersion, oldestDaemonApi)),
             ),
             DlmFormRow(
               label: l.ab_system,
-              control: Text(
+              control: _Value(
                 '${Platform.operatingSystem} ${Platform.operatingSystemVersion}',
               ),
             ),
@@ -95,7 +95,7 @@ class AboutScreen extends ConsumerWidget {
           children: [
             DlmFormRow(
               label: l.ab_version,
-              control: Text(
+              control: _Value(
                 info == null
                     ? '…'
                     : '${info.version}${info.commit == null ? '' : ' (${info.commit})'}',
@@ -110,11 +110,11 @@ class AboutScreen extends ConsumerWidget {
               ),
               DlmFormRow(
                 label: l.ab_system,
-                control: Text('${info.os} ${info.arch}'),
+                control: _Value('${info.os} ${info.arch}'),
               ),
-              DlmFormRow(label: l.ab_address, control: Text(info.address)),
+              DlmFormRow(label: l.ab_address, control: _Value(info.address)),
             ],
-            DlmFormRow(label: l.ab_compat, control: Text(compat)),
+            DlmFormRow(label: l.ab_compat, control: _Value(compat)),
           ],
         ),
         gap,
@@ -155,4 +155,18 @@ class AboutScreen extends ConsumerWidget {
       ],
     );
   }
+}
+
+/// A value shown beside its label: bounded, so a long operating-system string
+/// wraps instead of overflowing the row.
+class _Value extends StatelessWidget {
+  const _Value(this.text);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => ConstrainedBox(
+    constraints: const BoxConstraints(maxWidth: 420),
+    child: Text(text, maxLines: 3, overflow: TextOverflow.ellipsis),
+  );
 }
