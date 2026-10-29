@@ -133,7 +133,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F3.6 Queues UI — CRUD, start/stop, order, counts, schedule editor, speed profiles, quota, post-queue action with countdown/cancel.
 - [ ] F3.7 First-run onboarding and health checks — Download folder, tools (ffmpeg/yt-dlp), start at login, tray, browser extension.
 - [ ] F3.8 Status bar and quick controls *(needs P13.7, P13.8)* — Down/up speed, active/queued, turbo toggle, pause/resume all, quota meter, connection state.
-- [ ] F3.9 Empty, error, offline and reconnecting states — Daemon-crashed recovery flow.
+- [x] F3.9 Empty, error, offline and reconnecting states — Daemon-crashed recovery flow.
 
 ### M4 Management screens
 

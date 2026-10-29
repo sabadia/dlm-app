@@ -17,10 +17,12 @@ Widget _labelled(
     children: [
       control,
       SizedBox(width: theme.metrics.spacing.sm),
-      Text(
-        label,
-        style: theme.typography.body.copyWith(
-          color: disabled ? theme.colors.textDisabled : null,
+      Flexible(
+        child: Text(
+          label,
+          style: theme.typography.body.copyWith(
+            color: disabled ? theme.colors.textDisabled : null,
+          ),
         ),
       ),
     ],

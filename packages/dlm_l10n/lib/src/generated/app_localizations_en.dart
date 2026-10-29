@@ -218,4 +218,392 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get app_name => 'dlm';
+
+  @override
+  String get nav_label => 'Navigation';
+
+  @override
+  String get nav_all => 'All Downloads';
+
+  @override
+  String get nav_active => 'Active';
+
+  @override
+  String get nav_queued => 'Queued';
+
+  @override
+  String get nav_paused => 'Paused';
+
+  @override
+  String get nav_completed => 'Completed';
+
+  @override
+  String get nav_failed => 'Failed';
+
+  @override
+  String get nav_queues => 'Queues';
+
+  @override
+  String get toolbar_search_placeholder => 'Search downloads';
+
+  @override
+  String get toolbar_search_clear => 'Clear search';
+
+  @override
+  String get toolbar_inspector_show => 'Show details';
+
+  @override
+  String get toolbar_inspector_hide => 'Hide details';
+
+  @override
+  String get toolbar_palette => 'Commands';
+
+  @override
+  String get toolbar_label => 'Toolbar';
+
+  @override
+  String get inspector_empty_title => 'No download selected';
+
+  @override
+  String get inspector_empty_message => 'Select a download to see its details.';
+
+  @override
+  String get inspector_resize => 'Resize details';
+
+  @override
+  String get sidebar_resize => 'Resize sidebar';
+
+  @override
+  String get palette_placeholder => 'Type a command';
+
+  @override
+  String get palette_no_results => 'No matching command';
+
+  @override
+  String get palette_label => 'Command palette';
+
+  @override
+  String command_go_to(String destination) {
+    return 'Go to $destination';
+  }
+
+  @override
+  String get command_toggle_inspector => 'Show or hide details';
+
+  @override
+  String get command_focus_search => 'Search downloads';
+
+  @override
+  String get connection_connecting_title =>
+      'Connecting to the download service';
+
+  @override
+  String connection_connecting_message(String name) {
+    return 'Starting $name…';
+  }
+
+  @override
+  String get connection_failed_title => 'Cannot reach the download service';
+
+  @override
+  String connection_failed_message(String name) {
+    return 'The app could not connect to $name.';
+  }
+
+  @override
+  String get connection_retry => 'Try again';
+
+  @override
+  String get connection_token_rejected_title => 'The access token was refused';
+
+  @override
+  String connection_token_rejected_message(String name) {
+    return '$name did not accept the saved token.';
+  }
+
+  @override
+  String get connection_incompatible_title =>
+      'This version of the app cannot talk to that service';
+
+  @override
+  String get connection_incompatible_message =>
+      'Update the app or the service so their versions match.';
+
+  @override
+  String get connection_trust_title => 'Trust this server?';
+
+  @override
+  String connection_trust_message(String name) {
+    return '$name presented a certificate the app has not seen before. Check that the fingerprint below matches the one on the server.';
+  }
+
+  @override
+  String get connection_trust_accept => 'Trust and connect';
+
+  @override
+  String get connection_trust_reject => 'Cancel';
+
+  @override
+  String get status_connected => 'Connected';
+
+  @override
+  String get connection_trust_subject => 'Subject';
+
+  @override
+  String get connection_trust_issuer => 'Issuer';
+
+  @override
+  String get connection_trust_expires => 'Valid until';
+
+  @override
+  String get connection_trust_fingerprint => 'Fingerprint';
+
+  @override
+  String get connection_certificate_changed =>
+      'The server\'s certificate is different from the one you trusted. Do not continue unless you know it was replaced.';
+
+  @override
+  String connection_reason(String reason) {
+    return 'Reason: $reason';
+  }
+
+  @override
+  String get col_name => 'Name';
+
+  @override
+  String get col_status => 'Status';
+
+  @override
+  String get col_progress => 'Progress';
+
+  @override
+  String get col_size => 'Size';
+
+  @override
+  String get col_speed => 'Speed';
+
+  @override
+  String get col_eta => 'Time left';
+
+  @override
+  String get col_queue => 'Queue';
+
+  @override
+  String get col_added => 'Added';
+
+  @override
+  String get task_status_queued => 'Queued';
+
+  @override
+  String get task_status_running => 'Downloading';
+
+  @override
+  String get task_status_paused => 'Paused';
+
+  @override
+  String get task_status_awaiting_link => 'Waiting for a link';
+
+  @override
+  String get task_status_refreshing => 'Refreshing link';
+
+  @override
+  String get task_status_postprocessing => 'Finishing';
+
+  @override
+  String get task_status_completed => 'Completed';
+
+  @override
+  String get task_status_error => 'Failed';
+
+  @override
+  String get task_status_unknown => 'Unknown';
+
+  @override
+  String get task_unnamed => 'Unnamed download';
+
+  @override
+  String task_eta(String time) {
+    return '$time left';
+  }
+
+  @override
+  String task_row_label(String name, String status) {
+    return '$name, $status';
+  }
+
+  @override
+  String get table_downloads_label => 'Downloads';
+
+  @override
+  String get table_sorted_ascending => 'sorted ascending';
+
+  @override
+  String get table_sorted_descending => 'sorted descending';
+
+  @override
+  String table_resize_column(String column) {
+    return 'Resize $column';
+  }
+
+  @override
+  String get table_loading_row => 'Loading';
+
+  @override
+  String get list_loading => 'Loading downloads';
+
+  @override
+  String get list_empty_title => 'No downloads here';
+
+  @override
+  String get list_empty_message =>
+      'Downloads you add will appear in this list.';
+
+  @override
+  String get list_empty_search_title => 'Nothing matches your search';
+
+  @override
+  String get list_empty_search_message =>
+      'Try different words or clear the search.';
+
+  @override
+  String get list_error_title => 'Could not load the downloads';
+
+  @override
+  String get list_retry => 'Try again';
+
+  @override
+  String get action_pause => 'Pause';
+
+  @override
+  String get action_resume => 'Resume';
+
+  @override
+  String get action_restart => 'Download again';
+
+  @override
+  String get action_delete => 'Delete…';
+
+  @override
+  String get action_copy_link => 'Copy link';
+
+  @override
+  String get action_undo => 'Undo';
+
+  @override
+  String get action_dismiss => 'Dismiss';
+
+  @override
+  String toast_paused(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Paused $count downloads',
+      one: 'Paused 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_resumed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Resumed $count downloads',
+      one: 'Resumed 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_deleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Deleted $count downloads',
+      one: 'Deleted 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get toast_restarted => 'Download restarted';
+
+  @override
+  String get toast_link_copied => 'Link copied';
+
+  @override
+  String toast_some_failed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads could not be changed',
+      one: '1 download could not be changed',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get toast_failure_unknown => 'Something went wrong.';
+
+  @override
+  String delete_title(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Delete $count downloads?',
+      one: 'Delete this download?',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get delete_message =>
+      'They are removed from the list. Their files stay on disk unless you choose otherwise.';
+
+  @override
+  String get delete_files => 'Also delete the downloaded files';
+
+  @override
+  String get delete_confirm => 'Delete';
+
+  @override
+  String get delete_cancel => 'Cancel';
+
+  @override
+  String selection_count(int count) {
+    return '$count selected';
+  }
+
+  @override
+  String get banner_reconnecting_title =>
+      'Connection to the download service lost';
+
+  @override
+  String get banner_reconnecting_message => 'Trying to reconnect…';
+
+  @override
+  String get banner_daemon_restarting_title =>
+      'The download service stopped unexpectedly';
+
+  @override
+  String get banner_daemon_restarting_message =>
+      'It is restarting; your downloads continue from where they were.';
+
+  @override
+  String get banner_daemon_failed_title =>
+      'The download service keeps stopping';
+
+  @override
+  String banner_daemon_failed_message(String reason) {
+    return '$reason';
+  }
+
+  @override
+  String get banner_daemon_restart => 'Restart service';
+
+  @override
+  String get banner_dismiss => 'Dismiss';
 }
