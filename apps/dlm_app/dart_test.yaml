@@ -1,0 +1,3 @@
+tags:
+  e2e:
+    description: talks to a real dlm daemon (DLM_DAEMON names the binary); skipped without one

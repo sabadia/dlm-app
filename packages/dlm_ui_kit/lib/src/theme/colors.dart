@@ -80,6 +80,21 @@ class DlmColors extends DlmTokenValue {
     Color tint(Color base, double a) =>
         Color.alphaBlend(text.withValues(alpha: a), base);
     final graphics = highContrast ? 4.5 : 3.0;
+    // Accent-coloured text (plain buttons, links) sits on the window, the
+    // sidebar, cards and the content: it must be readable on every one.
+    var linkOnAll = accent.accentText;
+    for (final surface in [
+      window,
+      sidebar ?? window,
+      raised ?? content,
+      content,
+    ]) {
+      linkOnAll = ensureContrast(
+        linkOnAll,
+        surface,
+        minRatio: highContrast ? 7.0 : 4.5,
+      );
+    }
     return DlmColors(
       brightness: brightness,
       highContrast: highContrast,
@@ -92,7 +107,7 @@ class DlmColors extends DlmTokenValue {
       textSecondary: textSecondary,
       textDisabled: textDisabled,
       textOnAccent: accent.onAccent,
-      textLink: accent.accentText,
+      textLink: linkOnAll,
       accent: accent.accent,
       accentSubtle: accent.accentSubtle,
       separator: separator ?? text.withValues(alpha: highContrast ? 0.6 : 0.12),

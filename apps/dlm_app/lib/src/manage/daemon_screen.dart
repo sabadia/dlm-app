@@ -252,8 +252,8 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
                             ),
                             for (final m in _errors[e.key] ?? const <String>[])
                               Padding(
-                                padding: EdgeInsets.only(
-                                  left: theme.metrics.spacing.md,
+                                padding: EdgeInsetsDirectional.only(
+                                  start: theme.metrics.spacing.md,
                                 ),
                                 child: Text(
                                   m,

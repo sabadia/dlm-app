@@ -99,7 +99,17 @@ String? _unwrapDlm(String arg) {
   return _plainDownload(rest);
 }
 
+/// Whether [value] has a control character or a space. A link that has one
+/// could carry a second line into the add dialog, so it is not a link.
+bool _hasControlOrSpace(String value) {
+  for (final unit in value.codeUnits) {
+    if (unit <= 0x20 || unit == 0x7f) return true;
+  }
+  return false;
+}
+
 String? _plainDownload(String value) {
+  if (_hasControlOrSpace(value)) return null;
   final lower = value.toLowerCase();
   if (lower.startsWith('magnet:?') || lower.startsWith('magnet://')) {
     return value;

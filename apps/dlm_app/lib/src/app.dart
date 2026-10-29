@@ -129,6 +129,13 @@ final routerProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
+/// The locale a stored language code names: `de`, or `en_XA` (the
+/// pseudo-locale, which only tests and translators select).
+Locale localeOfCode(String code) {
+  final parts = code.split('_');
+  return parts.length > 1 ? Locale(parts[0], parts[1]) : Locale(code);
+}
+
 /// The root widget: router, localisation, skin and theme, connection gate.
 class DlmApp extends ConsumerWidget {
   /// Creates the app.
@@ -142,7 +149,7 @@ class DlmApp extends ConsumerWidget {
       routerConfig: ref.watch(routerProvider),
       color: const Color(0xFF000000),
       debugShowCheckedModeBanner: false,
-      locale: language == null ? null : Locale(language),
+      locale: language == null ? null : localeOfCode(language),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateTitle: (context) => AppLocalizations.of(context).app_name,

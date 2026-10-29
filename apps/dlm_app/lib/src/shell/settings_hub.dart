@@ -194,7 +194,7 @@ class _SettingsHubState extends ConsumerState<SettingsHub> {
                     selected: _page,
                     onSelected: _select,
                     header: Padding(
-                      padding: EdgeInsets.fromLTRB(
+                      padding: EdgeInsetsDirectional.fromSTEB(
                         theme.metrics.spacing.lg,
                         theme.metrics.spacing.lg,
                         theme.metrics.spacing.lg,
@@ -226,7 +226,7 @@ class _SettingsHubState extends ConsumerState<SettingsHub> {
                   child: Column(
                     children: [
                       Padding(
-                        padding: EdgeInsets.fromLTRB(
+                        padding: EdgeInsetsDirectional.fromSTEB(
                           theme.metrics.spacing.lg,
                           theme.metrics.spacing.md,
                           theme.metrics.spacing.sm,

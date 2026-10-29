@@ -140,7 +140,9 @@ class DlmBaseComponents extends DlmComponents {
         width: width,
         height: height,
         padding: const EdgeInsets.all(3),
-        alignment: value ? Alignment.centerRight : Alignment.centerLeft,
+        alignment: value
+            ? AlignmentDirectional.centerEnd
+            : AlignmentDirectional.centerStart,
         decoration: BoxDecoration(
           color: track,
           borderRadius: BorderRadius.circular(height / 2),
@@ -911,8 +913,8 @@ class DlmBaseComponents extends DlmComponents {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: color,
-        border: Border(
-          right: BorderSide(
+        border: BorderDirectional(
+          end: BorderSide(
             color: t.colors.separator,
             width: t.metrics.borderWidth,
           ),
@@ -1010,7 +1012,10 @@ class DlmBaseComponents extends DlmComponents {
       children: [
         if (title != null)
           Padding(
-            padding: EdgeInsets.only(left: m.spacing.xs, bottom: m.spacing.xs),
+            padding: EdgeInsetsDirectional.only(
+              start: m.spacing.xs,
+              bottom: m.spacing.xs,
+            ),
             child: DefaultTextStyle.merge(
               style: t.typography.subtitle,
               child: title,
@@ -1029,7 +1034,10 @@ class DlmBaseComponents extends DlmComponents {
         ),
         if (footer != null)
           Padding(
-            padding: EdgeInsets.only(left: m.spacing.xs, top: m.spacing.xs),
+            padding: EdgeInsetsDirectional.only(
+              start: m.spacing.xs,
+              top: m.spacing.xs,
+            ),
             child: DefaultTextStyle.merge(
               style: t.typography.caption.copyWith(color: c.textSecondary),
               child: footer,
@@ -1099,7 +1107,7 @@ class DlmBaseComponents extends DlmComponents {
       radius: m.radii.small,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: m.spacing.sm),
-        alignment: Alignment.centerLeft,
+        alignment: AlignmentDirectional.centerStart,
         color: states.pressed
             ? c.controlFillPressed
             : (states.hovered ? c.controlFillHover : const Color(0x00000000)),
