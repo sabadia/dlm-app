@@ -159,10 +159,23 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [x] F5.4 URL handlers, file associations and instance hand-off — `magnet:`, `ed2k:`, `dlm:`, `.torrent`; open-with; forward to the running instance. A second launch sends the targets to the first over a loopback port (`instance.port` holds only the port) and exits; macOS also receives Apple-event opens. `dlm:` is `dlm:` plus an http, https, ftp, magnet or ed2k URL, or `dlm://add?url=` with that URL encoded. A `.torrent` path is read into the add dialog (16 MiB at most). OS registration of the schemes beyond the macOS bundle is F7.
 - [x] F5.5 Drag-and-drop and clipboard watcher — Drop `.torrent` files and text files with links on the window (`desktop_drop` ^0.8.0 behind `DropZone`; 0.9 needs `cross_file` 0.4, which the workspace's other packages do not allow yet) to open the add dialog. Clipboard watcher: no package; `Clipboard.getData` on window focus and every 2 s while focused; opt-in, off by default; offers only links (http/https/ftp/magnet/ed2k), never logs clipboard text, skips a value already offered.
 - [x] F5.6 Dock/taskbar progress, sleep prevention, power actions — Badges, prevent sleep while active, post-queue sleep/shutdown confirmations. The badge is the active count and the bar is the combined fraction (`window_manager`; above 1 pulses). Sleep is held off with `ProcessInfo` on macOS, `SetThreadExecutionState` on Windows and `systemd-inhibit` on Linux. The countdown banners are the confirmation; the daemon runs the action.
-- [ ] F5.7 Global hotkeys and shortcut map — In-app shortcut map first (command → `SingleActivator`, stored in `UiPrefs`, read by the shell and command palette, conflict check, reset); global hotkeys decided later (`hotkey_manager` on macOS/Windows/X11 vs the GlobalShortcuts portal on Wayland).
+- [ ] F5.7 Global hotkeys and shortcut map — The in-app shortcut map is done. Global hotkeys (decided 2026-10-29): `hotkey_manager` on macOS, Windows and X11 only, behind a `GlobalHotkeys` interface in `dlm_platform`; absent on Wayland, where the settings say why. One shortcut shows/hides DLM, one adds from the clipboard, both editable in the shortcut editor. Spike the package on the current Flutter first; if it does not build on every OS, stop and ask.
 - [x] F5.8 Window-state restore and multi-monitor — The saved frame is applied at launch, including a window that still overlaps a second display. A frame that would open off every attached display is fitted onto the first and is not maximised. Moves and resizes are written back to `ui.window`.
 - [x] F5.9 Native menus — macOS menu bar, Windows/Linux application menu. macOS uses `PlatformMenuBar` (About and Quit in the application menu, plus the system window items). Windows and Linux get the same commands as a menu bar in the window.
 - [x] F5.10 Browser-extension pairing helpers *(needs P13.13)* — Onboarding and preferences rows over `GET/POST /v1/native-host` (reuse `nativeHostProvider`); local profiles only (403 `native_host.local_only`).
+
+### M5b UI polish and brand
+
+Added 2026-10-29 after the first look at the app (user feedback). One branch, one PR.
+
+- [ ] F5.11 Brand: name and icon — Product name **DLM** (menu bar, About, tray, notifications, window titles); macOS `PRODUCT_NAME = DLM` with its `project.pbxproj` references, bundle id and Linux application id `io.github.sabadia.dlm`; Dart package, Windows/Linux binary `dlm_app`, data directory `dlm` and the daemon binary `dlm` stay. Icon: rounded square, indigo-to-blue gradient, white download arrow inside an open progress ring, drawn as a `CustomPainter`, exported at 1024 px and turned into the macOS icon set, `.ico`, Linux PNGs and a monochrome tray template by a generator under `tools/`.
+- [ ] F5.12 Hidden scrollbars — A `ScrollBehavior` with `scrollbars: false` in `DlmThemeScope` and the app; the table's own scrollbar removed. Wheel, trackpad, drag and keyboard scrolling stay.
+- [ ] F5.13 Card list — The downloads list is cards, no horizontal scrolling: `DlmDataTable` gets `rowBuilder` and `rowExtent`; `TaskCard` shows name and status, a progress bar, and size/speed/ETA/queue/category/engine chips. Sorting moves into the Display menu. Selection, drag, reorder, grouping and keyboard stay.
+- [ ] F5.14 Modern inputs and selection — New tokens for field fill, softer border, focus glow, selection tint, card shadow and radii; filled fields with a soft focus ring; selected rows and sidebar items as a rounded accent-tinted card with a slim accent edge. Done inside each of the four skins so each keeps its OS character.
+- [ ] F5.15 Toolbar icons — New glyphs `group`, `columns`, `viewOptions`, `cards`; the gear stays only for settings.
+- [ ] F5.16 Settings hub — One gear button in the sidebar footer opens a small menu (Tools / Manage / Settings); each opens a large popup window with its own left list of that section's pages. The sidebar loses those three sections; the `/manage` and `/settings` routes stay as deep links that open the hub; unsaved-changes guard kept.
+- [ ] F5.17 Theme defaults and accent — Brightness and accent follow the OS (already true); one brand accent only when the OS reports none; a stored custom accent shown correctly in Preferences.
+- [ ] F5.18 Manual test checklist — `docs/manual-tests.md`: per OS steps for tray, notifications, login item, start hidden, sleep hold, taskbar progress, file drop, menus, window restore. The macOS part is run by the user; Windows and Linux by a tester before beta.
 
 ### M6 Quality
 
@@ -191,7 +204,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 - [ ] F8.4 Beta programme and feedback templates
 - [ ] F8.5 1.0 criteria and release checklist
 
-**Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 (F5.1, F5.2, F5.3, F5.5, F5.10 and the in-app part of F5.7 are pulled ahead to finish F3.7/F4.11/F4.12) → P13.x as each screen needs them → M5 → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
+**Delivery order**: M0 → P13.1/P13.11 (unblock client + supervisor) → M1 → F2.1–F2.3 + F3.1–F3.2 as a macOS vertical slice → Windows, GNOME skins → rest of M3/M4 (F5.1, F5.2, F5.3, F5.5, F5.10 and the in-app part of F5.7 are pulled ahead to finish F3.7/F4.11/F4.12) → P13.x as each screen needs them → M5 → M5b → KDE skin → M6 → M7 → beta → 1.0. Internal alpha after M3 on macOS/Windows/GNOME; public beta when KDE and M4–M6 are done.
 
 ## Working rules (same discipline as the backend)
 
@@ -199,7 +212,7 @@ One task at a time; branch `feat/<issue>-<slug>`, PR, squash-merge, card moved o
 
 ## What I need from you (none blocks M0–M2)
 
-1. **App identity**: product name, logo/icon (or approve a generated placeholder), accent colour; Flatpak/bundle ID (default `io.github.sabadia.dlm`).
+1. **App identity** — decided 2026-10-29: product name DLM, an icon drawn in-repo (F5.11), accent follows the OS; Flatpak/bundle ID `io.github.sabadia.dlm`.
 2. **macOS signing** (needed by F7.1): Apple Developer Program membership → Developer ID Application certificate (.p12 + password), Team ID, and an App Store Connect API key (or app-specific password) for notarisation, plus a Sparkle EdDSA keypair (I generate it; you store the private key as a secret).
 3. **Windows signing** (F7.2): either Azure Trusted Signing (cheapest, recommended) or an OV/EV code-signing certificate; optional Microsoft Partner Center account if you want the Store later.
 4. **Linux**: a Flathub account (GitHub login) for the submission PR.
