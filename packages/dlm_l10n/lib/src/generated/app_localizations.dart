@@ -5422,6 +5422,24 @@ abstract class AppLocalizations {
   /// **'A system notification with buttons to open the file or retry.'**
   String get pref_notify_desc;
 
+  /// No description provided for @clip_offer_title.
+  ///
+  /// In en, this message translates to:
+  /// **'A link is on the clipboard'**
+  String get clip_offer_title;
+
+  /// No description provided for @clip_offer_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get clip_offer_add;
+
+  /// No description provided for @clip_offer_dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get clip_offer_dismiss;
+
   /// No description provided for @pref_startup.
   ///
   /// In en, this message translates to:

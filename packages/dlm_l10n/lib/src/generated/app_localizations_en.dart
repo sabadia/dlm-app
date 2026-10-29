@@ -3213,6 +3213,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'A system notification with buttons to open the file or retry.';
 
   @override
+  String get clip_offer_title => 'A link is on the clipboard';
+
+  @override
+  String get clip_offer_add => 'Add';
+
+  @override
+  String get clip_offer_dismiss => 'Not now';
+
+  @override
   String get pref_startup => 'Startup';
 
   @override

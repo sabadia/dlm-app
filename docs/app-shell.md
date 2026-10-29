@@ -101,6 +101,12 @@ AppUserModelID `io.github.sabadia.dlm` and one fixed activator GUID. A button
 there has to carry both its own id and the download id, because Windows hands
 back only one string.
 
+While the window is in front and the clipboard preference is on (it stays off
+until the user asks), the app reads the clipboard when the window comes
+forward and every two seconds. It offers the first http, https, ftp, magnet
+or ed2k link, and skips a link it has already offered. The clipboard text is
+not written to the log.
+
 ## What is waiting for the daemon
 
 These need backend phase 13 and are not worked around in the app: sorting by name or size,

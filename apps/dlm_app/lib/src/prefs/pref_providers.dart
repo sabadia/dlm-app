@@ -94,3 +94,8 @@ final trayEnabledProvider = NotifierProvider<PrefNotifier<bool>, bool>(
 final notifyOnFinishProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.notifyOnFinish),
 );
+
+/// Whether the clipboard is watched for download links. Off by default.
+final clipboardWatchProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.clipboardWatch),
+);

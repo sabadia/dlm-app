@@ -151,6 +151,9 @@ abstract final class UiPrefs {
   /// Notify when a download finishes or fails.
   static const notifyOnFinish = Pref<bool>.plain('ui.notifyOnFinish', true);
 
+  /// Watch the clipboard for download links. Off until the user turns it on.
+  static const clipboardWatch = Pref<bool>.plain('ui.clipboardWatch', false);
+
   /// The window's place and size.
   static const windowState = Pref<WindowState?>(
     'ui.window',
