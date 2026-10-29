@@ -12,7 +12,7 @@ import 'feedback.dart';
 /// Asks for a name, then creates a queue and opens it.
 Future<void> createQueue(BuildContext context, WidgetRef ref) async {
   final l = AppLocalizations.of(context);
-  final name = await _askName(
+  final name = await askName(
     context,
     title: l.queue_new_title,
     confirmLabel: l.queue_create,
@@ -37,7 +37,7 @@ Future<void> renameQueue(
   Queue queue,
 ) async {
   final l = AppLocalizations.of(context);
-  final name = await _askName(
+  final name = await askName(
     context,
     title: l.queue_rename_title,
     confirmLabel: l.queue_save,
@@ -136,7 +136,8 @@ Future<void> moveQueue(
   }
 }
 
-Future<String?> _askName(
+/// Asks for one line of text in a small dialog; null when cancelled.
+Future<String?> askName(
   BuildContext context, {
   required String title,
   required String confirmLabel,

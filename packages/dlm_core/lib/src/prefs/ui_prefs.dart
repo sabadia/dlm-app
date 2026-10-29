@@ -1,5 +1,6 @@
 import '../format/sizes.dart';
 import 'preferences.dart';
+import 'saved_view.dart';
 
 /// The colour scheme the user wants.
 enum ThemeChoice {
@@ -159,6 +160,19 @@ abstract final class UiPrefs {
   );
 
   static Object? _encodeWindow(WindowState? w) => w?.toJson();
+
+  /// The views the user saved for the downloads list.
+  static final savedViews = Pref<List<SavedView>>(
+    'list.savedViews',
+    const [],
+    (raw) => raw is List<Object?>
+        ? [
+            for (final v in raw)
+              if (SavedView.fromJson(v) case final SavedView view) view,
+          ]
+        : null,
+    (v) => [for (final view in v) view.toJson()],
+  );
 
   /// The visible columns of list [list] in order; empty means the view's
   /// default. Kept per connection profile.

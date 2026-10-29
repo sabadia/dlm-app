@@ -150,6 +150,7 @@ class FakeTaskRepository implements TaskRepository {
   final List<List<String>> paused = [];
   final List<List<String>> resumed = [];
   final List<(List<String>, bool)> deleted = [];
+  final List<String> calls = [];
 
   @override
   Future<TaskPage> list(
@@ -170,7 +171,11 @@ class FakeTaskRepository implements TaskRepository {
     ];
     final start = int.tryParse(cursor ?? '0') ?? 0;
     final end = (start + limit).clamp(0, all.length);
-    return TaskPage(all.sublist(start, end), end < all.length ? '$end' : null);
+    return TaskPage(
+      all.sublist(start, end),
+      end < all.length ? '$end' : null,
+      total: cursor == null ? all.length : null,
+    );
   }
 
   @override
@@ -205,6 +210,45 @@ class FakeTaskRepository implements TaskRepository {
 
   @override
   Future<Task> reorder(String id, int position) => throw UnimplementedError();
+
+  @override
+  Future<List<ItemResult>> pauseAll() async {
+    calls.add('pauseAll');
+    return const [];
+  }
+
+  @override
+  Future<List<ItemResult>> resumeAll() async {
+    calls.add('resumeAll');
+    return const [];
+  }
+
+  @override
+  Future<List<ItemResult>> restartMany(List<String> ids) async {
+    calls.add('restartMany:${ids.join(',')}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> refreshMany(List<String> ids) async {
+    calls.add('refreshMany:${ids.join(',')}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId) async {
+    calls.add('moveMany:${ids.join(',')}:$queueId');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  @override
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  ) async {
+    calls.add('prioritise:${ids.join(',')}:${priority.json}');
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
 
   @override
   Future<Task> update(

@@ -18,10 +18,12 @@ import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
 import '../routing/app_routes.dart';
+import '../screens/list_views.dart';
 import 'app_commands.dart';
 import 'queue_commands.dart';
 import 'shell_state.dart';
 import 'status_banners.dart';
+import 'status_bar.dart';
 import 'task_commands.dart';
 
 /// The window's window chrome (macOS glass); overridden with the platform's.
@@ -69,11 +71,19 @@ class _AppShellState extends ConsumerState<AppShell> {
     super.dispose();
   }
 
+  static int? _positive(int n) => n > 0 ? n : null;
+
   ({String sidebarId, String title}) _current(
     AppLocalizations l,
     List<Queue> queues,
+    List<Category> categories,
   ) {
     final segments = widget.location.pathSegments;
+    if (segments.length >= 2 && segments.first == 'categories') {
+      final id = segments[1];
+      final name = categories.where((c) => c.id == id).firstOrNull?.name ?? id;
+      return (sidebarId: categorySidebarId(id), title: name);
+    }
     if (segments.length >= 2 && segments.first == 'queues') {
       final id = segments[1];
       final name = queues.where((q) => q.id == id).firstOrNull?.name ?? id;
@@ -95,11 +105,20 @@ class _AppShellState extends ConsumerState<AppShell> {
     final l = AppLocalizations.of(context);
     final theme = DlmTheme.of(context);
     final queues = ref.watch(queuesProvider).value ?? const <Queue>[];
-    final current = _current(l, queues);
+    final counts = ref.watch(queueCountsProvider);
+    final categories =
+        ref.watch(categoriesProvider).value ?? const <Category>[];
+    final current = _current(l, queues, categories);
     final sidebarWidth = ref.watch(sidebarWidthProvider);
     final inspectorWidth = ref.watch(inspectorWidthProvider);
     final inspectorPreferred = ref.watch(inspectorVisibleProvider);
     final selected = ref.watch(selectedTasksProvider);
+    // The view menu shows the engine filter and the saved views.
+    ref
+      ..watch(listOptionsProvider)
+      ..watch(savedViewsProvider)
+      ..watch(densityProvider)
+      ..watch(downloadColumnsProvider);
     final ids = [for (final t in selected) t.id];
     final chrome = ref.watch(windowChromeProvider);
     final isMac = defaultTargetPlatform == TargetPlatform.macOS;
@@ -127,6 +146,8 @@ class _AppShellState extends ConsumerState<AppShell> {
       onSelected: (id) {
         if (id.startsWith('queue:')) {
           context.go(queuePath(id.substring('queue:'.length)));
+        } else if (id.startsWith('category:')) {
+          context.go(categoryPath(id.substring('category:'.length)));
         } else {
           final f = DownloadsFilter.fromSegment(
             id.substring('downloads:'.length),
@@ -152,9 +173,22 @@ class _AppShellState extends ConsumerState<AppShell> {
                 id: downloadsSidebarId(f),
                 label: filterLabel(l, f),
                 icon: DlmIcon(filterIcon(f)),
+                count: _positive(counts.count(statuses: f.statuses)),
               ),
           ],
         ),
+        if (categories.isNotEmpty)
+          DlmSidebarSection(
+            title: l.nav_categories,
+            items: [
+              for (final c in categories)
+                DlmSidebarItem(
+                  id: categorySidebarId(c.id),
+                  label: c.name,
+                  icon: const DlmIcon(DlmIconName.tag),
+                ),
+            ],
+          ),
         if (queues.isNotEmpty)
           DlmSidebarSection(
             title: l.nav_queues,
@@ -164,6 +198,13 @@ class _AppShellState extends ConsumerState<AppShell> {
                   id: queueSidebarId(q.id),
                   label: q.name,
                   icon: const DlmIcon(DlmIconName.queue),
+                  count: _positive(counts.open(q.id)),
+                  // Downloads dropped on a queue move to it.
+                  onDrop: (data) {
+                    if (data is! TaskDragData) return false;
+                    unawaited(moveTasksToQueue(context, ref, data.ids, q));
+                    return true;
+                  },
                 ),
             ],
           ),
@@ -208,6 +249,28 @@ class _AppShellState extends ConsumerState<AppShell> {
                 onPressed: () => deleteTasks(context, ref, ids),
               ),
             ],
+            DlmMenuButton(
+              icon: const DlmIcon(DlmIconName.settings),
+              semanticLabel: l.display_menu,
+              variant: DlmButtonVariant.plain,
+              entries: displayMenuEntries(context, ref),
+            ),
+            DlmMenuButton(
+              icon: const DlmIcon(DlmIconName.filter),
+              semanticLabel: l.view_menu,
+              variant: DlmButtonVariant.plain,
+              entries: viewMenuEntries(
+                context,
+                ref,
+                filter:
+                    DownloadsFilter.fromSegment(
+                      widget.location.pathSegments.length >= 2
+                          ? widget.location.pathSegments[1]
+                          : null,
+                    ) ??
+                    DownloadsFilter.all,
+              ),
+            ),
             SizedBox(
               width: 220,
               child: DlmSearchField(
@@ -250,6 +313,7 @@ class _AppShellState extends ConsumerState<AppShell> {
                 )
               : widget.child,
         ),
+        const StatusBar(),
       ],
     );
 

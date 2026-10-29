@@ -20,6 +20,15 @@ final selectionProvider = NotifierProvider<SelectionNotifier, Set<String>>(
   SelectionNotifier.new,
 );
 
+/// What dragging downloads carries to a drop target (a queue in the sidebar).
+class TaskDragData {
+  /// Creates the payload for [ids].
+  const TaskDragData(this.ids);
+
+  /// The downloads being dragged.
+  final List<String> ids;
+}
+
 /// The text typed into the toolbar search field.
 class SearchTextNotifier extends Notifier<String> {
   @override

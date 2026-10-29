@@ -10,6 +10,10 @@ class TaskQuery {
     this.statuses = const {},
     this.text,
     this.sort = Sort.position,
+    this.order,
+    this.engine,
+    this.category,
+    this.label,
   });
 
   /// Only tasks of this queue.
@@ -21,8 +25,20 @@ class TaskQuery {
   /// Text to find in the name or URL.
   final String? text;
 
-  /// The order.
+  /// The sort key.
   final Sort sort;
+
+  /// The direction; null is the key's natural one.
+  final Order? order;
+
+  /// Only tasks of this engine (`http`, `bt`, ...).
+  final String? engine;
+
+  /// Only tasks of this category (id or name).
+  final String? category;
+
+  /// Only tasks with this label (`key` or `key=value`).
+  final String? label;
 
   @override
   bool operator ==(Object other) =>
@@ -30,24 +46,39 @@ class TaskQuery {
       other.queueId == queueId &&
       other.text == text &&
       other.sort == sort &&
+      other.order == order &&
+      other.engine == engine &&
+      other.category == category &&
+      other.label == label &&
       other.statuses.length == statuses.length &&
       other.statuses.containsAll(statuses);
 
   @override
-  int get hashCode =>
-      Object.hash(queueId, text, sort, Object.hashAllUnordered(statuses));
+  int get hashCode => Object.hash(
+    queueId,
+    text,
+    sort,
+    order,
+    engine,
+    category,
+    label,
+    Object.hashAllUnordered(statuses),
+  );
 }
 
 /// One page of tasks.
 class TaskPage {
   /// Creates a page.
-  const TaskPage(this.tasks, this.nextCursor);
+  const TaskPage(this.tasks, this.nextCursor, {this.total});
 
   /// The tasks, in the query's order.
   final List<Task> tasks;
 
   /// Pass to the next call for the following page; null at the end.
   final String? nextCursor;
+
+  /// How many tasks match the query in all; only on the first page.
+  final int? total;
 }
 
 /// The outcome of a bulk operation for one task.
@@ -88,6 +119,28 @@ abstract interface class TaskRepository {
   /// Restarts a failed or finished task from the beginning.
   Future<Task> restart(String id);
 
+  /// Restarts several tasks from the beginning.
+  Future<List<ItemResult>> restartMany(List<String> ids);
+
+  /// Asks for a fresh link for several tasks (those that can renew theirs).
+  Future<List<ItemResult>> refreshMany(List<String> ids);
+
+  /// Pauses everything that is queued or running, whichever tasks the app has
+  /// loaded.
+  Future<List<ItemResult>> pauseAll();
+
+  /// Resumes everything that is paused.
+  Future<List<ItemResult>> resumeAll();
+
+  /// Moves several tasks to the end of another queue.
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId);
+
+  /// Gives several tasks a priority.
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  );
+
   /// Moves a task to another queue.
   Future<Task> move(String id, String queueId);
 
@@ -117,6 +170,12 @@ class ApiTaskRepository implements TaskRepository {
     return guard(() async {
       final page = await _tasks.listTasks(
         sort: query.sort,
+        order: query.order,
+        engine: query.engine,
+        category: query.category,
+        label: query.label,
+        // The count is asked for once, with the first page.
+        total: cursor == null ? true : null,
         limit: limit,
         queueId: query.queueId,
         status: [
@@ -126,7 +185,11 @@ class ApiTaskRepository implements TaskRepository {
         q: query.text,
         cursor: cursor,
       );
-      return TaskPage(page.tasks ?? const [], page.nextCursor);
+      return TaskPage(
+        page.tasks ?? const [],
+        page.nextCursor,
+        total: page.total,
+      );
     });
   }
 
@@ -155,6 +218,66 @@ class ApiTaskRepository implements TaskRepository {
 
   @override
   Future<Task> restart(String id) => guard(() => _tasks.restartTask(id: id));
+
+  @override
+  Future<List<ItemResult>> pauseAll() => guard(
+    () async => _items(
+      await _tasks.pauseTasks(
+        body: const TaskSelector(
+          filter: TaskSelectorFilter(
+            status: [
+              TaskSelectorFilterStatus.queued,
+              TaskSelectorFilterStatus.running,
+              TaskSelectorFilterStatus.refreshing,
+              TaskSelectorFilterStatus.awaitingLink,
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+
+  @override
+  Future<List<ItemResult>> resumeAll() => guard(
+    () async => _items(
+      await _tasks.resumeTasks(
+        body: const TaskSelector(
+          filter: TaskSelectorFilter(status: [TaskSelectorFilterStatus.paused]),
+        ),
+      ),
+    ),
+  );
+
+  @override
+  Future<List<ItemResult>> restartMany(List<String> ids) => guard(
+    () async => _items(await _tasks.restartTasks(body: TaskSelector(ids: ids))),
+  );
+
+  @override
+  Future<List<ItemResult>> refreshMany(List<String> ids) => guard(
+    () async => _items(await _tasks.refreshTasks(body: TaskSelector(ids: ids))),
+  );
+
+  @override
+  Future<List<ItemResult>> moveMany(List<String> ids, String queueId) => guard(
+    () async => _items(
+      await _tasks.moveTasks(
+        body: MoveTasksBody(ids: ids, queueId: queueId),
+      ),
+    ),
+  );
+
+  @override
+  Future<List<ItemResult>> prioritise(
+    List<String> ids,
+    UpdateTasksBodyPriority priority,
+  ) => guard(
+    () async => _items(
+      await _tasks.updateTasks(
+        body: UpdateTasksBody(ids: ids, priority: priority),
+      ),
+    ),
+  );
 
   @override
   Future<Task> move(String id, String queueId) => guard(

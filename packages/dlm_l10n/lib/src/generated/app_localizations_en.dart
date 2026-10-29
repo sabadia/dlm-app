@@ -1346,4 +1346,281 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toolbar_add => 'Add downloads';
+
+  @override
+  String get view_menu => 'View';
+
+  @override
+  String get view_engine => 'Engine';
+
+  @override
+  String get view_all_engines => 'All engines';
+
+  @override
+  String get view_saved => 'Saved views';
+
+  @override
+  String get view_save => 'Save current view…';
+
+  @override
+  String get view_save_title => 'Save this view';
+
+  @override
+  String view_delete(String name) {
+    return 'Delete view $name';
+  }
+
+  @override
+  String get col_engine => 'Engine';
+
+  @override
+  String list_total(int count) {
+    return '$count downloads';
+  }
+
+  @override
+  String get action_refresh_link => 'Get a new link';
+
+  @override
+  String get action_move_to => 'Move to queue';
+
+  @override
+  String get action_priority => 'Priority';
+
+  @override
+  String get priority_high => 'High';
+
+  @override
+  String get priority_normal => 'Normal';
+
+  @override
+  String get priority_low => 'Low';
+
+  @override
+  String toast_moved(int count, String queue) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Moved $count downloads to $queue',
+      one: 'Moved 1 download to $queue',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_prioritised(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Priority changed for $count downloads',
+      one: 'Priority changed for 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_restarted_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Restarting $count downloads',
+      one: 'Restarting 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String toast_refreshing_many(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Asking for new links for $count downloads',
+      one: 'Asking for a new link for 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get status_label => 'Status bar';
+
+  @override
+  String get status_reconnecting => 'Reconnecting…';
+
+  @override
+  String status_speed(String down, String up) {
+    return '↓ $down  ↑ $up';
+  }
+
+  @override
+  String status_counts(int active, int queued) {
+    return '$active active, $queued waiting';
+  }
+
+  @override
+  String status_quota(String used, String total) {
+    return '$used of $total';
+  }
+
+  @override
+  String get status_quota_label => 'Quota used';
+
+  @override
+  String get status_turbo => 'Turbo';
+
+  @override
+  String get status_turbo_on => 'Turbo on';
+
+  @override
+  String get status_pause_all => 'Pause all';
+
+  @override
+  String get status_resume_all => 'Resume all';
+
+  @override
+  String get add_import => 'Import list…';
+
+  @override
+  String add_import_title(String name) {
+    return 'Import $name';
+  }
+
+  @override
+  String add_import_go(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Add $count downloads',
+      one: 'Add 1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get add_results_title => 'What happened';
+
+  @override
+  String add_results_summary(int ok, int failed) {
+    return '$ok added, $failed not added.';
+  }
+
+  @override
+  String get add_result_ok => 'Added';
+
+  @override
+  String get add_result_failed => 'Not added';
+
+  @override
+  String get add_result_duplicate => 'Already in the list';
+
+  @override
+  String get add_close => 'Close';
+
+  @override
+  String get add_folder_browse => 'Browse folders';
+
+  @override
+  String get folder_browser_title => 'Choose a folder';
+
+  @override
+  String get folder_browser_roots => 'Places you can choose from';
+
+  @override
+  String get folder_browser_empty => 'No folders here.';
+
+  @override
+  String get folder_browser_choose => 'Choose this folder';
+
+  @override
+  String get folder_browser_error => 'The folders could not be listed.';
+
+  @override
+  String get add_advanced => 'More options';
+
+  @override
+  String get add_mode => 'Treat the link as';
+
+  @override
+  String get add_mode_auto => 'Let the app decide';
+
+  @override
+  String get add_mode_direct => 'A file';
+
+  @override
+  String get add_mode_ytdlp => 'A video or audio page (yt-dlp)';
+
+  @override
+  String get add_mode_browser => 'A page that needs a browser';
+
+  @override
+  String get add_referrer => 'Referrer';
+
+  @override
+  String get add_headers => 'Headers';
+
+  @override
+  String get add_headers_hint => 'One per line, like Name: value';
+
+  @override
+  String get add_headers_invalid =>
+      'Every line needs a name, a colon and a value.';
+
+  @override
+  String get add_mirrors => 'Mirrors';
+
+  @override
+  String get add_mirrors_hint =>
+      'Other places with the same file, one link per line';
+
+  @override
+  String get add_checksum => 'Checksum';
+
+  @override
+  String get add_checksum_algorithm => 'Checksum algorithm';
+
+  @override
+  String get add_checksum_placeholder => 'Expected value in hex';
+
+  @override
+  String get add_checksum_invalid => 'Not a valid value for this algorithm.';
+
+  @override
+  String get add_torrent => 'Torrent file…';
+
+  @override
+  String get add_torrent_too_big =>
+      'That torrent file is too large (16 MiB at most).';
+
+  @override
+  String add_torrent_remove(String name) {
+    return 'Remove $name';
+  }
+
+  @override
+  String get nav_categories => 'Categories';
+
+  @override
+  String drag_count(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads',
+      one: '1 download',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get view_density => 'Row height';
+
+  @override
+  String get view_density_comfortable => 'Comfortable';
+
+  @override
+  String get view_density_compact => 'Compact';
+
+  @override
+  String get view_columns => 'Columns';
+
+  @override
+  String get display_menu => 'Display';
 }

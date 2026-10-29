@@ -27,6 +27,45 @@ Queue queue(String id, String name, {int position = 0}) => Queue(
 
 /// Queues held in memory: the commands change the list the way the daemon's
 /// answers would and are recorded in [calls].
+/// The speed limits in memory; records the turbo switches.
+class FakeLimits extends LimitsController {
+  FakeLimits(this.view);
+
+  LimitsView view;
+  final List<String> calls = [];
+
+  @override
+  Future<LimitsView> build() async => view;
+
+  @override
+  Future<void> turbo(int minutes) async {
+    calls.add('turbo $minutes');
+    view = LimitsView(
+      global: view.global,
+      queues: const [],
+      override: SpeedOverride(speedLimit: 0, until: DateTime.utc(2030)),
+    );
+    state = AsyncData(view);
+  }
+
+  @override
+  Future<void> endTurbo() async {
+    calls.add('end');
+    view = LimitsView(global: view.global, queues: const []);
+    state = AsyncData(view);
+  }
+}
+
+/// The categories in memory.
+class FakeCategories extends CategoriesController {
+  FakeCategories(this.categories);
+
+  final List<Category> categories;
+
+  @override
+  Future<List<Category>> build() async => categories;
+}
+
 class FakeQueues extends QueuesController {
   FakeQueues(this.queues);
 
@@ -161,6 +200,9 @@ Future<AppHarness> pumpApp(
   Size size = const Size(1400, 900),
   bool liveSync = false,
   bool onboarded = true,
+  Map<String, Map<String, int>> counts = const {},
+  LimitsView? limits,
+  List<Category> categories = const [],
   List<Override> overrides = const [],
 }) async {
   tester.view
@@ -206,6 +248,17 @@ Future<AppHarness> pumpApp(
           ),
         ),
       queuesProvider.overrideWith(() => FakeQueues(queues)),
+      queueCountsSourceProvider.overrideWithValue(() async => counts),
+      categoriesProvider.overrideWith(() => FakeCategories(categories)),
+      limitsProvider.overrideWith(
+        () => FakeLimits(
+          limits ??
+              const LimitsView(
+                global: ScopeLimits(configuredSpeedLimit: 0, speedLimit: 0),
+                queues: [],
+              ),
+        ),
+      ),
       clockProvider.overrideWithValue(tester.binding.clock.now),
       ...overrides,
     ],

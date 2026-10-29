@@ -2313,6 +2313,426 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add downloads'**
   String get toolbar_add;
+
+  /// No description provided for @view_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'View'**
+  String get view_menu;
+
+  /// No description provided for @view_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get view_engine;
+
+  /// No description provided for @view_all_engines.
+  ///
+  /// In en, this message translates to:
+  /// **'All engines'**
+  String get view_all_engines;
+
+  /// No description provided for @view_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved views'**
+  String get view_saved;
+
+  /// No description provided for @view_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save current view…'**
+  String get view_save;
+
+  /// No description provided for @view_save_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Save this view'**
+  String get view_save_title;
+
+  /// No description provided for @view_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete view {name}'**
+  String view_delete(String name);
+
+  /// No description provided for @col_engine.
+  ///
+  /// In en, this message translates to:
+  /// **'Engine'**
+  String get col_engine;
+
+  /// No description provided for @list_total.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} downloads'**
+  String list_total(int count);
+
+  /// No description provided for @action_refresh_link.
+  ///
+  /// In en, this message translates to:
+  /// **'Get a new link'**
+  String get action_refresh_link;
+
+  /// No description provided for @action_move_to.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to queue'**
+  String get action_move_to;
+
+  /// No description provided for @action_priority.
+  ///
+  /// In en, this message translates to:
+  /// **'Priority'**
+  String get action_priority;
+
+  /// No description provided for @priority_high.
+  ///
+  /// In en, this message translates to:
+  /// **'High'**
+  String get priority_high;
+
+  /// No description provided for @priority_normal.
+  ///
+  /// In en, this message translates to:
+  /// **'Normal'**
+  String get priority_normal;
+
+  /// No description provided for @priority_low.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get priority_low;
+
+  /// No description provided for @toast_moved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Moved 1 download to {queue}} other{Moved {count} downloads to {queue}}}'**
+  String toast_moved(int count, String queue);
+
+  /// No description provided for @toast_prioritised.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Priority changed for 1 download} other{Priority changed for {count} downloads}}'**
+  String toast_prioritised(int count);
+
+  /// No description provided for @toast_restarted_many.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Restarting 1 download} other{Restarting {count} downloads}}'**
+  String toast_restarted_many(int count);
+
+  /// No description provided for @toast_refreshing_many.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Asking for a new link for 1 download} other{Asking for new links for {count} downloads}}'**
+  String toast_refreshing_many(int count);
+
+  /// No description provided for @status_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Status bar'**
+  String get status_label;
+
+  /// No description provided for @status_reconnecting.
+  ///
+  /// In en, this message translates to:
+  /// **'Reconnecting…'**
+  String get status_reconnecting;
+
+  /// No description provided for @status_speed.
+  ///
+  /// In en, this message translates to:
+  /// **'↓ {down}  ↑ {up}'**
+  String status_speed(String down, String up);
+
+  /// No description provided for @status_counts.
+  ///
+  /// In en, this message translates to:
+  /// **'{active} active, {queued} waiting'**
+  String status_counts(int active, int queued);
+
+  /// No description provided for @status_quota.
+  ///
+  /// In en, this message translates to:
+  /// **'{used} of {total}'**
+  String status_quota(String used, String total);
+
+  /// No description provided for @status_quota_label.
+  ///
+  /// In en, this message translates to:
+  /// **'Quota used'**
+  String get status_quota_label;
+
+  /// No description provided for @status_turbo.
+  ///
+  /// In en, this message translates to:
+  /// **'Turbo'**
+  String get status_turbo;
+
+  /// No description provided for @status_turbo_on.
+  ///
+  /// In en, this message translates to:
+  /// **'Turbo on'**
+  String get status_turbo_on;
+
+  /// No description provided for @status_pause_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause all'**
+  String get status_pause_all;
+
+  /// No description provided for @status_resume_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Resume all'**
+  String get status_resume_all;
+
+  /// No description provided for @add_import.
+  ///
+  /// In en, this message translates to:
+  /// **'Import list…'**
+  String get add_import;
+
+  /// No description provided for @add_import_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Import {name}'**
+  String add_import_title(String name);
+
+  /// No description provided for @add_import_go.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{Add 1 download} other{Add {count} downloads}}'**
+  String add_import_go(int count);
+
+  /// No description provided for @add_results_title.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened'**
+  String get add_results_title;
+
+  /// No description provided for @add_results_summary.
+  ///
+  /// In en, this message translates to:
+  /// **'{ok} added, {failed} not added.'**
+  String add_results_summary(int ok, int failed);
+
+  /// No description provided for @add_result_ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Added'**
+  String get add_result_ok;
+
+  /// No description provided for @add_result_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not added'**
+  String get add_result_failed;
+
+  /// No description provided for @add_result_duplicate.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in the list'**
+  String get add_result_duplicate;
+
+  /// No description provided for @add_close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get add_close;
+
+  /// No description provided for @add_folder_browse.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse folders'**
+  String get add_folder_browse;
+
+  /// No description provided for @folder_browser_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a folder'**
+  String get folder_browser_title;
+
+  /// No description provided for @folder_browser_roots.
+  ///
+  /// In en, this message translates to:
+  /// **'Places you can choose from'**
+  String get folder_browser_roots;
+
+  /// No description provided for @folder_browser_empty.
+  ///
+  /// In en, this message translates to:
+  /// **'No folders here.'**
+  String get folder_browser_empty;
+
+  /// No description provided for @folder_browser_choose.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose this folder'**
+  String get folder_browser_choose;
+
+  /// No description provided for @folder_browser_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The folders could not be listed.'**
+  String get folder_browser_error;
+
+  /// No description provided for @add_advanced.
+  ///
+  /// In en, this message translates to:
+  /// **'More options'**
+  String get add_advanced;
+
+  /// No description provided for @add_mode.
+  ///
+  /// In en, this message translates to:
+  /// **'Treat the link as'**
+  String get add_mode;
+
+  /// No description provided for @add_mode_auto.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the app decide'**
+  String get add_mode_auto;
+
+  /// No description provided for @add_mode_direct.
+  ///
+  /// In en, this message translates to:
+  /// **'A file'**
+  String get add_mode_direct;
+
+  /// No description provided for @add_mode_ytdlp.
+  ///
+  /// In en, this message translates to:
+  /// **'A video or audio page (yt-dlp)'**
+  String get add_mode_ytdlp;
+
+  /// No description provided for @add_mode_browser.
+  ///
+  /// In en, this message translates to:
+  /// **'A page that needs a browser'**
+  String get add_mode_browser;
+
+  /// No description provided for @add_referrer.
+  ///
+  /// In en, this message translates to:
+  /// **'Referrer'**
+  String get add_referrer;
+
+  /// No description provided for @add_headers.
+  ///
+  /// In en, this message translates to:
+  /// **'Headers'**
+  String get add_headers;
+
+  /// No description provided for @add_headers_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line, like Name: value'**
+  String get add_headers_hint;
+
+  /// No description provided for @add_headers_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Every line needs a name, a colon and a value.'**
+  String get add_headers_invalid;
+
+  /// No description provided for @add_mirrors.
+  ///
+  /// In en, this message translates to:
+  /// **'Mirrors'**
+  String get add_mirrors;
+
+  /// No description provided for @add_mirrors_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Other places with the same file, one link per line'**
+  String get add_mirrors_hint;
+
+  /// No description provided for @add_checksum.
+  ///
+  /// In en, this message translates to:
+  /// **'Checksum'**
+  String get add_checksum;
+
+  /// No description provided for @add_checksum_algorithm.
+  ///
+  /// In en, this message translates to:
+  /// **'Checksum algorithm'**
+  String get add_checksum_algorithm;
+
+  /// No description provided for @add_checksum_placeholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected value in hex'**
+  String get add_checksum_placeholder;
+
+  /// No description provided for @add_checksum_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Not a valid value for this algorithm.'**
+  String get add_checksum_invalid;
+
+  /// No description provided for @add_torrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Torrent file…'**
+  String get add_torrent;
+
+  /// No description provided for @add_torrent_too_big.
+  ///
+  /// In en, this message translates to:
+  /// **'That torrent file is too large (16 MiB at most).'**
+  String get add_torrent_too_big;
+
+  /// No description provided for @add_torrent_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name}'**
+  String add_torrent_remove(String name);
+
+  /// No description provided for @nav_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get nav_categories;
+
+  /// No description provided for @drag_count.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{1 download} other{{count} downloads}}'**
+  String drag_count(int count);
+
+  /// No description provided for @view_density.
+  ///
+  /// In en, this message translates to:
+  /// **'Row height'**
+  String get view_density;
+
+  /// No description provided for @view_density_comfortable.
+  ///
+  /// In en, this message translates to:
+  /// **'Comfortable'**
+  String get view_density_comfortable;
+
+  /// No description provided for @view_density_compact.
+  ///
+  /// In en, this message translates to:
+  /// **'Compact'**
+  String get view_density_compact;
+
+  /// No description provided for @view_columns.
+  ///
+  /// In en, this message translates to:
+  /// **'Columns'**
+  String get view_columns;
+
+  /// No description provided for @display_menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get display_menu;
 }
 
 class _AppLocalizationsDelegate

@@ -49,6 +49,9 @@ String downloadsPath(DownloadsFilter filter) => '/downloads/${filter.name}';
 /// The page of one queue.
 String queuePath(String id) => '/queues/${Uri.encodeComponent(id)}';
 
+/// The page of one category.
+String categoryPath(String id) => '/categories/${Uri.encodeComponent(id)}';
+
 /// Where the app starts.
 final String homePath = downloadsPath(DownloadsFilter.all);
 
@@ -57,3 +60,6 @@ String downloadsSidebarId(DownloadsFilter f) => 'downloads:${f.name}';
 
 /// Sidebar id of a queue.
 String queueSidebarId(String id) => 'queue:$id';
+
+/// Sidebar id of a category.
+String categorySidebarId(String id) => 'category:$id';

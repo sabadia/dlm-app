@@ -21,6 +21,27 @@ class TaskStore {
   final queues = EntityStore<Queue>();
 
   final _membership = StreamController<void>.broadcast(sync: true);
+  final _speed = StreamController<SpeedData>.broadcast(sync: true);
+  final _limits = StreamController<void>.broadcast(sync: true);
+  final _resources = StreamController<ResourceChangedData>.broadcast(
+    sync: true,
+  );
+
+  /// The latest total speed and counts the daemon reported, or null before the
+  /// first report.
+  SpeedData? speed;
+
+  /// Fires with each `system.speed` report (about once a second).
+  Stream<SpeedData> get speedChanged => _speed.stream;
+
+  /// Fires when somebody else created, changed or deleted a category, webhook,
+  /// credential, cookie, plugin or the boot config (`resource.changed`):
+  /// whoever shows that kind reads it again.
+  Stream<ResourceChangedData> get resourceChanged => _resources.stream;
+
+  /// Fires when the speed limits or a quota changed (`limits.changed`,
+  /// `quota.exhausted`, `quota.reset`): whoever shows them reads them again.
+  Stream<void> get limitsChanged => _limits.stream;
 
   /// Fires when tasks appeared, disappeared or moved between statuses, that
   /// is when a list showing a filtered window of tasks may be out of date.
@@ -68,8 +89,17 @@ class TaskStore {
         queues.put(data.id, data);
       case StreamEventQueueDeletedEvent(:final data):
         queues.remove(data.id);
+      case StreamEventSystemSpeedEvent(:final data):
+        speed = data;
+        _speed.add(data);
+      case StreamEventResourceChangedEvent(:final data):
+        _resources.add(data);
+      case StreamEventLimitsChangedEvent() ||
+          StreamEventQuotaExhaustedEvent() ||
+          StreamEventQuotaResetEvent():
+        _limits.add(null);
       default:
-        break; // refresh, quota, settings and queue completion are not entities
+        break; // refresh, settings and queue completion are not entities
     }
   }
 
@@ -78,8 +108,15 @@ class TaskStore {
     tasks.clear();
     progress.clear();
     queues.clear();
+    speed = null;
+    _limits.add(null);
   }
 
-  /// Releases the stream.
-  Future<void> dispose() => _membership.close();
+  /// Releases the streams.
+  Future<void> dispose() async {
+    await _membership.close();
+    await _speed.close();
+    await _limits.close();
+    await _resources.close();
+  }
 }

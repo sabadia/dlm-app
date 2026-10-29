@@ -16,6 +16,7 @@ class TaskListState {
     this.loading = false,
     this.loaded = false,
     this.error,
+    this.total,
   });
 
   /// The loaded ids, in order.
@@ -33,6 +34,9 @@ class TaskListState {
   /// The failure of the last request.
   final ApiFailure? error;
 
+  /// How many tasks match the query in all, as of the last first page.
+  final int? total;
+
   /// Whether more pages exist.
   bool get hasMore => nextCursor != null;
 
@@ -43,12 +47,14 @@ class TaskListState {
     bool? loading,
     bool? loaded,
     ApiFailure? Function()? error,
+    int? total,
   }) => TaskListState(
     ids: ids ?? this.ids,
     nextCursor: nextCursor != null ? nextCursor() : this.nextCursor,
     loading: loading ?? this.loading,
     loaded: loaded ?? this.loaded,
     error: error != null ? error() : this.error,
+    total: total ?? this.total,
   );
 }
 
@@ -134,15 +140,22 @@ class TaskListController extends Notifier<TaskListState> {
     final store = ref.read(taskStoreProvider);
     try {
       final ids = <String>[];
+      int? total;
       String? cursor;
       do {
         final page = await repo.list(query, cursor: cursor, limit: limit);
         if (epoch != _epoch) return;
         store.tasks.putAll([for (final t in page.tasks) MapEntry(t.id, t)]);
         ids.addAll(page.tasks.map((t) => t.id));
+        total ??= page.total;
         cursor = page.nextCursor;
       } while (cursor != null && ids.length < upTo);
-      state = TaskListState(ids: ids, nextCursor: cursor, loaded: true);
+      state = TaskListState(
+        ids: ids,
+        nextCursor: cursor,
+        loaded: true,
+        total: total,
+      );
     } on ApiFailure catch (e) {
       if (epoch == _epoch) {
         state = state.copyWith(

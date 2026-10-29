@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:dlm_api/dlm_api.dart';
@@ -156,5 +157,51 @@ void main() {
     off();
     store.tasks.put('a', task('a', status: 'paused'));
     expect(calls, 1);
+  });
+
+  test('a speed report is kept and announced', () async {
+    final seen = <int>[];
+    final sub = store.speedChanged.listen((s) => seen.add(s.down));
+    store.apply(
+      StreamEvent.fromJson({
+        'id': 3,
+        'type': 'system.speed',
+        'time': '2026-10-30T10:00:03Z',
+        'data': {'active': 1, 'down': 500, 'queued': 2, 'up': 7},
+      }),
+    );
+    expect(store.speed?.down, 500);
+    expect(store.speed?.queued, 2);
+    expect(seen, [500]);
+    await sub.cancel();
+  });
+
+  test('limit and quota events tell whoever shows them to read again', () {
+    var calls = 0;
+    final sub = store.limitsChanged.listen((_) => calls++);
+    store
+      ..apply(
+        StreamEvent.fromJson({
+          'id': 4,
+          'type': 'limits.changed',
+          'time': '2026-10-30T10:00:04Z',
+          'data': {'speedLimit': 0},
+        }),
+      )
+      ..apply(
+        StreamEvent.fromJson({
+          'id': 5,
+          'type': 'quota.reset',
+          'time': '2026-10-30T10:00:05Z',
+          'data': {
+            'bytes': 100,
+            'period': 'month',
+            'scope': 'global',
+            'used': 0,
+          },
+        }),
+      );
+    expect(calls, 2);
+    unawaited(sub.cancel());
   });
 }

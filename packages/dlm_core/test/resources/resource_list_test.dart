@@ -41,7 +41,16 @@ class Fake extends ResourceList<String> {
   );
 }
 
+/// A list that the daemon announces as changed elsewhere.
+class Announced extends Fake {
+  @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.category;
+}
+
 final fakeProvider = AsyncNotifierProvider<Fake, List<String>>(Fake.new);
+final announcedProvider = AsyncNotifierProvider<Announced, List<String>>(
+  Announced.new,
+);
 
 void main() {
   late ProviderContainer container;
@@ -112,4 +121,37 @@ void main() {
     );
     expect(plugins.read().hasError, isTrue);
   });
+
+  test(
+    'a change made elsewhere is read when the daemon announces it',
+    () async {
+      expect(await container.read(announcedProvider.future), ['a', 'b']);
+      Fake.remote = ['a', 'b', 'c'];
+      // Another kind of resource does not matter to this list.
+      container
+          .read(taskStoreProvider)
+          .apply(
+            StreamEvent.fromJson({
+              'id': 1,
+              'type': 'resource.changed',
+              'time': '2026-10-30T10:00:00Z',
+              'data': {'kind': 'webhook', 'op': 'created', 'id': 'w'},
+            }),
+          );
+      await Future<void>.delayed(Duration.zero);
+      expect(container.read(announcedProvider).value, ['a', 'b']);
+      container
+          .read(taskStoreProvider)
+          .apply(
+            StreamEvent.fromJson({
+              'id': 2,
+              'type': 'resource.changed',
+              'time': '2026-10-30T10:00:01Z',
+              'data': {'kind': 'category', 'op': 'created', 'id': 'c'},
+            }),
+          );
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+      expect(container.read(announcedProvider).value, ['a', 'b', 'c']);
+    },
+  );
 }

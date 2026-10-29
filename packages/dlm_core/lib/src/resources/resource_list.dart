@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -10,9 +12,25 @@ abstract class ResourceList<T> extends AsyncNotifier<List<T>> {
   /// Reads the whole list.
   Future<List<T>> fetch(DlmApi api);
 
+  /// The kind of `resource.changed` event that says the list changed
+  /// elsewhere; null for a list that is not announced.
+  ResourceChangedDataKind? get kind => null;
+
   @override
   Future<List<T>> build() {
     final api = ref.watch(apiProvider);
+    final watched = kind;
+    if (watched != null) {
+      // Another window or device changed one: read the list again.
+      final sub = ref
+          .watch(taskStoreProvider)
+          .resourceChanged
+          .where((r) => r.kind == watched)
+          .listen((_) {
+            if (ref.mounted) unawaited(reload().catchError((Object _) {}));
+          });
+      ref.onDispose(() => unawaited(sub.cancel()));
+    }
     return guard(() => fetch(api));
   }
 
@@ -48,6 +66,9 @@ abstract class ResourceList<T> extends AsyncNotifier<List<T>> {
 /// The categories (`/v1/categories`).
 class CategoriesController extends ResourceList<Category> {
   @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.category;
+
+  @override
   Future<List<Category>> fetch(DlmApi api) async =>
       (await api.rest.categories.listCategories()).categories ?? const [];
 
@@ -71,6 +92,9 @@ class CategoriesController extends ResourceList<Category> {
 
 /// The stored site logins (`/v1/credentials`); secrets never leave the daemon.
 class CredentialsController extends ResourceList<Credential> {
+  @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.credential;
+
   @override
   Future<List<Credential>> fetch(DlmApi api) async =>
       (await api.rest.credentials.listCredentials()).credentials ?? const [];
@@ -96,6 +120,9 @@ class CredentialsController extends ResourceList<Credential> {
 
 /// The webhooks (`/v1/webhooks`).
 class WebhooksController extends ResourceList<Webhook> {
+  @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.webhook;
+
   @override
   Future<List<Webhook>> fetch(DlmApi api) async =>
       (await api.rest.webhooks.listWebhooks()).webhooks ?? const [];
@@ -124,6 +151,9 @@ class WebhooksController extends ResourceList<Webhook> {
 
 /// The plugins (`/v1/plugins`).
 class PluginsController extends ResourceList<Plugin> {
+  @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.plugin;
+
   @override
   Future<List<Plugin>> fetch(DlmApi api) async =>
       (await api.rest.plugins.listPlugins()).plugins ?? const [];
@@ -171,6 +201,9 @@ class PluginsController extends ResourceList<Plugin> {
 
 /// The cookies (`/v1/cookies`); values stay in the daemon.
 class CookiesController extends ResourceList<CookieInfo> {
+  @override
+  ResourceChangedDataKind get kind => ResourceChangedDataKind.cookie;
+
   @override
   Future<List<CookieInfo>> fetch(DlmApi api) async =>
       (await api.rest.cookies.listCookies()).cookies ?? const [];
