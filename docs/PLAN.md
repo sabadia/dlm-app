@@ -139,7 +139,7 @@ Each task is one issue and one pull request. Tick the box in the same PR that co
 
 - [x] F4.1 Settings form engine *(needs P13.11)* — Schema-driven plus curated layouts, Global/Queue/Task levels with provenance chips, reset-to-inherit, 422 `location` to field errors, unsaved-changes guard, settings search.
 - [ ] F4.2 Global settings pages — General, Downloads, Connections, Speed, Network (proxy + rules, UA, headers, TLS), Refresh, Post-processing builder (extract, add-torrent, command, av-scan with warnings), Torrent/ed2k/yt-dlp/ffmpeg, Browser usage.
-- [ ] F4.3 Categories manager — Rules, drag order, live match tester.
+- [x] F4.3 Categories manager — Rules, drag order, live match tester.
 - [ ] F4.4 Logins and Cookies managers — Domain tree, Netscape/JSON import-export, reveal on demand.
 - [ ] F4.5 Webhooks manager *(needs P13.9)* — CRUD, test, delivery log.
 - [ ] F4.6 Plugins manager *(needs P13.9)* — Install from folder/git, permission review (hooks + net hosts), enable/disable/remove, logs.

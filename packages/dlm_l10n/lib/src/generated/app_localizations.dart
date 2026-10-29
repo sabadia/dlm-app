@@ -3099,6 +3099,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Period'**
   String get se_quota_period;
+
+  /// No description provided for @nav_manage.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage'**
+  String get nav_manage;
+
+  /// No description provided for @nav_manage_categories.
+  ///
+  /// In en, this message translates to:
+  /// **'Categories'**
+  String get nav_manage_categories;
+
+  /// No description provided for @cat_intro.
+  ///
+  /// In en, this message translates to:
+  /// **'A category sorts a finished download into a folder by its file extension or content type. The first category that matches wins, so the order matters.'**
+  String get cat_intro;
+
+  /// No description provided for @cat_add.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a category'**
+  String get cat_add;
+
+  /// No description provided for @cat_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a category'**
+  String get cat_add_title;
+
+  /// No description provided for @cat_edit_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit the category'**
+  String get cat_edit_title;
+
+  /// No description provided for @cat_saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Category saved'**
+  String get cat_saved;
+
+  /// No description provided for @cat_empty_title.
+  ///
+  /// In en, this message translates to:
+  /// **'No categories yet'**
+  String get cat_empty_title;
+
+  /// No description provided for @cat_empty_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Add one to have finished downloads sorted into folders.'**
+  String get cat_empty_message;
+
+  /// No description provided for @cat_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get cat_name;
+
+  /// No description provided for @cat_folder.
+  ///
+  /// In en, this message translates to:
+  /// **'Folder'**
+  String get cat_folder;
+
+  /// No description provided for @cat_folder_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Where files of this category are put.'**
+  String get cat_folder_desc;
+
+  /// No description provided for @cat_extensions.
+  ///
+  /// In en, this message translates to:
+  /// **'Extensions'**
+  String get cat_extensions;
+
+  /// No description provided for @cat_extensions_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Separated by commas or spaces, like mkv, mp4.'**
+  String get cat_extensions_desc;
+
+  /// No description provided for @cat_extensions_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Extensions are letters and digits only.'**
+  String get cat_extensions_invalid;
+
+  /// No description provided for @cat_mime.
+  ///
+  /// In en, this message translates to:
+  /// **'Content types'**
+  String get cat_mime;
+
+  /// No description provided for @cat_mime_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'One per line, like video/* or application/pdf.'**
+  String get cat_mime_desc;
+
+  /// No description provided for @cat_mime_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Use the form type/subtype, or type/*.'**
+  String get cat_mime_invalid;
+
+  /// No description provided for @cat_drag.
+  ///
+  /// In en, this message translates to:
+  /// **'Drag {name} to change its order'**
+  String cat_drag(String name);
+
+  /// No description provided for @cat_move_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Move {name} up'**
+  String cat_move_up(String name);
+
+  /// No description provided for @cat_move_down.
+  ///
+  /// In en, this message translates to:
+  /// **'Move {name} down'**
+  String cat_move_down(String name);
+
+  /// No description provided for @cat_edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit {name}'**
+  String cat_edit(String name);
+
+  /// No description provided for @cat_delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}'**
+  String cat_delete(String name);
+
+  /// No description provided for @cat_delete_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the category {name}?'**
+  String cat_delete_title(String name);
+
+  /// No description provided for @cat_delete_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Files already sorted by it stay where they are.'**
+  String get cat_delete_message;
+
+  /// No description provided for @cat_delete_confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete category'**
+  String get cat_delete_confirm;
+
+  /// No description provided for @cat_test_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Try a file'**
+  String get cat_test_title;
+
+  /// No description provided for @cat_test_name.
+  ///
+  /// In en, this message translates to:
+  /// **'File name'**
+  String get cat_test_name;
+
+  /// No description provided for @cat_test_mime.
+  ///
+  /// In en, this message translates to:
+  /// **'Content type'**
+  String get cat_test_mime;
+
+  /// No description provided for @cat_test_none.
+  ///
+  /// In en, this message translates to:
+  /// **'No category matches: the file stays in the normal download folder.'**
+  String get cat_test_none;
+
+  /// No description provided for @cat_test_found.
+  ///
+  /// In en, this message translates to:
+  /// **'Goes to {name}: {dir}'**
+  String cat_test_found(String name, String dir);
+
+  /// No description provided for @cat_test_error.
+  ///
+  /// In en, this message translates to:
+  /// **'The daemon could not be asked.'**
+  String get cat_test_error;
 }
 
 class _AppLocalizationsDelegate

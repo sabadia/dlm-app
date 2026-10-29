@@ -1815,4 +1815,120 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get se_quota_period => 'Period';
+
+  @override
+  String get nav_manage => 'Manage';
+
+  @override
+  String get nav_manage_categories => 'Categories';
+
+  @override
+  String get cat_intro =>
+      'A category sorts a finished download into a folder by its file extension or content type. The first category that matches wins, so the order matters.';
+
+  @override
+  String get cat_add => 'Add a category';
+
+  @override
+  String get cat_add_title => 'Add a category';
+
+  @override
+  String get cat_edit_title => 'Edit the category';
+
+  @override
+  String get cat_saved => 'Category saved';
+
+  @override
+  String get cat_empty_title => 'No categories yet';
+
+  @override
+  String get cat_empty_message =>
+      'Add one to have finished downloads sorted into folders.';
+
+  @override
+  String get cat_name => 'Name';
+
+  @override
+  String get cat_folder => 'Folder';
+
+  @override
+  String get cat_folder_desc => 'Where files of this category are put.';
+
+  @override
+  String get cat_extensions => 'Extensions';
+
+  @override
+  String get cat_extensions_desc =>
+      'Separated by commas or spaces, like mkv, mp4.';
+
+  @override
+  String get cat_extensions_invalid =>
+      'Extensions are letters and digits only.';
+
+  @override
+  String get cat_mime => 'Content types';
+
+  @override
+  String get cat_mime_desc => 'One per line, like video/* or application/pdf.';
+
+  @override
+  String get cat_mime_invalid => 'Use the form type/subtype, or type/*.';
+
+  @override
+  String cat_drag(String name) {
+    return 'Drag $name to change its order';
+  }
+
+  @override
+  String cat_move_up(String name) {
+    return 'Move $name up';
+  }
+
+  @override
+  String cat_move_down(String name) {
+    return 'Move $name down';
+  }
+
+  @override
+  String cat_edit(String name) {
+    return 'Edit $name';
+  }
+
+  @override
+  String cat_delete(String name) {
+    return 'Delete $name';
+  }
+
+  @override
+  String cat_delete_title(String name) {
+    return 'Delete the category $name?';
+  }
+
+  @override
+  String get cat_delete_message =>
+      'Files already sorted by it stay where they are.';
+
+  @override
+  String get cat_delete_confirm => 'Delete category';
+
+  @override
+  String get cat_test_title => 'Try a file';
+
+  @override
+  String get cat_test_name => 'File name';
+
+  @override
+  String get cat_test_mime => 'Content type';
+
+  @override
+  String get cat_test_none =>
+      'No category matches: the file stays in the normal download folder.';
+
+  @override
+  String cat_test_found(String name, String dir) {
+    return 'Goes to $name: $dir';
+  }
+
+  @override
+  String get cat_test_error => 'The daemon could not be asked.';
 }

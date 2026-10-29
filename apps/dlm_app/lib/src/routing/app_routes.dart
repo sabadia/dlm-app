@@ -67,6 +67,9 @@ const List<String> settingsGroups = [
 /// The settings page of [group].
 String settingsPath(String group) => '/settings/$group';
 
+/// The management page [page] (`categories`).
+String managePath(String page) => '/manage/$page';
+
 /// Where the app starts.
 final String homePath = downloadsPath(DownloadsFilter.all);
 
@@ -81,3 +84,6 @@ String categorySidebarId(String id) => 'category:$id';
 
 /// Sidebar id of a settings page.
 String settingsSidebarId(String group) => 'settings:$group';
+
+/// Sidebar id of a management page.
+String manageSidebarId(String page) => 'manage:$page';

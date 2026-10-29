@@ -14,6 +14,7 @@ import 'package:go_router/go_router.dart';
 
 import '../add/add_dialog.dart';
 import '../inspector/inspector_pane.dart';
+import '../manage/manage_screen.dart';
 import '../onboarding/setup_dialog.dart';
 import '../prefs/pref_providers.dart';
 import '../queues/queue_countdown.dart';
@@ -74,12 +75,21 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   static int? _positive(int n) => n > 0 ? n : null;
 
+  static String _manageTitle(AppLocalizations l, String page) => switch (page) {
+    'categories' => l.nav_manage_categories,
+    _ => page,
+  };
+
   ({String sidebarId, String title}) _current(
     AppLocalizations l,
     List<Queue> queues,
     List<Category> categories,
   ) {
     final segments = widget.location.pathSegments;
+    if (segments.length >= 2 && segments.first == 'manage') {
+      final page = segments[1];
+      return (sidebarId: manageSidebarId(page), title: _manageTitle(l, page));
+    }
     if (segments.length >= 2 && segments.first == 'settings') {
       final group = segments[1];
       return (
@@ -166,7 +176,9 @@ class _AppShellState extends ConsumerState<AppShell> {
           ref.read(unsavedSettingsProvider.notifier).mark(dirty: false);
         }
         if (!context.mounted) return;
-        if (id.startsWith('settings:')) {
+        if (id.startsWith('manage:')) {
+          context.go(managePath(id.substring('manage:'.length)));
+        } else if (id.startsWith('settings:')) {
           context.go(settingsPath(id.substring('settings:'.length)));
         } else if (id.startsWith('queue:')) {
           context.go(queuePath(id.substring('queue:'.length)));
@@ -198,6 +210,17 @@ class _AppShellState extends ConsumerState<AppShell> {
                 label: filterLabel(l, f),
                 icon: DlmIcon(filterIcon(f)),
                 count: _positive(counts.count(statuses: f.statuses)),
+              ),
+          ],
+        ),
+        DlmSidebarSection(
+          title: l.nav_manage,
+          items: [
+            for (final page in managePages)
+              DlmSidebarItem(
+                id: manageSidebarId(page),
+                label: _manageTitle(l, page),
+                icon: const DlmIcon(DlmIconName.tag),
               ),
           ],
         ),

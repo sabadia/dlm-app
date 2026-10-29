@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 
 import 'appearance.dart';
 import 'connection/connection_gate.dart';
+import 'manage/manage_screen.dart';
 import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
 import 'screens/downloads_screen.dart';
@@ -78,6 +79,17 @@ final routerProvider = Provider<GoRouter>((ref) {
                   state.pathParameters['filter'],
                 )!,
               ),
+            ),
+          ),
+          GoRoute(
+            path: '/manage/:page',
+            redirect: (context, state) =>
+                managePages.contains(state.pathParameters['page'])
+                ? null
+                : homePath,
+            pageBuilder: (context, state) => NoTransitionPage(
+              key: ValueKey(state.uri.path),
+              child: ManageScreen(page: state.pathParameters['page']!),
             ),
           ),
           GoRoute(

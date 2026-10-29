@@ -57,14 +57,92 @@ class FakeLimits extends LimitsController {
   }
 }
 
-/// The categories in memory.
+/// The categories in memory; records what is asked of them.
 class FakeCategories extends CategoriesController {
   FakeCategories(this.categories);
 
-  final List<Category> categories;
+  List<Category> categories;
+  final List<String> calls = [];
 
   @override
   Future<List<Category>> build() async => categories;
+
+  @override
+  Future<Category> create(CreateCategoryBody body) async {
+    calls.add('create ${body.name} ${body.dir} ${body.extensions}');
+    final c = Category(
+      dir: body.dir,
+      id: 'new${categories.length}',
+      name: body.name,
+      position: categories.length,
+      extensions: body.extensions,
+      mimeTypes: body.mimeTypes,
+    );
+    categories = [...categories, c];
+    state = AsyncData(categories);
+    return c;
+  }
+
+  @override
+  Future<Category> edit(String id, UpdateCategoryBody body) async {
+    calls.add('edit $id ${body.name} ${body.dir} ${body.extensions}');
+    final old = categories.firstWhere((c) => c.id == id);
+    final c = Category(
+      dir: body.dir ?? old.dir,
+      id: id,
+      name: body.name ?? old.name,
+      position: old.position,
+      extensions: body.extensions ?? old.extensions,
+      mimeTypes: body.mimeTypes ?? old.mimeTypes,
+    );
+    categories = [
+      for (final o in categories)
+        if (o.id == id) c else o,
+    ];
+    state = AsyncData(categories);
+    return c;
+  }
+
+  @override
+  Future<void> remove(String id) async {
+    calls.add('remove $id');
+    categories = [
+      for (final c in categories)
+        if (c.id != id) c,
+    ];
+    state = AsyncData(categories);
+  }
+
+  @override
+  Future<void> moveTo(String id, int position) async {
+    calls.add('move $id $position');
+    final list = [...categories];
+    final at = list.indexWhere((c) => c.id == id);
+    final item = list.removeAt(at);
+    list.insert(position, item);
+    categories = [
+      for (final (i, c) in list.indexed)
+        Category(
+          dir: c.dir,
+          id: c.id,
+          name: c.name,
+          position: i,
+          extensions: c.extensions,
+          mimeTypes: c.mimeTypes,
+        ),
+    ];
+    state = AsyncData(categories);
+  }
+
+  @override
+  Future<Category?> match({String? name, String? mimeType}) async {
+    calls.add('match $name $mimeType');
+    final ext = (name ?? '').contains('.') ? name!.split('.').last : '';
+    for (final c in categories) {
+      if ((c.extensions ?? const []).contains(ext)) return c;
+    }
+    return null;
+  }
 }
 
 class FakeQueues extends QueuesController {

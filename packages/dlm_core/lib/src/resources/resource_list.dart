@@ -88,6 +88,24 @@ class CategoriesController extends ResourceList<Category> {
         if (c.id != id) c,
     ],
   );
+
+  /// Moves a category to [position] (0 is first); the others shift.
+  Future<void> moveTo(String id, int position) => mutate(
+    (api) => api.rest.categories.updateCategory(
+      id: id,
+      body: UpdateCategoryBody(position: position),
+    ),
+  );
+
+  /// The category a file named [name] with the content type [mimeType] would
+  /// be sorted into; null when none matches.
+  Future<Category?> match({String? name, String? mimeType}) async {
+    final api = ref.read(apiProvider);
+    final out = await guard(
+      () => api.rest.categories.matchCategory(name: name, mimeType: mimeType),
+    );
+    return out.category;
+  }
 }
 
 /// The stored site logins (`/v1/credentials`); secrets never leave the daemon.

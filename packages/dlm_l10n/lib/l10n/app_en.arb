@@ -1041,5 +1041,89 @@
         "type": "String"
       }
     }
-  }
+  },
+  "nav_manage": "Manage",
+  "nav_manage_categories": "Categories",
+  "cat_intro": "A category sorts a finished download into a folder by its file extension or content type. The first category that matches wins, so the order matters.",
+  "cat_add": "Add a category",
+  "cat_add_title": "Add a category",
+  "cat_edit_title": "Edit the category",
+  "cat_saved": "Category saved",
+  "cat_empty_title": "No categories yet",
+  "cat_empty_message": "Add one to have finished downloads sorted into folders.",
+  "cat_name": "Name",
+  "cat_folder": "Folder",
+  "cat_folder_desc": "Where files of this category are put.",
+  "cat_extensions": "Extensions",
+  "cat_extensions_desc": "Separated by commas or spaces, like mkv, mp4.",
+  "cat_extensions_invalid": "Extensions are letters and digits only.",
+  "cat_mime": "Content types",
+  "cat_mime_desc": "One per line, like video/* or application/pdf.",
+  "cat_mime_invalid": "Use the form type/subtype, or type/*.",
+  "cat_drag": "Drag {name} to change its order",
+  "@cat_drag": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_move_up": "Move {name} up",
+  "@cat_move_up": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_move_down": "Move {name} down",
+  "@cat_move_down": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_edit": "Edit {name}",
+  "@cat_edit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete": "Delete {name}",
+  "@cat_delete": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete_title": "Delete the category {name}?",
+  "@cat_delete_title": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_delete_message": "Files already sorted by it stay where they are.",
+  "cat_delete_confirm": "Delete category",
+  "cat_test_title": "Try a file",
+  "cat_test_name": "File name",
+  "cat_test_mime": "Content type",
+  "cat_test_none": "No category matches: the file stays in the normal download folder.",
+  "cat_test_found": "Goes to {name}: {dir}",
+  "@cat_test_found": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "dir": {
+        "type": "String"
+      }
+    }
+  },
+  "cat_test_error": "The daemon could not be asked."
 }
