@@ -10,6 +10,7 @@ import '../connection/connection_controller.dart';
 import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
 import '../shell/feedback.dart';
+import '../shell/shortcuts.dart';
 import '../skin_registry.dart';
 import 'shortcut_editor.dart';
 
@@ -348,6 +349,17 @@ class PreferencesScreen extends ConsumerWidget {
         DlmFormGroup(
           title: l.pref_shortcuts,
           children: const [ShortcutEditor()],
+        ),
+        gap,
+        DlmFormGroup(
+          title: l.pref_global,
+          footer: ref.watch(globalHotkeysProvider).supported
+              ? l.pref_global_desc
+              : l.pref_global_unsupported,
+          children: [
+            if (ref.watch(globalHotkeysProvider).supported)
+              const ShortcutEditor(ids: globalShortcutIds, clearable: true),
+          ],
         ),
         gap,
         DlmFormGroup(

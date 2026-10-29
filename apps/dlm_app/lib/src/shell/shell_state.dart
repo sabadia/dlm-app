@@ -64,8 +64,15 @@ class AddRequestNotifier extends Notifier<int> {
   @override
   int build() => 0;
 
-  /// Requests the dialog.
-  void request() => state++;
+  /// Text to put in the dialog for the next request (links from the
+  /// clipboard); read and cleared by the shell.
+  String? pendingText;
+
+  /// Requests the dialog, optionally with [text] filled in.
+  void request({String? text}) {
+    pendingText = text;
+    state++;
+  }
 }
 
 /// Requests to add downloads.

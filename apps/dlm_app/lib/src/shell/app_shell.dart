@@ -71,7 +71,10 @@ class _AppShellState extends ConsumerState<AppShell> {
     super.initState();
     ref.listenManual(addRequestProvider, (previous, next) {
       if (previous == null || next == previous || !mounted) return;
-      unawaited(showAddDownload(context, ref));
+      final notifier = ref.read(addRequestProvider.notifier);
+      final text = notifier.pendingText ?? '';
+      notifier.pendingText = null;
+      unawaited(showAddDownload(context, ref, initialText: text));
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) unawaited(showSetupOnFirstRun(context, ref));

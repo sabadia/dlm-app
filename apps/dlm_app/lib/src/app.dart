@@ -13,6 +13,7 @@ import 'appearance.dart';
 import 'connection/connection_gate.dart';
 import 'format/dlm_format.dart';
 import 'manage/manage_screen.dart';
+import 'platform/global_hotkey_binder.dart';
 import 'platform/integration_binder.dart';
 import 'prefs/pref_providers.dart';
 import 'routing/app_routes.dart';
@@ -157,7 +158,9 @@ class DlmApp extends ConsumerWidget {
             accent: accent == null ? null : Color(accent),
           ),
           child: _WindowChromeBinder(
-            child: IntegrationBinder(child: ConnectionGate(child: child!)),
+            child: IntegrationBinder(
+              child: GlobalHotkeyBinder(child: ConnectionGate(child: child!)),
+            ),
           ),
         ),
       ),

@@ -391,7 +391,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_name.
   ///
   /// In en, this message translates to:
-  /// **'dlm'**
+  /// **'DLM'**
   String get app_name;
 
   /// No description provided for @nav_label.
@@ -547,7 +547,7 @@ abstract class AppLocalizations {
   /// No description provided for @menu_about.
   ///
   /// In en, this message translates to:
-  /// **'About dlm'**
+  /// **'About DLM'**
   String get menu_about;
 
   /// No description provided for @command_go_to.
@@ -4513,7 +4513,7 @@ abstract class AppLocalizations {
   /// No description provided for @tr_format_json.
   ///
   /// In en, this message translates to:
-  /// **'dlm JSON'**
+  /// **'DLM JSON'**
   String get tr_format_json;
 
   /// No description provided for @tr_format_aria2.
@@ -5407,13 +5407,13 @@ abstract class AppLocalizations {
   /// No description provided for @tray_tooltip.
   ///
   /// In en, this message translates to:
-  /// **'dlm'**
+  /// **'DLM'**
   String get tray_tooltip;
 
   /// No description provided for @tray_show.
   ///
   /// In en, this message translates to:
-  /// **'Show dlm'**
+  /// **'Show DLM'**
   String get tray_show;
 
   /// No description provided for @tray_pause_all.
@@ -5437,7 +5437,7 @@ abstract class AppLocalizations {
   /// No description provided for @tray_quit.
   ///
   /// In en, this message translates to:
-  /// **'Quit dlm'**
+  /// **'Quit DLM'**
   String get tray_quit;
 
   /// No description provided for @notif_completed.
@@ -5590,6 +5590,48 @@ abstract class AppLocalizations {
   /// **'Shortcuts'**
   String get pref_shortcuts;
 
+  /// No description provided for @pref_global.
+  ///
+  /// In en, this message translates to:
+  /// **'Global shortcuts'**
+  String get pref_global;
+
+  /// No description provided for @pref_global_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Work while another program has the focus. Off until you set a chord; a chord needs Ctrl, Alt, Shift or the system key.'**
+  String get pref_global_desc;
+
+  /// No description provided for @pref_global_unsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available here: a Wayland session does not let apps claim keys for the whole desktop.'**
+  String get pref_global_unsupported;
+
+  /// No description provided for @cmd_global_toggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Show or hide DLM'**
+  String get cmd_global_toggle;
+
+  /// No description provided for @cmd_global_clipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the link on the clipboard'**
+  String get cmd_global_clipboard;
+
+  /// No description provided for @pref_shortcuts_clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear'**
+  String get pref_shortcuts_clear;
+
+  /// No description provided for @pref_shortcuts_none.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get pref_shortcuts_none;
+
   /// No description provided for @pref_shortcuts_change.
   ///
   /// In en, this message translates to:
@@ -5725,7 +5767,7 @@ abstract class AppLocalizations {
   /// No description provided for @ab_title.
   ///
   /// In en, this message translates to:
-  /// **'dlm'**
+  /// **'DLM'**
   String get ab_title;
 
   /// No description provided for @ab_blurb.
@@ -5857,7 +5899,7 @@ abstract class AppLocalizations {
   /// No description provided for @ab_licences_desc.
   ///
   /// In en, this message translates to:
-  /// **'dlm is built from open-source packages. Their licences are listed here.'**
+  /// **'DLM is built from open-source packages. Their licences are listed here.'**
   String get ab_licences_desc;
 
   /// No description provided for @ab_licences_none.

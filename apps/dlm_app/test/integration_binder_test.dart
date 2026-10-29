@@ -86,6 +86,9 @@ class RecordingWindow implements WindowControl {
   Future<void> hide() async => hides++;
 
   @override
+  Future<bool> isVisible() async => shows >= hides;
+
+  @override
   Future<void> quit() async => quits++;
 
   @override

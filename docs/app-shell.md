@@ -34,7 +34,9 @@ page, and the details pane. Panels resize by dragging or with the keyboard and r
 width; the details pane closes by itself below 1000 px. The command palette, search and add-download chords come from the shortcut
 map (Command on macOS, Control elsewhere, overridable per command). A chord
 already used by another command is refused, and reset restores the built-in
-ones. Global hotkeys are not part of this map. Preferences also choose the size
+ones. Two more commands, Show or hide DLM and Add the link on the clipboard, work from any program on
+macOS, Windows and X11 (`hotkey_manager`; on Linux it needs `libkeybinder-3.0`); they are off until a
+chord is set, need a modifier, and are not offered on Wayland. Preferences also choose the size
 units and the language. Sizes are drawn through one `DlmFormat` above the
 window, so a change redraws every count. The language follows the system
 unless a supported language is chosen. About can check GitHub releases of
