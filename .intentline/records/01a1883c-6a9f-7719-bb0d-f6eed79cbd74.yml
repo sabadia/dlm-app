@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1883c-6a9f-7719-bb0d-f6eed79cbd74
+status: draft
+created_at: '2026-10-29T15:17:03Z'
+updated_at: '2026-10-29T15:17:03Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: Own SwiftPM macOS plugin for hotkeys (no CocoaPods warning), no border on a selected card, a distinct icon per settings page
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: packages/hotkey_manager_macos/macos/hotkey_manager_macos/Sources/hotkey_manager_macos/HotkeyManagerMacosPlugin.swift
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/settings_hub.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

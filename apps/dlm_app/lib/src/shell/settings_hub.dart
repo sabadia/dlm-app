@@ -65,13 +65,38 @@ String hubSectionTitle(AppLocalizations l, HubSection section) =>
       HubSection.settings => l.nav_settings,
     };
 
-DlmIconName _iconOf(HubSection section, String page) => switch (section) {
-  HubSection.tools => switch (page) {
-    'browser' => DlmIconName.globe,
-    'transfer' => DlmIconName.importIcon,
-    _ => DlmIconName.chart,
-  },
-  HubSection.manage => DlmIconName.tag,
+/// The icon of a page: each one has its own, by what it is about.
+DlmIconName hubPageIcon(HubSection section, String page) => switch (page) {
+  // Settings groups.
+  'general' => DlmIconName.settings,
+  'speed' => DlmIconName.speed,
+  'network' => DlmIconName.globe,
+  'retry' => DlmIconName.restart,
+  'refresh' => DlmIconName.refresh,
+  'post-processing' => DlmIconName.wand,
+  'torrent' => DlmIconName.magnet,
+  'browser' =>
+    section == HubSection.tools ? DlmIconName.globe : DlmIconName.externalLink,
+  // Manage pages.
+  'categories' => DlmIconName.tag,
+  'logins' => DlmIconName.lock,
+  'cookies' => DlmIconName.cookie,
+  'webhooks' => DlmIconName.link,
+  'plugins' => DlmIconName.plugin,
+  'daemon' => DlmIconName.server,
+  'access' => DlmIconName.key,
+  'preferences' => DlmIconName.viewOptions,
+  'about' => DlmIconName.info,
+  // Tools.
+  'transfer' => DlmIconName.importIcon,
+  'statistics' => DlmIconName.chart,
+  _ => DlmIconName.file,
+};
+
+/// The icon of [section] itself (the gear menu).
+DlmIconName hubSectionIcon(HubSection section) => switch (section) {
+  HubSection.tools => DlmIconName.chart,
+  HubSection.manage => DlmIconName.folder,
   HubSection.settings => DlmIconName.settings,
 };
 
@@ -187,7 +212,7 @@ class _SettingsHubState extends ConsumerState<SettingsHub> {
                             DlmSidebarItem(
                               id: p,
                               label: hubPageTitle(l, section, p),
-                              icon: DlmIcon(_iconOf(section, p)),
+                              icon: DlmIcon(hubPageIcon(section, p)),
                             ),
                         ],
                       ),

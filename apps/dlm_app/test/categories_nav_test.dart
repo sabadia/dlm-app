@@ -1,5 +1,8 @@
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/app.dart';
+import 'package:dlm_app/src/manage/manage_screen.dart';
+import 'package:dlm_app/src/routing/app_routes.dart';
+import 'package:dlm_app/src/shell/settings_hub.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -74,5 +77,27 @@ void main() {
       '/downloads/all',
       reason: 'the page behind goes back to the downloads',
     );
+  });
+
+  test('every page of a section has an icon of its own', () {
+    for (final section in HubSection.values) {
+      final icons = [
+        for (final p in hubPages(section)) hubPageIcon(section, p),
+      ];
+      expect(
+        icons.toSet().length,
+        icons.length,
+        reason: '${section.name}: $icons',
+      );
+    }
+    // The pages of all sections together may share only the globe, once
+    // as the browser tool and once as the network settings.
+    final all = [
+      for (final s in HubSection.values)
+        for (final p in hubPages(s)) hubPageIcon(s, p),
+    ];
+    expect(all.length - all.toSet().length, lessThanOrEqualTo(1));
+    expect(setupPages, isNotEmpty);
+    expect(settingsGroups, isNotEmpty);
   });
 }

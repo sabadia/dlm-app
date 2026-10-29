@@ -232,6 +232,18 @@ enum DlmIconName {
 
   /// Two stacked cards.
   cards,
+
+  /// A horseshoe magnet: torrents.
+  magnet,
+
+  /// A wand with a spark: automatic actions.
+  wand,
+
+  /// A cookie with chips.
+  cookie,
+
+  /// A server: two stacked units with lights.
+  server,
 }
 
 /// The visual builders a skin supplies for the kit's components.

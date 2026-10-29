@@ -239,14 +239,10 @@ class _AppShellState extends ConsumerState<AppShell> {
               semanticLabel: l.hub_button,
               variant: DlmButtonVariant.plain,
               entries: [
-                for (final (section, icon) in [
-                  (HubSection.tools, DlmIconName.chart),
-                  (HubSection.manage, DlmIconName.tag),
-                  (HubSection.settings, DlmIconName.settings),
-                ])
+                for (final section in HubSection.values)
                   DlmMenuItem(
                     label: hubSectionTitle(l, section),
-                    icon: DlmIcon(icon),
+                    icon: DlmIcon(hubSectionIcon(section)),
                     onPressed: () =>
                         unawaited(showSettingsHub(context, section: section)),
                   ),

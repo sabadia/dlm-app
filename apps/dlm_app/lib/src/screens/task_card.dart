@@ -45,10 +45,10 @@ class TaskCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: fill,
             borderRadius: BorderRadius.circular(m.radii.container),
-            border: Border.all(
-              color: selected ? c.accent : c.separator,
-              width: selected ? 1.5 : m.borderWidth,
-            ),
+            // Selection is the fill only; the hairline is for resting cards.
+            border: selected
+                ? null
+                : Border.all(color: c.separator, width: m.borderWidth),
             boxShadow: selected || c.highContrast
                 ? null
                 : const [

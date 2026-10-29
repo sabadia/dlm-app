@@ -5,9 +5,9 @@ active skin draws it; they never reference a glyph file or a platform icon font.
 
 ## Set
 
-About 55 glyphs on a 16 x 16 grid: navigation (chevrons, sidebar, inspector, menu), actions
+About 60 glyphs on a 16 x 16 grid: navigation (chevrons, sidebar, inspector, menu), actions
 (add, close, check, edit, copy, link, search, filter, sort, refresh, restart, import, export,
-external link, view options, group, columns, cards), transfer (download, upload, play, pause, stop, queue, schedule, speed, chart),
+external link, view options, group, columns, cards, magnet, wand, cookie, server), transfer (download, upload, play, pause, stop, queue, schedule, speed, chart),
 objects (file, folder, tag, plugin, globe, key, lock, bell, trash, settings), and status
 (info, warning, error, success, eye).
 
