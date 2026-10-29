@@ -220,6 +220,18 @@ enum DlmIconName {
 
   /// Three horizontal lines.
   menu,
+
+  /// Two sliders: how a list looks.
+  viewOptions,
+
+  /// Two stacked boxes: grouping.
+  group,
+
+  /// A frame split into columns.
+  columns,
+
+  /// Two stacked cards.
+  cards,
 }
 
 /// The visual builders a skin supplies for the kit's components.

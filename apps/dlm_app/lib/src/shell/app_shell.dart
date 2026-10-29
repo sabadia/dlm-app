@@ -350,7 +350,7 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
             ],
             DlmMenuButton(
-              icon: const DlmIcon(DlmIconName.settings),
+              icon: const DlmIcon(DlmIconName.viewOptions),
               semanticLabel: l.display_menu,
               variant: DlmButtonVariant.plain,
               entries: displayMenuEntries(context, ref),
