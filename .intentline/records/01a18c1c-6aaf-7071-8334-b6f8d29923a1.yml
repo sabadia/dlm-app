@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a18c1c-6aaf-7071-8334-b6f8d29923a1
+status: draft
+created_at: '2026-10-30T09:20:34Z'
+updated_at: '2026-10-30T09:20:34Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: agent
+  name: null
+  tool: claude-code
+goal: 'README: describe the browser extension (what it does, install, use) and credit the Gopeed developers'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: README.md
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

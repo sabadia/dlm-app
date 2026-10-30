@@ -115,9 +115,9 @@ happened.
 
 ### Your browser's downloads, in DLM
 
-The [DLM browser extension](docs/user/browser-extension.md) (Chrome, Edge, Brave, Opera, Vivaldi and
-Firefox) sends your browser's downloads to DLM. You allow each extension once, in the app, and can
-revoke it any time. When a link has expired, DLM tells you and opens the page for a new one.
+DLM has its own **browser extension**, so the downloads you start in your browser can go straight to DLM.
+Install it once and your browser stops juggling big files: DLM downloads them faster, resumes them, queues
+them and keeps them tidy. See [Browser extension](#browser-extension) below for how to install and use it.
 
 ### Always within reach
 
@@ -136,6 +136,59 @@ revoke it any time. When a link has expired, DLM tells you and opens the page fo
   supported.
 - Follows your system's light or dark mode, accent colour, text size and reduced-motion setting.
 - Ready for translation, with a language picker (English today).
+
+---
+
+## Browser extension
+
+The [**DLM browser extension**](https://github.com/sabadia/dlm-extension) is the companion for the app. It
+works with **Chrome, Edge, Brave and other Chromium browsers, and with Firefox**, and it talks only to the DLM
+on your own computer (or a DLM service you add yourself).
+
+### What it does
+
+- 🪄 **Takes over browser downloads.** Click a download link as usual and DLM picks it up, with the cookies and
+  referrer the site needs. Hold <kbd>Alt</kbd> while clicking to keep one in the browser. You choose what it takes:
+  a minimum size, file types, sites to leave alone or always take, and an "ask first" prompt.
+- 🗂️ **A Files panel for the page you are on.** The toolbar button opens a **side panel** (a sidebar in Firefox)
+  that lists only the real files and media of the open page, each with its **size**, largest first. Files are
+  named after the **page title** by default (one click switches to the file's own name), links that redirect are
+  followed to the real file, and pages that are not downloads never show up.
+- 🌐 **Download with DLM's browser** for pages that hide the file, and **send this site's cookies to DLM** (after
+  a confirmation) for sites that need a sign-in.
+- 🖱️ **Right-click menus** to send a link, image, video or a whole page to a chosen queue, or to review and send
+  every link on a page.
+- 🧲 **Magnet links**, streams (HLS and DASH) with a quality choice, and **expired links**: when a link dies
+  halfway, the extension tells you, opens the page, and gives the fresh link to the same download.
+- 🔒 **Private by design.** No analytics, no accounts, nothing sent anywhere except to your DLM. Each browser
+  is paired with a code you compare and allow in the app, and you can revoke it at any time.
+
+### Install it
+
+1. **Install and open the DLM app** (see [Install](#install)) once.
+2. Download the extension from the [latest extension release](https://github.com/sabadia/dlm-extension/releases/latest):
+   - **Firefox:** open `dlm-extension-<version>-firefox.xpi` in Firefox. It is signed by Mozilla, so no
+     developer settings are needed.
+   - **Chrome, Edge, Brave:** unzip `dlm-extension-<version>-chrome.zip` into a folder you will keep, open
+     `chrome://extensions` (`edge://extensions`, `brave://extensions`), turn on **Developer mode**, choose
+     **Load unpacked** and pick that folder. The extension is not in a browser store yet, so the browser shows its
+     usual developer-mode notice; that is expected.
+3. In DLM, open **Manage ▸ Access ▸ Browser extension** and choose **Install** for your browser. This lets the
+   browser find the app.
+4. In the extension's options, follow **Get started**: it shows a six-digit code. Check it matches the one DLM
+   shows and choose **Allow**. Then press **Send a test download**.
+
+More detail, including updating and troubleshooting, is in the
+[extension install guide](https://github.com/sabadia/dlm-extension/blob/main/docs/install.md) and the
+[app's extension guide](docs/user/browser-extension.md).
+
+### Use it
+
+- Click the **DLM button** to open the Files panel for the page you are on. Press **Download** on a file, tick
+  several and download them together, or use **⋯** to download with DLM's browser or copy the link.
+- Download in the browser as you always did; DLM takes over the ones your rules choose.
+- Right-click a link, image, video or page and choose **Send to DLM**.
+- The shortcut <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd> opens the Files panel.
 
 ---
 
@@ -227,6 +280,19 @@ docs/              plan, guides, architecture decisions
 The look of each desktop is a *skin* on a shared UI kit, so features never care which OS they run on.
 Read [the UI kit notes](docs/ui-kit.md) and [the app shell](docs/app-shell.md) to see how it fits together,
 and [the engineering conventions](docs/CONVENTIONS.md) before sending a change.
+
+---
+
+## Credits
+
+DLM was inspired by [**Gopeed**](https://github.com/GopeedLab/gopeed), the fast, modern and open source
+download manager built with Go and Flutter. Gopeed showed what a friendly cross-platform download manager can
+be, and we are grateful to **its developers and contributors** for the idea and for the example they set, and for
+making it freely available to everyone.
+
+DLM is its own, separate project: it is written from scratch, is licensed under Apache-2.0, and contains no
+Gopeed code. If you like what DLM does, please also take a look at Gopeed and give it a star. ⭐
+
 
 ---
 
