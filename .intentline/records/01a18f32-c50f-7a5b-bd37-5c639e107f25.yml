@@ -1,0 +1,191 @@
+schema_version: 1
+id: 01a18f32-c50f-7a5b-bd37-5c639e107f25
+status: draft
+created_at: '2026-10-30T23:43:51Z'
+updated_at: '2026-10-30T23:43:51Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: 'Fix the app findings of the 2026-10-31 deep review (A1-A35): follow the daemon to its new address, real command-line arguments, torrents as file uploads, connection profiles with a switcher, token rejection, orphan daemon, release version, task list leaks, retry policy, settings drafts kept, and smaller lifecycle fixes'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: .github/workflows/ci.yml
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/main.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/about/updates.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/add_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/connection_controller.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/connection_gate.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/local_daemon.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/inspector/source_tab.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/access_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/daemon_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/servers_group.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/pairing/native_host_upkeep.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/clipboard_watch.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/integration_binder.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/prefs/pref_providers.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/refresh/link_requests.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/routing/app_routes.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/downloads_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/settings/settings_form.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/shell_state.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/add_download_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/connection/connection_controller_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/instance_open_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/integration_binder_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/routing_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/servers_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/support/fakes.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/transfer_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/updates_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/client.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/connection/connector.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/prefs/ui_prefs.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/providers.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/resources/resource_list.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/settings/settings_draft.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/add_repository.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/browser_repository.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_actions.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_status.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/test/connection/connector_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/test/settings/settings_draft_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en_XA.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations_en.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/awake_lock.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/daemon_supervisor.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/runtime_info.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/tray.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/pubspec.yaml
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/test/daemon/daemon_supervisor_test.dart
+  start_line: null
+  end_line: null
+- path: packaging/homebrew/dlm-app.rb.tmpl
+  start_line: null
+  end_line: null
+- path: tools/package_linux.sh
+  start_line: null
+  end_line: null
+- path: tools/package_macos.sh
+  start_line: null
+  end_line: null
+- path: tools/package_windows.ps1
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

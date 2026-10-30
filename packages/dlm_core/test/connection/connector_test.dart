@@ -81,15 +81,21 @@ void main() {
     expect((out as Incompatible).compatibility, isA<DaemonTooOld>());
   });
 
-  test('a rejected token is reported, a missing one is not an error', () async {
+  test('a rejected or missing token is reported', () async {
     final url = await daemon(health(authenticated: false));
     expect(
       await connector.connect(remote(url), token: 'bad'),
       isA<TokenRejected>(),
     );
-    final anonymous = await connector.connect(remote(url));
-    expect(anonymous, isA<Connected>());
-    (anonymous as Connected).api.close(force: true);
+    // No token is rejected too: the app would open and every call would 401.
+    expect(await connector.connect(remote(url)), isA<TokenRejected>());
+  });
+
+  test('a daemon that needs no token connects without one', () async {
+    final url = await daemon(health());
+    final out = await connector.connect(remote(url));
+    expect(out, isA<Connected>());
+    (out as Connected).api.close(force: true);
   });
 
   test('an unreachable daemon is a failure with its reason', () async {

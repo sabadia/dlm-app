@@ -346,7 +346,10 @@ void main() {
 
     notes.tap(const NotificationTap(payload: 'a', buttonId: NotifyIds.retry));
     await settle(tester);
-    expect(h.tasks.calls, contains('restart a'));
+    // Retry carries on from what was downloaded instead of starting over.
+    expect(h.tasks.resumed, [
+      ['a'],
+    ]);
 
     // `set` writes the preferences file. Awaiting that I/O never finishes
     // inside the test's fake clock; the value itself is stored at once.

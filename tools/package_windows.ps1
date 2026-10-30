@@ -25,7 +25,8 @@ $out = (Resolve-Path $OutDir).Path
 if (-not $SkipBuild) {
   Push-Location apps/dlm_app
   flutter build windows --release --build-name $BuildName --build-number $BuildNumber `
-    --dart-define="DLM_DAEMON_VERSION=$($DaemonVersion.TrimStart('v'))"
+    --dart-define="DLM_DAEMON_VERSION=$($DaemonVersion.TrimStart('v'))" `
+    --dart-define="DLM_VERSION=$($Version.TrimStart('v'))"
   if ($LASTEXITCODE -ne 0) { throw 'flutter build failed' }
   Pop-Location
 }

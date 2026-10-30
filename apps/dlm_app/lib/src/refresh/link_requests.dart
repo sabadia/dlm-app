@@ -49,7 +49,8 @@ class LinkRequests extends Notifier<List<LinkRequest>> {
           .read(taskRepositoryProvider)
           .list(const TaskQuery(statuses: {TaskStatus.awaitingLink}));
       for (final t in page.tasks) {
-        final url = t.source.pageUrl ?? t.source.originalUrl;
+        // The page, not the expired file link: that is where a new link is.
+        final url = t.source.pageUrl;
         if (url == null || url.isEmpty) continue;
         _add(
           LinkRequest(

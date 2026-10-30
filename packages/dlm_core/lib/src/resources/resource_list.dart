@@ -52,14 +52,22 @@ abstract class ResourceList<T> extends AsyncNotifier<List<T>> {
     if (optimistic != null && before != null) {
       state = AsyncData(optimistic(before));
     }
+    final R result;
     try {
-      final result = await guard(() => call(api));
-      await reload();
-      return result;
+      result = await guard(() => call(api));
     } on Object {
       if (before != null) state = AsyncData(before);
       rethrow;
     }
+    // The change is made. Failing to read the list again is not a failure of
+    // the change: the list keeps the optimistic state, and the next event or
+    // reload shows what the daemon stored.
+    try {
+      await reload();
+    } on Object {
+      // Left as it is.
+    }
+    return result;
   }
 }
 

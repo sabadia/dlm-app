@@ -191,9 +191,12 @@ void main() {
     // restart-daemon: the old process ends, a new one (new pid) takes over.
     unawaited(fake.external().then((_) {}));
     old.exit(0);
-    final s = await next((s) => s.phase == DaemonPhase.running && s.adopted);
+    final s = await next((s) => s.phase == DaemonPhase.running);
     expect(s.crashes, 0);
     expect(fake.launches.length, 1, reason: 'no replacement was started by us');
+    // The successor of a daemon the app started is still the app's to stop on
+    // quit; only one it found already running is left alone.
+    expect(s.adopted, isFalse);
   });
 
   test('a restart that keeps the pid but changes the port is followed', () async {

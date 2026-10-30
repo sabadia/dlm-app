@@ -19,7 +19,11 @@ void main() {
       TaskStatus.refreshing,
       TaskStatus.postprocessing,
     });
-    expect(DownloadsFilter.queued.statuses, {TaskStatus.queued});
+    // Waiting: for a slot, or for a new link; the latter shows in no other list.
+    expect(DownloadsFilter.queued.statuses, {
+      TaskStatus.queued,
+      TaskStatus.awaitingLink,
+    });
     expect(DownloadsFilter.paused.statuses, {TaskStatus.paused});
     expect(DownloadsFilter.completed.statuses, {TaskStatus.completed});
     expect(DownloadsFilter.failed.statuses, {TaskStatus.error});

@@ -58,8 +58,10 @@ ReleaseInfo? chooseUpdate(
   return null;
 }
 
-/// Whether [remote] is a higher version than [current]. A leading `v` is
-/// ignored. Build metadata after `+` is ignored.
+/// Whether [remote] is a higher version than [current], by semantic-version
+/// precedence: `1.0.0` is newer than `1.0.0-beta.2`, and `1.0.0-beta.3` than
+/// `1.0.0-beta.2`. A leading `v` is ignored. Build metadata after `+` is
+/// ignored.
 bool isNewerVersion(String remote, String current) {
   final a = _numbers(remote);
   final b = _numbers(current);
@@ -69,17 +71,43 @@ bool isNewerVersion(String remote, String current) {
     final right = i < b.length ? b[i] : 0;
     if (left != right) return left > right;
   }
-  return false;
+  return _comparePre(_pre(remote), _pre(current)) > 0;
 }
 
-List<int> _numbers(String version) {
-  final core = version
-      .replaceFirst(RegExp('^v'), '')
-      .split('+')
-      .first
-      .split('-')
-      .first;
-  return [for (final part in core.split('.')) int.tryParse(part) ?? 0];
+String _core(String version) =>
+    version.replaceFirst(RegExp('^v'), '').split('+').first;
+
+List<int> _numbers(String version) => [
+  for (final part in _core(version).split('-').first.split('.'))
+    int.tryParse(part) ?? 0,
+];
+
+/// The pre-release identifiers (`beta`, `2` in `1.0.0-beta.2`); empty for a
+/// release.
+List<String> _pre(String version) {
+  final core = _core(version);
+  final dash = core.indexOf('-');
+  return dash < 0 ? const [] : core.substring(dash + 1).split('.');
+}
+
+/// -1, 0 or 1. A release (no identifiers) ranks above any pre-release;
+/// numbers rank below words and compare as numbers.
+int _comparePre(List<String> a, List<String> b) {
+  if (a.isEmpty || b.isEmpty) {
+    return a.isEmpty == b.isEmpty ? 0 : (a.isEmpty ? 1 : -1);
+  }
+  for (var i = 0; i < a.length && i < b.length; i++) {
+    final x = int.tryParse(a[i]);
+    final y = int.tryParse(b[i]);
+    final c = switch ((x, y)) {
+      (final int x, final int y) => x.compareTo(y),
+      (int(), null) => -1,
+      (null, int()) => 1,
+      _ => a[i].compareTo(b[i]),
+    };
+    if (c != 0) return c.sign;
+  }
+  return a.length.compareTo(b.length).sign;
 }
 
 /// Whether Homebrew installed this app. A cask copies the app into

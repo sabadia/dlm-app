@@ -226,6 +226,24 @@ class SettingsDraft {
     }
   }
 
+  /// A draft of [next] that keeps these edits. Used when the stored settings
+  /// change under an open page (a save elsewhere, another status of the task):
+  /// what the user typed is not thrown away, and an edit that now equals the
+  /// stored value drops out.
+  SettingsDraft rebasedOn(SettingsSnapshot next) {
+    final draft = SettingsDraft(next);
+    for (final e in _edits.entries) {
+      final value = e.value;
+      if (value == null) {
+        draft.reset(e.key);
+      } else {
+        draft.set(e.key, value);
+      }
+    }
+    draft._revision = _revision + 1; // list editors take the values again
+    return draft;
+  }
+
   /// Drops every edit.
   void revert() {
     _revision++;

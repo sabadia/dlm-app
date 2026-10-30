@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dlm_api/dlm_api.dart';
 
 /// What the app asks of the daemon to add downloads: look at a link before
@@ -13,6 +15,17 @@ abstract interface class AddRepository {
 
   /// Creates one task.
   Future<Task> create(CreateTaskBody body);
+
+  /// Creates a torrent task from the bytes of a `.torrent` file. The file
+  /// travels as the request body, not inside JSON, so one up to 16 MiB works.
+  Future<Task> addTorrent(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  });
 
   /// Adds the tasks listed in an exported file ([format] says how to read
   /// [content]). With [dryRun] nothing is created and each result says whether
@@ -53,9 +66,11 @@ abstract interface class AddRepository {
 class ApiAddRepository implements AddRepository {
   /// Creates the repository over [api].
   ApiAddRepository(DlmApi api)
-    : _client = api.rest.tasks,
+    : _api = api,
+      _client = api.rest.tasks,
       _system = api.rest.system;
 
+  final DlmApi _api;
   final TasksClient _client;
   final SystemClient _system;
 
@@ -76,6 +91,23 @@ class ApiAddRepository implements AddRepository {
   @override
   Future<Task> create(CreateTaskBody body) =>
       guard(() => _client.createTask(body: body));
+
+  @override
+  Future<Task> addTorrent(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  }) => _api.addTorrentBytes(
+    bytes,
+    queueId: queueId,
+    name: name,
+    dir: dir,
+    paused: paused,
+    allowDuplicate: allowDuplicate,
+  );
 
   @override
   Future<List<BatchItem>> importList(

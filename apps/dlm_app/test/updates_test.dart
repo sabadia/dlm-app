@@ -34,6 +34,16 @@ void main() {
     expect(isNewerVersion('1.2.0', 'v1.2.0'), isFalse);
   });
 
+  test('pre-releases rank by semantic-version precedence', () {
+    expect(isNewerVersion('1.0.0', '1.0.0-beta.2'), isTrue);
+    expect(isNewerVersion('1.0.0-beta.3', '1.0.0-beta.2'), isTrue);
+    expect(isNewerVersion('1.0.0-beta.10', '1.0.0-beta.9'), isTrue);
+    expect(isNewerVersion('1.0.0-rc.1', '1.0.0-beta.9'), isTrue);
+    expect(isNewerVersion('1.0.0-beta.2', '1.0.0'), isFalse);
+    expect(isNewerVersion('1.0.0-beta.2', '1.0.0-beta.2'), isFalse);
+    expect(isNewerVersion('1.0.0-beta.2+7', 'v1.0.0-beta.2'), isFalse);
+  });
+
   test('a Caskroom entry for the app means Homebrew installed it', () {
     expect(
       installedWithHomebrew(

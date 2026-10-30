@@ -91,6 +91,7 @@ class ProfileConnector {
     ConnectionProfile profile, {
     String? token,
     String? localUrl,
+    String? localPin,
   }) async {
     final baseUrl = profile.isLocal ? localUrl : profile.url;
     final uri = baseUrl == null ? null : Uri.tryParse(baseUrl);
@@ -113,11 +114,16 @@ class ProfileConnector {
       pinned = true;
     }
 
+    // The bundled daemon with a certificate of its own: it published the
+    // fingerprint, and that is the one certificate to trust.
+    final pin = pinned
+        ? profile.tlsPin
+        : (profile.isLocal && uri.scheme == 'https' ? localPin : null);
     final api = _createApi(
-      pinned
+      pin != null
           ? DlmEndpoint.pinned(
               baseUrl: baseUrl!,
-              pin: profile.tlsPin!,
+              pin: pin,
               token: token,
               userAgent: userAgent,
             )
@@ -130,7 +136,9 @@ class ProfileConnector {
         api.close(force: true);
         return Incompatible(compatibility, health);
       }
-      if (token != null && token.isNotEmpty && !health.authenticated) {
+      // No token counts too: the app would open and every call would then
+      // answer 401.
+      if (!health.authenticated) {
         api.close(force: true);
         return const TokenRejected();
       }

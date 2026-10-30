@@ -72,11 +72,12 @@ class _ClipboardWatcherState extends ConsumerState<ClipboardWatcher>
     _arm(pollNow: state == AppLifecycleState.resumed);
   }
 
+  /// Only while the app has the focus (`resumed`): an unfocused window
+  /// (`inactive`) is not where the user copied from, and the clipboard is
+  /// private. At start-up the state is not known yet and counts as focused.
   bool get _inFront {
     final life = WidgetsBinding.instance.lifecycleState;
-    return life != AppLifecycleState.paused &&
-        life != AppLifecycleState.hidden &&
-        life != AppLifecycleState.detached;
+    return life == null || life == AppLifecycleState.resumed;
   }
 
   void _arm({required bool pollNow}) {

@@ -236,4 +236,78 @@ void main() {
       expect(stored.tlsPin, 'sha256:bb');
     },
   );
+
+  test('follows the daemon to the new address after a restart', () async {
+    final daemon = FakeDaemon();
+    final connector = FakeConnector(
+      (p, t, u) => Connected(offlineApi(), health(), const Compatible()),
+    );
+    final c = _container(daemon: daemon, connector: connector);
+    expect(await _settled(c), isA<Ready>());
+    expect(connector.calls, hasLength(1));
+
+    // The same address again is no reason to reconnect.
+    daemon.controller.add(
+      const DaemonStatus(
+        DaemonPhase.running,
+        info: RuntimeInfo(
+          pid: 1,
+          url: 'http://127.0.0.1:7777',
+          version: 'test',
+          apiVersion: 1,
+        ),
+      ),
+    );
+    await Future<void>.delayed(Duration.zero);
+    expect(connector.calls, hasLength(1));
+
+    // The daemon came back on another port.
+    daemon.controller.add(
+      const DaemonStatus(
+        DaemonPhase.running,
+        info: RuntimeInfo(
+          pid: 2,
+          url: 'http://127.0.0.1:8888',
+          version: 'test',
+          apiVersion: 1,
+        ),
+      ),
+    );
+    expect(await _settled(c), isA<Ready>());
+    for (var i = 0; i < 10; i++) {
+      await Future<void>.delayed(Duration.zero);
+    }
+    expect(connector.calls.length, 2);
+  });
+
+  test(
+    'a token the daemon stops accepting is reported, not retried for ever',
+    () async {
+      final daemon = FakeDaemon();
+      final connector = FakeConnector(
+        (p, t, u) => Connected(offlineApi(), health(), const Compatible()),
+      );
+      final c = _container(daemon: daemon, connector: connector);
+      final ready = await _settled(c) as Ready;
+      // Same token still in the file: nothing to read again.
+      ready.session.api.onUnauthorized!();
+      expect(c.read(connectionProvider), isA<TokenRejectedStatus>());
+    },
+  );
+
+  test('a rotated token of the bundled daemon is picked up', () async {
+    final daemon = FakeDaemon();
+    final connector = FakeConnector(
+      (p, t, u) => Connected(offlineApi(), health(), const Compatible()),
+    );
+    final c = _container(daemon: daemon, connector: connector);
+    final ready = await _settled(c) as Ready;
+    daemon.tokenValue = 'rotated-token';
+    ready.session.api.onUnauthorized!();
+    expect(await _settled(c), isA<Ready>());
+    for (var i = 0; i < 10; i++) {
+      await Future<void>.delayed(Duration.zero);
+    }
+    expect(connector.calls.last.$2, 'rotated-token');
+  });
 }

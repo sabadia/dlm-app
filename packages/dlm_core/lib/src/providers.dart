@@ -79,8 +79,8 @@ final taskTorrentProvider = FutureProvider.autoDispose
 
 /// The attempts to renew one task's link. Read again when invalidated (a
 /// `task.refresh` event does that while the inspector shows it).
-final taskRefreshesProvider =
-    FutureProvider.family<List<RefreshAttempt>, String>(
+final taskRefreshesProvider = FutureProvider.autoDispose
+    .family<List<RefreshAttempt>, String>(
       (ref, id) => ref.watch(refreshRepositoryProvider).history(id),
     );
 
@@ -145,8 +145,11 @@ final queueProvider = Provider.family<Queue?, String>(
 );
 
 /// A window onto the tasks of a query.
-final taskListProvider =
-    NotifierProvider.family<TaskListController, TaskListState, TaskQuery>(
+///
+/// Disposed when nothing shows it: every search text, sort or filter is a query
+/// of its own, and each live controller fetches again on every task event.
+final taskListProvider = NotifierProvider.autoDispose
+    .family<TaskListController, TaskListState, TaskQuery>(
       TaskListController.new,
     );
 
@@ -173,8 +176,8 @@ final settingsSchemaProvider = FutureProvider<Schema>(
 );
 
 /// Effective settings of a task with the origin of each value.
-final taskEffectiveSettingsProvider =
-    FutureProvider.family<EffectiveSettings, String>(
+final taskEffectiveSettingsProvider = FutureProvider.autoDispose
+    .family<EffectiveSettings, String>(
       (ref, id) => ref.watch(settingsRepositoryProvider).effectiveForTask(id),
     );
 

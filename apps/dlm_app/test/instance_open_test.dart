@@ -111,6 +111,16 @@ void main() {
 /// Answers a preview and does nothing else. The dialog looks a link up as it
 /// opens; the test must not open a socket.
 class _QuietAdd implements AddRepository {
+  @override
+  Future<Task> addTorrent(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  }) async => throw UnimplementedError();
+
   ResolveResult _resolved(String url) => ResolveResult(
     engine: 'http',
     expiresAt: DateTime.utc(2030),

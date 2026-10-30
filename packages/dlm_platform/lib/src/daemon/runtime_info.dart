@@ -9,6 +9,7 @@ class RuntimeInfo {
     required this.url,
     required this.version,
     this.apiVersion = 0,
+    this.tlsFingerprint,
   });
 
   /// Decodes the file; throws [FormatException] when it is not a runtime file.
@@ -28,6 +29,9 @@ class RuntimeInfo {
       url: url,
       version: version,
       apiVersion: api is int ? api : 0,
+      tlsFingerprint: json['tlsFingerprint'] is String
+          ? json['tlsFingerprint']! as String
+          : null,
     );
   }
 
@@ -42,6 +46,12 @@ class RuntimeInfo {
 
   /// REST API revision.
   final int apiVersion;
+
+  /// `sha256:<hex>` of the certificate when the daemon serves HTTPS (it was
+  /// given `server.tls_cert`), else null. A local daemon's certificate is
+  /// usually self-signed, so it is checked against this instead of the system
+  /// roots.
+  final String? tlsFingerprint;
 
   /// Reads the file of the daemon whose home is [home]; null when it does not
   /// exist or is not readable (the daemon writes it atomically, so a partial

@@ -18,6 +18,10 @@ import '../connection/connection_controller.dart';
 /// Returns the browsers it registered again.
 final nativeHostUpkeepProvider = FutureProvider<List<String>>((ref) async {
   if (!ref.watch(activeProfileProvider).isLocal) return const [];
+  // Only a connected app can ask the daemon. Reading the repository before
+  // that throws, and a provider that failed once is not run again; watching
+  // the connection runs this when it becomes ready.
+  if (ref.watch(connectionProvider) is! Ready) return const [];
   final repo = ref.watch(daemonRepositoryProvider);
   try {
     final status = await repo.nativeHost();

@@ -141,9 +141,9 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
     } on ApiProblem catch (e) {
       if (!mounted) return;
       if (e.isPreconditionFailed) {
-        // Somebody else saved first: their version is loaded, ours stays.
+        // Somebody else saved first: their version is loaded, and the edits
+        // are kept on top of it.
         _changedElsewhere = true;
-        _draft = null;
         _from = null;
       } else if (e.status == 422) {
         draft.applyProblem(e);
@@ -196,7 +196,9 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
     // starts a new draft.
     if (_draft == null || !identical(_from, snap)) {
       _from = snap;
-      _draft = SettingsDraft(snap);
+      // Edits in progress survive a new snapshot (the task changed status, or
+      // somebody saved elsewhere); only a save starts from a clean draft.
+      _draft = _draft?.rebasedOn(snap) ?? SettingsDraft(snap);
     }
     final draft = _draft!;
 

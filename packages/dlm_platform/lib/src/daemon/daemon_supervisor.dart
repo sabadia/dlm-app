@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'package:crypto/crypto.dart';
+
 import 'runtime_info.dart';
 
 /// A started daemon process.
@@ -196,6 +198,10 @@ class DaemonSupervisor {
   var _wanted = false;
   var _generation = 0;
 
+  /// Set by [dispose] with `stopDaemon: false`: a daemon that is still starting
+  /// is left to finish, because the caller wants it to keep running.
+  var _abandoned = false;
+
   /// Status changes.
   Stream<DaemonStatus> get status => _status.stream;
 
@@ -254,6 +260,7 @@ class DaemonSupervisor {
       await stop();
     } else {
       _wanted = false;
+      _abandoned = true;
       _generation++;
       _restartTimer?.cancel();
       _adoptedWatch?.cancel();
@@ -271,6 +278,16 @@ class DaemonSupervisor {
         // The app was updated: replace the older daemon.
         await _shutdown(existing, null);
         if (gen != _generation) return;
+        if (await _healthy(existing)) {
+          // Starting another would fail on the lock and quietly take over this
+          // one, which is the version that was meant to be replaced.
+          _fail(
+            gen,
+            'dlm ${existing.version} is still running and could not be '
+            'stopped; the app needs ${expectedVersion!}',
+          );
+          return;
+        }
       } else {
         _adopt(existing, gen);
         return;
@@ -279,12 +296,15 @@ class DaemonSupervisor {
     await _spawn(gen);
   }
 
-  void _adopt(RuntimeInfo info, int gen) {
+  /// Follows [info] as the daemon. [owned] is true for the successor of a
+  /// daemon this supervisor started (a restart-daemon replaced the process): it
+  /// is still the app's to stop when the app quits.
+  void _adopt(RuntimeInfo info, int gen, {bool owned = false}) {
     _set(
       DaemonStatus(
         DaemonPhase.running,
         info: info,
-        adopted: true,
+        adopted: !owned,
         crashes: _crashTimes.length,
       ),
     );
@@ -363,6 +383,9 @@ class DaemonSupervisor {
     }
     if (gen != _generation) {
       await lines.cancel();
+      // The app quit or restarted while this one was starting: stop() found no
+      // address to shut down, so the process would be left running.
+      if (!_abandoned) process.terminate();
       return;
     }
     if (info != null) {
@@ -409,8 +432,20 @@ class DaemonSupervisor {
     return await _healthy(info) ? info : null;
   }
 
+  /// An HTTP client for the daemon at [info]: for HTTPS it trusts exactly the
+  /// certificate the daemon published, not the system roots.
+  HttpClient _clientFor(RuntimeInfo info) {
+    final pin = info.tlsFingerprint;
+    final client = pin == null
+        ? HttpClient()
+        : (HttpClient(context: SecurityContext())
+            ..badCertificateCallback = (cert, host, port) =>
+                'sha256:${sha256.convert(cert.der)}' == pin);
+    return client..connectionTimeout = const Duration(seconds: 2);
+  }
+
   Future<bool> _healthy(RuntimeInfo info) async {
-    final client = HttpClient()..connectionTimeout = const Duration(seconds: 2);
+    final client = _clientFor(info);
     try {
       final req = await client
           .getUrl(Uri.parse('${info.url}/v1/health'))
@@ -444,6 +479,7 @@ class DaemonSupervisor {
   }) async {
     if (gen != _generation || !_wanted) return;
     _adoptedWatch?.cancel();
+    final wasOurs = _process != null || !_current.adopted;
     _process = null;
     // `restart-daemon` replaces the process (Windows) or re-executes it
     // (elsewhere): look for the daemon that took over before calling it a crash.
@@ -452,7 +488,7 @@ class DaemonSupervisor {
         : null;
     if (gen != _generation) return;
     if (successor != null) {
-      _adopt(successor, gen);
+      _adopt(successor, gen, owned: wasOurs);
       return;
     }
     final now = _now();
@@ -520,8 +556,7 @@ class DaemonSupervisor {
   Future<void> _shutdown(RuntimeInfo info, DaemonProcess? process) async {
     final t = token();
     if (t != null) {
-      final client = HttpClient()
-        ..connectionTimeout = const Duration(seconds: 2);
+      final client = _clientFor(info);
       try {
         final req = await client
             .postUrl(Uri.parse('${info.url}/v1/system/shutdown'))

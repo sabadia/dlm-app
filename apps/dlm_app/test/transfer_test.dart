@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/add/add_dialog.dart';
 import 'package:dlm_app/src/app.dart';
@@ -18,6 +20,16 @@ class FakeLists implements AddRepository {
 
   final bool unreadable;
   final List<String> calls = [];
+
+  @override
+  Future<Task> addTorrent(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  }) async => throw UnimplementedError();
 
   @override
   Future<List<BatchItem>> importList(

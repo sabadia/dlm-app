@@ -3648,6 +3648,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get setup_ext_get => 'Get the extension';
+
+  @override
+  String get sv_title => 'Servers';
+
+  @override
+  String get sv_desc =>
+      'The app downloads through a DLM daemon. The one on this computer is always there; add one that runs elsewhere (a NAS, a server) to use it instead.';
+
+  @override
+  String get sv_local => 'This computer';
+
+  @override
+  String get sv_in_use => 'In use';
+
+  @override
+  String get sv_use => 'Use';
+
+  @override
+  String get sv_remove => 'Remove';
+
+  @override
+  String get sv_add_title => 'Add a server';
+
+  @override
+  String get sv_name => 'Name';
+
+  @override
+  String get sv_name_hint => 'Home server';
+
+  @override
+  String get sv_address => 'Address';
+
+  @override
+  String get sv_address_hint => 'https://nas.lan:7777';
+
+  @override
+  String get sv_token => 'Access token';
+
+  @override
+  String get sv_token_hint => 'From dlm token add, on that computer';
+
+  @override
+  String get sv_save => 'Save and use';
+
+  @override
+  String get sv_bad_address =>
+      'Enter a full address such as https://nas.lan:7777.';
+
+  @override
+  String sv_removed(String name) {
+    return 'Removed $name.';
+  }
+
+  @override
+  String get sv_use_local => 'Use this computer';
 }
 
 /// The translations for English (`en_XA`).
@@ -7339,4 +7394,60 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get setup_ext_get => '[Gét thé éxtéñšîôñ~~~~~~]';
+
+  @override
+  String get sv_title => '[Šérvérš~~~]';
+
+  @override
+  String get sv_desc =>
+      '[Thé àpp dôwñlôàdš thrôûgh à DLM dàémôñ. Thé ôñé ôñ thîš çômpûtér îš àlwàýš théré; àdd ôñé thàt rûñš élšéwhéré (à ÑÂŠ, à šérvér) tô ûšé ît îñštéàd.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get sv_local => '[Thîš çômpûtér~~~~]';
+
+  @override
+  String get sv_in_use => '[Îñ ûšé~~]';
+
+  @override
+  String get sv_use => '[Ûšé~]';
+
+  @override
+  String get sv_remove => '[Rémôvé~~]';
+
+  @override
+  String get sv_add_title => '[Âdd à šérvér~~~~]';
+
+  @override
+  String get sv_name => '[Ñàmé~~]';
+
+  @override
+  String get sv_name_hint => '[Hômé šérvér~~~~]';
+
+  @override
+  String get sv_address => '[Âddréšš~~~]';
+
+  @override
+  String get sv_address_hint => '[httpš://ñàš.làñ:7777~~~~~~]';
+
+  @override
+  String get sv_token => '[Âççéšš tôkéñ~~~~]';
+
+  @override
+  String get sv_token_hint =>
+      '[Frôm dlm tôkéñ àdd, ôñ thàt çômpûtér~~~~~~~~~~~]';
+
+  @override
+  String get sv_save => '[Šàvé àñd ûšé~~~~]';
+
+  @override
+  String get sv_bad_address =>
+      '[Éñtér à fûll àddréšš šûçh àš httpš://ñàš.làñ:7777.~~~~~~~~~~~~~~~]';
+
+  @override
+  String sv_removed(String name) {
+    return '[Rémôvéd $name.~~~~~]';
+  }
+
+  @override
+  String get sv_use_local => '[Ûšé thîš çômpûtér~~~~~~]';
 }

@@ -17,6 +17,21 @@ class TaskActions {
   final TaskRepository _repo;
   final TaskStore _store;
 
+  /// Puts [next] in the cache for [id] as the guess of a command in flight.
+  Task _guess(String id, Task next) {
+    _store.tasks.put(id, next);
+    return next;
+  }
+
+  /// Puts [before] back, unless the cache moved on since the guess was made:
+  /// an event that arrived while the request was out (the task completed, say)
+  /// is newer than the state before the command and must stay.
+  void _undo(String id, Task before, Task? guess) {
+    if (guess == null || identical(_store.tasks[id], guess)) {
+      _store.tasks.put(id, before);
+    }
+  }
+
   /// Pauses the tasks that can be paused.
   Future<List<ItemResult>> pause(List<String> ids) => _bulk(
     ids,
@@ -48,11 +63,13 @@ class TaskActions {
       final results = await _repo.delete(ids, files: files);
       for (final r in results.where((r) => !r.ok)) {
         final t = removed[r.id];
-        if (t != null) _store.tasks.put(r.id, t);
+        if (t != null && _store.tasks[r.id] == null) _store.tasks.put(r.id, t);
       }
       return results;
     } on Object {
-      removed.forEach(_store.tasks.put);
+      removed.forEach((id, t) {
+        if (_store.tasks[id] == null) _store.tasks.put(id, t);
+      });
       rethrow;
     }
   }
@@ -68,17 +85,18 @@ class TaskActions {
   /// Pauses every task that can be paused, on the daemon's whole list.
   Future<List<ItemResult>> pauseAll() async {
     final before = <String, Task>{};
+    final guesses = <String, Task>{};
     for (final id in _store.tasks.ids) {
       final t = _store.tasks[id];
       if (t != null && t.statusKind.canPause) {
         before[id] = t;
-        _store.tasks.put(id, t.copyWith(status: 'paused'));
+        guesses[id] = _guess(id, t.copyWith(status: 'paused'));
       }
     }
     try {
       return await _repo.pauseAll();
     } on Object {
-      before.forEach(_store.tasks.put);
+      before.forEach((id, t) => _undo(id, t, guesses[id]));
       rethrow;
     }
   }
@@ -86,17 +104,21 @@ class TaskActions {
   /// Resumes every paused task, on the daemon's whole list.
   Future<List<ItemResult>> resumeAll() async {
     final before = <String, Task>{};
+    final guesses = <String, Task>{};
     for (final id in _store.tasks.ids) {
       final t = _store.tasks[id];
       if (t != null && t.statusKind == TaskStatus.paused) {
         before[id] = t;
-        _store.tasks.put(id, t.copyWith(status: 'queued', clearError: true));
+        guesses[id] = _guess(
+          id,
+          t.copyWith(status: 'queued', clearError: true),
+        );
       }
     }
     try {
       return await _repo.resumeAll();
     } on Object {
-      before.forEach(_store.tasks.put);
+      before.forEach((id, t) => _undo(id, t, guesses[id]));
       rethrow;
     }
   }
@@ -151,13 +173,14 @@ class TaskActions {
     required Future<List<ItemResult>> Function(List<String>) call,
   }) async {
     final before = <String, Task>{};
+    final guesses = <String, Task>{};
     for (final id in ids) {
       final t = _store.tasks[id];
       if (t == null) continue;
       final next = optimistic(t);
       if (next == null) continue;
       before[id] = t;
-      _store.tasks.put(id, next);
+      guesses[id] = _guess(id, next);
     }
     try {
       final results = await call(ids);
@@ -166,12 +189,12 @@ class TaskActions {
         if (r.ok && t != null) {
           _store.tasks.put(r.id, t);
         } else if (!r.ok && before.containsKey(r.id)) {
-          _store.tasks.put(r.id, before[r.id]!);
+          _undo(r.id, before[r.id]!, guesses[r.id]);
         }
       }
       return results;
     } on Object {
-      before.forEach(_store.tasks.put);
+      before.forEach((id, t) => _undo(id, t, guesses[id]));
       rethrow;
     }
   }
@@ -182,13 +205,13 @@ class TaskActions {
     required Future<Task> Function() call,
   }) async {
     final before = _store.tasks[id];
-    if (before != null) _store.tasks.put(id, optimistic(before));
+    final guess = before == null ? null : _guess(id, optimistic(before));
     try {
       final after = await call();
       _store.tasks.put(id, after);
       return after;
     } on Object {
-      if (before != null) _store.tasks.put(id, before);
+      if (before != null) _undo(id, before, guess);
       rethrow;
     }
   }

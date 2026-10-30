@@ -51,6 +51,12 @@ enum TaskStatus {
   /// Whether pausing makes sense.
   bool get canPause => this == queued || isActive || this == awaitingLink;
 
+  /// Whether the link of the task may be replaced. The daemon refuses it while
+  /// the task is being worked on and once it is done; a failed task (an
+  /// expired link) and one waiting for a link are the ones that need it.
+  bool get canEditSource =>
+      this == queued || this == paused || this == awaitingLink || this == error;
+
   /// Whether resuming makes sense.
   bool get canResume => this == paused || this == error;
 }

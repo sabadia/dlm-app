@@ -22,7 +22,10 @@ const String _bundledDaemonVersion = String.fromEnvironment(
   'DLM_DAEMON_VERSION',
 );
 
-void main() {
+void main(List<String> args) {
+  // `args` are the program's own arguments (a file to open, a magnet: link,
+  // --minimised). `Platform.executableArguments` would hold the Dart VM's flags
+  // instead, so an open-with or a link click on Windows and Linux was lost.
   // Everything, including the binding, starts inside the guarded zone: Flutter
   // insists that the binding and runApp share one.
   final dirs = AppDirs.resolve();
@@ -44,14 +47,16 @@ void main() {
       file: File(dirs.profilesFile),
       vault: SecretTokenVault(PlatformSecretStore()),
     );
+    // Read before the first frame: a remote profile in use must not start the
+    // bundled daemon first.
+    final savedProfiles = await profiles.load();
     const locator = DaemonLocator();
     final executable = locator.find();
     final login = platformLoginItem(
       flatpakMarker: File('${dirs.root}/login-item-enabled'),
     );
-    final atLogin = await login.startedAtLogin(Platform.executableArguments);
-    final claim = await InstanceEndpoint(Directory(dirs.root))
-        .claim(Platform.executableArguments);
+    final atLogin = await login.startedAtLogin(args);
+    final claim = await InstanceEndpoint(Directory(dirs.root)).claim(args);
     if (claim is InstanceHandedOff) {
       logger.info('another instance is running; handed off and exiting');
       exit(0);
@@ -75,6 +80,8 @@ void main() {
 
     runApp(
       ProviderScope(
+        // A refusal (403, 404) is not retried; only an unreachable daemon is.
+        retry: dlmRetry,
         overrides: [
           connectedSessionOverride,
           connectedTaskStoreOverride,
@@ -82,6 +89,7 @@ void main() {
           redactorProvider.overrideWithValue(redactor),
           preferencesProvider.overrideWithValue(prefs),
           profileStoreProvider.overrideWithValue(profiles),
+          initialProfilesProvider.overrideWithValue(savedProfiles),
           localDaemonProvider.overrideWithValue(daemon),
           windowChromeProvider.overrideWithValue(platformWindowChrome()),
           globalHotkeysProvider.overrideWithValue(HotkeyManagerGlobalHotkeys()),

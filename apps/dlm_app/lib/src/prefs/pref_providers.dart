@@ -34,6 +34,11 @@ class PrefNotifier<T> extends Notifier<T> {
   }
 }
 
+/// The id of the connection profile in use (`local` is the bundled daemon).
+final activeProfileIdProvider = NotifierProvider<PrefNotifier<String>, String>(
+  () => PrefNotifier(UiPrefs.activeProfile),
+);
+
 /// Sidebar width.
 final sidebarWidthProvider = NotifierProvider<PrefNotifier<double>, double>(
   () => PrefNotifier(UiPrefs.sidebarWidth),

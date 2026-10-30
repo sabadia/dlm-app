@@ -302,71 +302,75 @@ class _AccessScreenState extends ConsumerState<AccessScreen> {
             ],
           ),
         ],
-        gap,
-        DlmFormGroup(
-          title: l.ac_nh_title,
-          footer: '${l.ac_nh_desc} ${l.ac_nh_note}',
-          children: [
-            ...host.when(
-              data: (s) => [
-                for (final b in s.browsers ?? const <Result>[])
-                  DlmFormRow(
-                    label: browserName(b.browser),
-                    control: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        DlmBadge(
-                          label: b.status,
-                          tone: b.status == 'installed'
-                              ? DlmTone.success
-                              : DlmTone.neutral,
-                        ),
-                        SizedBox(width: theme.metrics.spacing.md),
-                        DlmCheckbox(
-                          value: _browsers.contains(b.browser)
-                              ? DlmCheckState.checked
-                              : DlmCheckState.unchecked,
-                          semanticLabel: l.ac_nh_browsers,
-                          onChanged: (v) => setState(() {
-                            if (v == DlmCheckState.checked) {
-                              _browsers.add(b.browser);
-                            } else {
-                              _browsers.remove(b.browser);
-                            }
-                          }),
-                        ),
-                      ],
+        // Only the daemon of this computer has a host to register.
+        if (isLocal) ...[
+          gap,
+          DlmFormGroup(
+            title: l.ac_nh_title,
+            footer: '${l.ac_nh_desc} ${l.ac_nh_note}',
+            children: [
+              ...host.when(
+                data: (s) => [
+                  for (final b in s.browsers ?? const <Result>[])
+                    DlmFormRow(
+                      label: browserName(b.browser),
+                      control: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          DlmBadge(
+                            label: b.status,
+                            tone: b.status == 'installed'
+                                ? DlmTone.success
+                                : DlmTone.neutral,
+                          ),
+                          SizedBox(width: theme.metrics.spacing.md),
+                          DlmCheckbox(
+                            value: _browsers.contains(b.browser)
+                                ? DlmCheckState.checked
+                                : DlmCheckState.unchecked,
+                            semanticLabel: l.ac_nh_browsers,
+                            onChanged: (v) => setState(() {
+                              if (v == DlmCheckState.checked) {
+                                _browsers.add(b.browser);
+                              } else {
+                                _browsers.remove(b.browser);
+                              }
+                            }),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-              ],
-              loading: () => [DlmLoadingState(label: l.list_loading)],
-              error: (e, _) => [
-                DlmBanner(tone: DlmTone.warning, message: l.ac_nh_error),
-              ],
-            ),
-          ],
-        ),
-        SizedBox(height: theme.metrics.spacing.sm),
-        Wrap(
-          spacing: theme.metrics.spacing.sm,
-          children: [
-            DlmButton(
-              label: l.ac_nh_install,
-              onPressed: _busy
-                  ? null
-                  : () =>
-                        unawaited(_nativeHost(NativeHostRequestAction.install)),
-            ),
-            DlmButton(
-              label: l.ac_nh_remove,
-              onPressed: _busy
-                  ? null
-                  : () => unawaited(
-                      _nativeHost(NativeHostRequestAction.uninstall),
-                    ),
-            ),
-          ],
-        ),
+                ],
+                loading: () => [DlmLoadingState(label: l.list_loading)],
+                error: (e, _) => [
+                  DlmBanner(tone: DlmTone.warning, message: l.ac_nh_error),
+                ],
+              ),
+            ],
+          ),
+          SizedBox(height: theme.metrics.spacing.sm),
+          Wrap(
+            spacing: theme.metrics.spacing.sm,
+            children: [
+              DlmButton(
+                label: l.ac_nh_install,
+                onPressed: _busy
+                    ? null
+                    : () => unawaited(
+                        _nativeHost(NativeHostRequestAction.install),
+                      ),
+              ),
+              DlmButton(
+                label: l.ac_nh_remove,
+                onPressed: _busy
+                    ? null
+                    : () => unawaited(
+                        _nativeHost(NativeHostRequestAction.uninstall),
+                      ),
+              ),
+            ],
+          ),
+        ],
         gap,
         Text(l.ac_mcp_title, style: theme.typography.subtitle),
         Text(

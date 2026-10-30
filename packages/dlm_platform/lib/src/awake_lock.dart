@@ -59,13 +59,16 @@ class PlatformAwakeLock implements AwakeLock {
       return;
     }
     try {
-      _inhibit = await Process.start('systemd-inhibit', const [
+      _inhibit = await Process.start('systemd-inhibit', [
         '--what=idle:sleep',
         '--who=dlm',
         '--why=Downloading',
         '--mode=block',
-        'sleep',
-        'infinity',
+        // Ends by itself when the app does (quit, crash, kill): a child that
+        // outlived it would keep the machine awake until the next reboot.
+        'sh',
+        '-c',
+        'while kill -0 $pid 2>/dev/null; do sleep 5; done',
       ]);
     } on ProcessException {
       _inhibit = null;

@@ -67,6 +67,7 @@ class AppShell extends ConsumerStatefulWidget {
 
 class _AppShellState extends ConsumerState<AppShell> {
   final FocusNode _search = FocusNode(debugLabel: 'toolbar search');
+  final TextEditingController _searchText = TextEditingController();
   final Set<String> _prompted = {};
 
   @override
@@ -122,6 +123,7 @@ class _AppShellState extends ConsumerState<AppShell> {
   @override
   void dispose() {
     _search.dispose();
+    _searchText.dispose();
     super.dispose();
   }
 
@@ -177,6 +179,11 @@ class _AppShellState extends ConsumerState<AppShell> {
     final isMac = defaultTargetPlatform == TargetPlatform.macOS;
 
     ref.listen(focusSearchProvider, (_, _) => _search.requestFocus());
+    // A saved view sets the search text from outside: the box shows it, so it
+    // can be seen and cleared.
+    ref.listen(searchTextProvider, (_, next) {
+      if (_searchText.text != next) _searchText.text = next;
+    });
 
     // Three panes need room: below this width the details pane stays closed
     // however it was left.
@@ -374,6 +381,7 @@ class _AppShellState extends ConsumerState<AppShell> {
               width: 220,
               child: DlmSearchField(
                 focusNode: _search,
+                controller: _searchText,
                 placeholder: l.toolbar_search_placeholder,
                 clearLabel: l.toolbar_search_clear,
                 onChanged: ref.read(searchTextProvider.notifier).set,
