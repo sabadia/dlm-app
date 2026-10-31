@@ -114,6 +114,21 @@ class FakeAdd implements AddRepository {
     return task('new', name: 'ubuntu.iso');
   }
 
+  final List<({Uint8List bytes, String? queueId})> torrents = [];
+
+  @override
+  Future<Task> addTorrent(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  }) async {
+    torrents.add((bytes: bytes, queueId: queueId));
+    return task('tor', name: 'pack');
+  }
+
   @override
   Future<List<BatchItem>> createMany(
     List<CreateTaskBody> items, {
@@ -346,7 +361,9 @@ void main() {
     expect(add.imports.map((i) => i.$2), [true, false]);
   });
 
-  appTest('a torrent file is added as an embedded link', (tester) async {
+  appTest('a torrent file is uploaded as a file, not embedded in a link', (
+    tester,
+  ) async {
     final add = FakeAdd();
     await pumpApp(
       tester,
@@ -366,7 +383,9 @@ void main() {
     expect(find.text('pack.torrent'), findsOneWidget);
     await tester.tap(addButton());
     await settle(tester);
-    expect(add.created.single.url, 'data:application/x-bittorrent;base64,AQID');
+    // The bytes travel as the request body: a link inside JSON is capped at 1 MiB.
+    expect(add.created, isEmpty);
+    expect(add.torrents.single.bytes, [1, 2, 3]);
   });
 
   appTest('a folder is picked from the daemon\'s own list', (tester) async {

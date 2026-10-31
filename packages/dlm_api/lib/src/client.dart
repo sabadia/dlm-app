@@ -1,7 +1,11 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 
+import 'generated/models/page_result.dart';
+import 'generated/models/resolve_page_body.dart';
+import 'generated/models/task.dart';
 import 'generated/rest_client.dart';
 import 'problem.dart';
 import 'tls_pinning.dart';
@@ -64,8 +68,21 @@ class DlmApi {
   /// Creates a client for [endpoint].
   DlmApi(DlmEndpoint endpoint) {
     _dio = _buildDio(endpoint, _etags);
+    // After the interceptor above: it sees the failure with the response kept.
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onError: (err, handler) {
+          if (err.response?.statusCode == 401) onUnauthorized?.call();
+          handler.next(err);
+        },
+      ),
+    );
     rest = RestClient(_dio);
   }
+
+  /// Called when the daemon answers 401: the token this client holds is no
+  /// longer valid (it was rotated or revoked while the app was running).
+  void Function()? onUnauthorized;
 
   late final Dio _dio;
   final _etags = <String, String>{};
@@ -85,6 +102,51 @@ class DlmApi {
   Future<T> cancellable<T>(CancelToken token, Future<T> Function() body) {
     return runZoned(body, zoneValues: {_cancelKey: token});
   }
+
+  /// Creates a task from the bytes of a `.torrent` file (`POST /v1/tasks/torrent`,
+  /// up to 16 MiB). The generated operation takes a `dart:io` file; the app has
+  /// the bytes already, and a `data:` link in a JSON body is limited to 1 MiB.
+  Future<Task> addTorrentBytes(
+    Uint8List bytes, {
+    String? queueId,
+    String? name,
+    String? dir,
+    bool paused = false,
+    bool allowDuplicate = false,
+  }) => guard(() async {
+    final response = await _dio.post<Map<String, Object?>>(
+      '/v1/tasks/torrent',
+      data: Stream<List<int>>.value(bytes),
+      queryParameters: {
+        'queueId': ?queueId,
+        'name': ?name,
+        'dir': ?dir,
+        if (paused) 'paused': true,
+        if (allowDuplicate) 'allowDuplicate': true,
+      },
+      options: Options(
+        contentType: 'application/x-bittorrent',
+        headers: {Headers.contentLengthHeader: bytes.length},
+        sendTimeout: const Duration(minutes: 2),
+      ),
+    );
+    return Task.fromJson(response.data!);
+  });
+
+  /// Opens a page in the daemon's headless browser (`POST /v1/browser/resolve`).
+  /// The daemon may take twice [waitSeconds] (the page settles, then the
+  /// downloads do) plus the browser's start-up, which is longer than the
+  /// receive timeout of an ordinary call, so this one waits as long as needed.
+  Future<PageResult> resolvePage(String url, {int? waitSeconds}) =>
+      guard(() async {
+        final wait = waitSeconds ?? 20;
+        final response = await _dio.post<Map<String, Object?>>(
+          '/v1/browser/resolve',
+          data: ResolvePageBody(url: url, waitSeconds: waitSeconds).toJson(),
+          options: Options(receiveTimeout: Duration(seconds: wait * 2 + 30)),
+        );
+        return PageResult.fromJson(response.data!);
+      });
 
   /// Releases the connections.
   void close({bool force = false}) => _dio.close(force: force);

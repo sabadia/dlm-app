@@ -177,4 +177,19 @@ void main() {
       expect(d.errorsOf('retry.maxAttempts'), isNotEmpty);
     });
   });
+
+  group('rebasing', () {
+    test('edits survive a new snapshot; one that now equals it drops out', () {
+      final draft = SettingsDraft(global())
+        ..set('maxConnections', 12)
+        ..set('speedLimit', 500);
+      final next = global(stored: const Settings(speedLimit: 500));
+      final rebased = draft.rebasedOn(next);
+      expect(rebased.snapshot, same(next));
+      expect(rebased.valueOf('maxConnections'), 12);
+      // Somebody saved the same value elsewhere: nothing left to save.
+      expect(rebased.patch, {'maxConnections': 12});
+      expect(rebased.isDirty, isTrue);
+    });
+  });
 }

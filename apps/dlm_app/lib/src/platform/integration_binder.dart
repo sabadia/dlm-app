@@ -138,7 +138,12 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
 
   Future<void> _releaseDaemon() async {
     try {
-      await ref.read(localDaemonProvider).dispose();
+      // With the daemon's own login item installed it keeps downloading when
+      // the app quits, even if this app is the one that started it.
+      final service = ref.read(daemonServiceStatusProvider).value;
+      await ref
+          .read(localDaemonProvider)
+          .dispose(keepRunning: service?.installed ?? false);
     } on Object catch (e) {
       // Quitting must go on; a daemon that cannot be stopped is left to its
       // own shutdown. The log may not be up either.
@@ -174,11 +179,17 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     // Rebuilds of the menu follow the speed and the setting.
     ref
       ..listenManual(trayEnabledProvider, (_, _) => unawaited(_syncTray()))
-      ..listenManual(systemSpeedProvider, (_, _) => unawaited(_syncTray()))
+      ..listenManual(
+        systemSpeedProvider,
+        (_, _) => unawaited(_syncTray()),
+        // Nothing is connected for a while after the start.
+        onError: (_, _) {},
+      )
       ..listenManual(
         taskStoreProvider,
         (_, store) => _watchTasks(store),
         fireImmediately: true,
+        onError: (_, _) {},
       )
       ..listenManual(pairingRequestsProvider, (previous, next) {
         // An extension that asks to connect needs an answer: bring the window
@@ -205,11 +216,19 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
           }
         }
       });
-    // The registration of the browsers is brought up to date once per start.
-    unawaited(ref.read(nativeHostUpkeepProvider.future));
+    // The registration of the browsers is brought up to date once the daemon
+    // is connected (and again after a reconnect); the listener keeps the
+    // provider alive so that it does.
+    ref.listenManual(nativeHostUpkeepProvider, (_, _) {});
     final l = AppLocalizations.of(context);
     await notifier.init(categories: notificationCategories(l));
-    await _syncTray();
+    // The daemon is not connected yet at this point; a failure here must not
+    // keep a login launch from starting hidden.
+    try {
+      await _syncTray();
+    } on Object catch (e) {
+      ref.read(appLoggerProvider).warning('tray could not be set up yet: $e');
+    }
     if (ref.read(startedAtLoginProvider) &&
         ref.read(startMinimisedProvider) &&
         tray.visible) {
@@ -227,6 +246,15 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     TrayEntry(TrayIds.quit, l.tray_quit),
   ];
 
+  /// The speed of the daemon, or null while none is connected.
+  SpeedData? _speed() {
+    try {
+      return ref.read(systemSpeedProvider);
+    } on StateError {
+      return null;
+    }
+  }
+
   Future<void> _syncTray() async {
     if (!mounted) return;
     final tray = ref.read(trayProvider);
@@ -241,7 +269,7 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
       return;
     }
     final l = AppLocalizations.of(context);
-    final speed = ref.read(systemSpeedProvider);
+    final speed = _speed();
     final text = speed == null
         ? null
         : l.status_speed(
@@ -285,7 +313,6 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
 
   void _onTray(String id) {
     final window = ref.read(windowControlProvider);
-    final actions = ref.read(taskActionsProvider);
     switch (id) {
       case TrayIds.show:
         unawaited(window.show());
@@ -293,9 +320,9 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
         unawaited(window.show());
         ref.read(addRequestProvider.notifier).request();
       case TrayIds.pauseAll:
-        unawaited(_quietly(actions.pauseAll));
+        unawaited(_quietly(() => ref.read(taskActionsProvider).pauseAll()));
       case TrayIds.resumeAll:
-        unawaited(_quietly(actions.resumeAll));
+        unawaited(_quietly(() => ref.read(taskActionsProvider).resumeAll()));
       case TrayIds.quit:
         unawaited(() async {
           await _releaseDaemon();
@@ -394,7 +421,7 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
               title: l.pair_notification,
               body: '${p.name} · ${spacedCode(p.code)}',
               category: NotifyIds.pairing,
-              payload: p.id,
+              payload: '${NotifyIds.pairing}:${p.id}',
             ),
           );
     } on Object catch (e) {
@@ -432,7 +459,10 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
   }
 
   Future<void> _handleTap(String id, String? button) async {
-    if (id.startsWith('${NotifyIds.queue}:')) {
+    // A queue finishing and an extension asking to pair both need the window,
+    // where the answer is.
+    if (id.startsWith('${NotifyIds.queue}:') ||
+        id.startsWith('${NotifyIds.pairing}:')) {
       await ref.read(windowControlProvider).show();
       return;
     }
@@ -463,7 +493,9 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
         case NotifyIds.folder:
           if (path != null) await ref.read(fileOpenerProvider).reveal(path);
         case NotifyIds.retry:
-          await ref.read(taskActionsProvider).restart(id);
+          // Carries on from what was downloaded; a download that must start
+          // over is restarted from its menu.
+          await ref.read(taskActionsProvider).resume([id]);
         default:
           await ref.read(windowControlProvider).show();
       }

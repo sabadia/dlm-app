@@ -125,6 +125,12 @@ abstract final class UiPrefs {
   /// Width of the details pane in logical pixels.
   static const inspectorWidth = Pref<double>.plain('ui.inspectorWidth', 340);
 
+  /// The connection profile the app talks to; `local` is the bundled daemon.
+  static const activeProfile = Pref<String>.plain(
+    'connection.profile',
+    'local',
+  );
+
   /// Whether the first-run setup was finished (or skipped).
   static const onboardingDone = Pref<bool>.plain('ui.onboardingDone', false);
 

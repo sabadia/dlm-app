@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,6 +43,35 @@ class SearchTextNotifier extends Notifier<String> {
 /// The toolbar search text.
 final searchTextProvider = NotifierProvider<SearchTextNotifier, String>(
   SearchTextNotifier.new,
+);
+
+/// How long the search text must rest before the list searches for it.
+const Duration searchDebounce = Duration(milliseconds: 250);
+
+/// [searchTextProvider] once typing pauses: every change of the text is a new
+/// query of the list, so a fast typist should not make one per key. Clearing
+/// the box applies at once.
+class DebouncedSearch extends Notifier<String> {
+  Timer? _timer;
+
+  @override
+  String build() {
+    ref.onDispose(() => _timer?.cancel());
+    ref.listen(searchTextProvider, (_, next) {
+      _timer?.cancel();
+      if (next.trim().isEmpty) {
+        state = '';
+      } else {
+        _timer = Timer(searchDebounce, () => state = next);
+      }
+    });
+    return ref.read(searchTextProvider);
+  }
+}
+
+/// The search text the lists use.
+final debouncedSearchProvider = NotifierProvider<DebouncedSearch, String>(
+  DebouncedSearch.new,
 );
 
 /// Asks the shell to focus the search field (a counter, so each request is a

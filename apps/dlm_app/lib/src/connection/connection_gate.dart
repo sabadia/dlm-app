@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dlm_api/dlm_api.dart' show PresentedCertificate;
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
@@ -5,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../prefs/pref_providers.dart';
 import 'connection_controller.dart';
 
 /// Shows the app once a daemon is connected, and the state of the connection
@@ -98,7 +101,32 @@ class _ConnectionScreen extends ConsumerWidget {
         onTrust: () => ref.read(connectionProvider.notifier).trust(certificate),
       ),
     };
-    return ColoredBox(color: theme.colors.window, child: body);
+    // A server that cannot be reached must not trap the app: the bundled
+    // daemon is one click away.
+    final stuckOnServer = status is! Ready && !status.profile.isLocal;
+    return ColoredBox(
+      color: theme.colors.window,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: body),
+          if (stuckOnServer)
+            Padding(
+              padding: EdgeInsets.all(theme.metrics.spacing.lg),
+              child: Center(
+                child: DlmButton(
+                  label: l.sv_use_local,
+                  onPressed: () => unawaited(
+                    ref
+                        .read(activeProfileIdProvider.notifier)
+                        .set(ConnectionProfile.localId),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
   }
 }
 

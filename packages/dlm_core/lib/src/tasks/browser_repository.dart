@@ -22,16 +22,14 @@ abstract interface class BrowserRepository {
 /// The REST implementation.
 class ApiBrowserRepository implements BrowserRepository {
   /// Creates the repository over [api].
-  ApiBrowserRepository(DlmApi api) : _client = api.rest.browser;
+  ApiBrowserRepository(DlmApi api) : _api = api, _client = api.rest.browser;
 
+  final DlmApi _api;
   final BrowserClient _client;
 
   @override
-  Future<PageResult> resolve(String url, {int? waitSeconds}) => guard(
-    () => _client.resolvePage(
-      body: ResolvePageBody(url: url, waitSeconds: waitSeconds),
-    ),
-  );
+  Future<PageResult> resolve(String url, {int? waitSeconds}) =>
+      _api.resolvePage(url, waitSeconds: waitSeconds);
 
   @override
   Future<Task> download(String resultId, int index) => guard(

@@ -24,9 +24,11 @@ class FakeDaemon implements LocalDaemon {
   DaemonPhase phase;
   String? reason;
   Future<void>? delay;
+  String tokenValue = 'daemon-token';
   int starts = 0;
   int restarts = 0;
   bool disposed = false;
+  bool kept = false;
   final StreamController<DaemonStatus> controller =
       StreamController<DaemonStatus>.broadcast();
 
@@ -49,7 +51,7 @@ class FakeDaemon implements LocalDaemon {
   }
 
   @override
-  String? token() => 'daemon-token';
+  String? token() => tokenValue;
 
   @override
   Future<void> restart() async => restarts++;
@@ -58,7 +60,8 @@ class FakeDaemon implements LocalDaemon {
   Stream<DaemonStatus> get status => controller.stream;
 
   @override
-  Future<void> dispose() async {
+  Future<void> dispose({bool keepRunning = false}) async {
+    kept = keepRunning;
     disposed = true;
     await controller.close();
   }
@@ -93,6 +96,7 @@ class FakeConnector implements ProfileConnector {
     ConnectionProfile profile, {
     String? token,
     String? localUrl,
+    String? localPin,
   }) async {
     calls.add((profile, token, localUrl));
     await gate;

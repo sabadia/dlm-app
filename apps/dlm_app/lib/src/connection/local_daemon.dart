@@ -20,7 +20,9 @@ abstract interface class LocalDaemon {
   Stream<DaemonStatus> get status;
 
   /// Stops it when the app quits, if the app started it. Safe to call twice.
-  Future<void> dispose();
+  /// With [keepRunning] it is left running whoever started it (the user turned
+  /// on "keep downloading": the daemon's own login item takes it from here).
+  Future<void> dispose({bool keepRunning = false});
 }
 
 /// [LocalDaemon] over the real [DaemonSupervisor].
@@ -60,10 +62,12 @@ class SupervisedDaemon implements LocalDaemon {
   /// user's "keep downloading" service, or another app) is left to run: it was
   /// not ours to stop.
   @override
-  Future<void> dispose() async {
+  Future<void> dispose({bool keepRunning = false}) async {
     if (_released) return;
     _released = true;
-    await supervisor.dispose(stopDaemon: !supervisor.current.adopted);
+    await supervisor.dispose(
+      stopDaemon: !keepRunning && !supervisor.current.adopted,
+    );
   }
 }
 
@@ -92,5 +96,5 @@ class MissingDaemon implements LocalDaemon {
   Stream<DaemonStatus> get status => const Stream.empty();
 
   @override
-  Future<void> dispose() async {}
+  Future<void> dispose({bool keepRunning = false}) async {}
 }

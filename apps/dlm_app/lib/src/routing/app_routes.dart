@@ -8,7 +8,7 @@ enum DownloadsFilter {
   /// Running, refreshing or post-processing.
   active,
 
-  /// Waiting for a slot.
+  /// Waiting for a slot, or for a new link after the old one expired.
   queued,
 
   /// Paused by the user.
@@ -28,7 +28,7 @@ enum DownloadsFilter {
       TaskStatus.refreshing,
       TaskStatus.postprocessing,
     },
-    queued => const {TaskStatus.queued},
+    queued => const {TaskStatus.queued, TaskStatus.awaitingLink},
     paused => const {TaskStatus.paused},
     completed => const {TaskStatus.completed},
     failed => const {TaskStatus.error},

@@ -5,6 +5,8 @@ import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_platform/dlm_platform.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../prefs/pref_providers.dart';
+
 import 'local_daemon.dart';
 
 /// Where the app stands with the daemon it talks to.
@@ -77,10 +79,61 @@ class ConnectionFailedStatus extends ConnectionStatus {
   final bool certificateChanged;
 }
 
-/// The profile the app connects to; defaults to the bundled daemon.
-final activeProfileProvider = Provider<ConnectionProfile>(
-  (ref) => const ConnectionProfile.local(),
+/// The profiles read at start-up; `main` overrides it, so the profile in use is
+/// known before the first connection (a remote one must not start the bundled
+/// daemon first).
+final initialProfilesProvider = Provider<List<ConnectionProfile>>(
+  (ref) => const [ConnectionProfile.local()],
 );
+
+/// The saved connection profiles: the bundled daemon first, then the servers
+/// the user added.
+final profilesProvider = NotifierProvider<Profiles, List<ConnectionProfile>>(
+  Profiles.new,
+);
+
+/// The profile the app connects to: the one the user chose, the bundled daemon
+/// when none was chosen or the chosen one is gone.
+final activeProfileProvider = Provider<ConnectionProfile>((ref) {
+  final id = ref.watch(activeProfileIdProvider);
+  return ref.watch(profilesProvider).where((p) => p.id == id).firstOrNull ??
+      const ConnectionProfile.local();
+});
+
+/// The saved profiles and the ways to change them.
+class Profiles extends Notifier<List<ConnectionProfile>> {
+  @override
+  List<ConnectionProfile> build() => ref.watch(initialProfilesProvider);
+
+  /// Adds a server and its token, and returns its profile.
+  Future<ConnectionProfile> addServer({
+    required String name,
+    required String url,
+    required String token,
+  }) async {
+    final profile = ConnectionProfile(
+      id: 'srv-${DateTime.now().microsecondsSinceEpoch}',
+      name: name,
+      kind: ProfileKind.remote,
+      url: url,
+    );
+    await ref.read(profileStoreProvider).save(profile, token: token);
+    state = await ref.read(profileStoreProvider).load();
+    return profile;
+  }
+
+  /// Removes a server and its token. When it was in use the app goes back to
+  /// the bundled daemon.
+  Future<void> remove(String id) async {
+    if (ref.read(activeProfileIdProvider) == id) {
+      await ref
+          .read(activeProfileIdProvider.notifier)
+          .set(ConnectionProfile.localId);
+    }
+    await ref.read(profileStoreProvider).delete(id);
+    state = await ref.read(profileStoreProvider).load();
+  }
+}
 
 /// The connection profiles on disk and their tokens.
 final profileStoreProvider = Provider<ProfileStore>(
@@ -107,11 +160,20 @@ final connectionProvider =
 class ConnectionController extends Notifier<ConnectionStatus> {
   var _attempt = 0;
   DlmSession? _session;
+  StreamSubscription<DaemonStatus>? _daemonWatch;
+
+  /// The address of the bundled daemon the session was opened to.
+  String? _localUrl;
+
+  /// The token the session was opened with.
+  String? _usedToken;
 
   @override
   ConnectionStatus build() {
     ref.onDispose(() {
       _attempt++;
+      unawaited(_daemonWatch?.cancel());
+      _daemonWatch = null;
       _session?.api.close(force: true);
       _session = null;
     });
@@ -137,12 +199,16 @@ class ConnectionController extends Notifier<ConnectionStatus> {
       if (result is Ready) result.session.api.close(force: true);
       return;
     }
-    if (result is Ready) _session = result.session;
+    if (result case Ready(:final session)) {
+      _session = session;
+      session.api.onUnauthorized = () => _rejected(session);
+    }
     state = result;
   }
 
   Future<ConnectionStatus> _open(ConnectionProfile profile) async {
     String? localUrl;
+    String? localPin;
     String? token;
     if (profile.isLocal) {
       final daemon = ref.read(localDaemonProvider);
@@ -152,13 +218,17 @@ class ConnectionController extends Notifier<ConnectionStatus> {
         return ConnectionFailedStatus(profile, reason: status.reason);
       }
       localUrl = info.url;
+      localPin = info.tlsFingerprint;
+      _localUrl = info.url;
+      _watch(daemon);
       token = daemon.token();
     } else {
       token = await ref.read(profileStoreProvider).token(profile.id);
     }
+    _usedToken = token;
     final outcome = await ref
         .read(connectorProvider)
-        .connect(profile, token: token, localUrl: localUrl);
+        .connect(profile, token: token, localUrl: localUrl, localPin: localPin);
     return switch (outcome) {
       Connected(:final api, :final health) => Ready(
         profile,
@@ -178,6 +248,39 @@ class ConnectionController extends Notifier<ConnectionStatus> {
           certificateChanged: certificateChanged,
         ),
     };
+  }
+
+  /// The bundled daemon starts on a random port, so every restart (a crash, the
+  /// Daemon page, the service being turned on or off) gives it a new address.
+  /// The session follows it instead of calling the old one for ever.
+  void _watch(LocalDaemon daemon) {
+    if (_daemonWatch != null) return;
+    _daemonWatch = daemon.status.listen((status) {
+      final info = status.info;
+      if (status.phase != DaemonPhase.running || info == null) return;
+      if (info.url == _localUrl) return;
+      _localUrl = info.url;
+      unawaited(connect());
+    });
+  }
+
+  /// The daemon answered 401 to [session]: its token was rotated or revoked
+  /// while the app ran. The bundled daemon's new token is read again; for any
+  /// other the app says so, instead of reconnecting for ever.
+  void _rejected(DlmSession session) {
+    if (!ref.mounted || !identical(_session, session)) return;
+    final profile = ref.read(activeProfileProvider);
+    if (profile.isLocal) {
+      final fresh = ref.read(localDaemonProvider).token();
+      if (fresh != null && fresh.isNotEmpty && fresh != _usedToken) {
+        unawaited(connect());
+        return;
+      }
+    }
+    _attempt++;
+    session.api.close(force: true);
+    _session = null;
+    state = TokenRejectedStatus(profile);
   }
 
   /// Pins [certificate] for the active (remote) profile and connects.

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:typed_data';
 
@@ -113,9 +112,10 @@ final addTorrentPickerProvider = Provider<Future<PickedTorrent?> Function()>(
   },
 );
 
-/// The embedded form of a .torrent file that the daemon takes as a link.
-String torrentDataUrl(Uint8List bytes) =>
-    'data:application/x-bittorrent;base64,${base64.encode(bytes)}';
+/// The stand-in link of a `.torrent` file the user added. It is only a key of
+/// the list of links; the bytes are uploaded as a file, never sent as a link
+/// (a `data:` link inside the JSON body is limited to 1 MiB).
+String torrentKey(int n, String name) => 'torrent-file:$n/$name';
 
 /// How a list file is read, from its name.
 ImportTasksBodyFormat importFormatOf(String fileName) {
@@ -214,7 +214,8 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
   bool _showAdvanced = false;
 
   /// The .torrent files added by hand: the name shown and the embedded link.
-  final List<({String name, String url})> _torrents = [];
+  final List<({String name, String url, Uint8List bytes})> _torrents = [];
+  var _torrentCount = 0;
   final AdvancedDraft _adv = AdvancedDraft();
   final TextEditingController _referrer = TextEditingController();
   final TextEditingController _headers = TextEditingController();
@@ -247,7 +248,11 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     switch (opened) {
       case OpenedTorrentReady(:final name, :final bytes):
         setState(() {
-          _torrents.add((name: name, url: torrentDataUrl(bytes)));
+          _torrents.add((
+            name: name,
+            url: torrentKey(_torrentCount++, name),
+            bytes: bytes,
+          ));
         });
         _schedule();
       case OpenedTorrentTooBig():
@@ -280,6 +285,8 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     for (final t in _torrents) t.url,
   ];
 
+  bool _isTorrentFile(String link) => _torrents.any((t) => t.url == link);
+
   /// What to show for a link: the file name of an embedded torrent.
   String _label(String link) =>
       _torrents.where((t) => t.url == link).firstOrNull?.name ?? link;
@@ -306,7 +313,9 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
     final repo = ref.read(addRepositoryProvider);
     _Lookup found;
     try {
-      if (links.length == 1 && !isPattern(links.single)) {
+      if (links.length == 1 &&
+          !isPattern(links.single) &&
+          !_isTorrentFile(links.single)) {
         final result = await repo.resolve(links.single, queueId: _queueId);
         Category? category;
         try {
@@ -330,7 +339,11 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
             sample.add(link);
           }
         }
-        found = _Many(count, [for (final u in sample.take(5)) _label(u)]);
+        // A torrent file is already shown as a chip with its name.
+        found = _Many(count, [
+          for (final u in sample.take(5))
+            if (!_isTorrentFile(u)) _label(u),
+        ]);
       }
     } on Object catch (e) {
       found = _Bad(e);
@@ -398,12 +411,24 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
           ),
         );
         if (changed) {
-          task = await ref
-              .read(taskDetailRepositoryProvider)
-              .setFiles(task.id, picked.toList()..sort());
-          store.tasks.put(task.id, task);
-          if (!_paused) {
-            await ref.read(taskActionsProvider).resume([task.id]);
+          final created = task;
+          try {
+            task = await ref
+                .read(taskDetailRepositoryProvider)
+                .setFiles(created.id, picked.toList()..sort());
+            store.tasks.put(task.id, task);
+            if (!_paused) {
+              await ref.read(taskActionsProvider).resume([task.id]);
+            }
+          } on Object catch (e) {
+            // The task exists, paused. Staying open with Add enabled would
+            // create a second one: say what failed and close.
+            store.tasks.put(created.id, created);
+            if (mounted) {
+              showFailure(context, ref, e);
+              Navigator.of(context).pop();
+            }
+            return;
           }
         } else {
           store.tasks.put(task.id, task);
@@ -413,14 +438,55 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
         Navigator.of(context).pop();
         return;
       }
-      final results = await repo.createMany([
-        for (final link in _typed) _body(link),
-      ]);
+      final results = <BatchItem>[];
+      final links = [
+        for (final link in _typed)
+          if (!_isTorrentFile(link)) link,
+      ];
+      if (links.isNotEmpty) {
+        results.addAll(
+          await repo.createMany([for (final l in links) _body(l)]),
+        );
+      }
+      for (final t in _torrents) {
+        results.add(await _uploadTorrent(repo, t.name, t.bytes));
+      }
       await _finish(results);
     } on Object catch (e) {
       if (mounted) showFailure(context, ref, e);
     } finally {
       if (mounted) setState(() => _adding = false);
+    }
+  }
+
+  /// Uploads one `.torrent` file; a refusal is a result of its own, like the
+  /// other items of a batch.
+  Future<BatchItem> _uploadTorrent(
+    AddRepository repo,
+    String name,
+    Uint8List bytes,
+  ) async {
+    try {
+      final task = await repo.addTorrent(
+        bytes,
+        queueId: _queueId,
+        dir: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
+        paused: _paused,
+        allowDuplicate: _allowDuplicate,
+      );
+      return BatchItem(ok: true, id: task.id, task: task, url: name);
+    } on ApiProblem catch (p) {
+      return BatchItem(
+        ok: false,
+        url: name,
+        error: Problem(
+          code: p.code,
+          title: p.title,
+          detail: p.detail,
+          params: {for (final e in p.params.entries) e.key: '${e.value}'},
+          status: p.status,
+        ),
+      );
     }
   }
 
@@ -495,7 +561,11 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
         return;
       }
       setState(() {
-        _torrents.add((name: picked.name, url: torrentDataUrl(picked.bytes)));
+        _torrents.add((
+          name: picked.name,
+          url: torrentKey(_torrentCount++, picked.name),
+          bytes: picked.bytes,
+        ));
       });
       _schedule();
     } on Object catch (e) {

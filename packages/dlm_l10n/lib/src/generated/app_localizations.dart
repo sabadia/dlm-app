@@ -6138,6 +6138,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Get the extension'**
   String get setup_ext_get;
+
+  /// No description provided for @sv_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Servers'**
+  String get sv_title;
+
+  /// No description provided for @sv_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The app downloads through a DLM daemon. The one on this computer is always there; add one that runs elsewhere (a NAS, a server) to use it instead.'**
+  String get sv_desc;
+
+  /// No description provided for @sv_local.
+  ///
+  /// In en, this message translates to:
+  /// **'This computer'**
+  String get sv_local;
+
+  /// No description provided for @sv_in_use.
+  ///
+  /// In en, this message translates to:
+  /// **'In use'**
+  String get sv_in_use;
+
+  /// No description provided for @sv_use.
+  ///
+  /// In en, this message translates to:
+  /// **'Use'**
+  String get sv_use;
+
+  /// No description provided for @sv_remove.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get sv_remove;
+
+  /// No description provided for @sv_add_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a server'**
+  String get sv_add_title;
+
+  /// No description provided for @sv_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get sv_name;
+
+  /// No description provided for @sv_name_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Home server'**
+  String get sv_name_hint;
+
+  /// No description provided for @sv_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get sv_address;
+
+  /// No description provided for @sv_address_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'https://nas.lan:7777'**
+  String get sv_address_hint;
+
+  /// No description provided for @sv_token.
+  ///
+  /// In en, this message translates to:
+  /// **'Access token'**
+  String get sv_token;
+
+  /// No description provided for @sv_token_hint.
+  ///
+  /// In en, this message translates to:
+  /// **'From dlm token add, on that computer'**
+  String get sv_token_hint;
+
+  /// No description provided for @sv_save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and use'**
+  String get sv_save;
+
+  /// No description provided for @sv_bad_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a full address such as https://nas.lan:7777.'**
+  String get sv_bad_address;
+
+  /// No description provided for @sv_removed.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed {name}.'**
+  String sv_removed(String name);
+
+  /// No description provided for @sv_use_local.
+  ///
+  /// In en, this message translates to:
+  /// **'Use this computer'**
+  String get sv_use_local;
 }
 
 class _AppLocalizationsDelegate

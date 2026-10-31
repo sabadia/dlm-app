@@ -40,7 +40,7 @@ class DownloadsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
-    final search = ref.watch(searchTextProvider).trim();
+    final search = ref.watch(debouncedSearchProvider).trim();
     final options = ref.watch(listOptionsProvider);
     final compact = ref.watch(densityProvider) == Density.compact;
     final query = TaskQuery(

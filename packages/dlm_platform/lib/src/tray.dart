@@ -110,6 +110,11 @@ class TrayManagerController implements TrayController {
 
   TrayIcon? _icon;
   Menu? _menu;
+
+  /// The entries [_menu] was made from: the native menu is only built again
+  /// when they change, not on every update of the speed in the tooltip (an
+  /// open menu would flicker or close).
+  List<TrayEntry>? _shown;
   final List<MenuItem> _items = [];
   final StreamController<String> _selections = StreamController.broadcast();
 
@@ -184,6 +189,14 @@ class TrayManagerController implements TrayController {
     icon
       ..setTooltip(tooltip)
       ..setTitle(title);
+    if (_shown != null && _shown!.length == menu.length) {
+      var same = true;
+      for (var i = 0; i < menu.length; i++) {
+        if (_shown![i] != menu[i]) same = false;
+      }
+      if (same) return;
+    }
+    _shown = List.of(menu);
     _setMenu(icon, menu);
   }
 
@@ -192,6 +205,7 @@ class TrayManagerController implements TrayController {
     _icon?.setVisible(false);
     _icon?.dispose();
     _icon = null;
+    _shown = null;
     for (final i in _items) {
       i.dispose();
     }

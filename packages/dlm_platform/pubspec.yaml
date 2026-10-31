@@ -6,6 +6,7 @@ environment:
   sdk: ^3.13.0
   flutter: ">=3.47.0"
 dependencies:
+  crypto: ^3.0.0
   dbus: any
   desktop_drop: ^0.8.0
   flutter:

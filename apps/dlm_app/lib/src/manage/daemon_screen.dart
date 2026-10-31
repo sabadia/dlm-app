@@ -11,6 +11,7 @@ import '../settings/settings_form.dart' show humaniseSetting, isDuration;
 import '../shell/feedback.dart';
 import 'config_draft.dart';
 import 'log_view.dart';
+import 'servers_group.dart';
 
 /// The boot configuration of the daemon.
 final configProvider = FutureProvider.autoDispose<ConfigView>(
@@ -277,6 +278,8 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
                       .logs(level: level, q: q),
                 ),
               ),
+              SizedBox(height: gap),
+              const ServersGroup(),
             ],
           ),
         ),

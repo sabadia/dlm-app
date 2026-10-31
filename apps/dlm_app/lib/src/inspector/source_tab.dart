@@ -50,7 +50,8 @@ class SourceTab extends ConsumerWidget {
       }
     });
     final source = task.source;
-    final paused = task.statusKind == TaskStatus.paused;
+    final kind = task.statusKind;
+    final canEdit = kind.canEditSource;
     final attempts = ref.watch(taskRefreshesProvider(id));
     String when(DateTime t) =>
         DateFormat.yMMMd(l.localeName).add_Hm().format(t.toLocal());
@@ -125,13 +126,13 @@ class SourceTab extends ConsumerWidget {
             DlmButton(
               label: l.src_edit,
               icon: const DlmIcon(DlmIconName.edit),
-              onPressed: paused
+              onPressed: canEdit
                   ? () => unawaited(_replace(context, ref, source.currentUrl))
                   : null,
             ),
           ],
         ),
-        if (!paused)
+        if (kind.isActive)
           Padding(
             padding: EdgeInsets.only(top: theme.metrics.spacing.xs),
             child: Text(

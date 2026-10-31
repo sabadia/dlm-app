@@ -1006,5 +1006,22 @@
   "notif_link_wait": "[Wàîtîñg fôr à ñéw lîñk~~~~~~~]",
   "notif_open_page": "[Ôpéñ thé pàgé~~~~]",
   "setup_ext_paired": "[{count, plural, one{1 éxtéñšîôñ pàîréd} other{{count} éxtéñšîôñš pàîréd}}~~~~~~~~~~~~~~~~~~~~~~]",
-  "setup_ext_get": "[Gét thé éxtéñšîôñ~~~~~~]"
+  "setup_ext_get": "[Gét thé éxtéñšîôñ~~~~~~]",
+  "sv_title": "[Šérvérš~~~]",
+  "sv_desc": "[Thé àpp dôwñlôàdš thrôûgh à DLM dàémôñ. Thé ôñé ôñ thîš çômpûtér îš àlwàýš théré; àdd ôñé thàt rûñš élšéwhéré (à ÑÂŠ, à šérvér) tô ûšé ît îñštéàd.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "sv_local": "[Thîš çômpûtér~~~~]",
+  "sv_in_use": "[Îñ ûšé~~]",
+  "sv_use": "[Ûšé~]",
+  "sv_remove": "[Rémôvé~~]",
+  "sv_add_title": "[Âdd à šérvér~~~~]",
+  "sv_name": "[Ñàmé~~]",
+  "sv_name_hint": "[Hômé šérvér~~~~]",
+  "sv_address": "[Âddréšš~~~]",
+  "sv_address_hint": "[httpš://ñàš.làñ:7777~~~~~~]",
+  "sv_token": "[Âççéšš tôkéñ~~~~]",
+  "sv_token_hint": "[Frôm dlm tôkéñ àdd, ôñ thàt çômpûtér~~~~~~~~~~~]",
+  "sv_save": "[Šàvé àñd ûšé~~~~]",
+  "sv_bad_address": "[Éñtér à fûll àddréšš šûçh àš httpš://ñàš.làñ:7777.~~~~~~~~~~~~~~~]",
+  "sv_removed": "[Rémôvéd {name}.~~~~~]",
+  "sv_use_local": "[Ûšé thîš çômpûtér~~~~~~]"
 }

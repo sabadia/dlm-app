@@ -2165,5 +2165,29 @@
       }
     }
   },
-  "setup_ext_get": "Get the extension"
+  "setup_ext_get": "Get the extension",
+  "sv_title": "Servers",
+  "sv_desc": "The app downloads through a DLM daemon. The one on this computer is always there; add one that runs elsewhere (a NAS, a server) to use it instead.",
+  "sv_local": "This computer",
+  "sv_in_use": "In use",
+  "sv_use": "Use",
+  "sv_remove": "Remove",
+  "sv_add_title": "Add a server",
+  "sv_name": "Name",
+  "sv_name_hint": "Home server",
+  "sv_address": "Address",
+  "sv_address_hint": "https://nas.lan:7777",
+  "sv_token": "Access token",
+  "sv_token_hint": "From dlm token add, on that computer",
+  "sv_save": "Save and use",
+  "sv_bad_address": "Enter a full address such as https://nas.lan:7777.",
+  "sv_removed": "Removed {name}.",
+  "@sv_removed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sv_use_local": "Use this computer"
 }
