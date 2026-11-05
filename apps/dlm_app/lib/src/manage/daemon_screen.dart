@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../connection/connection_controller.dart';
 import '../settings/settings_form.dart' show humaniseSetting, isDuration;
 import '../shell/feedback.dart';
 import 'config_draft.dart';
@@ -73,7 +74,14 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
     );
     if (!ok || !mounted) return;
     try {
-      await ref.read(daemonRepositoryProvider).restart();
+      if (ref.read(activeProfileProvider).isLocal) {
+        // The app's own daemon: stopped and started again by the app, so that
+        // the next start reads what was just saved (a daemon that restarts
+        // itself keeps the command line it was given, which outranks the file).
+        await ref.read(localDaemonProvider).restart();
+      } else {
+        await ref.read(daemonRepositoryProvider).restart();
+      }
       if (!mounted) return;
       showNotice(context, ref, l.dm_restarting);
       // The connection banner shows the reconnecting; the page reads the

@@ -5,6 +5,7 @@ import 'dart:math' as math;
 
 import 'package:crypto/crypto.dart';
 
+import 'configured_address.dart';
 import 'runtime_info.dart';
 
 /// A started daemon process.
@@ -137,7 +138,8 @@ class RestartPolicy {
 
 /// Starts, watches and stops the `dlm` daemon of this app.
 ///
-/// * runs `dlm serve --home <home> --address 127.0.0.1:0` and learns the real
+/// * runs `dlm serve --home <home> --address 127.0.0.1:0` (no `--address` when
+///   the configuration file holds one) and learns the real
 ///   port from the daemon's `runtime.json`;
 /// * takes over a daemon that already runs for the same home (a second app
 ///   instance, or one kept running when the app quit) instead of fighting it;
@@ -352,7 +354,17 @@ class DaemonSupervisor {
   }
 
   Future<void> _spawn(int gen) async {
-    final args = ['serve', '--home', home, '--address', '127.0.0.1:0'];
+    // A free loopback port, unless the user saved an address (Manage, Daemon):
+    // the flag would outrank it and the saved address would never apply.
+    final args = [
+      'serve',
+      '--home',
+      home,
+      if (configuredServerAddress(home) == null) ...[
+        '--address',
+        '127.0.0.1:0',
+      ],
+    ];
     final tail = <String>[];
     DaemonProcess process;
     try {

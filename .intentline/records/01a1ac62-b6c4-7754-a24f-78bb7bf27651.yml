@@ -1,0 +1,44 @@
+schema_version: 1
+id: 01a1ac62-b6c4-7754-a24f-78bb7bf27651
+status: draft
+created_at: '2026-11-05T15:45:12Z'
+updated_at: '2026-11-05T15:45:12Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: An address saved under Manage > Daemon was ignored because the app always passed --address 127.0.0.1:0, and Restart re-ran the daemon with its old flags; honour the saved address and restart the app's own daemon through the supervisor
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/manage/daemon_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/daemon_access_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/dlm_platform.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/configured_address.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/daemon_supervisor.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/test/daemon/configured_address_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/test/daemon/daemon_supervisor_test.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

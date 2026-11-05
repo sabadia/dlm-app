@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/app.dart';
 import 'package:dlm_app/src/connection/connection_controller.dart';
+import 'package:dlm_app/src/connection/local_daemon.dart';
 import 'package:dlm_app/src/manage/access_screen.dart';
 import 'package:dlm_app/src/manage/config_draft.dart';
 import 'package:dlm_app/src/manage/daemon_screen.dart';
@@ -363,7 +364,13 @@ void main() {
 
     appTest('a pending restart is offered and asks first', (tester) async {
       final daemon = FakeDaemon(pending: true);
-      await open(tester, 'daemon', daemon);
+      final local = _LocalDaemon();
+      await open(
+        tester,
+        'daemon',
+        daemon,
+        more: [localDaemonProvider.overrideWithValue(local)],
+      );
       expect(find.text('A restart is needed'), findsOneWidget);
       expect(find.text('after the restart: 16'), findsOneWidget);
       await tester.tap(find.text('Restart now'));
@@ -372,7 +379,38 @@ void main() {
       expect(daemon.calls, isEmpty);
       await tester.tap(find.text('Restart').last);
       await settle(tester);
+      // This computer's daemon is restarted by the app, which starts it again
+      // with the settings that were just saved; the daemon is not asked to
+      // re-run itself with its old command line.
+      expect(local.restarts, 1);
+      expect(daemon.calls, isEmpty);
+    });
+
+    appTest('another server is restarted through its own API', (tester) async {
+      final daemon = FakeDaemon(pending: true);
+      final local = _LocalDaemon();
+      await open(
+        tester,
+        'daemon',
+        daemon,
+        more: [
+          localDaemonProvider.overrideWithValue(local),
+          activeProfileProvider.overrideWithValue(
+            const ConnectionProfile(
+              id: 'nas',
+              name: 'NAS',
+              kind: ProfileKind.remote,
+              url: 'https://nas.lan:7777',
+            ),
+          ),
+        ],
+      );
+      await tester.tap(find.text('Restart now'));
+      await settle(tester);
+      await tester.tap(find.text('Restart').last);
+      await settle(tester);
       expect(daemon.calls.single, 'restart');
+      expect(local.restarts, 0);
     });
 
     appTest('a refused value shows its error under its key', (tester) async {
@@ -571,4 +609,27 @@ void main() {
       expect(find.text('Replace the main token'), findsNothing);
     });
   });
+}
+
+class _LocalDaemon implements LocalDaemon {
+  int restarts = 0;
+
+  @override
+  Future<DaemonStatus> ensureRunning() async =>
+      const DaemonStatus(DaemonPhase.running);
+
+  @override
+  String? token() => 'daemon-token';
+
+  @override
+  Future<void> restart() async => restarts++;
+
+  @override
+  Future<void> useEngine(String path, String version) async {}
+
+  @override
+  Stream<DaemonStatus> get status => const Stream.empty();
+
+  @override
+  Future<void> dispose({bool keepRunning = false}) async {}
 }
