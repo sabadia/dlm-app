@@ -66,6 +66,14 @@ class AppShell extends ConsumerStatefulWidget {
 }
 
 class _AppShellState extends ConsumerState<AppShell> {
+  /// The queue a location shows (`/queues/<id>`), or null.
+  static String? _queueOf(Uri location) {
+    final segments = location.pathSegments;
+    return segments.length >= 2 && segments.first == 'queues'
+        ? segments[1]
+        : null;
+  }
+
   final FocusNode _search = FocusNode(debugLabel: 'toolbar search');
   final TextEditingController _searchText = TextEditingController();
   final Set<String> _prompted = {};
@@ -359,7 +367,11 @@ class _AppShellState extends ConsumerState<AppShell> {
               icon: const DlmIcon(DlmIconName.viewOptions),
               semanticLabel: l.display_menu,
               variant: DlmButtonVariant.plain,
-              entries: displayMenuEntries(context, ref),
+              entries: displayMenuEntries(
+                context,
+                ref,
+                queueId: _queueOf(widget.location),
+              ),
             ),
             DlmMenuButton(
               icon: const DlmIcon(DlmIconName.filter),
