@@ -79,7 +79,7 @@ void main() {
       final built = await engines(fetch: serve()).install(release);
       expect(built.version, '0.7.4');
       expect(File(built.path).existsSync(), isTrue);
-      expect(built.path, endsWith('/engines/0.7.4/dlm'));
+      expect(built.path.replaceAll(r'\', '/'), endsWith('/engines/0.7.4/dlm'));
       expect(engines().preferred(bundled: '0.7.3')?.path, built.path);
       expect(
         Directory('${root.path}/engines')

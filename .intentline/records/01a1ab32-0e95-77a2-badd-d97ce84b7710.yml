@@ -1,0 +1,65 @@
+schema_version: 1
+id: 01a1ab32-0e95-77a2-badd-d97ce84b7710
+status: draft
+created_at: '2026-11-05T10:12:26Z'
+updated_at: '2026-11-05T10:12:26Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: 'A new server release should be usable without a new app build: the app can download, verify and switch to a newer dlm-server from the Daemon page'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/main.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/local_daemon.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/daemon_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/engine_group.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/daemon_access_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/support/fakes.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en_XA.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations_en.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/dlm_platform.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/daemon_engines.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/daemon/daemon_supervisor.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/test/daemon_engines_test.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
