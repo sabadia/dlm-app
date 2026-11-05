@@ -348,6 +348,14 @@ abstract class TasksClient {
   @GET('/v1/tasks/{id}/settings/effective')
   Future<Effective> getTaskEffectiveSettings({@Path('id') required String id});
 
+  /// Stop seeding a torrent.
+  ///
+  /// Ends the seeding of a torrent that has all its data, so the task completes now instead of serving the swarm until its ratio or time limit. Fails with 409 when the task is not seeding. The new status follows as an event.
+  ///
+  /// [id] - Task ID.
+  @POST('/v1/tasks/{id}/stop-seeding')
+  Future<Task> stopSeeding({@Path('id') required String id});
+
   /// Describe a torrent task.
   ///
   /// The swarm of a torrent task: state, info hash, trackers, connected peers, bytes shared and the share ratio. Live while the task runs; otherwise what its last run saved (state stopped). 404 task.no_torrent for a task of another engine or a torrent that never ran.

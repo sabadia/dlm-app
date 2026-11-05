@@ -10,8 +10,7 @@ import 'task_format.dart';
 String taskTitleOf(AppLocalizations l, Task t) => taskTitle(l, t);
 
 /// The status text of a task.
-String statusLabelOf(AppLocalizations l, Task t) =>
-    statusLabel(l, t.statusKind);
+String statusLabelOf(AppLocalizations l, Task t) => statusLabelFor(l, t);
 
 /// A widget that rebuilds only when the task [id] changes in the store, so a
 /// progress tick repaints one card.

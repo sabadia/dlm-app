@@ -122,6 +122,13 @@ abstract interface class TaskRepository {
   /// Restarts several tasks from the beginning.
   Future<List<ItemResult>> restartMany(List<String> ids);
 
+  /// Stops a finished torrent from seeding; its task completes.
+  Future<Task> stopSeeding(String id);
+
+  /// Starts every failed task again, those that wait for an automatic retry
+  /// and those that gave up.
+  Future<List<ItemResult>> retryFailed();
+
   /// Asks for a fresh link for several tasks (those that can renew theirs).
   Future<List<ItemResult>> refreshMany(List<String> ids);
 
@@ -220,6 +227,21 @@ class ApiTaskRepository implements TaskRepository {
 
   @override
   Future<Task> restart(String id) => guard(() => _tasks.restartTask(id: id));
+
+  @override
+  Future<Task> stopSeeding(String id) =>
+      guard(() => _tasks.stopSeeding(id: id));
+
+  @override
+  Future<List<ItemResult>> retryFailed() => guard(
+    () async => _items(
+      await _tasks.resumeTasks(
+        body: const TaskSelector(
+          filter: TaskSelectorFilter(status: [TaskSelectorFilterStatus.error]),
+        ),
+      ),
+    ),
+  );
 
   @override
   Future<List<ItemResult>> pauseAll() => guard(

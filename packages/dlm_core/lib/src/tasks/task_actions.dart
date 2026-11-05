@@ -123,6 +123,34 @@ class TaskActions {
     }
   }
 
+  /// Starts every failed task again, those waiting for an automatic retry and
+  /// those that gave up, on the daemon's whole list.
+  Future<List<ItemResult>> retryFailed() async {
+    final before = <String, Task>{};
+    final guesses = <String, Task>{};
+    for (final id in _store.tasks.ids) {
+      final t = _store.tasks[id];
+      if (t != null && t.statusKind == TaskStatus.error) {
+        before[id] = t;
+        guesses[id] = _guess(
+          id,
+          t.copyWith(status: 'queued', clearError: true),
+        );
+      }
+    }
+    try {
+      return await _repo.retryFailed();
+    } on Object {
+      before.forEach((id, t) => _undo(id, t, guesses[id]));
+      rethrow;
+    }
+  }
+
+  /// Stops a finished torrent from seeding; the daemon completes the task and
+  /// says so in an event.
+  Future<Task> stopSeeding(String id) =>
+      _single(id, optimistic: (t) => t, call: () => _repo.stopSeeding(id));
+
   /// Restarts the finished or failed tasks among [ids] from the beginning.
   Future<List<ItemResult>> restartMany(List<String> ids) => _bulk(
     ids,

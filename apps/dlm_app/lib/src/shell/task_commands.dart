@@ -89,6 +89,40 @@ Future<void> resumeTasks(
   }
 }
 
+/// Starts every failed download again.
+Future<void> retryFailedTasks(BuildContext context, WidgetRef ref) async {
+  final l = AppLocalizations.of(context);
+  try {
+    final results = await ref.read(taskActionsProvider).retryFailed();
+    if (!context.mounted) return;
+    _reportPartial(context, ref, results);
+    showNotice(
+      context,
+      ref,
+      l.toast_retrying_all(results.where((r) => r.ok).length),
+    );
+  } on Object catch (e) {
+    if (context.mounted) showFailure(context, ref, e);
+  }
+}
+
+/// Stops the seeding of finished torrents: their tasks complete.
+Future<void> stopSeedingTasks(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids,
+) async {
+  final l = AppLocalizations.of(context);
+  try {
+    for (final id in ids) {
+      await ref.read(taskActionsProvider).stopSeeding(id);
+    }
+    if (context.mounted) showNotice(context, ref, l.toast_seeding_stopped);
+  } on Object catch (e) {
+    if (context.mounted) showFailure(context, ref, e);
+  }
+}
+
 /// Downloads a finished or failed task again from scratch.
 Future<void> restartTask(BuildContext context, WidgetRef ref, String id) async {
   final l = AppLocalizations.of(context);
@@ -288,9 +322,21 @@ List<DlmMenuEntry> taskMenuEntries(
         icon: const DlmIcon(DlmIconName.pause),
         onPressed: () => pauseTasks(context, ref, ids),
       ),
+    if (targets.any((t) => t.isSeeding))
+      DlmMenuItem(
+        label: l.action_stop_seeding,
+        icon: const DlmIcon(DlmIconName.stop),
+        onPressed: () => stopSeedingTasks(context, ref, [
+          for (final t in targets)
+            if (t.isSeeding) t.id,
+        ]),
+      ),
     if (targets.any((t) => t.statusKind.canResume))
       DlmMenuItem(
-        label: l.action_resume,
+        // A failed download is retried; a paused one is resumed.
+        label: targets.every((t) => t.statusKind == TaskStatus.error)
+            ? l.action_retry
+            : l.action_resume,
         icon: const DlmIcon(DlmIconName.play),
         onPressed: () => resumeTasks(context, ref, ids),
       ),

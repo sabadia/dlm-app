@@ -69,6 +69,25 @@ extension TaskX on Task {
   /// Whether the size is known.
   bool get hasKnownSize => size >= 0;
 
+  /// Whether the task failed on the network and the daemon will start it again
+  /// by itself (a retry is due at [retryAt]).
+  bool get isWaitingForRetry =>
+      statusKind == TaskStatus.error && error?.retry != null;
+
+  /// When the automatic retry is due, or null.
+  DateTime? get retryAt => isWaitingForRetry ? error!.retry!.nextAt : null;
+
+  /// Whether the task failed for good: nothing will start it but the user.
+  bool get hasGivenUp => statusKind == TaskStatus.error && !isWaitingForRetry;
+
+  /// Whether a torrent has all its data and is only serving it to others:
+  /// the daemon keeps such a task `running` until its seeding limit.
+  bool get isSeeding =>
+      engine == 'bt' &&
+      statusKind == TaskStatus.running &&
+      size > 0 &&
+      downloaded >= size;
+
   /// Fraction downloaded (0..1), or null while the size is unknown.
   double? get fraction =>
       hasKnownSize && size > 0 ? (downloaded / size).clamp(0, 1) : null;

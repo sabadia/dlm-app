@@ -119,16 +119,24 @@ List<ApplicationMenu> buildApplicationMenus(
     label: l.menu_about,
     onSelected: () => router.go(managePath('about')),
   );
+  // With DLM running in the background, only the tray icon quits it: the
+  // Quit shortcut closes the window like the close button does.
+  final background =
+      ref.read(trayEnabledProvider) && (ref.read(trayProvider).visible || mac);
   final quit = ApplicationMenuItem(
     id: 'app.quit',
-    label: l.tray_quit,
+    label: background ? l.menu_close_window : l.tray_quit,
     activator: SingleActivator(
       LogicalKeyboardKey.keyQ,
       meta: mac,
       control: !mac,
     ),
     shortcut: mac ? '⌘Q' : 'Ctrl+Q',
-    onSelected: () => unawaited(ref.read(windowControlProvider).quit()),
+    onSelected: () => unawaited(
+      background
+          ? ref.read(windowControlProvider).hide()
+          : ref.read(windowControlProvider).quit(),
+    ),
   );
 
   return [

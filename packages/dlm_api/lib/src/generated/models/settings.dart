@@ -32,6 +32,7 @@ class Settings {
     this.maxActiveDownloadsTotal,
     this.maxConcurrentDownloads,
     this.maxConnections,
+    this.maxConnectionsPerHost,
     this.onQueueComplete,
     this.postActions,
     this.proxy,
@@ -65,6 +66,7 @@ class Settings {
   final int? maxActiveDownloadsTotal;
   final int? maxConcurrentDownloads;
   final int? maxConnections;
+  final int? maxConnectionsPerHost;
   final OnQueueComplete? onQueueComplete;
   final List<PostAction>? postActions;
   final Proxy? proxy;

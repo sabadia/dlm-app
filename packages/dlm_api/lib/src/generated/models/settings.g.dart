@@ -22,6 +22,7 @@ Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
   maxActiveDownloadsTotal: (json['maxActiveDownloadsTotal'] as num?)?.toInt(),
   maxConcurrentDownloads: (json['maxConcurrentDownloads'] as num?)?.toInt(),
   maxConnections: (json['maxConnections'] as num?)?.toInt(),
+  maxConnectionsPerHost: (json['maxConnectionsPerHost'] as num?)?.toInt(),
   onQueueComplete: json['onQueueComplete'] == null
       ? null
       : OnQueueComplete.fromJson(
@@ -72,6 +73,7 @@ Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
   'maxActiveDownloadsTotal': instance.maxActiveDownloadsTotal,
   'maxConcurrentDownloads': instance.maxConcurrentDownloads,
   'maxConnections': instance.maxConnections,
+  'maxConnectionsPerHost': instance.maxConnectionsPerHost,
   'onQueueComplete': instance.onQueueComplete,
   'postActions': instance.postActions,
   'proxy': instance.proxy,

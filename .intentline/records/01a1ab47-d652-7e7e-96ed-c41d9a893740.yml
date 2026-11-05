@@ -1,0 +1,29 @@
+schema_version: 1
+id: 01a1ab47-d652-7e7e-96ed-c41d9a893740
+status: draft
+created_at: '2026-11-05T10:36:14Z'
+updated_at: '2026-11-05T10:36:14Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: Bundle dlm-server v0.7.4 (HTTP/1.1 for parallel downloads, YouTube JavaScript runtime fix) with the app
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: .github/workflows/ci.yml
+  start_line: null
+  end_line: null
+- path: packaging/daemon-version
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

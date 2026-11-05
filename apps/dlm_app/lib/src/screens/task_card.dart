@@ -107,13 +107,19 @@ class _CardBody extends StatelessWidget {
           )
         : null;
     final sizeText = context.bytes(size);
-    final done = finished ? 1.0 : fraction;
+    // A failed task shows how far it got and stays still: an animated bar (the
+    // size is unknown) reads as "still working".
+    final failed = kind == TaskStatus.error;
+    final done = finished ? 1.0 : (failed ? (fraction ?? 0.0) : fraction);
+    final reason = failureReason(l, task);
+    final retry = retryNote(l, task);
     final chips = <String>[
       if (sizeText != null && (finished || downloaded <= 0)) sizeText,
       if (sizeText != null && !finished && downloaded > 0)
         '${context.bytes(downloaded) ?? '0'} / $sizeText',
       if (speed != null) speed,
       if (left != null) formatDuration(left),
+      if (retry != null) retry else if (reason != null) reason,
       if (task.engine != null && task.engine!.isNotEmpty) task.engine!,
     ];
     return Column(
@@ -130,7 +136,7 @@ class _CardBody extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            DlmBadge(label: statusLabel(l, kind), tone: statusTone(kind)),
+            DlmBadge(label: statusLabelFor(l, task), tone: statusToneFor(task)),
           ],
         ),
         const SizedBox(height: 8),
@@ -141,8 +147,9 @@ class _CardBody extends StatelessWidget {
                 value: done,
                 tone: switch (kind) {
                   TaskStatus.completed => DlmTone.success,
-                  TaskStatus.error => DlmTone.danger,
-                  _ => DlmTone.accent,
+                  TaskStatus.error =>
+                    task.isWaitingForRetry ? DlmTone.warning : DlmTone.danger,
+                  _ => task.isSeeding ? DlmTone.success : DlmTone.accent,
                 },
                 semanticLabel: taskTitle(l, task),
               ),

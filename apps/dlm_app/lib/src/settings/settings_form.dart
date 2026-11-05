@@ -7,6 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../add/path_picker.dart';
 import '../format/dlm_format.dart';
 import '../shell/feedback.dart';
 import 'settings_editors.dart';
@@ -407,20 +408,40 @@ class _FieldRow extends StatelessWidget {
         );
       case FieldSchemaType.string || FieldSchemaType.duration:
         final isDur = field.type == FieldSchemaType.duration;
+        final isFolder = path == 'downloadDir';
+        final input = DlmParsedField<String>(
+          value: value is String ? value : null,
+          allowEmpty: true,
+          parse: (t) => t.trim().isEmpty
+              ? null
+              : isDur && !isDuration(t)
+              ? null
+              : t.trim(),
+          format: (v) => v,
+          invalidText: l.settings_invalid_duration,
+          semanticLabel: label,
+          onChanged: set,
+        );
+        if (!isFolder) return SizedBox(width: 260, child: input);
+        // A folder can be typed or chosen with the system's folder dialog.
         return SizedBox(
-          width: 260,
-          child: DlmParsedField<String>(
-            value: value is String ? value : null,
-            allowEmpty: true,
-            parse: (t) => t.trim().isEmpty
-                ? null
-                : isDur && !isDuration(t)
-                ? null
-                : t.trim(),
-            format: (v) => v,
-            invalidText: l.settings_invalid_duration,
-            semanticLabel: label,
-            onChanged: set,
+          width: 296,
+          child: Row(
+            children: [
+              Expanded(child: input),
+              const SizedBox(width: 6),
+              DlmIconButton(
+                icon: const DlmIcon(DlmIconName.folder),
+                semanticLabel: l.add_folder_browse,
+                onPressed: () async {
+                  final chosen = await pickFolderPath(
+                    context,
+                    start: value is String ? value : null,
+                  );
+                  if (chosen != null) set(chosen);
+                },
+              ),
+            ],
           ),
         );
       case FieldSchemaType.array ||

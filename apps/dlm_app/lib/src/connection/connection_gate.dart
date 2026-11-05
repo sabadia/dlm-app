@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../prefs/pref_providers.dart';
 import 'connection_controller.dart';
+import 'startup_splash.dart';
 
 /// Shows the app once a daemon is connected, and the state of the connection
 /// until then (starting, failed, token refused, incompatible, untrusted
@@ -65,10 +66,8 @@ class _ConnectionScreen extends ConsumerWidget {
     void retry() => ref.read(connectionProvider.notifier).connect();
 
     final body = switch (status) {
-      Connecting() => DlmLoadingState(
-        label:
-            '${l.connection_connecting_title}\n'
-            '${l.connection_connecting_message(name)}',
+      Connecting() => StartupSplash(
+        message: l.connection_connecting_message(name),
       ),
       Ready() => const SizedBox.shrink(),
       ConnectionFailedStatus(:final reason, :final certificateChanged) =>

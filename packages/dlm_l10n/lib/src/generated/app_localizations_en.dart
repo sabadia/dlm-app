@@ -301,6 +301,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get menu_about => 'About DLM';
 
   @override
+  String get menu_close_window => 'Close window (DLM keeps running)';
+
+  @override
   String command_go_to(String destination) {
     return 'Go to $destination';
   }
@@ -434,6 +437,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get task_status_error => 'Failed';
 
   @override
+  String get task_status_retrying => 'Retrying';
+
+  @override
+  String get task_status_seeding => 'Seeding';
+
+  @override
+  String task_retry_in(int attempt, int max, String time) {
+    return 'Retry $attempt of $max in $time';
+  }
+
+  @override
+  String task_retry_soon(int attempt, int max) {
+    return 'Retry $attempt of $max starting';
+  }
+
+  @override
+  String get task_gave_up => 'Gave up';
+
+  @override
+  String get task_reason_network => 'Network problem';
+
+  @override
+  String get task_reason_link_expired => 'Link expired';
+
+  @override
+  String get task_reason_disk_full => 'Not enough disk space';
+
+  @override
+  String get task_reason_http => 'The server refused the request';
+
+  @override
+  String get task_reason_checksum => 'File does not match its checksum';
+
+  @override
+  String get task_reason_postprocess => 'A step after the download failed';
+
+  @override
+  String get task_reason_infected => 'Flagged by the virus scan';
+
+  @override
   String get task_status_unknown => 'Unknown';
 
   @override
@@ -494,6 +537,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get action_resume => 'Resume';
+
+  @override
+  String get action_retry => 'Retry';
+
+  @override
+  String get action_retry_all_failed => 'Retry all failed';
+
+  @override
+  String get action_stop_seeding => 'Stop seeding and mark complete';
+
+  @override
+  String toast_retrying_all(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Retrying $count downloads',
+      one: 'Retrying 1 download',
+      zero: 'No failed downloads',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get toast_seeding_stopped =>
+      'Stopped seeding; the download is complete';
 
   @override
   String get action_restart => 'Download again';
@@ -3234,11 +3302,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pref_notifications => 'Notifications';
 
   @override
-  String get pref_tray => 'Show an icon in the menu bar or notification area';
+  String get pref_tray => 'Keep DLM running in the background';
 
   @override
   String get pref_tray_desc =>
-      'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.';
+      'Closing the window only closes the window: downloads continue and the icon in the menu bar or notification area stays. Choose Quit from that icon to stop DLM. Turn this off to quit when the window closes.';
 
   @override
   String get pref_notify => 'Tell me when a download finishes or fails';
@@ -4056,6 +4124,10 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   String get menu_about => '[Âbôût DLM~~~]';
 
   @override
+  String get menu_close_window =>
+      '[Çlôšé wîñdôw (DLM kéépš rûññîñg)~~~~~~~~~~]';
+
+  @override
   String command_go_to(String destination) {
     return '[Gô tô $destination~~~~~~]';
   }
@@ -4191,6 +4263,48 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   String get task_status_error => '[Fàîléd~~]';
 
   @override
+  String get task_status_retrying => '[Rétrýîñg~~~]';
+
+  @override
+  String get task_status_seeding => '[Šéédîñg~~~]';
+
+  @override
+  String task_retry_in(int attempt, int max, String time) {
+    return '[Rétrý $attempt ôf $max îñ $time~~~~~~~~~~~]';
+  }
+
+  @override
+  String task_retry_soon(int attempt, int max) {
+    return '[Rétrý $attempt ôf $max štàrtîñg~~~~~~~~~~]';
+  }
+
+  @override
+  String get task_gave_up => '[Gàvé ûp~~~]';
+
+  @override
+  String get task_reason_network => '[Ñétwôrk prôblém~~~~~]';
+
+  @override
+  String get task_reason_link_expired => '[Lîñk éxpîréd~~~~]';
+
+  @override
+  String get task_reason_disk_full => '[Ñôt éñôûgh dîšk špàçé~~~~~~~]';
+
+  @override
+  String get task_reason_http => '[Thé šérvér réfûšéd thé réqûéšt~~~~~~~~~]';
+
+  @override
+  String get task_reason_checksum =>
+      '[Fîlé dôéš ñôt màtçh îtš çhéçkšûm~~~~~~~~~~]';
+
+  @override
+  String get task_reason_postprocess =>
+      '[Â štép àftér thé dôwñlôàd fàîléd~~~~~~~~~~]';
+
+  @override
+  String get task_reason_infected => '[Flàggéd bý thé vîrûš šçàñ~~~~~~~~]';
+
+  @override
   String get task_status_unknown => '[Ûñkñôwñ~~~]';
 
   @override
@@ -4252,6 +4366,31 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get action_resume => '[Réšûmé~~]';
+
+  @override
+  String get action_retry => '[Rétrý~~]';
+
+  @override
+  String get action_retry_all_failed => '[Rétrý àll fàîléd~~~~~]';
+
+  @override
+  String get action_stop_seeding => '[Štôp šéédîñg àñd màrk çômplété~~~~~~~~~]';
+
+  @override
+  String toast_retrying_all(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Rétrýîñg $count dôwñlôàdš',
+      one: 'Rétrýîñg 1 dôwñlôàd',
+      zero: 'Ñô fàîléd dôwñlôàdš',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get toast_seeding_stopped =>
+      '[Štôppéd šéédîñg; thé dôwñlôàd îš çômplété~~~~~~~~~~~~~]';
 
   @override
   String get action_restart => '[Dôwñlôàd àgàîñ~~~~~]';
@@ -7022,12 +7161,11 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   String get pref_notifications => '[Ñôtîfîçàtîôñš~~~~]';
 
   @override
-  String get pref_tray =>
-      '[Šhôw àñ îçôñ îñ thé méñû bàr ôr ñôtîfîçàtîôñ àréà~~~~~~~~~~~~~~~]';
+  String get pref_tray => '[Kéép DLM rûññîñg îñ thé bàçkgrôûñd~~~~~~~~~~~]';
 
   @override
   String get pref_tray_desc =>
-      '[Çlôšîñg thé wîñdôw théñ kéépš thé àpp rûññîñg; qûît frôm thé îçôñ\'š méñû. Wîthôût àñ îçôñ, çlôšîñg thé wîñdôw qûîtš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+      '[Çlôšîñg thé wîñdôw ôñlý çlôšéš thé wîñdôw: dôwñlôàdš çôñtîñûé àñd thé îçôñ îñ thé méñû bàr ôr ñôtîfîçàtîôñ àréà štàýš. Çhôôšé Qûît frôm thàt îçôñ tô štôp DLM. Tûrñ thîš ôff tô qûît whéñ thé wîñdôw çlôšéš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
 
   @override
   String get pref_notify =>

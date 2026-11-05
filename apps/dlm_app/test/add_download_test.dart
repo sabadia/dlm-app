@@ -3,10 +3,12 @@ import 'package:dlm_app/src/add/add_dialog.dart';
 import 'package:dlm_app/src/add/add_input.dart';
 import 'package:dlm_app/src/add/add_results.dart';
 import 'package:dlm_app/src/manage/logins_screen.dart';
+import 'package:dlm_app/src/onboarding/folder_picker.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
@@ -189,13 +191,20 @@ void main() {
     List<Category> categories = const [],
     List<Credential> logins = const [],
     List<CookieInfo> cookies = const [],
+    List<Override> overrides = const [],
+    FolderPicker? picker,
   }) => pumpApp(
     tester,
     queues: [queue('main', 'Default')],
     categories: categories,
     logins: logins,
     cookies: cookies,
-    overrides: [addRepositoryProvider.overrideWithValue(add)],
+    overrides: [
+      addRepositoryProvider.overrideWithValue(add),
+      // A system without a folder dialog: the daemon's own browser is used.
+      folderPickerProvider.overrideWithValue(picker ?? _NoDialog()),
+      ...overrides,
+    ],
   );
 
   test('links are one per line, without blanks, comments and repeats', () {
@@ -386,6 +395,24 @@ void main() {
     // The bytes travel as the request body: a link inside JSON is capped at 1 MiB.
     expect(add.created, isEmpty);
     expect(add.torrents.single.bytes, [1, 2, 3]);
+  });
+
+  appTest('on this computer the system\'s folder dialog chooses the folder', (
+    tester,
+  ) async {
+    final add = FakeAdd();
+    await pump(tester, add, picker: _ChoosesFolder('/Users/me/dl'));
+    final semantics = tester.ensureSemantics();
+    await openDialog(tester);
+    await tester.tap(find.bySemanticsLabel('Browse folders'));
+    await settle(tester);
+    final field = tester.widget<DlmTextField>(
+      find.byWidgetPredicate(
+        (w) => w is DlmTextField && w.semanticLabel == 'Folder',
+      ),
+    );
+    expect(field.controller?.text, '/Users/me/dl');
+    semantics.dispose();
   });
 
   appTest('a folder is picked from the daemon\'s own list', (tester) async {
@@ -601,4 +628,19 @@ class _RecordingDetail implements TaskDetailRepository {
     chosen.add(selected);
     return task(id, status: 'paused', name: 'ubuntu.iso');
   }
+}
+
+class _NoDialog implements FolderPicker {
+  @override
+  Future<String?> pick({String? initial, String? title}) =>
+      throw UnsupportedError('no folder dialog');
+}
+
+class _ChoosesFolder implements FolderPicker {
+  _ChoosesFolder(this.path);
+
+  final String path;
+
+  @override
+  Future<String?> pick({String? initial, String? title}) async => path;
 }

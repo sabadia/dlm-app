@@ -130,8 +130,8 @@ class _TaskDetails extends ConsumerWidget {
               ),
               SizedBox(width: theme.metrics.spacing.sm),
               DlmBadge(
-                label: statusLabel(l, task.statusKind),
-                tone: statusTone(task.statusKind),
+                label: statusLabelFor(l, task),
+                tone: statusToneFor(task),
               ),
             ],
           ),

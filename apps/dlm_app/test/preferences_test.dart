@@ -121,9 +121,7 @@ void main() {
     final h = await open(tester);
     expect(h.container.read(trayEnabledProvider), isTrue);
     expect(h.container.read(notifyOnFinishProvider), isTrue);
-    await tester.tap(
-      toggle('Show an icon in the menu bar or notification area'),
-    );
+    await tester.tap(toggle('Keep DLM running in the background'));
     await settle(tester);
     expect(h.container.read(trayEnabledProvider), isFalse);
     await tester.tap(toggle('Tell me when a download finishes or fails'));

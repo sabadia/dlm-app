@@ -8,6 +8,7 @@ Task task(
   int size = 100,
   int downloaded = 0,
   String queueId = 'main',
+  String? engine,
 }) => Task(
   createdAt: DateTime.utc(2026, 10, 29),
   downloaded: downloaded,
@@ -24,6 +25,7 @@ Task task(
   status: status,
   updatedAt: DateTime.utc(2026, 10, 29),
   name: id,
+  engine: engine,
 );
 
 ProgressData progress(int downloaded, {int size = 100}) =>
@@ -126,6 +128,20 @@ class FakeTaskRepository implements TaskRepository {
     calls.add('restart:$id');
     _maybeFail();
     return task(id);
+  }
+
+  @override
+  Future<Task> stopSeeding(String id) async {
+    calls.add('stopSeeding:$id');
+    _maybeFail();
+    return task(id);
+  }
+
+  @override
+  Future<List<ItemResult>> retryFailed() async {
+    calls.add('retryFailed');
+    _maybeFail();
+    return const [];
   }
 
   @override

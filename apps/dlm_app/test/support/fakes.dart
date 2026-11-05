@@ -224,6 +224,18 @@ class FakeTaskRepository implements TaskRepository {
   }
 
   @override
+  Future<Task> stopSeeding(String id) async {
+    calls.add('stopSeeding $id');
+    return tasks.firstWhere((t) => t.id == id);
+  }
+
+  @override
+  Future<List<ItemResult>> retryFailed() async {
+    calls.add('retryFailed');
+    return const [];
+  }
+
+  @override
   Future<Task> move(String id, String queueId) => throw UnimplementedError();
 
   @override

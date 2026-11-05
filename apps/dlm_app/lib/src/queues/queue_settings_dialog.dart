@@ -1,4 +1,5 @@
 import 'package:dlm_api/dlm_api.dart';
+
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../add/path_picker.dart';
 import '../shell/feedback.dart';
 import 'queue_settings_draft.dart';
 
@@ -325,16 +327,39 @@ class _QueueSettingsDialogState extends ConsumerState<QueueSettingsDialog> {
               DlmFormRow(
                 label: l.qs_after_command_path,
                 control: SizedBox(
-                  width: 260,
-                  child: DlmTextField(
-                    semanticLabel: l.qs_after_command_path,
-                    controller: _command,
-                    errorText:
-                        d.command.trim().isEmpty ||
-                            QueueSettingsDraft.isAbsolutePath(d.command.trim())
-                        ? null
-                        : l.qs_invalid_path,
-                    onChanged: (v) => _change(() => d.command = v),
+                  width: 296,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: DlmTextField(
+                          semanticLabel: l.qs_after_command_path,
+                          controller: _command,
+                          errorText:
+                              d.command.trim().isEmpty ||
+                                  QueueSettingsDraft.isAbsolutePath(
+                                    d.command.trim(),
+                                  )
+                              ? null
+                              : l.qs_invalid_path,
+                          onChanged: (v) => _change(() => d.command = v),
+                        ),
+                      ),
+                      // Only the system's file dialog can browse, and only for
+                      // the server on this computer.
+                      if (canBrowseFiles(context)) ...[
+                        const SizedBox(width: 6),
+                        DlmIconButton(
+                          icon: const DlmIcon(DlmIconName.folder),
+                          semanticLabel: l.add_folder_browse,
+                          onPressed: () async {
+                            final chosen = await pickFilePath();
+                            if (chosen == null) return;
+                            _command.text = chosen;
+                            _change(() => d.command = chosen);
+                          },
+                        ),
+                      ],
+                    ],
                   ),
                 ),
               ),

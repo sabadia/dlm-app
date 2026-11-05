@@ -260,14 +260,6 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     final tray = ref.read(trayProvider);
     final window = ref.read(windowControlProvider);
     final enabled = ref.read(trayEnabledProvider);
-    if (!enabled || !tray.supported) {
-      if (tray.visible) await tray.hide();
-      await window.holdClose(hold: false);
-      _shownMenu = null;
-      _shownTooltip = null;
-      _shownTitle = null;
-      return;
-    }
     final l = AppLocalizations.of(context);
     final speed = _speed();
     final text = speed == null
@@ -281,6 +273,20 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     final title = Platform.isMacOS ? text : null;
     final tooltip = text ?? l.tray_tooltip;
     final menu = _menu(l);
+    // Running in the background is the preference, not the icon: the window is
+    // kept from closing even while the icon is still being made, so that
+    // closing it never quits by accident. (macOS can always bring the window
+    // back from the Dock; elsewhere only the icon can.)
+    await window.holdClose(
+      hold: enabled && (tray.supported || Platform.isMacOS),
+    );
+    if (!enabled || !tray.supported) {
+      if (tray.visible) await tray.hide();
+      _shownMenu = null;
+      _shownTooltip = null;
+      _shownTitle = null;
+      return;
+    }
     if (!tray.visible) {
       await tray.show(
         iconAsset: trayIconAsset,
@@ -288,7 +294,6 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
         tooltip: tooltip,
         title: title,
       );
-      await window.holdClose(hold: true);
     } else if (_shownTitle != title ||
         _shownTooltip != tooltip ||
         !listEquals(_shownMenu, menu)) {
@@ -302,8 +307,9 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
   Future<void> _onClose() async {
     final tray = ref.read(trayProvider);
     final window = ref.read(windowControlProvider);
-    // Without an icon to bring the window back from, closing quits.
-    if (tray.visible) {
+    // Closing the window closes the window only: downloads go on and the icon
+    // stays. Without a way to bring the window back, closing quits instead.
+    if (ref.read(trayEnabledProvider) && (tray.visible || Platform.isMacOS)) {
       await window.hide();
       return;
     }
@@ -315,6 +321,7 @@ class _IntegrationBinderState extends ConsumerState<IntegrationBinder> {
     final window = ref.read(windowControlProvider);
     switch (id) {
       case TrayIds.show:
+      case TrayController.clicked:
         unawaited(window.show());
       case TrayIds.add:
         unawaited(window.show());

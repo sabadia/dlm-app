@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
 import 'package:tray_manager/tray_manager.dart';
 
@@ -42,6 +43,11 @@ class TrayEntry {
 /// The icon in the menu bar or notification area, with a title (macOS only,
 /// next to the icon), a tooltip and a menu.
 abstract interface class TrayController {
+  /// The id [selections] reports when the icon itself is clicked (Windows and
+  /// Linux, where a click shows the window and the menu is on the right button;
+  /// on macOS a click opens the menu).
+  static const clicked = 'tray.clicked';
+
   /// Whether this system can show a tray icon at all.
   bool get supported;
 
@@ -174,6 +180,17 @@ class TrayManagerController implements TrayController {
       ..isIconTemplate = iconAsset.contains('template')
       ..icon = ImageAsset.fromAsset(iconAsset);
     _icon = icon;
+    if (!Platform.isMacOS) {
+      // The menu bar of macOS opens its menu on a click; elsewhere a click
+      // brings the window and the menu waits for the right button.
+      icon
+        ..setContextMenuTrigger(ContextMenuTrigger.rightClicked)
+        ..addListener((event) {
+          if (event is TrayIconClickedEvent) {
+            _selections.add(TrayController.clicked);
+          }
+        });
+    }
     await update(menu: menu, tooltip: tooltip, title: title);
     icon.setVisible(true);
   }
