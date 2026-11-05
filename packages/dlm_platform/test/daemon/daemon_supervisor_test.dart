@@ -64,6 +64,18 @@ void main() {
     },
   );
 
+  test(
+    'an address saved in the configuration is not overridden by a flag',
+    () async {
+      Directory('${dir.path}/config').createSync();
+      File('${dir.path}/config/config.yaml').writeAsStringSync(
+        'server:\n    address: 127.0.0.1:17171\n    allow_remote: false\n',
+      );
+      await sup.start();
+      expect(fake.launches.single, ['serve', '--home', dir.path]);
+    },
+  );
+
   test('takes over a daemon that already runs for this home', () async {
     final other = await fake.external();
     await sup.start();

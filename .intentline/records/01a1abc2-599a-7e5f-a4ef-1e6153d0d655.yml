@@ -1,0 +1,176 @@
+schema_version: 1
+id: 01a1abc2-599a-7e5f-a4ef-1e6153d0d655
+status: draft
+created_at: '2026-11-05T12:50:03Z'
+updated_at: '2026-11-05T12:50:03Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: Show retry state and reasons for failed downloads, add Retry all failed and Stop seeding for torrents, run in the background with a tray that shows the window, a startup splash, and Browse buttons on folder and file path fields
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: .github/workflows/ci.yml
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/add_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/add/path_picker.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/connection_gate.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/connection/startup_splash.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/inspector/inspector_pane.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/categories_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/manage/plugins_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/platform/integration_binder.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/queues/queue_settings_dialog.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/task_card.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/task_cells.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/task_format.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/settings/settings_form.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_menus.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/task_commands.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/macos/Runner/AppDelegate.swift
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/pubspec.yaml
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/add_download_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/integration_binder_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/preferences_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/retry_seeding_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/support/fakes.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/task_commands_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/.spec-sha256
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/export.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/retry_settings.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/retry_settings.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/settings.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/settings.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task_error.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task_error.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task_retry.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task_retry.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/rest_client.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/tasks/tasks_client.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/tasks/tasks_client.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/spec/PINNED.md
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/spec/openapi-3.0.json
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_actions.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_repository.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_status.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/test/support/fakes.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/test/tasks/task_retry_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en_XA.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations_en.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_platform/lib/src/tray.dart
+  start_line: null
+  end_line: null
+- path: packaging/daemon-version
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
