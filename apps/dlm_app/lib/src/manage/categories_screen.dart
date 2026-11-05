@@ -7,7 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../add/folder_browser.dart';
+import '../add/path_picker.dart';
 import '../shell/feedback.dart';
 import 'category_draft.dart';
 
@@ -412,7 +412,7 @@ class _CategoryDialogState extends ConsumerState<CategoryDialog> {
   }
 
   Future<void> _browse() async {
-    final chosen = await pickDaemonFolder(
+    final chosen = await pickFolderPath(
       context,
       start: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
     );

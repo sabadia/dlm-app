@@ -553,6 +553,12 @@ abstract class AppLocalizations {
   /// **'About DLM'**
   String get menu_about;
 
+  /// No description provided for @menu_close_window.
+  ///
+  /// In en, this message translates to:
+  /// **'Close window (DLM keeps running)'**
+  String get menu_close_window;
+
   /// No description provided for @command_go_to.
   ///
   /// In en, this message translates to:
@@ -787,6 +793,78 @@ abstract class AppLocalizations {
   /// **'Failed'**
   String get task_status_error;
 
+  /// No description provided for @task_status_retrying.
+  ///
+  /// In en, this message translates to:
+  /// **'Retrying'**
+  String get task_status_retrying;
+
+  /// No description provided for @task_status_seeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Seeding'**
+  String get task_status_seeding;
+
+  /// No description provided for @task_retry_in.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry {attempt} of {max} in {time}'**
+  String task_retry_in(int attempt, int max, String time);
+
+  /// No description provided for @task_retry_soon.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry {attempt} of {max} starting'**
+  String task_retry_soon(int attempt, int max);
+
+  /// No description provided for @task_gave_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Gave up'**
+  String get task_gave_up;
+
+  /// No description provided for @task_reason_network.
+  ///
+  /// In en, this message translates to:
+  /// **'Network problem'**
+  String get task_reason_network;
+
+  /// No description provided for @task_reason_link_expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Link expired'**
+  String get task_reason_link_expired;
+
+  /// No description provided for @task_reason_disk_full.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough disk space'**
+  String get task_reason_disk_full;
+
+  /// No description provided for @task_reason_http.
+  ///
+  /// In en, this message translates to:
+  /// **'The server refused the request'**
+  String get task_reason_http;
+
+  /// No description provided for @task_reason_checksum.
+  ///
+  /// In en, this message translates to:
+  /// **'File does not match its checksum'**
+  String get task_reason_checksum;
+
+  /// No description provided for @task_reason_postprocess.
+  ///
+  /// In en, this message translates to:
+  /// **'A step after the download failed'**
+  String get task_reason_postprocess;
+
+  /// No description provided for @task_reason_infected.
+  ///
+  /// In en, this message translates to:
+  /// **'Flagged by the virus scan'**
+  String get task_reason_infected;
+
   /// No description provided for @task_status_unknown.
   ///
   /// In en, this message translates to:
@@ -894,6 +972,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resume'**
   String get action_resume;
+
+  /// No description provided for @action_retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get action_retry;
+
+  /// No description provided for @action_retry_all_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry all failed'**
+  String get action_retry_all_failed;
+
+  /// No description provided for @action_stop_seeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop seeding and mark complete'**
+  String get action_stop_seeding;
+
+  /// No description provided for @toast_retrying_all.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No failed downloads} =1{Retrying 1 download} other{Retrying {count} downloads}}'**
+  String toast_retrying_all(int count);
+
+  /// No description provided for @toast_seeding_stopped.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped seeding; the download is complete'**
+  String get toast_seeding_stopped;
 
   /// No description provided for @action_restart.
   ///
@@ -5476,13 +5584,13 @@ abstract class AppLocalizations {
   /// No description provided for @pref_tray.
   ///
   /// In en, this message translates to:
-  /// **'Show an icon in the menu bar or notification area'**
+  /// **'Keep DLM running in the background'**
   String get pref_tray;
 
   /// No description provided for @pref_tray_desc.
   ///
   /// In en, this message translates to:
-  /// **'Closing the window then keeps the app running; quit from the icon\'s menu. Without an icon, closing the window quits.'**
+  /// **'Closing the window only closes the window: downloads continue and the icon in the menu bar or notification area stays. Choose Quit from that icon to stop DLM. Turn this off to quit when the window closes.'**
   String get pref_tray_desc;
 
   /// No description provided for @pref_notify.

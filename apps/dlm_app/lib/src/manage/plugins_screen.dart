@@ -7,7 +7,7 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../add/folder_browser.dart';
+import '../add/path_picker.dart';
 import '../shell/feedback.dart';
 import 'log_view.dart';
 
@@ -310,7 +310,7 @@ class _InstallPluginDialogState extends State<InstallPluginDialog> {
   }
 
   Future<void> _browse() async {
-    final chosen = await pickDaemonFolder(context);
+    final chosen = await pickFolderPath(context);
     if (chosen != null && mounted) {
       setState(() {
         _source.text = chosen;

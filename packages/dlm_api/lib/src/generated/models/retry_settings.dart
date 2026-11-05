@@ -13,6 +13,8 @@ class RetrySettings {
     this.maxAttempts,
     this.maxBackoff,
     this.respectRetryAfter,
+    this.taskAttempts,
+    this.taskBackoff,
   });
 
   factory RetrySettings.fromJson(Map<String, Object?> json) =>
@@ -22,6 +24,8 @@ class RetrySettings {
   final int? maxAttempts;
   final String? maxBackoff;
   final bool? respectRetryAfter;
+  final int? taskAttempts;
+  final String? taskBackoff;
 
   Map<String, Object?> toJson() => _$RetrySettingsToJson(this);
 }

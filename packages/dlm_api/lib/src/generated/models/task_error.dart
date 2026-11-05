@@ -4,6 +4,8 @@
 
 import 'package:json_annotation/json_annotation.dart';
 
+import 'task_retry.dart';
+
 part 'task_error.g.dart';
 
 @JsonSerializable()
@@ -13,6 +15,7 @@ class TaskError {
     required this.code,
     required this.message,
     required this.retryable,
+    this.retry,
   });
 
   factory TaskError.fromJson(Map<String, Object?> json) =>
@@ -21,6 +24,7 @@ class TaskError {
   final DateTime at;
   final String code;
   final String message;
+  final TaskRetry? retry;
   final bool retryable;
 
   Map<String, Object?> toJson() => _$TaskErrorToJson(this);

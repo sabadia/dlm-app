@@ -161,6 +161,7 @@ export 'models/task_list.dart';
 export 'models/task_progress_event.dart';
 export 'models/task_refresh_event.dart';
 export 'models/task_refresh_requested_event.dart';
+export 'models/task_retry.dart';
 export 'models/task_selector.dart';
 export 'models/task_selector_filter.dart';
 export 'models/task_status_event.dart';

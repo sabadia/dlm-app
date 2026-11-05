@@ -83,7 +83,8 @@ void main() {
     await tester.sendKeyEvent(LogicalKeyboardKey.escape);
     await tester.pump(const Duration(milliseconds: 100));
     await rightClick(tester, 'broken.zip');
-    expect(find.text('Resume'), findsOneWidget, reason: 'failed can retry');
+    expect(find.text('Retry'), findsOneWidget, reason: 'failed can retry');
+    expect(find.text('Resume'), findsNothing);
     expect(find.text('Download again'), findsOneWidget);
     expect(find.text('Pause'), findsNothing);
   });

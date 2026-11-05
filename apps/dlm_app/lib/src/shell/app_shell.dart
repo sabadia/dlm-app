@@ -336,6 +336,16 @@ class _AppShellState extends ConsumerState<AppShell> {
               semanticLabel: l.toolbar_add,
               onPressed: () => showAddDownload(context, ref),
             ),
+            if (DownloadsFilter.fromSegment(
+                  widget.location.pathSegments.length >= 2
+                      ? widget.location.pathSegments[1]
+                      : null,
+                ) ==
+                DownloadsFilter.failed)
+              DlmButton(
+                label: l.action_retry_all_failed,
+                onPressed: () => retryFailedTasks(context, ref),
+              ),
             if (selected.isNotEmpty) ...[
               Text(
                 l.selection_count(selected.length),
@@ -352,11 +362,23 @@ class _AppShellState extends ConsumerState<AppShell> {
               ),
               DlmIconButton(
                 icon: const DlmIcon(DlmIconName.play),
-                semanticLabel: l.action_resume,
+                semanticLabel:
+                    selected.every((t) => t.statusKind == TaskStatus.error)
+                    ? l.action_retry
+                    : l.action_resume,
                 onPressed: selected.any((t) => t.statusKind.canResume)
                     ? () => resumeTasks(context, ref, ids)
                     : null,
               ),
+              if (selected.any((t) => t.isSeeding))
+                DlmIconButton(
+                  icon: const DlmIcon(DlmIconName.stop),
+                  semanticLabel: l.action_stop_seeding,
+                  onPressed: () => stopSeedingTasks(context, ref, [
+                    for (final t in selected)
+                      if (t.isSeeding) t.id,
+                  ]),
+                ),
               DlmIconButton(
                 icon: const DlmIcon(DlmIconName.trash),
                 semanticLabel: l.action_delete,

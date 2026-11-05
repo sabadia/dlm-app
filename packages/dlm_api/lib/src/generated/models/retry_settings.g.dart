@@ -12,6 +12,8 @@ RetrySettings _$RetrySettingsFromJson(Map<String, dynamic> json) =>
       maxAttempts: (json['maxAttempts'] as num?)?.toInt(),
       maxBackoff: json['maxBackoff'] as String?,
       respectRetryAfter: json['respectRetryAfter'] as bool?,
+      taskAttempts: (json['taskAttempts'] as num?)?.toInt(),
+      taskBackoff: json['taskBackoff'] as String?,
     );
 
 Map<String, dynamic> _$RetrySettingsToJson(RetrySettings instance) =>
@@ -20,4 +22,6 @@ Map<String, dynamic> _$RetrySettingsToJson(RetrySettings instance) =>
       'maxAttempts': instance.maxAttempts,
       'maxBackoff': instance.maxBackoff,
       'respectRetryAfter': instance.respectRetryAfter,
+      'taskAttempts': instance.taskAttempts,
+      'taskBackoff': instance.taskBackoff,
     };

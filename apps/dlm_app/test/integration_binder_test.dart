@@ -237,7 +237,9 @@ void main() {
     expect(window.quits, 1);
   });
 
-  appTest('without a tray, closing the window quits', (tester) async {
+  appTest('without a tray, closing the window quits (macOS hides)', (
+    tester,
+  ) async {
     final tray = RecordingTray(supported: false);
     final window = RecordingWindow();
     await pumpApp(
@@ -249,11 +251,55 @@ void main() {
       ],
     );
     expect(tray.visible, isFalse);
+    // Only macOS can bring a hidden window back without an icon (the Dock).
+    expect(window.holding, Platform.isMacOS);
+    window.requestClose();
+    await settle(tester);
+    expect(window.quits, Platform.isMacOS ? 0 : 1);
+    expect(window.hides, Platform.isMacOS ? 1 : 0);
+  });
+
+  appTest('a click on the tray icon shows the window', (tester) async {
+    final tray = RecordingTray();
+    final window = RecordingWindow();
+    await pumpApp(
+      tester,
+      overrides: [
+        trayProvider.overrideWithValue(tray),
+        windowControlProvider.overrideWithValue(window),
+        notifierProvider.overrideWithValue(RecordingNotifier()),
+      ],
+    );
+    final before = window.shows;
+    tray.choose(TrayController.clicked);
+    await settle(tester);
+    expect(window.shows, before + 1);
+  });
+
+  appTest('with running in the background off, closing the window quits', (
+    tester,
+  ) async {
+    final tray = RecordingTray();
+    final window = RecordingWindow();
+    final h = await pumpApp(
+      tester,
+      overrides: [
+        trayProvider.overrideWithValue(tray),
+        windowControlProvider.overrideWithValue(window),
+        notifierProvider.overrideWithValue(RecordingNotifier()),
+      ],
+    );
+    expect(window.holding, isTrue);
+    // Real file I/O never completes inside the test's fake-async zone.
+    await tester.runAsync(
+      () => h.container.read(trayEnabledProvider.notifier).set(false),
+    );
+    await settle(tester);
     expect(window.holding, isFalse);
+    expect(tray.visible, isFalse);
     window.requestClose();
     await settle(tester);
     expect(window.quits, 1);
-    expect(window.hides, 0);
   });
 
   appTest('quitting from the tray stops the daemon the app started', (
@@ -296,8 +342,9 @@ void main() {
     );
     window.requestClose();
     await settle(tester);
-    expect(daemon.disposed, isTrue);
-    expect(window.quits, 1);
+    // macOS keeps the app (and the daemon) running behind the Dock icon.
+    expect(daemon.disposed, !Platform.isMacOS);
+    expect(window.quits, Platform.isMacOS ? 0 : 1);
   });
 
   appTest('a finished or failed download is announced, and its buttons act', (

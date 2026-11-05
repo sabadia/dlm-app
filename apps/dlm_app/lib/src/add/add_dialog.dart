@@ -18,7 +18,7 @@ import '../shell/feedback.dart';
 import 'add_advanced.dart';
 import 'add_input.dart';
 import 'add_results.dart';
-import 'folder_browser.dart';
+import 'path_picker.dart';
 
 /// How long the dialog waits after typing before it looks at the link.
 const Duration addLookupDelay = Duration(milliseconds: 400);
@@ -574,7 +574,7 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
   }
 
   Future<void> _browse() async {
-    final chosen = await pickDaemonFolder(
+    final chosen = await pickFolderPath(
       context,
       start: _dir.text.trim().isEmpty ? null : _dir.text.trim(),
     );
