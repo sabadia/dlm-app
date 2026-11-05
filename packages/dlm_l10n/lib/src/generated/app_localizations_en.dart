@@ -3690,6 +3690,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sv_token_hint => 'From dlm token add, on that computer';
 
   @override
+  String get eng_title => 'Server version';
+
+  @override
+  String eng_running(String version) {
+    return 'Running $version';
+  }
+
+  @override
+  String get eng_running_unknown => 'The server is not running';
+
+  @override
+  String get eng_check => 'Check for a new server version';
+
+  @override
+  String get eng_checking => 'Checking…';
+
+  @override
+  String eng_up_to_date(String version) {
+    return '$version is the latest server version.';
+  }
+
+  @override
+  String eng_available(String version) {
+    return 'Server $version is available. Updating downloads it, checks it and restarts the server; running downloads start again afterwards.';
+  }
+
+  @override
+  String eng_update(String version) {
+    return 'Update to $version';
+  }
+
+  @override
+  String get eng_updating => 'Updating…';
+
+  @override
+  String eng_done(String version) {
+    return 'Now running server $version.';
+  }
+
+  @override
+  String eng_failed(String reason) {
+    return 'The server could not be updated: $reason';
+  }
+
+  @override
+  String get eng_unsupported =>
+      'This app is connected to another server, or runs without its own; update that server where it runs.';
+
+  @override
   String get sv_save => 'Save and use';
 
   @override
@@ -7435,6 +7484,55 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   @override
   String get sv_token_hint =>
       '[Frôm dlm tôkéñ àdd, ôñ thàt çômpûtér~~~~~~~~~~~]';
+
+  @override
+  String get eng_title => '[Šérvér véršîôñ~~~~~]';
+
+  @override
+  String eng_running(String version) {
+    return '[Rûññîñg $version~~~~~~]';
+  }
+
+  @override
+  String get eng_running_unknown => '[Thé šérvér îš ñôt rûññîñg~~~~~~~~]';
+
+  @override
+  String get eng_check => '[Çhéçk fôr à ñéw šérvér véršîôñ~~~~~~~~~]';
+
+  @override
+  String get eng_checking => '[Çhéçkîñg…~~~]';
+
+  @override
+  String eng_up_to_date(String version) {
+    return '[$version îš thé làtéšt šérvér véršîôñ.~~~~~~~~~~~~]';
+  }
+
+  @override
+  String eng_available(String version) {
+    return '[Šérvér $version îš àvàîlàblé. Ûpdàtîñg dôwñlôàdš ît, çhéçkš ît àñd réštàrtš thé šérvér; rûññîñg dôwñlôàdš štàrt àgàîñ àftérwàrdš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String eng_update(String version) {
+    return '[Ûpdàté tô $version~~~~~~]';
+  }
+
+  @override
+  String get eng_updating => '[Ûpdàtîñg…~~~]';
+
+  @override
+  String eng_done(String version) {
+    return '[Ñôw rûññîñg šérvér $version.~~~~~~~~~]';
+  }
+
+  @override
+  String eng_failed(String reason) {
+    return '[Thé šérvér çôûld ñôt bé ûpdàtéd: $reason~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get eng_unsupported =>
+      '[Thîš àpp îš çôññéçtéd tô àñôthér šérvér, ôr rûñš wîthôût îtš ôwñ; ûpdàté thàt šérvér whéré ît rûñš.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
 
   @override
   String get sv_save => '[Šàvé àñd ûšé~~~~]';

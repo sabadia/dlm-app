@@ -10,6 +10,7 @@ import 'src/app.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
 import 'src/crash_handlers.dart';
+import 'src/manage/engine_group.dart';
 import 'src/platform/activity.dart';
 import 'src/platform/instance_open.dart';
 import 'src/platform/startup.dart';
@@ -51,7 +52,16 @@ void main(List<String> args) {
     // bundled daemon first.
     final savedProfiles = await profiles.load();
     const locator = DaemonLocator();
-    final executable = locator.find();
+    // A server the app downloaded replaces the bundled one when it is newer
+    // (Manage -> Daemon -> Server version); DLM_DAEMON still overrides both.
+    final engines = DaemonEngines(
+      '${dirs.root}${Platform.pathSeparator}engines',
+    );
+    final installedEngine =
+        (Platform.environment['DLM_DAEMON'] ?? '').isNotEmpty
+        ? null
+        : engines.preferred(bundled: _bundledDaemonVersion);
+    final executable = installedEngine?.path ?? locator.find();
     final login = platformLoginItem(
       flatpakMarker: File('${dirs.root}/login-item-enabled'),
     );
@@ -72,9 +82,11 @@ void main(List<String> args) {
               home: dirs.daemonHome,
               // Set by the packaging scripts: after an update a daemon of an
               // older version that is still running is replaced.
-              expectedVersion: _bundledDaemonVersion.isEmpty
-                  ? null
-                  : _bundledDaemonVersion,
+              expectedVersion:
+                  installedEngine?.version ??
+                  (_bundledDaemonVersion.isEmpty
+                      ? null
+                      : _bundledDaemonVersion),
             ),
           );
 
@@ -91,6 +103,7 @@ void main(List<String> args) {
           profileStoreProvider.overrideWithValue(profiles),
           initialProfilesProvider.overrideWithValue(savedProfiles),
           localDaemonProvider.overrideWithValue(daemon),
+          daemonEnginesProvider.overrideWithValue(engines),
           windowChromeProvider.overrideWithValue(platformWindowChrome()),
           globalHotkeysProvider.overrideWithValue(HotkeyManagerGlobalHotkeys()),
           loginItemProvider.overrideWithValue(login),

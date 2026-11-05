@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../settings/settings_form.dart' show humaniseSetting, isDuration;
 import '../shell/feedback.dart';
 import 'config_draft.dart';
+import 'engine_group.dart';
 import 'log_view.dart';
 import 'servers_group.dart';
 
@@ -278,6 +279,8 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
                       .logs(level: level, q: q),
                 ),
               ),
+              SizedBox(height: gap),
+              const EngineGroup(),
               SizedBox(height: gap),
               const ServersGroup(),
             ],

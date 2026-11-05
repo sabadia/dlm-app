@@ -1,11 +1,17 @@
+import 'dart:convert';
+
 import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/app.dart';
+import 'package:dlm_app/src/connection/connection_controller.dart';
 import 'package:dlm_app/src/manage/access_screen.dart';
 import 'package:dlm_app/src/manage/config_draft.dart';
 import 'package:dlm_app/src/manage/daemon_screen.dart';
+import 'package:dlm_app/src/manage/engine_group.dart';
 import 'package:dlm_core/dlm_core.dart';
+import 'package:dlm_platform/dlm_platform.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
 import 'support/app_harness.dart';
@@ -215,11 +221,12 @@ void main() {
   Future<AppHarness> open(
     WidgetTester tester,
     String page,
-    FakeDaemon daemon,
-  ) async {
+    FakeDaemon daemon, {
+    List<Override> more = const [],
+  }) async {
     final h = await pumpApp(
       tester,
-      overrides: [daemonRepositoryProvider.overrideWithValue(daemon)],
+      overrides: [daemonRepositoryProvider.overrideWithValue(daemon), ...more],
     );
     h.container.read(routerProvider).go('/manage/$page');
     await settle(tester);
@@ -243,6 +250,83 @@ void main() {
       expect(find.text('flag'), findsOneWidget);
       expect(find.text('set by a flag or the environment'), findsOneWidget);
       expect(find.text('Needs restart'), findsWidgets);
+    });
+
+    group('server version', () {
+      Future<AppHarness> openEngines(
+        WidgetTester tester, {
+        required String latest,
+        bool remote = false,
+      }) async {
+        final h = await open(
+          tester,
+          'daemon',
+          FakeDaemon(),
+          more: [
+            if (remote)
+              activeProfileProvider.overrideWithValue(
+                const ConnectionProfile(
+                  id: 'nas',
+                  name: 'NAS',
+                  kind: ProfileKind.remote,
+                  url: 'https://nas.lan:7777',
+                ),
+              ),
+            runningServerVersionProvider.overrideWithValue('0.7.3'),
+            daemonEnginesProvider.overrideWithValue(
+              DaemonEngines(
+                '/nonexistent/engines',
+                fetch: (url) async => utf8.encode(
+                  jsonEncode({'tag_name': latest, 'html_url': ''}),
+                ),
+              ),
+            ),
+          ],
+        );
+        await tester.scrollUntilVisible(
+          find.text('Check for a new server version'),
+          300,
+          scrollable: find
+              .descendant(
+                of: find.byType(DaemonScreen),
+                matching: find.byType(Scrollable),
+              )
+              .first,
+        );
+        return h;
+      }
+
+      Finder button(String label) =>
+          find.byWidgetPredicate((w) => w is DlmButton && w.label == label);
+
+      appTest('a newer server release is offered', (tester) async {
+        await openEngines(tester, latest: 'v0.7.9');
+        expect(find.text('Running 0.7.3'), findsOneWidget);
+        await tester.tap(button('Check for a new server version'));
+        await settle(tester);
+        expect(button('Update to 0.7.9'), findsOneWidget);
+      });
+
+      appTest('the latest version is reported when nothing is newer', (
+        tester,
+      ) async {
+        await openEngines(tester, latest: 'v0.7.3');
+        await tester.tap(button('Check for a new server version'));
+        await settle(tester);
+        expect(
+          find.text('0.7.3 is the latest server version.'),
+          findsOneWidget,
+        );
+        expect(button('Update to 0.7.3'), findsNothing);
+      });
+
+      appTest('another server is not updated from here', (tester) async {
+        await openEngines(tester, latest: 'v0.7.9', remote: true);
+        final check = tester.widget<DlmButton>(
+          button('Check for a new server version'),
+        );
+        expect(check.onPressed, isNull);
+      });
     });
 
     appTest('the log of the daemon is shown', (tester) async {
