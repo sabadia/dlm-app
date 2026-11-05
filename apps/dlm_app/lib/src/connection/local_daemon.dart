@@ -16,6 +16,10 @@ abstract interface class LocalDaemon {
   /// Restarts the daemon process.
   Future<void> restart();
 
+  /// Runs the daemon at [path] (version [version]) from now on and restarts
+  /// into it. Used after the app downloaded a newer server.
+  Future<void> useEngine(String path, String version);
+
   /// Status changes (restarts, crashes).
   Stream<DaemonStatus> get status;
 
@@ -52,6 +56,12 @@ class SupervisedDaemon implements LocalDaemon {
 
   @override
   Future<void> restart() => supervisor.restart();
+
+  @override
+  Future<void> useEngine(String path, String version) {
+    supervisor.useBinary(path, version);
+    return supervisor.restart();
+  }
 
   @override
   Stream<DaemonStatus> get status => supervisor.status;
@@ -91,6 +101,10 @@ class MissingDaemon implements LocalDaemon {
 
   @override
   Future<void> restart() async {}
+
+  @override
+  Future<void> useEngine(String path, String version) async =>
+      throw UnsupportedError('there is no daemon of this app to switch');
 
   @override
   Stream<DaemonStatus> get status => const Stream.empty();

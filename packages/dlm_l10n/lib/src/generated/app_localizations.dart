@@ -6217,6 +6217,78 @@ abstract class AppLocalizations {
   /// **'From dlm token add, on that computer'**
   String get sv_token_hint;
 
+  /// No description provided for @eng_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Server version'**
+  String get eng_title;
+
+  /// No description provided for @eng_running.
+  ///
+  /// In en, this message translates to:
+  /// **'Running {version}'**
+  String eng_running(String version);
+
+  /// No description provided for @eng_running_unknown.
+  ///
+  /// In en, this message translates to:
+  /// **'The server is not running'**
+  String get eng_running_unknown;
+
+  /// No description provided for @eng_check.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for a new server version'**
+  String get eng_check;
+
+  /// No description provided for @eng_checking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking…'**
+  String get eng_checking;
+
+  /// No description provided for @eng_up_to_date.
+  ///
+  /// In en, this message translates to:
+  /// **'{version} is the latest server version.'**
+  String eng_up_to_date(String version);
+
+  /// No description provided for @eng_available.
+  ///
+  /// In en, this message translates to:
+  /// **'Server {version} is available. Updating downloads it, checks it and restarts the server; running downloads start again afterwards.'**
+  String eng_available(String version);
+
+  /// No description provided for @eng_update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update to {version}'**
+  String eng_update(String version);
+
+  /// No description provided for @eng_updating.
+  ///
+  /// In en, this message translates to:
+  /// **'Updating…'**
+  String get eng_updating;
+
+  /// No description provided for @eng_done.
+  ///
+  /// In en, this message translates to:
+  /// **'Now running server {version}.'**
+  String eng_done(String version);
+
+  /// No description provided for @eng_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'The server could not be updated: {reason}'**
+  String eng_failed(String reason);
+
+  /// No description provided for @eng_unsupported.
+  ///
+  /// In en, this message translates to:
+  /// **'This app is connected to another server, or runs without its own; update that server where it runs.'**
+  String get eng_unsupported;
+
   /// No description provided for @sv_save.
   ///
   /// In en, this message translates to:

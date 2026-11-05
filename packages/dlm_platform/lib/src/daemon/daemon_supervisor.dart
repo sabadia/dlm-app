@@ -162,14 +162,14 @@ class DaemonSupervisor {
        _now = now;
 
   /// The daemon executable.
-  final String executable;
+  String executable;
 
   /// The daemon's `--home` directory.
   final String home;
 
   /// The daemon version this app ships with; a running daemon of another
   /// version is replaced. Null accepts any.
-  final String? expectedVersion;
+  String? expectedVersion;
 
   /// Crash handling.
   final RestartPolicy restartPolicy;
@@ -232,6 +232,13 @@ class DaemonSupervisor {
     final gen = ++_generation;
     _set(const DaemonStatus(DaemonPhase.starting));
     await _bringUp(gen);
+  }
+
+  /// Runs [path] from the next start on, expecting [version]: a daemon of
+  /// another version that is still running is replaced then.
+  void useBinary(String path, String? version) {
+    executable = path;
+    expectedVersion = version;
   }
 
   /// Stops and starts again (for example after changing boot configuration).

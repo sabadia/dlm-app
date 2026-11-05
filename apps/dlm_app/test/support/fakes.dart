@@ -56,6 +56,14 @@ class FakeDaemon implements LocalDaemon {
   @override
   Future<void> restart() async => restarts++;
 
+  String? engine;
+
+  @override
+  Future<void> useEngine(String path, String version) async {
+    engine = '$path $version';
+    restarts++;
+  }
+
   @override
   Stream<DaemonStatus> get status => controller.stream;
 

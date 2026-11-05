@@ -3,6 +3,7 @@ library;
 
 export 'src/app_dirs.dart';
 export 'src/awake_lock.dart';
+export 'src/daemon/daemon_engines.dart';
 export 'src/daemon/daemon_locator.dart';
 export 'src/daemon/daemon_service.dart';
 export 'src/daemon/daemon_supervisor.dart';
