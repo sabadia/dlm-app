@@ -1,0 +1,44 @@
+schema_version: 1
+id: 01a1aaf8-4e30-7e79-8037-767888a4c2da
+status: draft
+created_at: '2026-11-05T09:09:22Z'
+updated_at: '2026-11-05T09:09:22Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: Show the newest download at the top of the list by default, so a just-added download is visible without scrolling; queue pages keep queue order until sorted so drag-to-reorder still works; bundle dlm-server v0.7.3
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: .github/workflows/ci.yml
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/downloads_screen.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/screens/list_views.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/list_options_test.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/spec/PINNED.md
+  start_line: null
+  end_line: null
+- path: packaging/daemon-version
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

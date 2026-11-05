@@ -30,13 +30,20 @@ enum ListGrouping {
 
 /// How the downloads list is sorted and narrowed beyond the page it is on.
 class ListOptions {
-  /// Creates options; the default is the daemon's own order.
+  /// Creates options; the default is the newest download first, so a download
+  /// that was just added is at the top and nobody scrolls down to find it. The
+  /// queue order (what drag-to-reorder changes) is one choice away.
   const ListOptions({
-    this.sort = Sort.position,
-    this.descending = false,
+    this.sort = Sort.created,
+    this.descending = true,
     this.engine,
     this.grouping = ListGrouping.none,
+    this.chosen = false,
   });
+
+  /// Whether the user picked the sort (or loaded a saved view). Until then a
+  /// queue page shows its queue order, which is what dragging a row changes.
+  final bool chosen;
 
   /// The sort key.
   final Sort sort;
@@ -60,6 +67,7 @@ class ListOptions {
     descending: descending ?? this.descending,
     engine: engine,
     grouping: grouping ?? this.grouping,
+    chosen: true,
   );
 
   /// The direction to ask the daemon for; null for its natural order.
@@ -70,13 +78,32 @@ class ListOptions {
       : Order.asc;
 }
 
+/// The options a list shows: [options], except that a queue page the user has
+/// not sorted shows the queue order (its rows can be dragged to reorder it).
+ListOptions effectiveListOptions(ListOptions options, {String? queueId}) {
+  if (queueId == null || options.chosen) return options;
+  return ListOptions(
+    sort: Sort.position,
+    descending: false,
+    engine: options.engine,
+    grouping: options.grouping,
+  );
+}
+
 /// The sort and engine filter of the downloads list.
 class ListOptionsNotifier extends Notifier<ListOptions> {
   @override
   ListOptions build() => const ListOptions();
 
-  /// Replaces the options.
-  void set(ListOptions options) => state = options;
+  /// Replaces the options: a change of the user's, so it is kept on queue
+  /// pages too.
+  void set(ListOptions options) => state = ListOptions(
+    sort: options.sort,
+    descending: options.descending,
+    engine: options.engine,
+    grouping: options.grouping,
+    chosen: true,
+  );
 }
 
 /// The sort and engine filter of the list.
@@ -103,9 +130,17 @@ const List<String> engineChoices = [
 ];
 
 /// The entries of the display menu: row height, grouping and sorting.
-List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
+List<DlmMenuEntry> displayMenuEntries(
+  BuildContext context,
+  WidgetRef ref, {
+  String? queueId,
+}) {
   final l = AppLocalizations.of(context);
   final density = ref.read(densityProvider);
+  final current = effectiveListOptions(
+    ref.read(listOptionsProvider),
+    queueId: queueId,
+  );
   return [
     DlmMenuHeader(l.view_density),
     DlmMenuItem(
@@ -131,10 +166,10 @@ List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
           ListGrouping.queue => l.view_group_queue,
           ListGrouping.engine => l.view_group_engine,
         },
-        checked: ref.read(listOptionsProvider).grouping == g,
+        checked: current.grouping == g,
         onPressed: () => ref
             .read(listOptionsProvider.notifier)
-            .set(ref.read(listOptionsProvider).copyWith(grouping: g)),
+            .set(current.copyWith(grouping: g)),
       ),
     const DlmMenuSeparator(),
     DlmMenuHeader(l.view_sort),
@@ -147,25 +182,29 @@ List<DlmMenuEntry> displayMenuEntries(BuildContext context, WidgetRef ref) {
     ])
       DlmMenuItem(
         label: label,
-        checked: ref.read(listOptionsProvider).sort == sort,
+        checked: current.sort == sort,
         onPressed: () => ref
             .read(listOptionsProvider.notifier)
-            .set(ref.read(listOptionsProvider).copyWith(sort: sort)),
+            // The direction that reads naturally for the key: newest first for
+            // "added", ascending for the others.
+            .set(
+              current.copyWith(sort: sort, descending: sort == Sort.created),
+            ),
       ),
-    if (ref.read(listOptionsProvider).sort != Sort.position) ...[
+    if (current.sort != Sort.position) ...[
       DlmMenuItem(
         label: l.view_sort_asc,
-        checked: !ref.read(listOptionsProvider).descending,
+        checked: !current.descending,
         onPressed: () => ref
             .read(listOptionsProvider.notifier)
-            .set(ref.read(listOptionsProvider).copyWith(descending: false)),
+            .set(current.copyWith(descending: false)),
       ),
       DlmMenuItem(
         label: l.view_sort_desc,
-        checked: ref.read(listOptionsProvider).descending,
+        checked: current.descending,
         onPressed: () => ref
             .read(listOptionsProvider.notifier)
-            .set(ref.read(listOptionsProvider).copyWith(descending: true)),
+            .set(current.copyWith(descending: true)),
       ),
     ],
   ];

@@ -38,6 +38,29 @@ void main() {
     expect(find.text('3 downloads'), findsOneWidget);
   });
 
+  appTest('the list starts with the newest download at the top', (
+    tester,
+  ) async {
+    final h = await open(tester);
+    // The downloads page itself (not a count that asks for one queue).
+    final first = h.tasks.listCalls
+        .map((c) => c.$1)
+        .lastWhere((q) => q.queueId == null);
+    expect(first.sort, Sort.created);
+    expect(first.order, Order.desc);
+  });
+
+  test('a queue page keeps its queue order until the user sorts it', () {
+    const untouched = ListOptions();
+    final queue = effectiveListOptions(untouched, queueId: 'main');
+    expect(queue.sort, Sort.position);
+    expect(queue.order, isNull);
+    // Everywhere else, and once the user chose, the options stand.
+    expect(effectiveListOptions(untouched).sort, Sort.created);
+    final chosen = untouched.copyWith(sort: Sort.name);
+    expect(effectiveListOptions(chosen, queueId: 'main').sort, Sort.name);
+  });
+
   appTest('the display menu sorts on the daemon, and reverses the order', (
     tester,
   ) async {
