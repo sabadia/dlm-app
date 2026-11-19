@@ -179,7 +179,7 @@ class FakeTaskRepository implements TaskRepository {
       for (final t in tasks)
         if ((query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
             (query.queueId == null || t.queueId == query.queueId) &&
-            t.archived == query.archived &&
+            t.isArchived == query.archived &&
             (query.text == null ||
                 (t.name ?? '').toLowerCase().contains(
                   query.text!.toLowerCase(),
@@ -223,7 +223,7 @@ class FakeTaskRepository implements TaskRepository {
     for (final t in tasks)
       if ((query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
           (query.queueId == null || t.queueId == query.queueId) &&
-          t.archived == query.archived)
+          t.isArchived == query.archived)
         t,
   ];
 

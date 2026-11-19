@@ -383,13 +383,13 @@ class _AppShellState extends ConsumerState<AppShell> {
                       if (t.isSeeding) t.id,
                   ]),
                 ),
-              if (selected.any((t) => t.archived))
+              if (selected.any((t) => t.isArchived))
                 DlmIconButton(
                   icon: const DlmIcon(DlmIconName.folder),
                   semanticLabel: l.task_unarchive,
                   onPressed: () => archiveTasks(context, ref, [
                     for (final t in selected)
-                      if (t.archived) t.id,
+                      if (t.isArchived) t.id,
                   ], archived: false),
                 )
               else if (selected.any((t) => t.statusKind.isFinished))

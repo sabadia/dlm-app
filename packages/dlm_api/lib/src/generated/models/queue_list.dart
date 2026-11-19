@@ -11,10 +11,10 @@ part 'queue_list.g.dart';
 @JsonSerializable()
 class QueueList {
   const QueueList({
-    required this.archived,
     required this.counts,
     required this.queues,
     this.schema,
+    this.archived,
   });
 
   factory QueueList.fromJson(Map<String, Object?> json) =>
@@ -26,7 +26,7 @@ class QueueList {
   final String? schema;
 
   /// The number of archived tasks, across all queues.
-  final int archived;
+  final int? archived;
 
   /// Per queue ID, the number of tasks in each status (statuses without tasks are left out; archived tasks are not counted).
   final Map<String, Map<String, int>> counts;

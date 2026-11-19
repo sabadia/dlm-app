@@ -204,8 +204,21 @@ void main() {
       expect(find.textContaining('Cause: expired'), findsOneWidget);
     });
 
+    appTest(
+      'renew and wait for a link are offered where the daemon accepts them',
+      (tester) async {
+        DlmButton button(String label) => tester.widget<DlmButton>(
+          find.byWidgetPredicate((w) => w is DlmButton && w.label == label),
+        );
+        await open(tester, 'running');
+        // A running download can be renewed, but only a failed one can wait.
+        expect(button('Renew link now').onPressed, isNotNull);
+        expect(button('Wait for a new link').onPressed, isNull);
+      },
+    );
+
     appTest('renew and wait for a link go to the daemon', (tester) async {
-      final r = await open(tester, 'running');
+      final r = await open(tester, 'error');
       await tester.tap(find.text('Renew link now'));
       await settle(tester);
       await tester.tap(find.text('Wait for a new link'));

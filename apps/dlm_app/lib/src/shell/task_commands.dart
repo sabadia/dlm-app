@@ -392,22 +392,22 @@ List<DlmMenuEntry> taskMenuEntries(
             if (t.statusKind.isFinished) t.id,
         ]),
       ),
-    if (targets.any((t) => t.archived))
+    if (targets.any((t) => t.isArchived))
       DlmMenuItem(
         label: l.task_unarchive,
         icon: const DlmIcon(DlmIconName.folder),
         onPressed: () => archiveTasks(context, ref, [
           for (final t in targets)
-            if (t.archived) t.id,
+            if (t.isArchived) t.id,
         ], archived: false),
       ),
-    if (targets.any((t) => !t.archived && t.statusKind.isFinished))
+    if (targets.any((t) => !t.isArchived && t.statusKind.isFinished))
       DlmMenuItem(
         label: l.task_archive,
         icon: const DlmIcon(DlmIconName.folder),
         onPressed: () => archiveTasks(context, ref, [
           for (final t in targets)
-            if (!t.archived && t.statusKind.isFinished) t.id,
+            if (!t.isArchived && t.statusKind.isFinished) t.id,
         ]),
       ),
     if (targets.any((t) => !t.statusKind.isFinished))

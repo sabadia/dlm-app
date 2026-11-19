@@ -66,6 +66,10 @@ extension TaskX on Task {
   /// The parsed status.
   TaskStatus get statusKind => TaskStatus.parse(status);
 
+  /// Whether the task is in the archive (a daemon without the archive sends
+  /// no flag: nothing is archived).
+  bool get isArchived => archived ?? false;
+
   /// Whether the size is known.
   bool get hasKnownSize => size >= 0;
 

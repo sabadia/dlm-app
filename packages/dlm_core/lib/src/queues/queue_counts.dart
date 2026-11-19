@@ -50,7 +50,7 @@ final queueCountsSourceProvider = Provider<Future<QueueCountsState> Function()>(
     final api = ref.watch(apiProvider);
     return () async {
       final list = await guard(api.rest.queues.listQueues);
-      return QueueCountsState(list.counts, list.archived);
+      return QueueCountsState(list.counts, list.archived ?? 0);
     };
   },
 );

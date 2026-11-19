@@ -62,7 +62,7 @@ class FakeTaskRepository implements TaskRepository {
       for (final t in tasks)
         if (query.queueId == null || t.queueId == query.queueId)
           if (query.statuses.isEmpty || query.statuses.contains(t.statusKind))
-            if (t.archived == query.archived) t,
+            if (t.isArchived == query.archived) t,
     ];
     final start = cursor == null ? 0 : int.parse(cursor);
     final end = (start + pageSize).clamp(0, matching.length);
@@ -80,7 +80,7 @@ class FakeTaskRepository implements TaskRepository {
       for (final t in tasks)
         if ((query.queueId == null || t.queueId == query.queueId) &&
             (query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
-            t.archived == query.archived)
+            t.isArchived == query.archived)
           t,
     ];
   }

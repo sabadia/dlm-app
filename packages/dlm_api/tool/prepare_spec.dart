@@ -48,6 +48,13 @@ void main(List<String> args) {
   ((browserOk['application/json']! as Map<String, Object?>)['schema']!
           as Map<String, Object?>)[r'$ref'] =
       '#/components/schemas/BrowserStatus';
+  // A daemon older than the archive does not send `archived`, on a task or in the
+  // queue list. The app also talks to servers it does not bundle, so a field that
+  // an older daemon lacks must not make every task fail to read.
+  for (final name in ['Task', 'QueueList']) {
+    final schema = schemas[name] as Map<String, Object?>?;
+    (schema?['required'] as List<Object?>?)?.remove('archived');
+  }
   File(output)
     ..createSync(recursive: true)
     ..writeAsStringSync(const JsonEncoder.withIndent('  ').convert(doc));
