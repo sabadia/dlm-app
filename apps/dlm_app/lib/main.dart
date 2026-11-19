@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/about/diagnostics_providers.dart';
 import 'src/app.dart';
+import 'src/bundled_daemon.dart';
 import 'src/connection/connection_controller.dart';
 import 'src/connection/local_daemon.dart';
 import 'src/crash_handlers.dart';
@@ -19,9 +20,7 @@ import 'src/secret_token_vault.dart';
 import 'src/shell/app_shell.dart';
 
 /// The daemon release this build ships with (`--dart-define`), or empty.
-const String _bundledDaemonVersion = String.fromEnvironment(
-  'DLM_DAEMON_VERSION',
-);
+const String _bundledDaemonVersion = bundledDaemonVersion;
 
 void main(List<String> args) {
   // `args` are the program's own arguments (a file to open, a magnet: link,

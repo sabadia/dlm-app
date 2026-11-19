@@ -1,0 +1,26 @@
+schema_version: 1
+id: 01a1f1db-968c-7910-ac0f-f980ef3c009b
+status: draft
+created_at: '2026-11-19T03:31:02Z'
+updated_at: '2026-11-19T03:31:02Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: 'Linux build: a plugin we do not own fails -Werror=sometimes-uninitialized on the runners'' newer clang; make that one warning non-fatal'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/linux/CMakeLists.txt
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

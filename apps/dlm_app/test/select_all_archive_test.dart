@@ -1,6 +1,9 @@
+import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_app/src/app.dart';
 import 'package:dlm_app/src/shell/shell_state.dart';
 import 'package:dlm_core/dlm_core.dart';
+import 'package:dlm_ui_kit/dlm_ui_kit.dart';
+import 'package:flutter/gestures.dart' show kSecondaryButton;
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -61,5 +64,61 @@ void main() {
     await settle(tester);
     expect(find.text('old.iso'), findsOneWidget);
     expect(find.text('kept.iso'), findsNothing);
+  });
+
+  group('archiving', () {
+    SystemInfo daemon(String version) => systemInfo(const [], version: version);
+
+    appTest(
+      'says so when the server is older than the archive, and asks nothing of it',
+      (tester) async {
+        final h = await pumpApp(
+          tester,
+          tasks: [task('a', status: 'completed', name: 'old.iso')],
+          overrides: [
+            systemInfoProvider.overrideWith((ref) async => daemon('0.7.6')),
+          ],
+        );
+        h.container.read(routerProvider).go('/downloads/completed');
+        await settle(tester);
+        // Let the system info arrive, as it does in the running app.
+        await h.container.read(systemInfoProvider.future);
+        await tester.tap(find.text('old.iso'), buttons: kSecondaryButton);
+        await settle(tester);
+        await tester.tap(find.text('Move to archive'));
+        await settle(tester);
+        expect(find.textContaining('too old for the archive'), findsOneWidget);
+        expect(find.textContaining('0.7.6'), findsOneWidget);
+        expect(h.tasks.archivedCalls, isEmpty);
+      },
+    );
+
+    appTest('sends only the finished downloads of a selection to be archived', (
+      tester,
+    ) async {
+      final h = await pumpApp(
+        tester,
+        tasks: [
+          task('a', status: 'completed', name: 'done.iso'),
+          task('b', status: 'running', name: 'busy.iso'),
+          task('c', name: 'later.iso'),
+        ],
+        overrides: [
+          systemInfoProvider.overrideWith((ref) async => daemon('0.8.0')),
+        ],
+      );
+      await h.container.read(systemInfoProvider.future);
+      h.container.read(selectionProvider.notifier).set({'a', 'b', 'c'});
+      await settle(tester);
+      await tester.tap(
+        find.byWidgetPredicate(
+          (w) => w is DlmIconButton && w.semanticLabel == 'Move to archive',
+        ),
+      );
+      await settle(tester);
+      expect(h.tasks.archivedCalls.single.$1, ['a']);
+      // The unfinished ones were never sent: the daemon is not asked to refuse them.
+      expect(find.text('Moved 1 download to the archive'), findsOneWidget);
+    });
   });
 }

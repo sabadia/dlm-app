@@ -6558,6 +6558,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fix the fields marked in red before saving.'**
   String get settings_fix_invalid;
+
+  /// No description provided for @archive_server_too_old.
+  ///
+  /// In en, this message translates to:
+  /// **'The server DLM is connected to ({version}) is too old for the archive, which needs 0.8.0. Update it under Manage, Daemon.'**
+  String archive_server_too_old(String version);
+
+  /// No description provided for @archive_only_finished.
+  ///
+  /// In en, this message translates to:
+  /// **'Only finished downloads can be moved to the archive. Downloads that are still running, queued or paused were left where they are.'**
+  String get archive_only_finished;
+
+  /// No description provided for @archive_skipped.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 download that is not finished was left out} other{{count} downloads that are not finished were left out}}'**
+  String archive_skipped(int count);
+
+  /// No description provided for @banner_daemon_old_title.
+  ///
+  /// In en, this message translates to:
+  /// **'The server is older than this app'**
+  String get banner_daemon_old_title;
+
+  /// No description provided for @banner_daemon_old_message.
+  ///
+  /// In en, this message translates to:
+  /// **'A server ({running}) from before the update is still running. Some features need {bundled}.'**
+  String banner_daemon_old_message(String running, String bundled);
+
+  /// No description provided for @banner_daemon_old_action.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart the server'**
+  String get banner_daemon_old_action;
 }
 
 class _AppLocalizationsDelegate

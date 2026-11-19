@@ -8,6 +8,8 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../about/updates.dart';
+import '../bundled_daemon.dart';
 import '../connection/connection_controller.dart';
 import '../platform/app_restart.dart';
 import '../platform/url_opener.dart';
@@ -65,6 +67,29 @@ class StatusBanners extends ConsumerWidget {
           tone: DlmTone.warning,
           title: l.banner_reconnecting_title,
           message: l.banner_reconnecting_message,
+        ),
+      );
+    }
+    // A daemon left running by an earlier version of the app was taken over, not
+    // started, so the update did not reach it: offer to restart it into the
+    // bundled one.
+    final running = daemon?.info?.version;
+    if (daemon != null &&
+        daemon.phase == DaemonPhase.running &&
+        daemon.adopted &&
+        running != null &&
+        ref.watch(bundledDaemonVersionProvider).isNotEmpty &&
+        isNewerVersion(ref.watch(bundledDaemonVersionProvider), running)) {
+      banners.add(
+        DlmBanner(
+          tone: DlmTone.warning,
+          title: l.banner_daemon_old_title,
+          message: l.banner_daemon_old_message(
+            running,
+            ref.watch(bundledDaemonVersionProvider),
+          ),
+          actionLabel: l.banner_daemon_old_action,
+          onAction: () => unawaited(ref.read(localDaemonProvider).restart()),
         ),
       );
     }
