@@ -12,4 +12,7 @@ MoveTaskBody _$MoveTaskBodyFromJson(Map<String, dynamic> json) => MoveTaskBody(
 );
 
 Map<String, dynamic> _$MoveTaskBodyToJson(MoveTaskBody instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'queueId': instance.queueId};
+    <String, dynamic>{
+      r'$schema': ?instance.schema,
+      'queueId': instance.queueId,
+    };

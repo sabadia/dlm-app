@@ -16,6 +16,6 @@ RefreshHistory _$RefreshHistoryFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RefreshHistoryToJson(RefreshHistory instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'attempts': instance.attempts,
+      r'$schema': ?instance.schema,
+      'attempts': ?instance.attempts,
     };

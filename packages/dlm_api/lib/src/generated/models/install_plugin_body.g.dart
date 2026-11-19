@@ -17,9 +17,9 @@ InstallPluginBody _$InstallPluginBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$InstallPluginBodyToJson(InstallPluginBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'disabled': instance.disabled,
-      'ref': instance.ref,
-      'replace': instance.replace,
+      r'$schema': ?instance.schema,
+      'disabled': ?instance.disabled,
+      'ref': ?instance.ref,
+      'replace': ?instance.replace,
       'source': instance.source,
     };

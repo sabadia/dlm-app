@@ -13,4 +13,7 @@ UpdatePluginBody _$UpdatePluginBodyFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$UpdatePluginBodyToJson(UpdatePluginBody instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'enabled': instance.enabled};
+    <String, dynamic>{
+      r'$schema': ?instance.schema,
+      'enabled': ?instance.enabled,
+    };

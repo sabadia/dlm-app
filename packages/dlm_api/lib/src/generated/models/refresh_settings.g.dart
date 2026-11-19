@@ -19,9 +19,9 @@ RefreshSettings _$RefreshSettingsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RefreshSettingsToJson(RefreshSettings instance) =>
     <String, dynamic>{
-      'auto': instance.auto,
-      'awaitTimeout': instance.awaitTimeout,
-      'maxAttempts': instance.maxAttempts,
-      'onMismatch': instance.onMismatch,
-      'strategies': instance.strategies,
+      'auto': ?instance.auto,
+      'awaitTimeout': ?instance.awaitTimeout,
+      'maxAttempts': ?instance.maxAttempts,
+      'onMismatch': ?instance.onMismatch,
+      'strategies': ?instance.strategies,
     };

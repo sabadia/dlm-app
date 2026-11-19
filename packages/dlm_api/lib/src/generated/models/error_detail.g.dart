@@ -14,7 +14,7 @@ ErrorDetail _$ErrorDetailFromJson(Map<String, dynamic> json) => ErrorDetail(
 
 Map<String, dynamic> _$ErrorDetailToJson(ErrorDetail instance) =>
     <String, dynamic>{
-      'location': instance.location,
-      'message': instance.message,
-      'value': instance.value,
+      'location': ?instance.location,
+      'message': ?instance.message,
+      'value': ?instance.value,
     };

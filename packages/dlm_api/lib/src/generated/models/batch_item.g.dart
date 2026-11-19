@@ -19,9 +19,9 @@ BatchItem _$BatchItemFromJson(Map<String, dynamic> json) => BatchItem(
 );
 
 Map<String, dynamic> _$BatchItemToJson(BatchItem instance) => <String, dynamic>{
-  'error': instance.error,
-  'id': instance.id,
+  'error': ?instance.error,
+  'id': ?instance.id,
   'ok': instance.ok,
-  'task': instance.task,
-  'url': instance.url,
+  'task': ?instance.task,
+  'url': ?instance.url,
 };

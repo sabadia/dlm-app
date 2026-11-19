@@ -23,14 +23,14 @@ Candidate _$CandidateFromJson(Map<String, dynamic> json) => Candidate(
 );
 
 Map<String, dynamic> _$CandidateToJson(Candidate instance) => <String, dynamic>{
-  'file': instance.file,
-  'filename': instance.filename,
+  'file': ?instance.file,
+  'filename': ?instance.filename,
   'foundAt': instance.foundAt.toIso8601String(),
-  'headers': instance.headers,
+  'headers': ?instance.headers,
   'index': instance.index,
   'kind': instance.kind,
-  'mime': instance.mime,
-  'page': instance.page,
+  'mime': ?instance.mime,
+  'page': ?instance.page,
   'size': instance.size,
   'source': instance.source,
   'url': instance.url,

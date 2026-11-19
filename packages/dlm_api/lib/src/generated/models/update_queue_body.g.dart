@@ -15,7 +15,7 @@ UpdateQueueBody _$UpdateQueueBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UpdateQueueBodyToJson(UpdateQueueBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'name': instance.name,
-      'settings': instance.settings,
+      r'$schema': ?instance.schema,
+      'name': ?instance.name,
+      'settings': ?instance.settings,
     };

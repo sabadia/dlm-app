@@ -16,6 +16,6 @@ SetTaskFilesBody _$SetTaskFilesBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$SetTaskFilesBodyToJson(SetTaskFilesBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'selected': instance.selected,
+      r'$schema': ?instance.schema,
+      'selected': ?instance.selected,
     };

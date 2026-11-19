@@ -25,8 +25,8 @@ Map<String, dynamic> _$StreamEventLimitsChangedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$LimitsChangedEventTypeEnumMap[instance.type]!,
 };
@@ -52,8 +52,8 @@ Map<String, dynamic> _$StreamEventPairingRequestedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$PairingRequestedEventTypeEnumMap[instance.type]!,
 };
@@ -79,8 +79,8 @@ Map<String, dynamic> _$StreamEventPairingResolvedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$PairingResolvedEventTypeEnumMap[instance.type]!,
 };
@@ -106,8 +106,8 @@ Map<String, dynamic> _$StreamEventQueueActionCancelledEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueActionCancelledEventTypeEnumMap[instance.type]!,
 };
@@ -133,8 +133,8 @@ Map<String, dynamic> _$StreamEventQueueCompletedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueCompletedEventTypeEnumMap[instance.type]!,
 };
@@ -160,8 +160,8 @@ Map<String, dynamic> _$StreamEventQueueCreatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueCreatedEventTypeEnumMap[instance.type]!,
 };
@@ -187,8 +187,8 @@ Map<String, dynamic> _$StreamEventQueueDeletedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueDeletedEventTypeEnumMap[instance.type]!,
 };
@@ -214,8 +214,8 @@ Map<String, dynamic> _$StreamEventQueueUpdatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueUpdatedEventTypeEnumMap[instance.type]!,
 };
@@ -241,8 +241,8 @@ Map<String, dynamic> _$StreamEventQuotaExhaustedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QuotaExhaustedEventTypeEnumMap[instance.type]!,
 };
@@ -268,8 +268,8 @@ Map<String, dynamic> _$StreamEventQuotaResetEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QuotaResetEventTypeEnumMap[instance.type]!,
 };
@@ -295,8 +295,8 @@ Map<String, dynamic> _$StreamEventResourceChangedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$ResourceChangedEventTypeEnumMap[instance.type]!,
 };
@@ -322,8 +322,8 @@ Map<String, dynamic> _$StreamEventSettingsUpdatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$SettingsUpdatedEventTypeEnumMap[instance.type]!,
 };
@@ -349,8 +349,8 @@ Map<String, dynamic> _$StreamEventSystemSpeedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$SystemSpeedEventTypeEnumMap[instance.type]!,
 };
@@ -376,8 +376,8 @@ Map<String, dynamic> _$StreamEventTaskCreatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskCreatedEventTypeEnumMap[instance.type]!,
 };
@@ -403,8 +403,8 @@ Map<String, dynamic> _$StreamEventTaskDeletedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskDeletedEventTypeEnumMap[instance.type]!,
 };
@@ -430,8 +430,8 @@ Map<String, dynamic> _$StreamEventTaskProgressEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskProgressEventTypeEnumMap[instance.type]!,
 };
@@ -457,8 +457,8 @@ Map<String, dynamic> _$StreamEventTaskRefreshEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskRefreshEventTypeEnumMap[instance.type]!,
 };
@@ -484,8 +484,8 @@ Map<String, dynamic> _$StreamEventTaskRefreshRequestedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskRefreshRequestedEventTypeEnumMap[instance.type]!,
 };
@@ -511,8 +511,8 @@ Map<String, dynamic> _$StreamEventTaskStatusEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskStatusEventTypeEnumMap[instance.type]!,
 };
@@ -538,8 +538,8 @@ Map<String, dynamic> _$StreamEventTaskUpdatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$TaskUpdatedEventTypeEnumMap[instance.type]!,
 };

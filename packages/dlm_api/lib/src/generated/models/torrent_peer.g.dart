@@ -15,6 +15,6 @@ TorrentPeer _$TorrentPeerFromJson(Map<String, dynamic> json) => TorrentPeer(
 Map<String, dynamic> _$TorrentPeerToJson(TorrentPeer instance) =>
     <String, dynamic>{
       'address': instance.address,
-      'client': instance.client,
+      'client': ?instance.client,
       'downloadRate': instance.downloadRate,
     };

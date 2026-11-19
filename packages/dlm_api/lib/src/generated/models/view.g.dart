@@ -18,10 +18,10 @@ View _$ViewFromJson(Map<String, dynamic> json) => View(
 );
 
 Map<String, dynamic> _$ViewToJson(View instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'entries': instance.entries,
+  r'$schema': ?instance.schema,
+  'entries': ?instance.entries,
   'file': instance.file,
-  'fileError': instance.fileError,
+  'fileError': ?instance.fileError,
   'fileExists': instance.fileExists,
   'restartPending': instance.restartPending,
 };

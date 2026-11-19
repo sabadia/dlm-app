@@ -15,7 +15,7 @@ ResolvePageBody _$ResolvePageBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ResolvePageBodyToJson(ResolvePageBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'url': instance.url,
-      'waitSeconds': instance.waitSeconds,
+      'waitSeconds': ?instance.waitSeconds,
     };

@@ -18,10 +18,10 @@ Webhook _$WebhookFromJson(Map<String, dynamic> json) => Webhook(
 );
 
 Map<String, dynamic> _$WebhookToJson(Webhook instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'createdAt': instance.createdAt.toIso8601String(),
   'enabled': instance.enabled,
-  'events': instance.events,
+  'events': ?instance.events,
   'hasSecret': instance.hasSecret,
   'id': instance.id,
   'updatedAt': instance.updatedAt.toIso8601String(),

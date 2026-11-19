@@ -23,16 +23,16 @@ PairingState _$PairingStateFromJson(Map<String, dynamic> json) => PairingState(
 
 Map<String, dynamic> _$PairingStateToJson(PairingState instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'browser': instance.browser,
-      'clientId': instance.clientId,
-      'clientVersion': instance.clientVersion,
+      'clientId': ?instance.clientId,
+      'clientVersion': ?instance.clientVersion,
       'code': instance.code,
       'createdAt': instance.createdAt.toIso8601String(),
       'expiresAt': instance.expiresAt.toIso8601String(),
       'id': instance.id,
       'name': instance.name,
       'status': instance.status,
-      'token': instance.token,
-      'tokenId': instance.tokenId,
+      'token': ?instance.token,
+      'tokenId': ?instance.tokenId,
     };

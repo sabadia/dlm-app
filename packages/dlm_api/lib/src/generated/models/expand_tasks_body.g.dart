@@ -15,7 +15,7 @@ ExpandTasksBody _$ExpandTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ExpandTasksBodyToJson(ExpandTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'pattern': instance.pattern,
-      'preview': instance.preview,
+      'preview': ?instance.preview,
     };

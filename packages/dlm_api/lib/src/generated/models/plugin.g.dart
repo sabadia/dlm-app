@@ -22,16 +22,16 @@ Plugin _$PluginFromJson(Map<String, dynamic> json) => Plugin(
 );
 
 Map<String, dynamic> _$PluginToJson(Plugin instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'description': instance.description,
+  r'$schema': ?instance.schema,
+  'description': ?instance.description,
   'enabled': instance.enabled,
-  'error': instance.error,
-  'hooks': instance.hooks,
+  'error': ?instance.error,
+  'hooks': ?instance.hooks,
   'installedAt': instance.installedAt.toIso8601String(),
   'name': instance.name,
-  'net': instance.net,
+  'net': ?instance.net,
   'source': instance.source,
-  'title': instance.title,
+  'title': ?instance.title,
   'updatedAt': instance.updatedAt.toIso8601String(),
   'version': instance.version,
 };

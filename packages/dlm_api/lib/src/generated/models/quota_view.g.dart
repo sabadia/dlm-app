@@ -23,7 +23,7 @@ Map<String, dynamic> _$QuotaViewToJson(QuotaView instance) => <String, dynamic>{
   'bytes': instance.bytes,
   'exhausted': instance.exhausted,
   'period': instance.period,
-  'resetsAt': instance.resetsAt?.toIso8601String(),
+  'resetsAt': ?instance.resetsAt?.toIso8601String(),
   'used': instance.used,
-  'windowStart': instance.windowStart?.toIso8601String(),
+  'windowStart': ?instance.windowStart?.toIso8601String(),
 };

@@ -43,22 +43,22 @@ UpdateTaskSourceBody _$UpdateTaskSourceBodyFromJson(
 Map<String, dynamic> _$UpdateTaskSourceBodyToJson(
   UpdateTaskSourceBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'body': instance.body,
-  'cookieDomains': instance.cookieDomains,
+  r'$schema': ?instance.schema,
+  'body': ?instance.body,
+  'cookieDomains': ?instance.cookieDomains,
   'currentUrl': instance.currentUrl,
-  'headers': instance.headers,
-  'mediaHint': instance.mediaHint,
-  'method': instance.method,
-  'mirrors': instance.mirrors,
-  'onMismatch': _$UpdateTaskSourceBodyOnMismatchEnumMap[instance.onMismatch],
-  'originalUrl': instance.originalUrl,
-  'pageUrl': instance.pageUrl,
-  'referrer': instance.referrer,
+  'headers': ?instance.headers,
+  'mediaHint': ?instance.mediaHint,
+  'method': ?instance.method,
+  'mirrors': ?instance.mirrors,
+  'onMismatch': ?_$UpdateTaskSourceBodyOnMismatchEnumMap[instance.onMismatch],
+  'originalUrl': ?instance.originalUrl,
+  'pageUrl': ?instance.pageUrl,
+  'referrer': ?instance.referrer,
   'resolverKind':
-      _$UpdateTaskSourceBodyResolverKindEnumMap[instance.resolverKind],
-  'streamKind': _$UpdateTaskSourceBodyStreamKindEnumMap[instance.streamKind],
-  'userAgent': instance.userAgent,
+      ?_$UpdateTaskSourceBodyResolverKindEnumMap[instance.resolverKind],
+  'streamKind': ?_$UpdateTaskSourceBodyStreamKindEnumMap[instance.streamKind],
+  'userAgent': ?instance.userAgent,
 };
 
 const _$UpdateTaskSourceBodyOnMismatchEnumMap = {

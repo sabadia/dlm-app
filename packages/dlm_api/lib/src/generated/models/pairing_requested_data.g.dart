@@ -22,8 +22,8 @@ Map<String, dynamic> _$PairingRequestedDataToJson(
   PairingRequestedData instance,
 ) => <String, dynamic>{
   'browser': instance.browser,
-  'clientId': instance.clientId,
-  'clientVersion': instance.clientVersion,
+  'clientId': ?instance.clientId,
+  'clientVersion': ?instance.clientVersion,
   'code': instance.code,
   'expiresAt': instance.expiresAt.toIso8601String(),
   'id': instance.id,

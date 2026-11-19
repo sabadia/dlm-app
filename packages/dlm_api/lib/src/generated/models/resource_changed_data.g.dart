@@ -16,7 +16,7 @@ ResourceChangedData _$ResourceChangedDataFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ResourceChangedDataToJson(
   ResourceChangedData instance,
 ) => <String, dynamic>{
-  'id': instance.id,
+  'id': ?instance.id,
   'kind': _$ResourceChangedDataKindEnumMap[instance.kind]!,
   'op': _$ResourceChangedDataOpEnumMap[instance.op]!,
 };

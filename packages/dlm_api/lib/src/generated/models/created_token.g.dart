@@ -16,7 +16,7 @@ CreatedToken _$CreatedTokenFromJson(Map<String, dynamic> json) => CreatedToken(
 
 Map<String, dynamic> _$CreatedTokenToJson(CreatedToken instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'info': instance.info,
+      r'$schema': ?instance.schema,
+      'info': ?instance.info,
       'token': instance.token,
     };

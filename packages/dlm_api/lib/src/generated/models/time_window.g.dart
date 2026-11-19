@@ -14,7 +14,7 @@ TimeWindow _$TimeWindowFromJson(Map<String, dynamic> json) => TimeWindow(
 
 Map<String, dynamic> _$TimeWindowToJson(TimeWindow instance) =>
     <String, dynamic>{
-      'days': instance.days,
+      'days': ?instance.days,
       'end': instance.end,
       'start': instance.start,
     };

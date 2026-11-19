@@ -14,4 +14,7 @@ CookieList _$CookieListFromJson(Map<String, dynamic> json) => CookieList(
 );
 
 Map<String, dynamic> _$CookieListToJson(CookieList instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'cookies': instance.cookies};
+    <String, dynamic>{
+      r'$schema': ?instance.schema,
+      'cookies': ?instance.cookies,
+    };

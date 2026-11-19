@@ -23,9 +23,9 @@ RefreshRequestedData _$RefreshRequestedDataFromJson(
 Map<String, dynamic> _$RefreshRequestedDataToJson(
   RefreshRequestedData instance,
 ) => <String, dynamic>{
-  'deadline': instance.deadline?.toIso8601String(),
+  'deadline': ?instance.deadline?.toIso8601String(),
   'fingerprint': instance.fingerprint,
   'name': instance.name,
-  'originalUrl': instance.originalUrl,
+  'originalUrl': ?instance.originalUrl,
   'pageUrl': instance.pageUrl,
 };

@@ -17,7 +17,7 @@ OnQueueComplete _$OnQueueCompleteFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OnQueueCompleteToJson(OnQueueComplete instance) =>
     <String, dynamic>{
       'action': instance.action,
-      'args': instance.args,
-      'command': instance.command,
-      'delay': instance.delay,
+      'args': ?instance.args,
+      'command': ?instance.command,
+      'delay': ?instance.delay,
     };

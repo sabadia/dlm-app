@@ -23,13 +23,13 @@ Problem _$ProblemFromJson(Map<String, dynamic> json) => Problem(
 );
 
 Map<String, dynamic> _$ProblemToJson(Problem instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'code': instance.code,
-  'detail': instance.detail,
-  'errors': instance.errors,
-  'instance': instance.instance,
-  'params': instance.params,
-  'status': instance.status,
-  'title': instance.title,
+  'detail': ?instance.detail,
+  'errors': ?instance.errors,
+  'instance': ?instance.instance,
+  'params': ?instance.params,
+  'status': ?instance.status,
+  'title': ?instance.title,
   'type': instance.type,
 };

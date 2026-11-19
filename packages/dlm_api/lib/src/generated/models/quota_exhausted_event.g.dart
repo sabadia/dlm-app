@@ -21,8 +21,8 @@ Map<String, dynamic> _$QuotaExhaustedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QuotaExhaustedEventTypeEnumMap[instance.type]!,
 };

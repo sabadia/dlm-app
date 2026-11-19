@@ -13,4 +13,4 @@ UpdateConfigBody _$UpdateConfigBodyFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$UpdateConfigBodyToJson(UpdateConfigBody instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'values': instance.values};
+    <String, dynamic>{r'$schema': ?instance.schema, 'values': instance.values};

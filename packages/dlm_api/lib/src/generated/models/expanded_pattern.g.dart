@@ -15,7 +15,7 @@ ExpandedPattern _$ExpandedPatternFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ExpandedPatternToJson(ExpandedPattern instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'count': instance.count,
-      'urls': instance.urls,
+      'urls': ?instance.urls,
     };

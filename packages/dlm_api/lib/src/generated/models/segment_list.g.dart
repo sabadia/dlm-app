@@ -15,6 +15,6 @@ SegmentList _$SegmentListFromJson(Map<String, dynamic> json) => SegmentList(
 
 Map<String, dynamic> _$SegmentListToJson(SegmentList instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'segments': instance.segments,
+      r'$schema': ?instance.schema,
+      'segments': ?instance.segments,
     };

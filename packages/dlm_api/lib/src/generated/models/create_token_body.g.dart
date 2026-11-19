@@ -15,7 +15,7 @@ CreateTokenBody _$CreateTokenBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateTokenBodyToJson(CreateTokenBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'name': instance.name,
       'scope': _$CreateTokenBodyScopeEnumMap[instance.scope]!,
     };

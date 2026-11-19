@@ -17,6 +17,6 @@ SpeedProfile _$SpeedProfileFromJson(Map<String, dynamic> json) => SpeedProfile(
 Map<String, dynamic> _$SpeedProfileToJson(SpeedProfile instance) =>
     <String, dynamic>{
       'speedLimit': instance.speedLimit,
-      'timezone': instance.timezone,
-      'windows': instance.windows,
+      'timezone': ?instance.timezone,
+      'windows': ?instance.windows,
     };

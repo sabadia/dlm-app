@@ -19,9 +19,9 @@ UpdateWebhookBody _$UpdateWebhookBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UpdateWebhookBodyToJson(UpdateWebhookBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'enabled': instance.enabled,
-      'events': instance.events,
-      'secret': instance.secret,
-      'url': instance.url,
+      r'$schema': ?instance.schema,
+      'enabled': ?instance.enabled,
+      'events': ?instance.events,
+      'secret': ?instance.secret,
+      'url': ?instance.url,
     };

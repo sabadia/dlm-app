@@ -19,13 +19,13 @@ Entry _$EntryFromJson(Map<String, dynamic> json) => Entry(
 );
 
 Map<String, dynamic> _$EntryToJson(Entry instance) => <String, dynamic>{
-  'default': instance.defaultValue,
+  'default': ?instance.defaultValue,
   'key': instance.key,
-  'pending': instance.pending,
+  'pending': ?instance.pending,
   'readOnly': instance.readOnly,
   'restartRequired': instance.restartRequired,
   'secret': instance.secret,
   'source': instance.source,
   'type': instance.type,
-  'value': instance.value,
+  'value': ?instance.value,
 };

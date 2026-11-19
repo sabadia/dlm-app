@@ -15,6 +15,6 @@ WebhookList _$WebhookListFromJson(Map<String, dynamic> json) => WebhookList(
 
 Map<String, dynamic> _$WebhookListToJson(WebhookList instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'webhooks': instance.webhooks,
+      r'$schema': ?instance.schema,
+      'webhooks': ?instance.webhooks,
     };

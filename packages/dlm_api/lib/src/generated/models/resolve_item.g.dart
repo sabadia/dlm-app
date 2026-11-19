@@ -18,7 +18,7 @@ ResolveItem _$ResolveItemFromJson(Map<String, dynamic> json) => ResolveItem(
 
 Map<String, dynamic> _$ResolveItemToJson(ResolveItem instance) =>
     <String, dynamic>{
-      'error': instance.error,
+      'error': ?instance.error,
       'ok': instance.ok,
-      'result': instance.result,
+      'result': ?instance.result,
     };

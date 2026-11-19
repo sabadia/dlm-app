@@ -20,8 +20,8 @@ Map<String, dynamic> _$QueueDeletedEventToJson(QueueDeletedEvent instance) =>
     <String, dynamic>{
       'data': instance.data,
       'id': instance.id,
-      'queueId': instance.queueId,
-      'taskId': instance.taskId,
+      'queueId': ?instance.queueId,
+      'taskId': ?instance.taskId,
       'time': instance.time.toIso8601String(),
       'type': _$QueueDeletedEventTypeEnumMap[instance.type]!,
     };

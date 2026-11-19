@@ -16,6 +16,6 @@ CategoryMatch _$CategoryMatchFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CategoryMatchToJson(CategoryMatch instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'category': instance.category,
+      r'$schema': ?instance.schema,
+      'category': ?instance.category,
     };

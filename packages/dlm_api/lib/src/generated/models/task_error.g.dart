@@ -20,6 +20,6 @@ Map<String, dynamic> _$TaskErrorToJson(TaskError instance) => <String, dynamic>{
   'at': instance.at.toIso8601String(),
   'code': instance.code,
   'message': instance.message,
-  'retry': instance.retry,
+  'retry': ?instance.retry,
   'retryable': instance.retryable,
 };

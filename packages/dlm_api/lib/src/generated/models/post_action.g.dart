@@ -14,4 +14,4 @@ PostAction _$PostActionFromJson(Map<String, dynamic> json) => PostAction(
 );
 
 Map<String, dynamic> _$PostActionToJson(PostAction instance) =>
-    <String, dynamic>{'kind': instance.kind, 'params': instance.params};
+    <String, dynamic>{'kind': instance.kind, 'params': ?instance.params};

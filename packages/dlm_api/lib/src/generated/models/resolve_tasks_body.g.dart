@@ -15,4 +15,4 @@ ResolveTasksBody _$ResolveTasksBodyFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ResolveTasksBodyToJson(ResolveTasksBody instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'items': instance.items};
+    <String, dynamic>{r'$schema': ?instance.schema, 'items': ?instance.items};

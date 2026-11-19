@@ -19,7 +19,7 @@ Queue _$QueueFromJson(Map<String, dynamic> json) => Queue(
 );
 
 Map<String, dynamic> _$QueueToJson(Queue instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'createdAt': instance.createdAt.toIso8601String(),
   'id': instance.id,
   'isDefault': instance.isDefault,

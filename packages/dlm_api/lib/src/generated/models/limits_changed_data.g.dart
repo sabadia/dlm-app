@@ -16,6 +16,6 @@ LimitsChangedData _$LimitsChangedDataFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$LimitsChangedDataToJson(LimitsChangedData instance) =>
     <String, dynamic>{
-      'override': instance.override,
+      'override': ?instance.override,
       'speedLimit': instance.speedLimit,
     };

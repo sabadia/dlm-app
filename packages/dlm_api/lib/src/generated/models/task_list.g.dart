@@ -16,8 +16,8 @@ TaskList _$TaskListFromJson(Map<String, dynamic> json) => TaskList(
 );
 
 Map<String, dynamic> _$TaskListToJson(TaskList instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'nextCursor': instance.nextCursor,
-  'tasks': instance.tasks,
-  'total': instance.total,
+  r'$schema': ?instance.schema,
+  'nextCursor': ?instance.nextCursor,
+  'tasks': ?instance.tasks,
+  'total': ?instance.total,
 };

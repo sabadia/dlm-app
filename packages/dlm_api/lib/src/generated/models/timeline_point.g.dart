@@ -17,7 +17,7 @@ TimelinePoint _$TimelinePointFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$TimelinePointToJson(TimelinePoint instance) =>
     <String, dynamic>{
       'down': instance.down,
-      'group': instance.group,
+      'group': ?instance.group,
       'time': instance.time.toIso8601String(),
       'up': instance.up,
     };

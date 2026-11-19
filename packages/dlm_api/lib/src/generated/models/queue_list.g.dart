@@ -18,8 +18,8 @@ QueueList _$QueueListFromJson(Map<String, dynamic> json) => QueueList(
 );
 
 Map<String, dynamic> _$QueueListToJson(QueueList instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'archived': instance.archived,
+  r'$schema': ?instance.schema,
+  'archived': ?instance.archived,
   'counts': instance.counts,
-  'queues': instance.queues,
+  'queues': ?instance.queues,
 };

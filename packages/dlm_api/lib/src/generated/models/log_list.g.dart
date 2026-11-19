@@ -17,9 +17,9 @@ LogList _$LogListFromJson(Map<String, dynamic> json) => LogList(
 );
 
 Map<String, dynamic> _$LogListToJson(LogList instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'bootId': instance.bootId,
   'hasMore': instance.hasMore,
   'lastId': instance.lastId,
-  'records': instance.records,
+  'records': ?instance.records,
 };

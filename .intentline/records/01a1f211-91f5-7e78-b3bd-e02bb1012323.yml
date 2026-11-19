@@ -1,0 +1,59 @@
+schema_version: 1
+id: 01a1f211-91f5-7e78-b3bd-e02bb1012323
+status: draft
+created_at: '2026-11-19T04:30:00Z'
+updated_at: '2026-11-19T04:30:00Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: Moving downloads to the archive failed with a bare validation error when the app talked to a daemon older than 0.8.0 that an earlier app version had left running; say why, offer to restart that daemon into the bundled one, and send only finished downloads
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/main.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/about/updates.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/bundled_daemon.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/status_banners.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/task_commands.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/select_all_archive_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/status_banners_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/support/app_harness.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/l10n/app_en_XA.arb
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_l10n/lib/src/generated/app_localizations_en.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null

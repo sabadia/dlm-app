@@ -21,8 +21,8 @@ Map<String, dynamic> _$QueueCompletedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$QueueCompletedEventTypeEnumMap[instance.type]!,
 };

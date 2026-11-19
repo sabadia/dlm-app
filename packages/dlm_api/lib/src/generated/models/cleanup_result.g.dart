@@ -17,7 +17,7 @@ CleanupResult _$CleanupResultFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CleanupResultToJson(CleanupResult instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'bytes': instance.bytes,
       'deleted': instance.deleted,
       'failed': instance.failed,

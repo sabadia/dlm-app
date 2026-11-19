@@ -1,0 +1,9 @@
+# The daemon's request bodies do not declare their optional fields nullable:
+# `"settings": null` was refused, and an absent field is what a client means. So
+# a model leaves out a field that has no value instead of writing it as null.
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          include_if_null: false

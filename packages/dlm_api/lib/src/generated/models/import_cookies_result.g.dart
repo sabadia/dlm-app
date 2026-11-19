@@ -19,8 +19,8 @@ ImportCookiesResult _$ImportCookiesResultFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ImportCookiesResultToJson(
   ImportCookiesResult instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'errors': instance.errors,
+  r'$schema': ?instance.schema,
+  'errors': ?instance.errors,
   'imported': instance.imported,
   'skipped': instance.skipped,
 };

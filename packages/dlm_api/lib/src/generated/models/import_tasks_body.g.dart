@@ -20,14 +20,14 @@ ImportTasksBody _$ImportTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ImportTasksBodyToJson(ImportTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'allowDuplicate': instance.allowDuplicate,
+      r'$schema': ?instance.schema,
+      'allowDuplicate': ?instance.allowDuplicate,
       'content': instance.content,
-      'dryRun': instance.dryRun,
-      'expandPatterns': instance.expandPatterns,
+      'dryRun': ?instance.dryRun,
+      'expandPatterns': ?instance.expandPatterns,
       'format': _$ImportTasksBodyFormatEnumMap[instance.format]!,
-      'paused': instance.paused,
-      'queueId': instance.queueId,
+      'paused': ?instance.paused,
+      'queueId': ?instance.queueId,
     };
 
 const _$ImportTasksBodyFormatEnumMap = {

@@ -13,7 +13,7 @@ Effective _$EffectiveFromJson(Map<String, dynamic> json) => Effective(
 );
 
 Map<String, dynamic> _$EffectiveToJson(Effective instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'settings': instance.settings,
   'sources': instance.sources,
 };

@@ -21,11 +21,11 @@ UpdateCredentialBody _$UpdateCredentialBodyFromJson(
 Map<String, dynamic> _$UpdateCredentialBodyToJson(
   UpdateCredentialBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'host': instance.host,
-  'password': instance.password,
-  'scheme': _$UpdateCredentialBodySchemeEnumMap[instance.scheme],
-  'username': instance.username,
+  r'$schema': ?instance.schema,
+  'host': ?instance.host,
+  'password': ?instance.password,
+  'scheme': ?_$UpdateCredentialBodySchemeEnumMap[instance.scheme],
+  'username': ?instance.username,
 };
 
 const _$UpdateCredentialBodySchemeEnumMap = {

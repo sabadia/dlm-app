@@ -21,8 +21,8 @@ PageResult _$PageResultFromJson(Map<String, dynamic> json) => PageResult(
 
 Map<String, dynamic> _$PageResultToJson(PageResult instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'candidates': instance.candidates,
+      r'$schema': ?instance.schema,
+      'candidates': ?instance.candidates,
       'expiresAt': instance.expiresAt.toIso8601String(),
       'finalUrl': instance.finalUrl,
       'group': instance.group,

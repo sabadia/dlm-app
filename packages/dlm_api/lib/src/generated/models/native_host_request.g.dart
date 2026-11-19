@@ -23,11 +23,11 @@ NativeHostRequest _$NativeHostRequestFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$NativeHostRequestToJson(NativeHostRequest instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'action': _$NativeHostRequestActionEnumMap[instance.action]!,
-      'browsers': instance.browsers,
-      'extensionIds': instance.extensionIds,
-      'firefoxIds': instance.firefoxIds,
+      'browsers': ?instance.browsers,
+      'extensionIds': ?instance.extensionIds,
+      'firefoxIds': ?instance.firefoxIds,
     };
 
 const _$NativeHostRequestActionEnumMap = {

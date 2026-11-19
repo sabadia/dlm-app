@@ -17,7 +17,7 @@ CreateTasksBody _$CreateTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateTasksBodyToJson(CreateTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'expandPatterns': instance.expandPatterns,
-      'items': instance.items,
+      r'$schema': ?instance.schema,
+      'expandPatterns': ?instance.expandPatterns,
+      'items': ?instance.items,
     };

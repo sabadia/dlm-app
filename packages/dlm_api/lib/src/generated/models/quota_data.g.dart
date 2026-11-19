@@ -23,9 +23,9 @@ QuotaData _$QuotaDataFromJson(Map<String, dynamic> json) => QuotaData(
 Map<String, dynamic> _$QuotaDataToJson(QuotaData instance) => <String, dynamic>{
   'bytes': instance.bytes,
   'period': instance.period,
-  'queueId': instance.queueId,
-  'resetsAt': instance.resetsAt?.toIso8601String(),
+  'queueId': ?instance.queueId,
+  'resetsAt': ?instance.resetsAt?.toIso8601String(),
   'scope': instance.scope,
   'used': instance.used,
-  'windowStart': instance.windowStart?.toIso8601String(),
+  'windowStart': ?instance.windowStart?.toIso8601String(),
 };

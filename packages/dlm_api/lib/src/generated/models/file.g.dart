@@ -17,7 +17,7 @@ File _$FileFromJson(Map<String, dynamic> json) => File(
 Map<String, dynamic> _$FileToJson(File instance) => <String, dynamic>{
   'index': instance.index,
   'name': instance.name,
-  'path': instance.path,
+  'path': ?instance.path,
   'selected': instance.selected,
   'size': instance.size,
 };

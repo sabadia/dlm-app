@@ -20,10 +20,10 @@ CreateQueueBody _$CreateQueueBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateQueueBodyToJson(CreateQueueBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'name': instance.name,
-      'settings': instance.settings,
-      'state': _$CreateQueueBodyStateEnumMap[instance.state],
+      'settings': ?instance.settings,
+      'state': ?_$CreateQueueBodyStateEnumMap[instance.state],
     };
 
 const _$CreateQueueBodyStateEnumMap = {

@@ -14,6 +14,6 @@ Schedule _$ScheduleFromJson(Map<String, dynamic> json) => Schedule(
 );
 
 Map<String, dynamic> _$ScheduleToJson(Schedule instance) => <String, dynamic>{
-  'timezone': instance.timezone,
-  'windows': instance.windows,
+  'timezone': ?instance.timezone,
+  'windows': ?instance.windows,
 };

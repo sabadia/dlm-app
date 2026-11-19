@@ -18,11 +18,11 @@ PairingBody _$PairingBodyFromJson(Map<String, dynamic> json) => PairingBody(
 
 Map<String, dynamic> _$PairingBodyToJson(PairingBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'browser': _$PairingBodyBrowserEnumMap[instance.browser],
-      'clientId': instance.clientId,
-      'name': instance.name,
-      'version': instance.version,
+      r'$schema': ?instance.schema,
+      'browser': ?_$PairingBodyBrowserEnumMap[instance.browser],
+      'clientId': ?instance.clientId,
+      'name': ?instance.name,
+      'version': ?instance.version,
     };
 
 const _$PairingBodyBrowserEnumMap = {

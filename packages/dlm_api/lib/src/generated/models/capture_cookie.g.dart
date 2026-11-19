@@ -27,14 +27,14 @@ CaptureCookie _$CaptureCookieFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$CaptureCookieToJson(CaptureCookie instance) =>
     <String, dynamic>{
       'domain': instance.domain,
-      'expiresAt': instance.expiresAt?.toIso8601String(),
-      'hostOnly': instance.hostOnly,
-      'httpOnly': instance.httpOnly,
+      'expiresAt': ?instance.expiresAt?.toIso8601String(),
+      'hostOnly': ?instance.hostOnly,
+      'httpOnly': ?instance.httpOnly,
       'name': instance.name,
-      'partitionKey': instance.partitionKey,
-      'path': instance.path,
-      'sameSite': _$CaptureCookieSameSiteEnumMap[instance.sameSite],
-      'secure': instance.secure,
+      'partitionKey': ?instance.partitionKey,
+      'path': ?instance.path,
+      'sameSite': ?_$CaptureCookieSameSiteEnumMap[instance.sameSite],
+      'secure': ?instance.secure,
       'value': instance.value,
     };
 

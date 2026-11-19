@@ -16,7 +16,7 @@ DuplicateHint _$DuplicateHintFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DuplicateHintToJson(DuplicateHint instance) =>
     <String, dynamic>{
-      'archived': instance.archived,
+      'archived': ?instance.archived,
       'name': instance.name,
       'status': instance.status,
       'taskId': instance.taskId,

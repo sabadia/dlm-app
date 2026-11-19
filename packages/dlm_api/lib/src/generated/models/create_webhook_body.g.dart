@@ -19,9 +19,9 @@ CreateWebhookBody _$CreateWebhookBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateWebhookBodyToJson(CreateWebhookBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'disabled': instance.disabled,
-      'events': instance.events,
-      'secret': instance.secret,
+      r'$schema': ?instance.schema,
+      'disabled': ?instance.disabled,
+      'events': ?instance.events,
+      'secret': ?instance.secret,
       'url': instance.url,
     };

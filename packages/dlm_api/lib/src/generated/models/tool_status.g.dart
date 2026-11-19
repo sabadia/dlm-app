@@ -22,11 +22,11 @@ Map<String, dynamic> _$ToolStatusToJson(ToolStatus instance) =>
     <String, dynamic>{
       'autoDownload': instance.autoDownload,
       'available': instance.available,
-      'error': instance.error,
+      'error': ?instance.error,
       'name': _$ToolStatusNameEnumMap[instance.name]!,
-      'path': instance.path,
-      'source': _$ToolStatusSourceEnumMap[instance.source],
-      'version': instance.version,
+      'path': ?instance.path,
+      'source': ?_$ToolStatusSourceEnumMap[instance.source],
+      'version': ?instance.version,
     };
 
 const _$ToolStatusNameEnumMap = {

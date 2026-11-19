@@ -12,6 +12,6 @@ ProxyRule _$ProxyRuleFromJson(Map<String, dynamic> json) => ProxyRule(
 );
 
 Map<String, dynamic> _$ProxyRuleToJson(ProxyRule instance) => <String, dynamic>{
-  'hosts': instance.hosts,
+  'hosts': ?instance.hosts,
   'proxy': instance.proxy,
 };

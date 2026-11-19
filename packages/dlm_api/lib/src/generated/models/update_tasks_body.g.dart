@@ -29,15 +29,15 @@ UpdateTasksBody _$UpdateTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UpdateTasksBodyToJson(UpdateTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'archived': instance.archived,
-      'filter': instance.filter,
-      'ids': instance.ids,
-      'labels': instance.labels,
-      'priority': _$UpdateTasksBodyPriorityEnumMap[instance.priority],
-      'queueId': instance.queueId,
-      'removeLabels': instance.removeLabels,
-      'settings': instance.settings,
+      r'$schema': ?instance.schema,
+      'archived': ?instance.archived,
+      'filter': ?instance.filter,
+      'ids': ?instance.ids,
+      'labels': ?instance.labels,
+      'priority': ?_$UpdateTasksBodyPriorityEnumMap[instance.priority],
+      'queueId': ?instance.queueId,
+      'removeLabels': ?instance.removeLabels,
+      'settings': ?instance.settings,
     };
 
 const _$UpdateTasksBodyPriorityEnumMap = {

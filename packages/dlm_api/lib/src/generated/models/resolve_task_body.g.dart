@@ -21,9 +21,9 @@ ResolveTaskBody _$ResolveTaskBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ResolveTaskBodyToJson(ResolveTaskBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'queueId': instance.queueId,
-      'settings': instance.settings,
-      'source': instance.source,
-      'url': instance.url,
+      r'$schema': ?instance.schema,
+      'queueId': ?instance.queueId,
+      'settings': ?instance.settings,
+      'source': ?instance.source,
+      'url': ?instance.url,
     };
