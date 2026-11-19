@@ -143,12 +143,15 @@ Future<void> deleteTasks(
   List<String> ids,
 ) async {
   final l = AppLocalizations.of(context);
-  var files = false;
+  // Without the question the preference decides; with it, the box starts from
+  // the preference.
+  var files = ref.read(deleteFilesProvider);
   if (ref.read(confirmDeleteProvider)) {
     final choice = await showDlmDialog<({bool files})>(
       context,
       semanticLabel: l.delete_title(ids.length),
-      builder: (dialogContext) => _DeleteDialog(count: ids.length),
+      builder: (dialogContext) =>
+          _DeleteDialog(count: ids.length, files: files),
     );
     if (choice == null || !context.mounted) return;
     files = choice.files;
@@ -184,6 +187,43 @@ Future<void> _bulkAction(
     _reportPartial(context, ref, results);
     final ok = results.where((r) => r.ok).length;
     if (ok > 0) showNotice(context, ref, done(ok));
+  } on Object catch (e) {
+    if (context.mounted) showFailure(context, ref, e);
+  }
+}
+
+/// Moves [ids] into the archive (or back out of it): the downloads and their
+/// files stay, only the lists change.
+Future<void> archiveTasks(
+  BuildContext context,
+  WidgetRef ref,
+  List<String> ids, {
+  bool archived = true,
+}) async {
+  final l = AppLocalizations.of(context);
+  try {
+    final results = await ref
+        .read(taskActionsProvider)
+        .archive(ids, archived: archived);
+    if (!context.mounted) return;
+    final done = [
+      for (final r in results)
+        if (r.ok) r.id,
+    ];
+    final selection = ref.read(selectionProvider);
+    ref.read(selectionProvider.notifier).set({
+      for (final id in selection)
+        if (!done.contains(id)) id,
+    });
+    _reportPartial(context, ref, results);
+    if (done.isNotEmpty) {
+      showNotice(
+        context,
+        ref,
+        archived ? l.archive_done(done.length) : l.unarchive_done(done.length),
+        onUndo: () => archiveTasks(context, ref, done, archived: !archived),
+      );
+    }
   } on Object catch (e) {
     if (context.mounted) showFailure(context, ref, e);
   }
@@ -259,16 +299,19 @@ Future<void> copyLink(BuildContext context, WidgetRef ref, Task task) async {
 }
 
 class _DeleteDialog extends StatefulWidget {
-  const _DeleteDialog({required this.count});
+  const _DeleteDialog({required this.count, required this.files});
 
   final int count;
+
+  /// Whether the box starts ticked.
+  final bool files;
 
   @override
   State<_DeleteDialog> createState() => _DeleteDialogState();
 }
 
 class _DeleteDialogState extends State<_DeleteDialog> {
-  bool _files = false;
+  late bool _files = widget.files;
 
   @override
   Widget build(BuildContext context) {
@@ -347,6 +390,24 @@ List<DlmMenuEntry> taskMenuEntries(
         onPressed: () => restartTasks(context, ref, [
           for (final t in targets)
             if (t.statusKind.isFinished) t.id,
+        ]),
+      ),
+    if (targets.any((t) => t.archived))
+      DlmMenuItem(
+        label: l.task_unarchive,
+        icon: const DlmIcon(DlmIconName.folder),
+        onPressed: () => archiveTasks(context, ref, [
+          for (final t in targets)
+            if (t.archived) t.id,
+        ], archived: false),
+      ),
+    if (targets.any((t) => !t.archived && t.statusKind.isFinished))
+      DlmMenuItem(
+        label: l.task_archive,
+        icon: const DlmIcon(DlmIconName.folder),
+        onPressed: () => archiveTasks(context, ref, [
+          for (final t in targets)
+            if (!t.archived && t.statusKind.isFinished) t.id,
         ]),
       ),
     if (targets.any((t) => !t.statusKind.isFinished))

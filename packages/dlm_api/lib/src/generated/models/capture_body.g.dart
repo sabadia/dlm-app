@@ -44,6 +44,7 @@ CaptureBody _$CaptureBodyFromJson(Map<String, dynamic> json) => CaptureBody(
       : CaptureBodyPriority.fromJson(json['priority'] as String),
   queueId: json['queueId'] as String?,
   referrer: json['referrer'] as String?,
+  refreshTaskId: json['refreshTaskId'] as String?,
   resolverKind: json['resolverKind'] == null
       ? null
       : CaptureBodyResolverKind.fromJson(json['resolverKind'] as String),
@@ -78,6 +79,7 @@ Map<String, dynamic> _$CaptureBodyToJson(CaptureBody instance) =>
       'priority': _$CaptureBodyPriorityEnumMap[instance.priority],
       'queueId': instance.queueId,
       'referrer': instance.referrer,
+      'refreshTaskId': instance.refreshTaskId,
       'resolverKind': _$CaptureBodyResolverKindEnumMap[instance.resolverKind],
       'settings': instance.settings,
       'size': instance.size,

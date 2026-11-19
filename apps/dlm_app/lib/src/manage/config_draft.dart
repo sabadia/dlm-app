@@ -12,6 +12,20 @@ class ConfigDraft {
   final ConfigView view;
 
   final Map<String, Object?> _edits = {};
+  final Set<String> _invalid = {};
+
+  /// Whether a field holds text that is not a valid value (it is never stored
+  /// in the draft, so saving would keep the old value silently).
+  bool get hasInvalid => _invalid.isNotEmpty;
+
+  /// Records that the field of [key] holds invalid text, or no longer does.
+  void markInvalid(String key, {required bool invalid}) {
+    if (invalid) {
+      _invalid.add(key);
+    } else {
+      _invalid.remove(key);
+    }
+  }
 
   /// Whether anything was edited.
   bool get isDirty => _edits.isNotEmpty;

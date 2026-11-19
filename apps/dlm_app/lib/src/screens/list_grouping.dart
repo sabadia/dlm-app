@@ -37,6 +37,7 @@ List<Task> groupRows(
   return [
     for (final e in groups.entries) ...[
       Task(
+        archived: false,
         createdAt: e.value.first.createdAt,
         downloaded: 0,
         id: '$groupHeaderPrefix${e.key}',

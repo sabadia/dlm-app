@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dlm_api/dlm_api.dart';
 
 import 'task_status.dart';
@@ -14,6 +16,7 @@ class TaskQuery {
     this.engine,
     this.category,
     this.label,
+    this.archived = false,
   });
 
   /// Only tasks of this queue.
@@ -40,6 +43,10 @@ class TaskQuery {
   /// Only tasks with this label (`key` or `key=value`).
   final String? label;
 
+  /// Whether the query is the archive's: archived tasks only. Every other
+  /// query leaves archived tasks out.
+  final bool archived;
+
   @override
   bool operator ==(Object other) =>
       other is TaskQuery &&
@@ -50,6 +57,7 @@ class TaskQuery {
       other.engine == engine &&
       other.category == category &&
       other.label == label &&
+      other.archived == archived &&
       other.statuses.length == statuses.length &&
       other.statuses.containsAll(statuses);
 
@@ -62,6 +70,7 @@ class TaskQuery {
     engine,
     category,
     label,
+    archived,
     Object.hashAllUnordered(statuses),
   );
 }
@@ -106,6 +115,13 @@ abstract interface class TaskRepository {
 
   /// One task.
   Future<Task> get(String id);
+
+  /// Every task the query matches, all pages. "Select all" uses it, since a
+  /// list only holds the pages it has loaded.
+  Future<List<Task>> tasksMatching(TaskQuery query);
+
+  /// Moves [ids] into the archive, or out of it when [archived] is false.
+  Future<List<ItemResult>> archive(List<String> ids, {bool archived = true});
 
   /// Pauses [ids].
   Future<List<ItemResult>> pause(List<String> ids);
@@ -192,6 +208,7 @@ class ApiTaskRepository implements TaskRepository {
             ...Status.values.where((v) => v.json == s.wire),
         ],
         q: query.text,
+        archived: query.archived ? Archived.only : Archived.exclude,
         cursor: cursor,
       );
       return TaskPage(
@@ -202,25 +219,81 @@ class ApiTaskRepository implements TaskRepository {
     });
   }
 
+  /// The most ids the daemon takes in one bulk call.
+  static const _maxIds = 1000;
+
+  /// Runs [call] on [ids] in batches the daemon accepts and joins the results.
+  static Future<List<ItemResult>> _batched(
+    List<String> ids,
+    Future<BatchOutputBody> Function(List<String>) call,
+  ) async {
+    final out = <ItemResult>[];
+    for (var i = 0; i < ids.length; i += _maxIds) {
+      out.addAll(
+        _items(await call(ids.sublist(i, min(i + _maxIds, ids.length)))),
+      );
+    }
+    return out;
+  }
+
+  @override
+  Future<List<Task>> tasksMatching(TaskQuery query) => guard(() async {
+    final all = <Task>[];
+    String? cursor;
+    do {
+      final page = await _tasks.listTasks(
+        sort: query.sort,
+        order: query.order,
+        engine: query.engine,
+        category: query.category,
+        label: query.label,
+        limit: 500,
+        queueId: query.queueId,
+        status: [
+          for (final s in query.statuses)
+            ...Status.values.where((v) => v.json == s.wire),
+        ],
+        q: query.text,
+        archived: query.archived ? Archived.only : Archived.exclude,
+        cursor: cursor,
+      );
+      all.addAll(page.tasks ?? const <Task>[]);
+      cursor = page.nextCursor;
+    } while (cursor != null);
+    return all;
+  });
+
+  @override
+  Future<List<ItemResult>> archive(List<String> ids, {bool archived = true}) =>
+      guard(
+        () => _batched(
+          ids,
+          (b) => _tasks.updateTasks(
+            body: UpdateTasksBody(ids: b, archived: archived),
+          ),
+        ),
+      );
+
   @override
   Future<Task> get(String id) => guard(() => _tasks.getTask(id: id));
 
   @override
   Future<List<ItemResult>> pause(List<String> ids) => guard(
-    () async => _items(await _tasks.pauseTasks(body: TaskSelector(ids: ids))),
+    () => _batched(ids, (b) => _tasks.pauseTasks(body: TaskSelector(ids: b))),
   );
 
   @override
   Future<List<ItemResult>> resume(List<String> ids) => guard(
-    () async => _items(await _tasks.resumeTasks(body: TaskSelector(ids: ids))),
+    () => _batched(ids, (b) => _tasks.resumeTasks(body: TaskSelector(ids: b))),
   );
 
   @override
   Future<List<ItemResult>> delete(List<String> ids, {bool files = false}) =>
       guard(
-        () async => _items(
-          await _tasks.deleteTasks(
-            body: DeleteTasksBody(ids: ids, files: files),
+        () => _batched(
+          ids,
+          (b) => _tasks.deleteTasks(
+            body: DeleteTasksBody(ids: b, files: files),
           ),
         ),
       );
@@ -274,19 +347,20 @@ class ApiTaskRepository implements TaskRepository {
 
   @override
   Future<List<ItemResult>> restartMany(List<String> ids) => guard(
-    () async => _items(await _tasks.restartTasks(body: TaskSelector(ids: ids))),
+    () => _batched(ids, (b) => _tasks.restartTasks(body: TaskSelector(ids: b))),
   );
 
   @override
   Future<List<ItemResult>> refreshMany(List<String> ids) => guard(
-    () async => _items(await _tasks.refreshTasks(body: TaskSelector(ids: ids))),
+    () => _batched(ids, (b) => _tasks.refreshTasks(body: TaskSelector(ids: b))),
   );
 
   @override
   Future<List<ItemResult>> moveMany(List<String> ids, String queueId) => guard(
-    () async => _items(
-      await _tasks.moveTasks(
-        body: MoveTasksBody(ids: ids, queueId: queueId),
+    () => _batched(
+      ids,
+      (b) => _tasks.moveTasks(
+        body: MoveTasksBody(ids: b, queueId: queueId),
       ),
     ),
   );
@@ -296,9 +370,10 @@ class ApiTaskRepository implements TaskRepository {
     List<String> ids,
     UpdateTasksBodyPriority priority,
   ) => guard(
-    () async => _items(
-      await _tasks.updateTasks(
-        body: UpdateTasksBody(ids: ids, priority: priority),
+    () => _batched(
+      ids,
+      (b) => _tasks.updateTasks(
+        body: UpdateTasksBody(ids: b, priority: priority),
       ),
     ),
   );

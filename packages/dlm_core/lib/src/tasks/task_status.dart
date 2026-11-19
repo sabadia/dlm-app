@@ -88,6 +88,13 @@ extension TaskX on Task {
       size > 0 &&
       downloaded >= size;
 
+  /// Whether the size is a guess that changes while the task runs: a stream
+  /// (HLS, DASH) or a video page (yt-dlp) knows its size only once every piece
+  /// is fetched, so until then the daemon extrapolates it.
+  bool get hasEstimatedSize =>
+      !statusKind.isFinished &&
+      (engine == 'hls' || engine == 'dash' || engine == 'ytdlp');
+
   /// Fraction downloaded (0..1), or null while the size is unknown.
   double? get fraction =>
       hasKnownSize && size > 0 ? (downloaded / size).clamp(0, 1) : null;
@@ -105,8 +112,10 @@ extension TaskX on Task {
     DateTime? updatedAt,
     DateTime? completedAt,
     DateTime? startedAt,
+    bool? archived,
   }) {
     return Task(
+      archived: archived ?? this.archived,
       createdAt: createdAt,
       downloaded: downloaded ?? this.downloaded,
       id: id,

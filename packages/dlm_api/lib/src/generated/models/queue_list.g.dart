@@ -7,6 +7,7 @@ part of 'queue_list.dart';
 // **************************************************************************
 
 QueueList _$QueueListFromJson(Map<String, dynamic> json) => QueueList(
+  archived: (json['archived'] as num).toInt(),
   counts: (json['counts'] as Map<String, dynamic>).map(
     (k, e) => MapEntry(k, Map<String, int>.from(e as Map)),
   ),
@@ -18,6 +19,7 @@ QueueList _$QueueListFromJson(Map<String, dynamic> json) => QueueList(
 
 Map<String, dynamic> _$QueueListToJson(QueueList instance) => <String, dynamic>{
   r'$schema': instance.schema,
+  'archived': instance.archived,
   'counts': instance.counts,
   'queues': instance.queues,
 };

@@ -4,11 +4,11 @@ import 'package:dlm_api/dlm_api.dart';
 import 'package:dlm_core/dlm_core.dart';
 import 'package:dlm_l10n/dlm_l10n.dart';
 import 'package:dlm_ui_kit/dlm_ui_kit.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+import '../shell/copyable.dart';
 import '../shell/feedback.dart';
 
 /// The link of a download: where it comes from, buttons to renew or replace
@@ -56,29 +56,9 @@ class SourceTab extends ConsumerWidget {
     String when(DateTime t) =>
         DateFormat.yMMMd(l.localeName).add_Hm().format(t.toLocal());
 
-    Widget link(String label, String? value, {bool copy = false}) =>
-        value == null || value.isEmpty
+    Widget link(String label, String? value) => value == null || value.isEmpty
         ? const SizedBox.shrink()
-        : DlmFormRow(
-            label: label,
-            control: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Flexible(child: Text(value, textAlign: TextAlign.end)),
-                if (copy)
-                  DlmIconButton(
-                    icon: const DlmIcon(DlmIconName.copy),
-                    semanticLabel: l.src_copy,
-                    onPressed: () async {
-                      await Clipboard.setData(ClipboardData(text: value));
-                      if (context.mounted) {
-                        showNotice(context, ref, l.toast_link_copied);
-                      }
-                    },
-                  ),
-              ],
-            ),
-          );
+        : DlmFormRow(label: label, control: CopyableText(value));
 
     return ListView(
       padding: EdgeInsets.all(theme.metrics.spacing.md),
@@ -86,7 +66,7 @@ class SourceTab extends ConsumerWidget {
         DlmFormGroup(
           title: l.src_group_link,
           children: [
-            link(l.src_current, source.currentUrl, copy: true),
+            link(l.src_current, source.currentUrl),
             if (source.originalUrl != source.currentUrl)
               link(l.src_original, source.originalUrl),
             link(l.src_page, source.pageUrl),
@@ -103,25 +83,33 @@ class SourceTab extends ConsumerWidget {
             DlmButton(
               label: l.src_refresh,
               icon: const DlmIcon(DlmIconName.refresh),
-              onPressed: () => unawaited(
-                _run(
-                  context,
-                  ref,
-                  (r) => r.refresh(id),
-                  l.toast_link_refreshing,
-                ),
-              ),
+              // A finished download has no link to renew.
+              onPressed: kind == TaskStatus.completed
+                  ? null
+                  : () => unawaited(
+                      _run(
+                        context,
+                        ref,
+                        (r) => r.refresh(id),
+                        l.toast_link_refreshing,
+                      ),
+                    ),
             ),
             DlmButton(
               label: l.src_await,
-              onPressed: () => unawaited(
-                _run(
-                  context,
-                  ref,
-                  (r) => r.awaitLink(id),
-                  l.toast_link_waiting,
-                ),
-              ),
+              // The daemon waits only for a failed task or one that already
+              // waits for a link.
+              onPressed:
+                  kind == TaskStatus.error || kind == TaskStatus.awaitingLink
+                  ? () => unawaited(
+                      _run(
+                        context,
+                        ref,
+                        (r) => r.awaitLink(id),
+                        l.toast_link_waiting,
+                      ),
+                    )
+                  : null,
             ),
             DlmButton(
               label: l.src_edit,

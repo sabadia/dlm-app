@@ -9,10 +9,13 @@ import '../tasks/task_status.dart';
 /// How many tasks each queue holds per status, as the daemon counts them.
 class QueueCountsState {
   /// Creates counts from queue id -> status -> number of tasks.
-  const QueueCountsState([this.byQueue = const {}]);
+  const QueueCountsState([this.byQueue = const {}, this.archived = 0]);
 
-  /// The raw counts.
+  /// The raw counts. Archived tasks are not in them.
   final Map<String, Map<String, int>> byQueue;
+
+  /// How many tasks are archived.
+  final int archived;
 
   /// How many tasks are in one of [statuses] (all statuses when empty), in
   /// [queueId] or in every queue.
@@ -42,11 +45,15 @@ class QueueCountsState {
 }
 
 /// Reads the queue counts from the daemon; a seam for tests.
-final queueCountsSourceProvider =
-    Provider<Future<Map<String, Map<String, int>>> Function()>((ref) {
-      final api = ref.watch(apiProvider);
-      return () async => (await guard(api.rest.queues.listQueues)).counts;
-    });
+final queueCountsSourceProvider = Provider<Future<QueueCountsState> Function()>(
+  (ref) {
+    final api = ref.watch(apiProvider);
+    return () async {
+      final list = await guard(api.rest.queues.listQueues);
+      return QueueCountsState(list.counts, list.archived);
+    };
+  },
+);
 
 /// The per-queue counts. Read at start and again, after a short pause, each
 /// time tasks appear, disappear or change status.
@@ -72,7 +79,7 @@ class QueueCounts extends Notifier<QueueCountsState> {
   Future<void> refresh() async {
     try {
       final counts = await ref.read(queueCountsSourceProvider)();
-      if (ref.mounted) state = QueueCountsState(counts);
+      if (ref.mounted) state = counts;
     } on ApiFailure {
       // The connection banner says what is wrong.
     }

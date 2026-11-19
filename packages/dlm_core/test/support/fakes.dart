@@ -10,6 +10,7 @@ Task task(
   String queueId = 'main',
   String? engine,
 }) => Task(
+  archived: false,
   createdAt: DateTime.utc(2026, 10, 29),
   downloaded: downloaded,
   id: id,
@@ -61,7 +62,7 @@ class FakeTaskRepository implements TaskRepository {
       for (final t in tasks)
         if (query.queueId == null || t.queueId == query.queueId)
           if (query.statuses.isEmpty || query.statuses.contains(t.statusKind))
-            t,
+            if (t.archived == query.archived) t,
     ];
     final start = cursor == null ? 0 : int.parse(cursor);
     final end = (start + pageSize).clamp(0, matching.length);
@@ -69,6 +70,38 @@ class FakeTaskRepository implements TaskRepository {
       matching.sublist(start, end),
       end < matching.length ? '$end' : null,
     );
+  }
+
+  @override
+  Future<List<Task>> tasksMatching(TaskQuery query) async {
+    calls.add('tasksMatching');
+    _maybeFail();
+    return [
+      for (final t in tasks)
+        if ((query.queueId == null || t.queueId == query.queueId) &&
+            (query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
+            t.archived == query.archived)
+          t,
+    ];
+  }
+
+  @override
+  Future<List<ItemResult>> archive(
+    List<String> ids, {
+    bool archived = true,
+  }) async {
+    calls.add('archive:${ids.join(',')}:$archived');
+    _maybeFail();
+    return [
+      for (final id in ids)
+        ItemResult(
+          id: id,
+          ok: !failIds.contains(id),
+          error: failIds.contains(id)
+              ? const ApiProblem(status: 409, code: 'task.invalid_state')
+              : null,
+        ),
+    ];
   }
 
   @override

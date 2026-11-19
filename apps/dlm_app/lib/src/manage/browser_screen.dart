@@ -7,8 +7,10 @@ import 'package:dlm_ui_kit/dlm_ui_kit.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../add/add_dialog.dart';
 import '../format/dlm_format.dart';
 import '../onboarding/tool_row.dart';
+import '../shell/copyable.dart';
 import '../shell/feedback.dart';
 
 /// The browser tool: open a page in the daemon's headless browser, see the
@@ -110,9 +112,19 @@ class _BrowserScreenState extends ConsumerState<BrowserScreen> {
                 c.source,
               ].where((e) => e.isNotEmpty).join(' · '),
               leading: const DlmIcon(DlmIconName.download),
-              trailing: DlmButton(
-                label: l.br_download,
-                onPressed: () => unawaited(_download(r, c)),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  DlmIconButton(
+                    icon: const DlmIcon(DlmIconName.copy),
+                    semanticLabel: l.src_copy,
+                    onPressed: () => copyText(context, ref, c.url),
+                  ),
+                  DlmButton(
+                    label: l.br_download,
+                    onPressed: () => unawaited(_download(r, c)),
+                  ),
+                ],
               ),
             ),
           ),
@@ -180,7 +192,23 @@ class _BrowserScreenState extends ConsumerState<BrowserScreen> {
         ),
         if (_error != null) ...[
           gap,
-          DlmBanner(tone: DlmTone.danger, message: l.br_error),
+          if (_error is ApiProblem &&
+              (_error! as ApiProblem).code == 'browser.not_a_page') ...[
+            // A file address: the browser would only download it, so it goes
+            // to the download list instead.
+            DlmBanner(tone: DlmTone.warning, message: l.br_not_a_page),
+            SizedBox(height: theme.metrics.spacing.xs),
+            Align(
+              alignment: AlignmentDirectional.centerStart,
+              child: DlmButton(
+                label: l.br_add_as_download,
+                onPressed: () => unawaited(
+                  showAddDownload(context, ref, initialText: _url.trim()),
+                ),
+              ),
+            ),
+          ] else
+            DlmBanner(tone: DlmTone.danger, message: l.br_error),
         ],
         if (result != null) ...[
           gap,
@@ -188,11 +216,22 @@ class _BrowserScreenState extends ConsumerState<BrowserScreen> {
             result.title.isEmpty ? result.finalUrl : result.title,
             style: theme.typography.subtitle,
           ),
-          Text(
-            l.br_result_info(result.finalUrl, result.group),
-            style: theme.typography.caption.copyWith(
-              color: theme.colors.textSecondary,
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l.br_result_info(result.finalUrl, result.group),
+                  style: theme.typography.caption.copyWith(
+                    color: theme.colors.textSecondary,
+                  ),
+                ),
+              ),
+              DlmIconButton(
+                icon: const DlmIcon(DlmIconName.copy),
+                semanticLabel: l.src_copy,
+                onPressed: () => copyText(context, ref, result.finalUrl),
+              ),
+            ],
           ),
           SizedBox(height: theme.metrics.spacing.sm),
           _candidates(l, theme, result),

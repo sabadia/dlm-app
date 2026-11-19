@@ -106,7 +106,12 @@ class _CardBody extends StatelessWidget {
             bytesPerSecond: progress!.speed,
           )
         : null;
-    final sizeText = context.bytes(size);
+    final exact = context.bytes(size);
+    // A stream's size is extrapolated while it downloads: say so, and do not
+    // let the digits look exact.
+    final sizeText = exact != null && task.hasEstimatedSize
+        ? '≈ $exact'
+        : exact;
     // A failed task shows how far it got and stays still: an animated bar (the
     // size is unknown) reads as "still working".
     final failed = kind == TaskStatus.error;

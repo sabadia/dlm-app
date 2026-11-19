@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../add/path_picker.dart';
 import '../format/dlm_format.dart';
+import '../platform/app_restart.dart';
 import '../shell/feedback.dart';
 import 'settings_editors.dart';
 
@@ -98,6 +99,8 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
   String _search = '';
   bool _saving = false;
   bool _changedElsewhere = false;
+  // Counts the reverts: each starts the fields over.
+  int _revertEpoch = 0;
 
   late final ProviderContainer _container;
 
@@ -121,6 +124,7 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
   }
 
   void _touch() {
+    if (!mounted) return;
     setState(() {});
     final dirty = _draft?.isDirty ?? false;
     if (ref.read(unsavedSettingsProvider) != dirty) {
@@ -130,9 +134,17 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
 
   Future<void> _save(Set<String> known) async {
     final draft = _draft!;
+    // Saved settings that apply only after a restart are offered one.
+    final fields = ref.read(settingsSchemaProvider).value?.fields;
+    final needsRestart = (fields ?? const <FieldSchema>[]).any(
+      (f) => (f.restartRequired ?? false) && draft.editedPaths.contains(f.path),
+    );
     setState(() => _saving = true);
     try {
       await ref.read(settingsSaverProvider)(widget.target, draft);
+      if (needsRestart) {
+        ref.read(restartNeededProvider.notifier).mark(needed: true);
+      }
       if (!mounted) return;
       // The new snapshot replaces the draft when it arrives.
       _draft = null;
@@ -253,7 +265,9 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
               children: [
                 for (final f in entry.value)
                   _FieldRow(
-                    key: ValueKey(f.path),
+                    // A revert starts the fields over, text they could not take
+                    // included.
+                    key: ValueKey('${f.path}#$_revertEpoch'),
                     field: f,
                     draft: draft,
                     onChanged: _touch,
@@ -294,18 +308,26 @@ class _SettingsFormState extends ConsumerState<SettingsForm> {
                   ),
                 DlmButton(
                   label: l.settings_revert,
-                  onPressed: draft.isDirty && !_saving
+                  onPressed: (draft.isDirty || draft.hasInvalid) && !_saving
                       ? () {
                           draft.revert();
+                          _revertEpoch++;
                           _changedElsewhere = false;
                           _touch();
                         }
                       : null,
                 ),
+                if (draft.hasInvalid)
+                  Text(
+                    l.settings_fix_invalid,
+                    style: theme.typography.caption.copyWith(
+                      color: theme.colors.danger,
+                    ),
+                  ),
                 DlmButton(
                   label: l.settings_save,
                   variant: DlmButtonVariant.primary,
-                  onPressed: draft.isDirty && !_saving
+                  onPressed: draft.isDirty && !draft.hasInvalid && !_saving
                       ? () => unawaited(_save(known))
                       : null,
                 ),
@@ -352,6 +374,14 @@ class _FieldRow extends StatelessWidget {
       onChanged();
     }
 
+    // Text that does not parse is not stored, so the draft is told, and the
+    // form does not save until it is fixed. A field that is torn down tells
+    // too, in the middle of a frame: the form updates after it.
+    void validity(bool valid) {
+      draft.markInvalid(path, invalid: !valid);
+      scheduleMicrotask(onChanged);
+    }
+
     switch (field.type) {
       case FieldSchemaType.boolean:
         return DlmSwitch(
@@ -373,6 +403,7 @@ class _FieldRow extends StatelessWidget {
               semanticLabel: label,
               suffix: unit == 'bytes/s' ? const Text('/s') : null,
               onChanged: set,
+              onValidityChanged: validity,
             ),
           );
         }
@@ -388,6 +419,7 @@ class _FieldRow extends StatelessWidget {
             semanticLabel: label,
             suffix: unit.isEmpty ? null : Text(unit),
             onChanged: set,
+            onValidityChanged: validity,
           ),
         );
       case FieldSchemaType.string when (field.enumValue ?? const []).isNotEmpty:
@@ -418,9 +450,12 @@ class _FieldRow extends StatelessWidget {
               ? null
               : t.trim(),
           format: (v) => v,
-          invalidText: l.settings_invalid_duration,
+          invalidText: isDur
+              ? l.settings_invalid_duration
+              : l.settings_invalid_text,
           semanticLabel: label,
           onChanged: set,
+          onValidityChanged: validity,
         );
         if (!isFolder) return SizedBox(width: 260, child: input);
         // A folder can be typed or chosen with the system's folder dialog.

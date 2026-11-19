@@ -38,6 +38,7 @@ class CaptureBody {
     this.priority,
     this.queueId,
     this.referrer,
+    this.refreshTaskId,
     this.resolverKind,
     this.settings,
     this.size,
@@ -108,6 +109,9 @@ class CaptureBody {
 
   /// Referer the browser sent (default pageUrl).
   final String? referrer;
+
+  /// ID of a task that is waiting for a new link: the capture then only renews that task (409 when it is not waiting or the link serves other content) and never creates a task.
+  final String? refreshTaskId;
 
   /// How the link is turned into a download: direct (a file, the default), ytdlp (a video or audio page yt-dlp can extract) or browser (a page that needs the headless browser).
   final CaptureBodyResolverKind? resolverKind;

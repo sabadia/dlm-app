@@ -74,6 +74,32 @@ class TaskActions {
     }
   }
 
+  /// Moves tasks into the archive (or out of it); they leave the list they are
+  /// in at once, since every list but the archive's leaves archived tasks out.
+  Future<List<ItemResult>> archive(
+    List<String> ids, {
+    bool archived = true,
+  }) async {
+    final removed = <String, Task>{};
+    for (final id in ids) {
+      final t = _store.tasks.remove(id);
+      if (t != null) removed[id] = t;
+    }
+    try {
+      final results = await _repo.archive(ids, archived: archived);
+      for (final r in results.where((r) => !r.ok)) {
+        final t = removed[r.id];
+        if (t != null && _store.tasks[r.id] == null) _store.tasks.put(r.id, t);
+      }
+      return results;
+    } on Object {
+      removed.forEach((id, t) {
+        if (_store.tasks[id] == null) _store.tasks.put(id, t);
+      });
+      rethrow;
+    }
+  }
+
   /// Restarts one task.
   Future<Task> restart(String id) => _single(
     id,

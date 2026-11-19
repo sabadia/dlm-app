@@ -158,6 +158,10 @@ class DlmApi {
         connectTimeout: e.connectTimeout,
         receiveTimeout: e.receiveTimeout,
         headers: {'User-Agent': e.userAgent, 'Accept': 'application/json'},
+        // The daemon's list parameters (status, ...) are comma-separated; the
+        // default repeats the name, and the daemon used to read only the first
+        // value, so Queued and Active sections lost tasks.
+        listFormat: ListFormat.csv,
         // Problem bodies are JSON too; let Dio decode them.
         validateStatus: (s) => s != null && s >= 200 && s < 300,
       ),

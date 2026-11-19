@@ -7,6 +7,7 @@ part of 'task.dart';
 // **************************************************************************
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+  archived: json['archived'] as bool,
   createdAt: DateTime.parse(json['createdAt'] as String),
   downloaded: (json['downloaded'] as num).toInt(),
   id: json['id'] as String,
@@ -41,6 +42,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
   r'$schema': instance.schema,
+  'archived': instance.archived,
   'completedAt': instance.completedAt?.toIso8601String(),
   'createdAt': instance.createdAt.toIso8601String(),
   'dir': instance.dir,

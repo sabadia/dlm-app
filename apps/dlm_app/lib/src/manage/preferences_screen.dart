@@ -181,6 +181,7 @@ class PreferencesScreen extends ConsumerWidget {
     final skin = ref.watch(skinOverrideProvider);
     final density = ref.watch(densityProvider);
     final confirm = ref.watch(confirmDeleteProvider);
+    final deleteFiles = ref.watch(deleteFilesProvider);
     // A colour stored by an earlier version or another tool is not one of the
     // names, but it is not "the system's" either.
     final accentId =
@@ -374,6 +375,16 @@ class PreferencesScreen extends ConsumerWidget {
                 semanticLabel: l.pref_confirm_delete,
                 onChanged: (v) =>
                     unawaited(ref.read(confirmDeleteProvider.notifier).set(v)),
+              ),
+            ),
+            DlmFormRow(
+              label: l.pref_delete_files,
+              description: l.pref_delete_files_desc,
+              control: DlmSwitch(
+                value: deleteFiles,
+                semanticLabel: l.pref_delete_files,
+                onChanged: (v) =>
+                    unawaited(ref.read(deleteFilesProvider.notifier).set(v)),
               ),
             ),
           ],

@@ -45,6 +45,22 @@ const healthBody = {
 };
 
 void main() {
+  test('sends a list parameter as one comma-separated value', () async {
+    String? query;
+    final (_, api) = await serve((r) {
+      query = r.uri.query;
+      json(r, 200, {'tasks': <Object>[]});
+    });
+    await guard(
+      () => api.rest.tasks.listTasks(
+        status: [Status.queued, Status.awaitingLink],
+      ),
+    );
+    final params = Uri.splitQueryString(query!);
+    expect(params['status'], 'queued,awaiting_link');
+    expect(query, isNot(contains('status=queued&status')));
+  });
+
   test('sends the bearer token and decodes the model', () async {
     String? auth;
     String? agent;

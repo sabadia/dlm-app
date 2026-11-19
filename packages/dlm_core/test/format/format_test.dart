@@ -130,6 +130,18 @@ void main() {
       );
     });
 
+    test('parse refuses digits that overflow or span centuries', () {
+      for (final text in [
+        '99999999999999999999',
+        '99999999999999999999h',
+        '1:99999999999999999999:00',
+        '9999999d',
+      ]) {
+        expect(parseDuration(text), isNull, reason: text);
+      }
+      expect(parseDuration('30d'), const Duration(days: 30));
+    });
+
     test('parse what people type', () {
       for (final (text, d) in [
         ('90', const Duration(seconds: 90)),

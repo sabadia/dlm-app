@@ -7,6 +7,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import '../models/archived.dart';
 import '../models/batch_output_body.dart';
 import '../models/bucket.dart';
 import '../models/cleanup_result.dart';
@@ -125,12 +126,15 @@ abstract class TasksClient {
   /// [limit] - Page size.
   ///
   /// [cursor] - nextCursor of the previous page (same sort and order).
+  ///
+  /// [archived] - exclude (the default) leaves archived tasks out, only lists just them, any lists both.
   @GET('/v1/tasks')
   Future<TaskList> listTasks({
     @Query('minSize') int? minSize = -1,
     @Query('maxSize') int? maxSize = -1,
     @Query('sort') Sort? sort = Sort.position,
     @Query('limit') int? limit = 50,
+    @Query('archived') Archived? archived = Archived.exclude,
     @Query('queueId') String? queueId,
     @Query('status') List<Status>? status,
     @Query('q') String? q,

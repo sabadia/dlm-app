@@ -134,6 +134,7 @@ Task task(
   String priority = 'normal',
   Settings settings = const Settings(),
 }) => Task(
+  archived: false,
   createdAt: DateTime.utc(2026, 10, 29),
   downloaded: downloaded,
   id: id,
@@ -178,6 +179,7 @@ class FakeTaskRepository implements TaskRepository {
       for (final t in tasks)
         if ((query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
             (query.queueId == null || t.queueId == query.queueId) &&
+            t.archived == query.archived &&
             (query.text == null ||
                 (t.name ?? '').toLowerCase().contains(
                   query.text!.toLowerCase(),
@@ -211,6 +213,26 @@ class FakeTaskRepository implements TaskRepository {
     bool files = false,
   }) async {
     deleted.add((ids, files));
+    return [for (final id in ids) ItemResult(id: id, ok: true)];
+  }
+
+  final List<(List<String>, bool)> archivedCalls = [];
+
+  @override
+  Future<List<Task>> tasksMatching(TaskQuery query) async => [
+    for (final t in tasks)
+      if ((query.statuses.isEmpty || query.statuses.contains(t.statusKind)) &&
+          (query.queueId == null || t.queueId == query.queueId) &&
+          t.archived == query.archived)
+        t,
+  ];
+
+  @override
+  Future<List<ItemResult>> archive(
+    List<String> ids, {
+    bool archived = true,
+  }) async {
+    archivedCalls.add((ids, archived));
     return [for (final id in ids) ItemResult(id: id, ok: true)];
   }
 

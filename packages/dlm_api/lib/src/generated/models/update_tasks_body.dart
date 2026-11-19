@@ -13,6 +13,7 @@ part 'update_tasks_body.g.dart';
 class UpdateTasksBody {
   const UpdateTasksBody({
     this.schema,
+    this.archived,
     this.filter,
     this.ids,
     this.labels,
@@ -29,6 +30,9 @@ class UpdateTasksBody {
   /// Incorrect name has been replaced. Original name: `$schema`.
   @JsonKey(name: '\$schema')
   final String? schema;
+
+  /// true moves the tasks into the archive (only completed or failed tasks can be archived), false takes them out again.
+  final bool? archived;
 
   /// Select tasks by queue and status ({} selects all tasks). Mutually exclusive with ids.
   final TaskSelectorFilter? filter;

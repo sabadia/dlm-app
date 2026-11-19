@@ -429,6 +429,7 @@ class DlmParsedField<T extends Object> extends StatefulWidget {
     this.enabled = true,
     this.textAlign = TextAlign.start,
     this.suffix,
+    this.onValidityChanged,
     super.key,
   });
 
@@ -465,6 +466,11 @@ class DlmParsedField<T extends Object> extends StatefulWidget {
   /// Widget after the text (a unit label).
   final Widget? suffix;
 
+  /// Called when the text becomes valid or invalid. Text that does not parse is
+  /// never passed to [onChanged], so without this a form cannot tell that the
+  /// value it holds is not what the field shows.
+  final ValueChanged<bool>? onValidityChanged;
+
   @override
   State<DlmParsedField<T>> createState() => _DlmParsedFieldState<T>();
 }
@@ -476,6 +482,13 @@ class _DlmParsedFieldState<T extends Object> extends State<DlmParsedField<T>> {
   final FocusNode _focus = FocusNode();
   T? _lastReported;
   bool _showError = false;
+  bool _valueValid = true;
+
+  void _setValid(bool valid) {
+    if (valid == _valueValid) return;
+    _valueValid = valid;
+    widget.onValidityChanged?.call(valid);
+  }
 
   String _textOf(T? v) => v == null ? '' : widget.format(v);
 
@@ -505,6 +518,9 @@ class _DlmParsedFieldState<T extends Object> extends State<DlmParsedField<T>> {
 
   void _edited(String text) {
     final trimmed = text.trim();
+    final valid = _valid(text);
+    _setValid(valid);
+
     if (trimmed.isEmpty) {
       if (widget.allowEmpty) {
         _lastReported = null;
@@ -533,6 +549,8 @@ class _DlmParsedFieldState<T extends Object> extends State<DlmParsedField<T>> {
 
   @override
   void dispose() {
+    // A field that goes away no longer holds anything invalid.
+    if (!_valueValid) widget.onValidityChanged?.call(true);
     _focus.dispose();
     _controller.dispose();
     super.dispose();
@@ -569,11 +587,16 @@ class DlmNumberField extends StatelessWidget {
     this.semanticLabel,
     this.enabled = true,
     this.suffix,
+    this.onValidityChanged,
     super.key,
   });
 
   /// The current value.
   final num? value;
+
+  /// Called when the text becomes valid or invalid (see
+  /// [DlmParsedField.onValidityChanged]).
+  final ValueChanged<bool>? onValidityChanged;
 
   /// Called with each valid, in-range value.
   final ValueChanged<num?> onChanged;
@@ -624,6 +647,7 @@ class DlmNumberField extends StatelessWidget {
       enabled: enabled,
       textAlign: TextAlign.end,
       suffix: suffix,
+      onValidityChanged: onValidityChanged,
     );
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../format/dlm_format.dart';
+import '../shell/copyable.dart';
 
 /// The swarm of a torrent: state, peers, what was shared, trackers.
 class TorrentTab extends ConsumerWidget {
@@ -32,7 +33,7 @@ class TorrentTab extends ConsumerWidget {
     }
     final gap = theme.metrics.spacing.sm;
 
-    Widget row(String label, String value) => Padding(
+    Widget row(String label, String value, {bool copy = false}) => Padding(
       padding: EdgeInsets.symmetric(vertical: theme.metrics.spacing.xs),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +47,15 @@ class TorrentTab extends ConsumerWidget {
               ),
             ),
           ),
-          Expanded(child: Text(value, style: theme.typography.body)),
+          Expanded(
+            child: copy
+                ? CopyableText(
+                    value,
+                    textAlign: TextAlign.start,
+                    style: theme.typography.body,
+                  )
+                : Text(value, style: theme.typography.body),
+          ),
         ],
       ),
     );
@@ -57,7 +66,8 @@ class TorrentTab extends ConsumerWidget {
       padding: EdgeInsets.all(theme.metrics.spacing.md),
       children: [
         row(l.torrent_state, info.state),
-        if (info.infoHash != null) row(l.torrent_hash, info.infoHash!),
+        if (info.infoHash != null)
+          row(l.torrent_hash, info.infoHash!, copy: true),
         row(l.torrent_private, info.private ? l.torrent_yes : l.torrent_no),
         row(
           l.torrent_peers,
@@ -75,7 +85,8 @@ class TorrentTab extends ConsumerWidget {
             l.torrent_seeding_time,
             formatDuration(Duration(seconds: info.seedingSeconds)),
           ),
-        if (trackers.isNotEmpty) row(l.torrent_trackers, trackers.join('\n')),
+        if (trackers.isNotEmpty)
+          row(l.torrent_trackers, trackers.join('\n'), copy: true),
         if (peers.isNotEmpty) ...[
           SizedBox(height: gap),
           Text(l.torrent_peer_list, style: theme.typography.subtitle),

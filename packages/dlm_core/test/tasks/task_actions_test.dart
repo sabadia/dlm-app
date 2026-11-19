@@ -113,4 +113,30 @@ void main() {
       expect(store.tasks['run']!.position, 0, reason: 'rolled back');
     },
   );
+
+  test(
+    'archive takes tasks out of the lists at once and keeps refused ones',
+    () async {
+      repo.failIds.add('bad');
+      final future = actions.archive(['done', 'bad']);
+      expect(store.tasks['done'], isNull, reason: 'optimistic');
+      final results = await future;
+      expect(repo.calls, contains('archive:done,bad:true'));
+      expect(results.where((r) => !r.ok).map((r) => r.id), ['bad']);
+      expect(store.tasks['done'], isNull);
+      expect(store.tasks['bad'], isNotNull, reason: 'refused: put back');
+    },
+  );
+
+  test(
+    'archive puts every task back when the daemon cannot be reached',
+    () async {
+      repo.failNext = const ApiProblem(
+        status: 503,
+        code: 'service.unavailable',
+      );
+      await expectLater(actions.archive(['done']), throwsA(isA<ApiProblem>()));
+      expect(store.tasks['done'], isNotNull);
+    },
+  );
 }

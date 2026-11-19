@@ -9,6 +9,7 @@ part of 'update_tasks_body.dart';
 UpdateTasksBody _$UpdateTasksBodyFromJson(Map<String, dynamic> json) =>
     UpdateTasksBody(
       schema: json[r'$schema'] as String?,
+      archived: json['archived'] as bool?,
       filter: json['filter'] == null
           ? null
           : TaskSelectorFilter.fromJson(json['filter'] as Map<String, dynamic>),
@@ -29,6 +30,7 @@ UpdateTasksBody _$UpdateTasksBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UpdateTasksBodyToJson(UpdateTasksBody instance) =>
     <String, dynamic>{
       r'$schema': instance.schema,
+      'archived': instance.archived,
       'filter': instance.filter,
       'ids': instance.ids,
       'labels': instance.labels,

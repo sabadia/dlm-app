@@ -14,6 +14,7 @@ part 'task.g.dart';
 @JsonSerializable()
 class Task {
   const Task({
+    required this.archived,
     required this.createdAt,
     required this.downloaded,
     required this.id,
@@ -42,6 +43,7 @@ class Task {
   /// Incorrect name has been replaced. Original name: `$schema`.
   @JsonKey(name: '\$schema')
   final String? schema;
+  final bool archived;
   final DateTime? completedAt;
   final DateTime createdAt;
   final String? dir;
