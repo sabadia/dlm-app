@@ -16,6 +16,6 @@ BrowserProfiles _$BrowserProfilesFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BrowserProfilesToJson(BrowserProfiles instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'profiles': instance.profiles,
+      r'$schema': ?instance.schema,
+      'profiles': ?instance.profiles,
     };

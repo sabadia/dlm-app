@@ -23,16 +23,16 @@ FieldSchema _$FieldSchemaFromJson(Map<String, dynamic> json) => FieldSchema(
 Map<String, dynamic> _$FieldSchemaToJson(FieldSchema instance) =>
     <String, dynamic>{
       'description': instance.description,
-      'enum': instance.enumValue,
+      'enum': ?instance.enumValue,
       'group': instance.group,
-      'levels': instance.levels,
-      'max': instance.max,
-      'min': instance.min,
+      'levels': ?instance.levels,
+      'max': ?instance.max,
+      'min': ?instance.min,
       'path': instance.path,
-      'restartRequired': instance.restartRequired,
-      'secret': instance.secret,
+      'restartRequired': ?instance.restartRequired,
+      'secret': ?instance.secret,
       'type': _$FieldSchemaTypeEnumMap[instance.type]!,
-      'unit': instance.unit,
+      'unit': ?instance.unit,
     };
 
 const _$FieldSchemaTypeEnumMap = {

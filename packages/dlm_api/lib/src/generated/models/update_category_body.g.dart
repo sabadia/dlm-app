@@ -22,10 +22,10 @@ UpdateCategoryBody _$UpdateCategoryBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$UpdateCategoryBodyToJson(UpdateCategoryBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'dir': instance.dir,
-      'extensions': instance.extensions,
-      'mimeTypes': instance.mimeTypes,
-      'name': instance.name,
-      'position': instance.position,
+      r'$schema': ?instance.schema,
+      'dir': ?instance.dir,
+      'extensions': ?instance.extensions,
+      'mimeTypes': ?instance.mimeTypes,
+      'name': ?instance.name,
+      'position': ?instance.position,
     };

@@ -22,7 +22,7 @@ Delivery _$DeliveryFromJson(Map<String, dynamic> json) => Delivery(
 Map<String, dynamic> _$DeliveryToJson(Delivery instance) => <String, dynamic>{
   'attempt': instance.attempt,
   'durationMs': instance.durationMs,
-  'error': instance.error,
+  'error': ?instance.error,
   'event': instance.event,
   'eventId': instance.eventId,
   'id': instance.id,

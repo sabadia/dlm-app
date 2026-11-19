@@ -17,9 +17,9 @@ ImportCookiesBody _$ImportCookiesBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ImportCookiesBodyToJson(ImportCookiesBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'data': instance.data,
-      'format': _$ImportCookiesBodyFormatEnumMap[instance.format],
+      'format': ?_$ImportCookiesBodyFormatEnumMap[instance.format],
     };
 
 const _$ImportCookiesBodyFormatEnumMap = {

@@ -18,9 +18,9 @@ Fingerprint _$FingerprintFromJson(Map<String, dynamic> json) => Fingerprint(
 
 Map<String, dynamic> _$FingerprintToJson(Fingerprint instance) =>
     <String, dynamic>{
-      'contentType': instance.contentType,
-      'etag': instance.etag,
-      'filename': instance.filename,
-      'lastModified': instance.lastModified?.toIso8601String(),
+      'contentType': ?instance.contentType,
+      'etag': ?instance.etag,
+      'filename': ?instance.filename,
+      'lastModified': ?instance.lastModified?.toIso8601String(),
       'size': instance.size,
     };

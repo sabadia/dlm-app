@@ -21,15 +21,15 @@ Pairing _$PairingFromJson(Map<String, dynamic> json) => Pairing(
 );
 
 Map<String, dynamic> _$PairingToJson(Pairing instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'browser': instance.browser,
-  'clientId': instance.clientId,
-  'clientVersion': instance.clientVersion,
+  'clientId': ?instance.clientId,
+  'clientVersion': ?instance.clientVersion,
   'code': instance.code,
   'createdAt': instance.createdAt.toIso8601String(),
   'expiresAt': instance.expiresAt.toIso8601String(),
   'id': instance.id,
   'name': instance.name,
   'status': instance.status,
-  'tokenId': instance.tokenId,
+  'tokenId': ?instance.tokenId,
 };

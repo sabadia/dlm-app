@@ -28,14 +28,14 @@ DownloadCandidateBody _$DownloadCandidateBodyFromJson(
 Map<String, dynamic> _$DownloadCandidateBodyToJson(
   DownloadCandidateBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'dir': instance.dir,
-  'labels': instance.labels,
-  'name': instance.name,
-  'paused': instance.paused,
-  'priority': _$DownloadCandidateBodyPriorityEnumMap[instance.priority],
-  'queueId': instance.queueId,
-  'settings': instance.settings,
+  r'$schema': ?instance.schema,
+  'dir': ?instance.dir,
+  'labels': ?instance.labels,
+  'name': ?instance.name,
+  'paused': ?instance.paused,
+  'priority': ?_$DownloadCandidateBodyPriorityEnumMap[instance.priority],
+  'queueId': ?instance.queueId,
+  'settings': ?instance.settings,
 };
 
 const _$DownloadCandidateBodyPriorityEnumMap = {

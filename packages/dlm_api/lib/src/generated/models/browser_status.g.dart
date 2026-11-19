@@ -20,8 +20,8 @@ BrowserStatus _$BrowserStatusFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BrowserStatusToJson(BrowserStatus instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'browser': instance.browser,
+      r'$schema': ?instance.schema,
+      'browser': ?instance.browser,
       'max': instance.max,
-      'running': instance.running,
+      'running': ?instance.running,
     };

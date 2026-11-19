@@ -16,5 +16,5 @@ Map<String, dynamic> _$InstallationToJson(Installation instance) =>
     <String, dynamic>{
       'name': instance.name,
       'path': instance.path,
-      'version': instance.version,
+      'version': ?instance.version,
     };

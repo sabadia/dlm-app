@@ -16,7 +16,7 @@ Resource _$ResourceFromJson(Map<String, dynamic> json) => Resource(
 );
 
 Map<String, dynamic> _$ResourceToJson(Resource instance) => <String, dynamic>{
-  'files': instance.files,
+  'files': ?instance.files,
   'name': instance.name,
   'rangeSupported': instance.rangeSupported,
   'size': instance.size,

@@ -16,7 +16,7 @@ WhoAmI _$WhoAmIFromJson(Map<String, dynamic> json) => WhoAmI(
 );
 
 Map<String, dynamic> _$WhoAmIToJson(WhoAmI instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'local': instance.local,
   'name': instance.name,
   'primary': instance.primary,

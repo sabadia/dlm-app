@@ -13,6 +13,6 @@ PositionBody _$PositionBodyFromJson(Map<String, dynamic> json) => PositionBody(
 
 Map<String, dynamic> _$PositionBodyToJson(PositionBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'position': instance.position,
     };

@@ -16,7 +16,7 @@ ExportedTasks _$ExportedTasksFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ExportedTasksToJson(ExportedTasks instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'content': instance.content,
       'count': instance.count,
       'format': instance.format,

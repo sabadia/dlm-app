@@ -23,13 +23,13 @@ TaskSelectorFilter _$TaskSelectorFilterFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TaskSelectorFilterToJson(TaskSelectorFilter instance) =>
     <String, dynamic>{
-      'archived': _$TaskSelectorFilterArchivedEnumMap[instance.archived],
-      'category': instance.category,
-      'engine': instance.engine,
-      'label': instance.label,
-      'q': instance.q,
-      'queueId': instance.queueId,
-      'status': instance.status
+      'archived': ?_$TaskSelectorFilterArchivedEnumMap[instance.archived],
+      'category': ?instance.category,
+      'engine': ?instance.engine,
+      'label': ?instance.label,
+      'q': ?instance.q,
+      'queueId': ?instance.queueId,
+      'status': ?instance.status
           ?.map((e) => _$TaskSelectorFilterStatusEnumMap[e]!)
           .toList(),
     };

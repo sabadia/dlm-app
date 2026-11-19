@@ -16,7 +16,7 @@ TaskSelector _$TaskSelectorFromJson(Map<String, dynamic> json) => TaskSelector(
 
 Map<String, dynamic> _$TaskSelectorToJson(TaskSelector instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'filter': instance.filter,
-      'ids': instance.ids,
+      r'$schema': ?instance.schema,
+      'filter': ?instance.filter,
+      'ids': ?instance.ids,
     };

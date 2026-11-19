@@ -15,6 +15,6 @@ PairingList _$PairingListFromJson(Map<String, dynamic> json) => PairingList(
 
 Map<String, dynamic> _$PairingListToJson(PairingList instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'pairings': instance.pairings,
+      r'$schema': ?instance.schema,
+      'pairings': ?instance.pairings,
     };

@@ -34,19 +34,19 @@ SourceInput _$SourceInputFromJson(Map<String, dynamic> json) => SourceInput(
 
 Map<String, dynamic> _$SourceInputToJson(SourceInput instance) =>
     <String, dynamic>{
-      'body': instance.body,
-      'cookieDomains': instance.cookieDomains,
+      'body': ?instance.body,
+      'cookieDomains': ?instance.cookieDomains,
       'currentUrl': instance.currentUrl,
-      'headers': instance.headers,
-      'mediaHint': instance.mediaHint,
-      'method': instance.method,
-      'mirrors': instance.mirrors,
-      'originalUrl': instance.originalUrl,
-      'pageUrl': instance.pageUrl,
-      'referrer': instance.referrer,
-      'resolverKind': _$SourceInputResolverKindEnumMap[instance.resolverKind],
-      'streamKind': _$SourceInputStreamKindEnumMap[instance.streamKind],
-      'userAgent': instance.userAgent,
+      'headers': ?instance.headers,
+      'mediaHint': ?instance.mediaHint,
+      'method': ?instance.method,
+      'mirrors': ?instance.mirrors,
+      'originalUrl': ?instance.originalUrl,
+      'pageUrl': ?instance.pageUrl,
+      'referrer': ?instance.referrer,
+      'resolverKind': ?_$SourceInputResolverKindEnumMap[instance.resolverKind],
+      'streamKind': ?_$SourceInputStreamKindEnumMap[instance.streamKind],
+      'userAgent': ?instance.userAgent,
     };
 
 const _$SourceInputResolverKindEnumMap = {

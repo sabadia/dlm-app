@@ -18,7 +18,7 @@ Credential _$CredentialFromJson(Map<String, dynamic> json) => Credential(
 
 Map<String, dynamic> _$CredentialToJson(Credential instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'createdAt': instance.createdAt.toIso8601String(),
       'host': instance.host,
       'id': instance.id,

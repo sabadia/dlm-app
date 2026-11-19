@@ -14,6 +14,6 @@ TokenList _$TokenListFromJson(Map<String, dynamic> json) => TokenList(
 );
 
 Map<String, dynamic> _$TokenListToJson(TokenList instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'tokens': instance.tokens,
+  r'$schema': ?instance.schema,
+  'tokens': ?instance.tokens,
 };

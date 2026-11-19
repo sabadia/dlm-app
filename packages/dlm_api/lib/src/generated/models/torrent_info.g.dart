@@ -29,18 +29,18 @@ TorrentInfo _$TorrentInfoFromJson(Map<String, dynamic> json) => TorrentInfo(
 
 Map<String, dynamic> _$TorrentInfoToJson(TorrentInfo instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'downloaded': instance.downloaded,
-      'infoHash': instance.infoHash,
+      'infoHash': ?instance.infoHash,
       'knownPeers': instance.knownPeers,
-      'name': instance.name,
+      'name': ?instance.name,
       'peerCount': instance.peerCount,
-      'peers': instance.peers,
+      'peers': ?instance.peers,
       'private': instance.private,
       'ratio': instance.ratio,
       'seeders': instance.seeders,
       'seedingSeconds': instance.seedingSeconds,
       'state': instance.state,
-      'trackers': instance.trackers,
+      'trackers': ?instance.trackers,
       'uploaded': instance.uploaded,
     };

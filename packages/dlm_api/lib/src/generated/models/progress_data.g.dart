@@ -19,8 +19,8 @@ Map<String, dynamic> _$ProgressDataToJson(ProgressData instance) =>
     <String, dynamic>{
       'connections': instance.connections,
       'downloaded': instance.downloaded,
-      'peers': instance.peers,
+      'peers': ?instance.peers,
       'size': instance.size,
       'speed': instance.speed,
-      'uploadSpeed': instance.uploadSpeed,
+      'uploadSpeed': ?instance.uploadSpeed,
     };

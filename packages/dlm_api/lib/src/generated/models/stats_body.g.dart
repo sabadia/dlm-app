@@ -20,10 +20,10 @@ StatsBody _$StatsBodyFromJson(Map<String, dynamic> json) => StatsBody(
 );
 
 Map<String, dynamic> _$StatsBodyToJson(StatsBody instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'byEngine': instance.byEngine,
+  r'$schema': ?instance.schema,
+  'byEngine': ?instance.byEngine,
   'byStatus': instance.byStatus,
-  'completed': instance.completed,
+  'completed': ?instance.completed,
   'downloadedBytes': instance.downloadedBytes,
   'tasks': instance.tasks,
 };

@@ -19,11 +19,11 @@ MediaCandidateBody _$MediaCandidateBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$MediaCandidateBodyToJson(MediaCandidateBody instance) =>
     <String, dynamic>{
-      'kind': _$MediaCandidateBodyKindEnumMap[instance.kind],
-      'mime': instance.mime,
-      'size': instance.size,
+      'kind': ?_$MediaCandidateBodyKindEnumMap[instance.kind],
+      'mime': ?instance.mime,
+      'size': ?instance.size,
       'url': instance.url,
-      'variant': instance.variant,
+      'variant': ?instance.variant,
     };
 
 const _$MediaCandidateBodyKindEnumMap = {

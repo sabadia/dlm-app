@@ -21,10 +21,10 @@ CreateCredentialBody _$CreateCredentialBodyFromJson(
 Map<String, dynamic> _$CreateCredentialBodyToJson(
   CreateCredentialBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'host': instance.host,
   'password': instance.password,
-  'scheme': _$CreateCredentialBodySchemeEnumMap[instance.scheme],
+  'scheme': ?_$CreateCredentialBodySchemeEnumMap[instance.scheme],
   'username': instance.username,
 };
 

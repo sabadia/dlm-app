@@ -18,8 +18,8 @@ DeleteTasksBody _$DeleteTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DeleteTasksBodyToJson(DeleteTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'files': instance.files,
-      'filter': instance.filter,
-      'ids': instance.ids,
+      r'$schema': ?instance.schema,
+      'files': ?instance.files,
+      'filter': ?instance.filter,
+      'ids': ?instance.ids,
     };

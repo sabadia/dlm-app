@@ -18,6 +18,6 @@ ResolveTasksOutputBody _$ResolveTasksOutputBodyFromJson(
 Map<String, dynamic> _$ResolveTasksOutputBodyToJson(
   ResolveTasksOutputBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'results': instance.results,
+  r'$schema': ?instance.schema,
+  'results': ?instance.results,
 };

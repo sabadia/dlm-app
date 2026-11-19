@@ -15,4 +15,7 @@ BatchOutputBody _$BatchOutputBodyFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$BatchOutputBodyToJson(BatchOutputBody instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'results': instance.results};
+    <String, dynamic>{
+      r'$schema': ?instance.schema,
+      'results': ?instance.results,
+    };

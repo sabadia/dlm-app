@@ -13,7 +13,7 @@ FsFree _$FsFreeFromJson(Map<String, dynamic> json) => FsFree(
 );
 
 Map<String, dynamic> _$FsFreeToJson(FsFree instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'freeBytes': instance.freeBytes,
   'path': instance.path,
 };

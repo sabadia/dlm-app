@@ -21,10 +21,10 @@ ScopeLimits _$ScopeLimitsFromJson(Map<String, dynamic> json) => ScopeLimits(
 
 Map<String, dynamic> _$ScopeLimitsToJson(ScopeLimits instance) =>
     <String, dynamic>{
-      'activeProfile': instance.activeProfile,
+      'activeProfile': ?instance.activeProfile,
       'configuredSpeedLimit': instance.configuredSpeedLimit,
-      'name': instance.name,
-      'queueId': instance.queueId,
-      'quota': instance.quota,
+      'name': ?instance.name,
+      'queueId': ?instance.queueId,
+      'quota': ?instance.quota,
       'speedLimit': instance.speedLimit,
     };

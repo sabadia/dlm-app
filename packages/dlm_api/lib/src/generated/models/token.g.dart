@@ -21,13 +21,13 @@ Token _$TokenFromJson(Map<String, dynamic> json) => Token(
 );
 
 Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
-  'browser': instance.browser,
-  'clientId': instance.clientId,
-  'clientVersion': instance.clientVersion,
+  'browser': ?instance.browser,
+  'clientId': ?instance.clientId,
+  'clientVersion': ?instance.clientVersion,
   'createdAt': instance.createdAt.toIso8601String(),
   'id': instance.id,
-  'kind': instance.kind,
-  'lastUsedAt': instance.lastUsedAt?.toIso8601String(),
+  'kind': ?instance.kind,
+  'lastUsedAt': ?instance.lastUsedAt?.toIso8601String(),
   'name': instance.name,
   'scope': instance.scope,
 };

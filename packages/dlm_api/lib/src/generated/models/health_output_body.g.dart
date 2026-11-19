@@ -18,7 +18,7 @@ HealthOutputBody _$HealthOutputBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$HealthOutputBodyToJson(HealthOutputBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'apiVersion': instance.apiVersion,
       'authenticated': instance.authenticated,
       'minClientApi': instance.minClientApi,

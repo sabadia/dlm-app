@@ -21,9 +21,9 @@ NativeHostStatus _$NativeHostStatusFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$NativeHostStatusToJson(NativeHostStatus instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'allowedOrigins': instance.allowedOrigins,
-      'browsers': instance.browsers,
+      r'$schema': ?instance.schema,
+      'allowedOrigins': ?instance.allowedOrigins,
+      'browsers': ?instance.browsers,
       'launcher': instance.launcher,
       'launcherExists': instance.launcherExists,
     };

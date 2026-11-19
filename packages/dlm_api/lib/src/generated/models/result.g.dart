@@ -16,8 +16,8 @@ Result _$ResultFromJson(Map<String, dynamic> json) => Result(
 
 Map<String, dynamic> _$ResultToJson(Result instance) => <String, dynamic>{
   'browser': instance.browser,
-  'manifest': instance.manifest,
-  'reason': instance.reason,
-  'registry': instance.registry,
+  'manifest': ?instance.manifest,
+  'reason': ?instance.reason,
+  'registry': ?instance.registry,
   'status': instance.status,
 };

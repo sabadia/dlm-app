@@ -29,14 +29,14 @@ Map<String, dynamic> _$CookieInfoToJson(CookieInfo instance) =>
     <String, dynamic>{
       'createdAt': instance.createdAt.toIso8601String(),
       'domain': instance.domain,
-      'expiresAt': instance.expiresAt?.toIso8601String(),
+      'expiresAt': ?instance.expiresAt?.toIso8601String(),
       'hostOnly': instance.hostOnly,
       'httpOnly': instance.httpOnly,
       'id': instance.id,
       'name': instance.name,
-      'partitionKey': instance.partitionKey,
+      'partitionKey': ?instance.partitionKey,
       'path': instance.path,
-      'sameSite': _$CookieInfoSameSiteEnumMap[instance.sameSite],
+      'sameSite': ?_$CookieInfoSameSiteEnumMap[instance.sameSite],
       'secure': instance.secure,
       'updatedAt': instance.updatedAt.toIso8601String(),
     };

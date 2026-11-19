@@ -21,9 +21,9 @@ CreateCategoryBody _$CreateCategoryBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateCategoryBodyToJson(CreateCategoryBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'dir': instance.dir,
-      'extensions': instance.extensions,
-      'mimeTypes': instance.mimeTypes,
+      'extensions': ?instance.extensions,
+      'mimeTypes': ?instance.mimeTypes,
       'name': instance.name,
     };

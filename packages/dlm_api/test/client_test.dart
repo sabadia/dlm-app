@@ -45,6 +45,41 @@ const healthBody = {
 };
 
 void main() {
+  test('a request body has only the fields that were given', () {
+    // The daemon refuses `"settings": null`: an absent field must be absent.
+    expect(const UpdateTasksBody(ids: ['a', 'b'], archived: true).toJson(), {
+      'ids': ['a', 'b'],
+      'archived': true,
+    });
+    expect(
+      const UpdateTasksBody(
+        ids: ['a'],
+        priority: UpdateTasksBodyPriority.high,
+      ).toJson(),
+      {
+        'ids': ['a'],
+        'priority': 'high',
+      },
+    );
+  });
+
+  test('the archive update is sent without null fields', () async {
+    Object? body;
+    final (_, api) = await serve((r) async {
+      body = jsonDecode(await utf8.decodeStream(r));
+      json(r, 200, {'results': <Object>[]});
+    });
+    await guard(
+      () => api.rest.tasks.updateTasks(
+        body: const UpdateTasksBody(ids: ['t1'], archived: true),
+      ),
+    );
+    expect(body, {
+      'ids': ['t1'],
+      'archived': true,
+    });
+  });
+
   test('sends a list parameter as one comma-separated value', () async {
     String? query;
     final (_, api) = await serve((r) {

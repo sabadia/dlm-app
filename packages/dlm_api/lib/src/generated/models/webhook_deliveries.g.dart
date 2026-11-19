@@ -16,6 +16,6 @@ WebhookDeliveries _$WebhookDeliveriesFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$WebhookDeliveriesToJson(WebhookDeliveries instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'deliveries': instance.deliveries,
+      r'$schema': ?instance.schema,
+      'deliveries': ?instance.deliveries,
     };

@@ -18,10 +18,10 @@ Timeline _$TimelineFromJson(Map<String, dynamic> json) => Timeline(
 );
 
 Map<String, dynamic> _$TimelineToJson(Timeline instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'bucket': instance.bucket,
   'from': instance.from.toIso8601String(),
   'groupBy': instance.groupBy,
-  'points': instance.points,
+  'points': ?instance.points,
   'to': instance.to.toIso8601String(),
 };

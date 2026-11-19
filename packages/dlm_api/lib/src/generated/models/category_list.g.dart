@@ -15,6 +15,6 @@ CategoryList _$CategoryListFromJson(Map<String, dynamic> json) => CategoryList(
 
 Map<String, dynamic> _$CategoryListToJson(CategoryList instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'categories': instance.categories,
+      r'$schema': ?instance.schema,
+      'categories': ?instance.categories,
     };

@@ -17,9 +17,9 @@ FsListing _$FsListingFromJson(Map<String, dynamic> json) => FsListing(
 );
 
 Map<String, dynamic> _$FsListingToJson(FsListing instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'entries': instance.entries,
-  'parent': instance.parent,
+  r'$schema': ?instance.schema,
+  'entries': ?instance.entries,
+  'parent': ?instance.parent,
   'path': instance.path,
-  'truncated': instance.truncated,
+  'truncated': ?instance.truncated,
 };

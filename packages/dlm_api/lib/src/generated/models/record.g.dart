@@ -15,7 +15,7 @@ Record _$RecordFromJson(Map<String, dynamic> json) => Record(
 );
 
 Map<String, dynamic> _$RecordToJson(Record instance) => <String, dynamic>{
-  'attrs': instance.attrs,
+  'attrs': ?instance.attrs,
   'id': instance.id,
   'level': _$RecordLevelEnumMap[instance.level]!,
   'message': instance.message,

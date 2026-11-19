@@ -18,8 +18,8 @@ TorrentSettings _$TorrentSettingsFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$TorrentSettingsToJson(TorrentSettings instance) =>
     <String, dynamic>{
-      'seedKeep': instance.seedKeep,
-      'seedRatio': instance.seedRatio,
-      'seedTime': instance.seedTime,
-      'trackers': instance.trackers,
+      'seedKeep': ?instance.seedKeep,
+      'seedRatio': ?instance.seedRatio,
+      'seedTime': ?instance.seedTime,
+      'trackers': ?instance.trackers,
     };

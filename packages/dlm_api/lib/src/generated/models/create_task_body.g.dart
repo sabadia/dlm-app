@@ -32,18 +32,18 @@ CreateTaskBody _$CreateTaskBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CreateTaskBodyToJson(CreateTaskBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'allowDuplicate': instance.allowDuplicate,
-      'dir': instance.dir,
-      'labels': instance.labels,
-      'name': instance.name,
-      'paused': instance.paused,
-      'priority': _$CreateTaskBodyPriorityEnumMap[instance.priority],
-      'queueId': instance.queueId,
-      'resolveId': instance.resolveId,
-      'settings': instance.settings,
-      'source': instance.source,
-      'url': instance.url,
+      r'$schema': ?instance.schema,
+      'allowDuplicate': ?instance.allowDuplicate,
+      'dir': ?instance.dir,
+      'labels': ?instance.labels,
+      'name': ?instance.name,
+      'paused': ?instance.paused,
+      'priority': ?_$CreateTaskBodyPriorityEnumMap[instance.priority],
+      'queueId': ?instance.queueId,
+      'resolveId': ?instance.resolveId,
+      'settings': ?instance.settings,
+      'source': ?instance.source,
+      'url': ?instance.url,
     };
 
 const _$CreateTaskBodyPriorityEnumMap = {

@@ -16,7 +16,7 @@ StatusData _$StatusDataFromJson(Map<String, dynamic> json) => StatusData(
 
 Map<String, dynamic> _$StatusDataToJson(StatusData instance) =>
     <String, dynamic>{
-      'error': instance.error,
+      'error': ?instance.error,
       'from': instance.from,
       'to': instance.to,
     };

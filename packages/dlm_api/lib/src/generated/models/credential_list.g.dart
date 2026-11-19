@@ -16,6 +16,6 @@ CredentialList _$CredentialListFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CredentialListToJson(CredentialList instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'credentials': instance.credentials,
+      r'$schema': ?instance.schema,
+      'credentials': ?instance.credentials,
     };

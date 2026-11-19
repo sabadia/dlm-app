@@ -19,8 +19,8 @@ LimitsView _$LimitsViewFromJson(Map<String, dynamic> json) => LimitsView(
 
 Map<String, dynamic> _$LimitsViewToJson(LimitsView instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'global': instance.global,
-      'override': instance.override,
-      'queues': instance.queues,
+      'override': ?instance.override,
+      'queues': ?instance.queues,
     };

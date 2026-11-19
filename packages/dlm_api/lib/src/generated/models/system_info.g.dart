@@ -36,14 +36,14 @@ SystemInfo _$SystemInfoFromJson(Map<String, dynamic> json) => SystemInfo(
 
 Map<String, dynamic> _$SystemInfoToJson(SystemInfo instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'address': instance.address,
       'apiVersion': instance.apiVersion,
       'arch': instance.arch,
-      'commit': instance.commit,
+      'commit': ?instance.commit,
       'databaseBytes': instance.databaseBytes,
-      'engines': instance.engines,
-      'fsRoots': instance.fsRoots,
+      'engines': ?instance.engines,
+      'fsRoots': ?instance.fsRoots,
       'goVersion': instance.goVersion,
       'local': instance.local,
       'minClientApi': instance.minClientApi,
@@ -52,7 +52,7 @@ Map<String, dynamic> _$SystemInfoToJson(SystemInfo instance) =>
       'pid': instance.pid,
       'startedAt': instance.startedAt.toIso8601String(),
       'tls': instance.tls,
-      'tools': instance.tools,
+      'tools': ?instance.tools,
       'uptimeSeconds': instance.uptimeSeconds,
       'version': instance.version,
     };

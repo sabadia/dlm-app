@@ -25,11 +25,11 @@ ResolveResult _$ResolveResultFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ResolveResultToJson(ResolveResult instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'duplicateOf': instance.duplicateOf,
+      r'$schema': ?instance.schema,
+      'duplicateOf': ?instance.duplicateOf,
       'engine': instance.engine,
       'expiresAt': instance.expiresAt.toIso8601String(),
-      'formats': instance.formats?.map((e) => _$FormatEnumMap[e]!).toList(),
+      'formats': ?instance.formats?.map((e) => _$FormatEnumMap[e]!).toList(),
       'name': instance.name,
       'resolveId': instance.resolveId,
       'resource': instance.resource,

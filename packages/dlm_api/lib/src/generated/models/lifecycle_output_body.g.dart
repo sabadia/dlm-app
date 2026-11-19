@@ -15,7 +15,7 @@ LifecycleOutputBody _$LifecycleOutputBodyFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$LifecycleOutputBodyToJson(
   LifecycleOutputBody instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'status': _$LifecycleOutputBodyStatusEnumMap[instance.status]!,
 };
 

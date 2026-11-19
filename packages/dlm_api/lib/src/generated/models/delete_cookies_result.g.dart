@@ -15,6 +15,6 @@ DeleteCookiesResult _$DeleteCookiesResultFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$DeleteCookiesResultToJson(
   DeleteCookiesResult instance,
 ) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'deleted': instance.deleted,
 };

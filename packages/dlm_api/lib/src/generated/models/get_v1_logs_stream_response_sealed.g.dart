@@ -23,7 +23,7 @@ _$GetV1LogsStreamResponseSealedRecordFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$GetV1LogsStreamResponseSealedRecordToJson(
   GetV1LogsStreamResponseSealedRecord instance,
 ) => <String, dynamic>{
-  'attrs': instance.attrs,
+  'attrs': ?instance.attrs,
   'id': instance.id,
   'level': _$RecordLevelEnumMap[instance.level]!,
   'message': instance.message,

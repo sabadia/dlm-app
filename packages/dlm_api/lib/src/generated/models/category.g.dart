@@ -21,11 +21,11 @@ Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
 );
 
 Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
-  r'$schema': instance.schema,
+  r'$schema': ?instance.schema,
   'dir': instance.dir,
-  'extensions': instance.extensions,
+  'extensions': ?instance.extensions,
   'id': instance.id,
-  'mimeTypes': instance.mimeTypes,
+  'mimeTypes': ?instance.mimeTypes,
   'name': instance.name,
   'position': instance.position,
 };

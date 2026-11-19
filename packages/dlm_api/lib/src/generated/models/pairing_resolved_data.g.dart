@@ -18,7 +18,7 @@ Map<String, dynamic> _$PairingResolvedDataToJson(
 ) => <String, dynamic>{
   'id': instance.id,
   'status': _$PairingResolvedDataStatusEnumMap[instance.status]!,
-  'tokenId': instance.tokenId,
+  'tokenId': ?instance.tokenId,
 };
 
 const _$PairingResolvedDataStatusEnumMap = {

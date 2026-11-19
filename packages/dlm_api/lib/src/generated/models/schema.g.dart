@@ -14,6 +14,6 @@ Schema _$SchemaFromJson(Map<String, dynamic> json) => Schema(
 );
 
 Map<String, dynamic> _$SchemaToJson(Schema instance) => <String, dynamic>{
-  r'$schema': instance.schema,
-  'fields': instance.fields,
+  r'$schema': ?instance.schema,
+  'fields': ?instance.fields,
 };

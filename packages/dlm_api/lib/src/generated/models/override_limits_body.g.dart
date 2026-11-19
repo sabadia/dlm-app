@@ -15,7 +15,7 @@ OverrideLimitsBody _$OverrideLimitsBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$OverrideLimitsBodyToJson(OverrideLimitsBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'minutes': instance.minutes,
       'speedLimit': instance.speedLimit,
     };

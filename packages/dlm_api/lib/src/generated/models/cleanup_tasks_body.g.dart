@@ -17,9 +17,9 @@ CleanupTasksBody _$CleanupTasksBodyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CleanupTasksBodyToJson(CleanupTasksBody instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
-      'dryRun': instance.dryRun,
-      'files': instance.files,
+      r'$schema': ?instance.schema,
+      'dryRun': ?instance.dryRun,
+      'files': ?instance.files,
       'olderThanDays': instance.olderThanDays,
-      'queueId': instance.queueId,
+      'queueId': ?instance.queueId,
     };

@@ -18,7 +18,7 @@ CaptureOutput _$CaptureOutputFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$CaptureOutputToJson(CaptureOutput instance) =>
     <String, dynamic>{
-      r'$schema': instance.schema,
+      r'$schema': ?instance.schema,
       'cookies': instance.cookies,
       'refreshed': instance.refreshed,
       'task': instance.task,

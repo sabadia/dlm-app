@@ -22,8 +22,8 @@ Map<String, dynamic> _$SettingsUpdatedEventToJson(
 ) => <String, dynamic>{
   'data': instance.data,
   'id': instance.id,
-  'queueId': instance.queueId,
-  'taskId': instance.taskId,
+  'queueId': ?instance.queueId,
+  'taskId': ?instance.taskId,
   'time': instance.time.toIso8601String(),
   'type': _$SettingsUpdatedEventTypeEnumMap[instance.type]!,
 };

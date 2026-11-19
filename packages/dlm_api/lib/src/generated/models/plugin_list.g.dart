@@ -14,4 +14,7 @@ PluginList _$PluginListFromJson(Map<String, dynamic> json) => PluginList(
 );
 
 Map<String, dynamic> _$PluginListToJson(PluginList instance) =>
-    <String, dynamic>{r'$schema': instance.schema, 'plugins': instance.plugins};
+    <String, dynamic>{
+      r'$schema': ?instance.schema,
+      'plugins': ?instance.plugins,
+    };

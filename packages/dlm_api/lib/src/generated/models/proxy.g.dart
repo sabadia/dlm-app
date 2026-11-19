@@ -11,5 +11,5 @@ Proxy _$ProxyFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ProxyToJson(Proxy instance) => <String, dynamic>{
   'mode': instance.mode,
-  'url': instance.url,
+  'url': ?instance.url,
 };
