@@ -72,6 +72,11 @@ set_target_properties(${BINARY_NAME}
 
 # Generated plugin build rules, which manage building the plugins and adding
 # them to the application.
+# The hotkey_manager_linux plugin leaves two variables uninitialised on a path that
+# does not happen, and Flutter builds every plugin with -Werror: a newer clang
+# (the runners') refuses to compile it. The warning stays, it is only not fatal.
+add_compile_options(-Wno-error=sometimes-uninitialized)
+
 include(flutter/generated_plugins.cmake)
 
 
