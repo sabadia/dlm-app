@@ -1076,5 +1076,11 @@
   "restart_needed_action": "[Réštàrt DLM~~~~]",
   "restart_failed": "[DLM çôûld ñôt réštàrt îtšélf. Qûît ît àñd ôpéñ ît àgàîñ.~~~~~~~~~~~~~~~~~]",
   "settings_invalid_text": "[Thîš vàlûé îš ñôt vàlîd.~~~~~~~~]",
-  "settings_fix_invalid": "[Fîx thé fîéldš màrkéd îñ réd béfôré šàvîñg.~~~~~~~~~~~~~]"
+  "settings_fix_invalid": "[Fîx thé fîéldš màrkéd îñ réd béfôré šàvîñg.~~~~~~~~~~~~~]",
+  "archive_server_too_old": "[Thé šérvér DLM îš çôññéçtéd tô ({version}) îš tôô ôld fôr thé àrçhîvé, whîçh ñéédš 0.8.0. Ûpdàté ît ûñdér Màñàgé, Dàémôñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "archive_only_finished": "[Ôñlý fîñîšhéd dôwñlôàdš çàñ bé môvéd tô thé àrçhîvé. Dôwñlôàdš thàt àré štîll rûññîñg, qûéûéd ôr pàûšéd wéré léft whéré théý àré.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "archive_skipped": "[{count, plural, =1{1 dôwñlôàd thàt îš ñôt fîñîšhéd wàš léft ôût} other{{count} dôwñlôàdš thàt àré ñôt fîñîšhéd wéré léft ôût}}~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "banner_daemon_old_title": "[Thé šérvér îš ôldér thàñ thîš àpp~~~~~~~~~~]",
+  "banner_daemon_old_message": "[Â šérvér ({running}) frôm béfôré thé ûpdàté îš štîll rûññîñg. Šômé féàtûréš ñééd {bundled}.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]",
+  "banner_daemon_old_action": "[Réštàrt thé šérvér~~~~~~]"
 }

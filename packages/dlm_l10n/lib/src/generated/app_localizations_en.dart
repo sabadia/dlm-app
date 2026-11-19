@@ -3924,6 +3924,37 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get settings_fix_invalid =>
       'Fix the fields marked in red before saving.';
+
+  @override
+  String archive_server_too_old(String version) {
+    return 'The server DLM is connected to ($version) is too old for the archive, which needs 0.8.0. Update it under Manage, Daemon.';
+  }
+
+  @override
+  String get archive_only_finished =>
+      'Only finished downloads can be moved to the archive. Downloads that are still running, queued or paused were left where they are.';
+
+  @override
+  String archive_skipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads that are not finished were left out',
+      one: '1 download that is not finished was left out',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get banner_daemon_old_title => 'The server is older than this app';
+
+  @override
+  String banner_daemon_old_message(String running, String bundled) {
+    return 'A server ($running) from before the update is still running. Some features need $bundled.';
+  }
+
+  @override
+  String get banner_daemon_old_action => 'Restart the server';
 }
 
 /// The translations for English (`en_XA`).
@@ -7894,4 +7925,36 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
   @override
   String get settings_fix_invalid =>
       '[Fîx thé fîéldš màrkéd îñ réd béfôré šàvîñg.~~~~~~~~~~~~~]';
+
+  @override
+  String archive_server_too_old(String version) {
+    return '[Thé šérvér DLM îš çôññéçtéd tô ($version) îš tôô ôld fôr thé àrçhîvé, whîçh ñéédš 0.8.0. Ûpdàté ît ûñdér Màñàgé, Dàémôñ.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get archive_only_finished =>
+      '[Ôñlý fîñîšhéd dôwñlôàdš çàñ bé môvéd tô thé àrçhîvé. Dôwñlôàdš thàt àré štîll rûññîñg, qûéûéd ôr pàûšéd wéré léft whéré théý àré.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String archive_skipped(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš thàt àré ñôt fîñîšhéd wéré léft ôût',
+      one: '1 dôwñlôàd thàt îš ñôt fîñîšhéd wàš léft ôût',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get banner_daemon_old_title =>
+      '[Thé šérvér îš ôldér thàñ thîš àpp~~~~~~~~~~]';
+
+  @override
+  String banner_daemon_old_message(String running, String bundled) {
+    return '[Â šérvér ($running) frôm béfôré thé ûpdàté îš štîll rûññîñg. Šômé féàtûréš ñééd $bundled.~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String get banner_daemon_old_action => '[Réštàrt thé šérvér~~~~~~]';
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dlm_api/dlm_api.dart';
+import 'package:dlm_app/src/bundled_daemon.dart';
 import 'package:dlm_app/src/connection/connection_controller.dart';
 import 'package:dlm_app/src/shell/status_banners.dart';
 import 'package:dlm_platform/dlm_platform.dart';
@@ -56,6 +57,55 @@ void main() {
     hub.add(HubConnectionState.connected);
     await settle(tester);
     expect(find.byType(DlmBanner), findsNothing);
+  });
+
+  group('a daemon left over from an older version of the app', () {
+    DaemonStatus running(String version, {required bool adopted}) =>
+        DaemonStatus(
+          DaemonPhase.running,
+          adopted: adopted,
+          info: RuntimeInfo(
+            pid: 1,
+            url: 'http://127.0.0.1:1',
+            version: version,
+          ),
+        );
+
+    Future<void> pumpBundled(WidgetTester tester) => pumpApp(
+      tester,
+      tasks: [task('a', name: 'one')],
+      overrides: [
+        hubStateProvider.overrideWith((ref) => hub.stream),
+        daemonStatusProvider.overrideWith((ref) => daemonStatus.stream),
+        localDaemonProvider.overrideWithValue(daemon),
+        bundledDaemonVersionProvider.overrideWithValue('0.8.0'),
+      ],
+    );
+
+    appTest('is named, with a way to restart it into the bundled one', (
+      tester,
+    ) async {
+      await pumpBundled(tester);
+      daemonStatus.add(running('0.7.6', adopted: true));
+      await settle(tester);
+      expect(find.text('The server is older than this app'), findsOneWidget);
+      expect(find.textContaining('0.7.6'), findsOneWidget);
+      await tester.tap(find.text('Restart the server'));
+      await settle(tester);
+      expect(daemon.restarts, 1);
+    });
+
+    appTest('is not mentioned when it is current, or the app started it', (
+      tester,
+    ) async {
+      await pumpBundled(tester);
+      daemonStatus.add(running('0.8.0', adopted: true));
+      await settle(tester);
+      expect(find.byType(DlmBanner), findsNothing);
+      daemonStatus.add(running('0.7.6', adopted: false));
+      await settle(tester);
+      expect(find.byType(DlmBanner), findsNothing);
+    });
   });
 
   appTest('a restarting daemon says so', (tester) async {

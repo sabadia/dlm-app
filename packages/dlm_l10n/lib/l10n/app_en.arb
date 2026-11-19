@@ -2257,5 +2257,14 @@
   "restart_needed_action": "Restart DLM",
   "restart_failed": "DLM could not restart itself. Quit it and open it again.",
   "settings_invalid_text": "This value is not valid.",
-  "settings_fix_invalid": "Fix the fields marked in red before saving."
+  "settings_fix_invalid": "Fix the fields marked in red before saving.",
+  "archive_server_too_old": "The server DLM is connected to ({version}) is too old for the archive, which needs 0.8.0. Update it under Manage, Daemon.",
+  "@archive_server_too_old": {"placeholders": {"version": {"type": "String"}}},
+  "archive_only_finished": "Only finished downloads can be moved to the archive. Downloads that are still running, queued or paused were left where they are.",
+  "archive_skipped": "{count, plural, =1{1 download that is not finished was left out} other{{count} downloads that are not finished were left out}}",
+  "@archive_skipped": {"placeholders": {"count": {"type": "int"}}},
+  "banner_daemon_old_title": "The server is older than this app",
+  "banner_daemon_old_message": "A server ({running}) from before the update is still running. Some features need {bundled}.",
+  "@banner_daemon_old_message": {"placeholders": {"running": {"type": "String"}, "bundled": {"type": "String"}}},
+  "banner_daemon_old_action": "Restart the server"
 }

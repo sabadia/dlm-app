@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../about/updates.dart';
 import '../prefs/pref_providers.dart';
 import 'feedback.dart';
 import 'shell_state.dart';
@@ -201,6 +202,39 @@ Future<void> archiveTasks(
   bool archived = true,
 }) async {
   final l = AppLocalizations.of(context);
+  // The archive is a feature of daemon 0.8.0. An older one refuses the request
+  // with "validation failed" and no hint why, so the reason is said here.
+  final daemon = ref.read(systemInfoProvider).value?.version;
+  if (daemon != null &&
+      RegExp(r'^v?\d+\.\d+').hasMatch(daemon) &&
+      isNewerVersion(minArchiveDaemon, daemon)) {
+    showNotice(
+      context,
+      ref,
+      l.archive_server_too_old(daemon),
+      tone: DlmTone.danger,
+    );
+    return;
+  }
+  // Only a finished download can be archived: a selection of "everything" also
+  // holds running and queued ones, which stay where they are.
+  var skipped = 0;
+  if (archived) {
+    final keep = <String>[];
+    for (final id in ids) {
+      final t = ref.read(taskProvider(id));
+      if (t == null || (t.statusKind.isFinished && !t.isArchived)) {
+        keep.add(id);
+      } else if (!t.isArchived) {
+        skipped++;
+      }
+    }
+    ids = keep;
+    if (ids.isEmpty) {
+      showNotice(context, ref, l.archive_only_finished);
+      return;
+    }
+  }
   try {
     final results = await ref
         .read(taskActionsProvider)
@@ -220,7 +254,14 @@ Future<void> archiveTasks(
       showNotice(
         context,
         ref,
-        archived ? l.archive_done(done.length) : l.unarchive_done(done.length),
+        // One notice: a second one would replace the first, and its Undo.
+        [
+          if (archived)
+            l.archive_done(done.length)
+          else
+            l.unarchive_done(done.length),
+          if (skipped > 0) l.archive_skipped(skipped),
+        ].join('. '),
         onUndo: () => archiveTasks(context, ref, done, archived: !archived),
       );
     }

@@ -58,6 +58,9 @@ ReleaseInfo? chooseUpdate(
   return null;
 }
 
+/// The oldest daemon that has the archive.
+const String minArchiveDaemon = '0.8.0';
+
 /// Whether [remote] is a higher version than [current], by semantic-version
 /// precedence: `1.0.0` is newer than `1.0.0-beta.2`, and `1.0.0-beta.3` than
 /// `1.0.0-beta.2`. A leading `v` is ignored. Build metadata after `+` is
