@@ -1,0 +1,59 @@
+schema_version: 1
+id: 01a1f1c1-07b2-7288-aeb7-acf754598a47
+status: draft
+created_at: '2026-11-19T03:02:01Z'
+updated_at: '2026-11-19T03:02:01Z'
+affirmed_at: null
+affirmed_by: null
+author:
+  kind: human
+  name: null
+  tool: null
+goal: 'Keep the app working against daemons older than the archive: archived is optional in the client models; and renew/await buttons follow what the daemon accepts'
+constraints: []
+rejected: []
+assumptions: []
+falsifier: ''
+evidence: []
+links:
+- path: apps/dlm_app/lib/src/shell/app_shell.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/lib/src/shell/task_commands.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/inspector_test.dart
+  start_line: null
+  end_line: null
+- path: apps/dlm_app/test/support/fakes.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/queue_list.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/queue_list.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/lib/src/generated/models/task.g.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_api/tool/prepare_spec.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/queues/queue_counts.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/lib/src/tasks/task_status.dart
+  start_line: null
+  end_line: null
+- path: packages/dlm_core/test/support/fakes.dart
+  start_line: null
+  end_line: null
+adr: null
+risks: []
+source:
+  kind: flags
+  ref: null
