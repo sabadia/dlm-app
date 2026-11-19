@@ -131,12 +131,31 @@ void main() {
       expect(find.text('Waiting for a new link'), findsNothing);
     });
 
-    appTest('says how many more wait', (tester) async {
-      final (h, _, _) = await open(tester);
+    appTest('shows each waiting download, never one hiding another', (
+      tester,
+    ) async {
+      final (h, _, urls) = await open(tester);
       h.events.add(_requested('t1', 'https://example.test/a'));
       h.events.add(_requested('t2', 'https://example.test/b'));
       await settle(tester);
-      expect(find.textContaining('1 more download waits'), findsOneWidget);
+      // One banner per request: the second is not behind the first.
+      expect(find.text('Waiting for a new link'), findsNWidgets(2));
+      // The newest is on top; its button opens its own page.
+      await tester.tap(find.text('Open the page').first);
+      await settle(tester);
+      expect(urls.opened, ['https://example.test/b']);
+    });
+
+    appTest('cuts a long list short and says how many more wait', (
+      tester,
+    ) async {
+      final (h, _, _) = await open(tester);
+      for (var i = 1; i <= 5; i++) {
+        h.events.add(_requested('t$i', 'https://example.test/$i'));
+      }
+      await settle(tester);
+      expect(find.text('Waiting for a new link'), findsNWidgets(3));
+      expect(find.textContaining('2 more downloads wait'), findsOneWidget);
     });
   });
 }

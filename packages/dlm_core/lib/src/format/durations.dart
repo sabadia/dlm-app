@@ -40,25 +40,36 @@ Duration? estimateRemaining({
 Duration? parseDuration(String input) {
   final text = input.trim().toLowerCase();
   if (text.isEmpty) return null;
+  // Digits that do not fit an int (or add up to centuries) are not a duration
+  // anyone meant, and building a Duration from them would throw.
+  const limit = Duration(days: 36500);
+  Duration? within(Duration? d) => d == null || d > limit ? null : d;
+  int? whole(String? digits) => digits == null ? null : int.tryParse(digits);
   final clock = RegExp(r'^(?:(\d+):)?(\d{1,2}):(\d{2})$').firstMatch(text);
   if (clock != null) {
     final hours = clock.group(1);
-    final a = int.parse(clock.group(2)!);
-    final s = int.parse(clock.group(3)!);
+    final a = whole(clock.group(2));
+    final s = whole(clock.group(3));
+    final h = whole(hours);
+    if (a == null || s == null || (hours != null && h == null)) return null;
     if (s > 59 || (hours != null && a > 59)) return null;
-    return hours == null
-        ? Duration(minutes: a, seconds: s)
-        : Duration(hours: int.parse(hours), minutes: a, seconds: s);
+    return within(
+      hours == null
+          ? Duration(minutes: a, seconds: s)
+          : Duration(hours: h!, minutes: a, seconds: s),
+    );
   }
   if (RegExp(r'^\d+$').hasMatch(text)) {
-    return Duration(seconds: int.parse(text));
+    final n = whole(text);
+    return n == null || n > limit.inSeconds ? null : Duration(seconds: n);
   }
   final part = RegExp(r'(\d+)\s*(d|h|min|m|s)(?![a-z])');
   var rest = text;
   var total = Duration.zero;
   var any = false;
   for (final m in part.allMatches(text)) {
-    final n = int.parse(m.group(1)!);
+    final n = whole(m.group(1));
+    if (n == null || n > limit.inDays * 24 * 3600) return null;
     total += switch (m.group(2)) {
       'd' => Duration(days: n),
       'h' => Duration(hours: n),
@@ -68,5 +79,5 @@ Duration? parseDuration(String input) {
     rest = rest.replaceFirst(m.group(0)!, '');
     any = true;
   }
-  return any && rest.trim().isEmpty ? total : null;
+  return any && rest.trim().isEmpty ? within(total) : null;
 }

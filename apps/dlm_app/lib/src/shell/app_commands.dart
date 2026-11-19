@@ -23,6 +23,7 @@ String filterLabel(AppLocalizations l, DownloadsFilter f) => switch (f) {
   DownloadsFilter.paused => l.nav_paused,
   DownloadsFilter.completed => l.nav_completed,
   DownloadsFilter.failed => l.nav_failed,
+  DownloadsFilter.archive => l.nav_archive,
 };
 
 /// The icon of a downloads filter.
@@ -33,6 +34,7 @@ DlmIconName filterIcon(DownloadsFilter f) => switch (f) {
   DownloadsFilter.paused => DlmIconName.pause,
   DownloadsFilter.completed => DlmIconName.success,
   DownloadsFilter.failed => DlmIconName.error,
+  DownloadsFilter.archive => DlmIconName.folder,
 };
 
 /// The commands of the palette: go to each page, plus window commands. More

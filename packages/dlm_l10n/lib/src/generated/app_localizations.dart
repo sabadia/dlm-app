@@ -6420,6 +6420,144 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use this computer'**
   String get sv_use_local;
+
+  /// No description provided for @nav_archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Archive'**
+  String get nav_archive;
+
+  /// No description provided for @task_archive.
+  ///
+  /// In en, this message translates to:
+  /// **'Move to archive'**
+  String get task_archive;
+
+  /// No description provided for @task_unarchive.
+  ///
+  /// In en, this message translates to:
+  /// **'Move out of archive'**
+  String get task_unarchive;
+
+  /// No description provided for @archive_done.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Moved 1 download to the archive} other{Moved {count} downloads to the archive}}'**
+  String archive_done(int count);
+
+  /// No description provided for @unarchive_done.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Moved 1 download out of the archive} other{Moved {count} downloads out of the archive}}'**
+  String unarchive_done(int count);
+
+  /// No description provided for @archive_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 download could not be archived} other{{count} downloads could not be archived}}'**
+  String archive_failed(int count);
+
+  /// No description provided for @selection_all_matching.
+  ///
+  /// In en, this message translates to:
+  /// **'All {count} downloads are selected'**
+  String selection_all_matching(int count);
+
+  /// No description provided for @selection_select_all_matching.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all {count}'**
+  String selection_select_all_matching(int count);
+
+  /// No description provided for @selection_clear.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear selection'**
+  String get selection_clear;
+
+  /// No description provided for @selection_loading_all.
+  ///
+  /// In en, this message translates to:
+  /// **'Collecting every download…'**
+  String get selection_loading_all;
+
+  /// No description provided for @add_duplicate_archived.
+  ///
+  /// In en, this message translates to:
+  /// **'Already in the archive: {name}'**
+  String add_duplicate_archived(String name);
+
+  /// No description provided for @toast_copied.
+  ///
+  /// In en, this message translates to:
+  /// **'Copied to clipboard'**
+  String get toast_copied;
+
+  /// No description provided for @br_not_a_page.
+  ///
+  /// In en, this message translates to:
+  /// **'This address is a file, not a web page. Add it as a download instead.'**
+  String get br_not_a_page;
+
+  /// No description provided for @br_add_as_download.
+  ///
+  /// In en, this message translates to:
+  /// **'Add as download'**
+  String get br_add_as_download;
+
+  /// No description provided for @pref_delete_files.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete the files too'**
+  String get pref_delete_files;
+
+  /// No description provided for @pref_delete_files_desc.
+  ///
+  /// In en, this message translates to:
+  /// **'The delete dialog starts with \"Also delete the files\" ticked; with the question switched off, deleting removes the files as well.'**
+  String get pref_delete_files_desc;
+
+  /// No description provided for @restart_app.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart DLM'**
+  String get restart_app;
+
+  /// No description provided for @restart_needed_title.
+  ///
+  /// In en, this message translates to:
+  /// **'A restart is needed'**
+  String get restart_needed_title;
+
+  /// No description provided for @restart_needed_message.
+  ///
+  /// In en, this message translates to:
+  /// **'Some of the changes you saved take effect only after DLM restarts.'**
+  String get restart_needed_message;
+
+  /// No description provided for @restart_needed_action.
+  ///
+  /// In en, this message translates to:
+  /// **'Restart DLM'**
+  String get restart_needed_action;
+
+  /// No description provided for @restart_failed.
+  ///
+  /// In en, this message translates to:
+  /// **'DLM could not restart itself. Quit it and open it again.'**
+  String get restart_failed;
+
+  /// No description provided for @settings_invalid_text.
+  ///
+  /// In en, this message translates to:
+  /// **'This value is not valid.'**
+  String get settings_invalid_text;
+
+  /// No description provided for @settings_fix_invalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix the fields marked in red before saving.'**
+  String get settings_fix_invalid;
 }
 
 class _AppLocalizationsDelegate

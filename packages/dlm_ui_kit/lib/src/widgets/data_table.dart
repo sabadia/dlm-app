@@ -144,6 +144,7 @@ class DlmDataTable<T> extends StatefulWidget {
     this.selectionMode = DlmSelectionMode.multiple,
     this.selectedIds = const {},
     this.onSelectionChanged,
+    this.onSelectAll,
     this.onRowActivated,
     this.onRowSecondaryTap,
     this.dragData,
@@ -201,6 +202,11 @@ class DlmDataTable<T> extends StatefulWidget {
 
   /// Called with the new selection.
   final ValueChanged<Set<Object>>? onSelectionChanged;
+
+  /// Called for Select all (Ctrl/Cmd+A) instead of selecting the rows the
+  /// table knows. A table that shows only the loaded part of a longer list uses
+  /// it to select every row the list has, not just those.
+  final VoidCallback? onSelectAll;
 
   /// Called on double click or Enter.
   final ValueChanged<T>? onRowActivated;
@@ -400,6 +406,10 @@ class _DlmDataTableState<T> extends State<DlmDataTable<T>> {
 
   void _selectAll() {
     if (widget.selectionMode != DlmSelectionMode.multiple) return;
+    if (widget.onSelectAll != null) {
+      widget.onSelectAll!();
+      return;
+    }
     final all = <Object>{};
     for (var i = 0; i < widget.itemCount; i++) {
       final r = _row(i);

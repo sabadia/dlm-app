@@ -102,6 +102,11 @@ final confirmDeleteProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.confirmDelete),
 );
 
+/// Whether deleting a download deletes its files too.
+final deleteFilesProvider = NotifierProvider<PrefNotifier<bool>, bool>(
+  () => PrefNotifier(UiPrefs.deleteFiles),
+);
+
 /// Keep the window hidden when the app is started at login.
 final startMinimisedProvider = NotifierProvider<PrefNotifier<bool>, bool>(
   () => PrefNotifier(UiPrefs.startMinimised),

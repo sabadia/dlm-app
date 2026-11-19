@@ -63,7 +63,7 @@ class ServersGroupState extends ConsumerState<ServersGroup> {
     });
     try {
       final name = _name.text.trim().isEmpty
-          ? Uri.parse(url).host
+          ? (Uri.tryParse(url)?.host ?? url)
           : _name.text.trim();
       final profile = await ref
           .read(profilesProvider.notifier)

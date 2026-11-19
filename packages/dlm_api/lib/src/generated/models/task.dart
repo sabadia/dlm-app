@@ -26,6 +26,7 @@ class Task {
     required this.status,
     required this.updatedAt,
     this.schema,
+    this.archived,
     this.completedAt,
     this.dir,
     this.engine,
@@ -42,6 +43,7 @@ class Task {
   /// Incorrect name has been replaced. Original name: `$schema`.
   @JsonKey(name: '\$schema')
   final String? schema;
+  final bool? archived;
   final DateTime? completedAt;
   final DateTime createdAt;
   final String? dir;

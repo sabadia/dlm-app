@@ -86,6 +86,7 @@ void main() {
           'taskId': 'x$i',
           'time': '2026-10-30T10:00:00Z',
           'data': {
+            'archived': false,
             'createdAt': '2026-10-29T00:00:00Z',
             'downloaded': 0,
             'id': 'x$i',

@@ -854,7 +854,9 @@ class _AddDownloadDialogState extends ConsumerState<AddDownloadDialog> {
               SizedBox(height: theme.metrics.spacing.sm),
               DlmBanner(
                 tone: DlmTone.warning,
-                message: l.add_duplicate(result.duplicateOf!.name),
+                message: result.duplicateOf!.archived == true
+                    ? l.add_duplicate_archived(result.duplicateOf!.name)
+                    : l.add_duplicate(result.duplicateOf!.name),
               ),
               SizedBox(height: theme.metrics.spacing.xs),
               DlmCheckbox(

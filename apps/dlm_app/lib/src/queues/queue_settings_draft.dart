@@ -30,7 +30,8 @@ Duration? parseGoDuration(Object? value) {
   var rest = value;
   var micros = 0.0;
   for (final match in part.allMatches(value)) {
-    final n = double.parse(match.group(1)!);
+    final n = double.tryParse(match.group(1)!);
+    if (n == null || !n.isFinite) return null;
     micros +=
         n *
         switch (match.group(2)) {

@@ -180,9 +180,17 @@ class TrayManagerController implements TrayController {
       ..isIconTemplate = iconAsset.contains('template')
       ..icon = ImageAsset.fromAsset(iconAsset);
     _icon = icon;
-    if (!Platform.isMacOS) {
-      // The menu bar of macOS opens its menu on a click; elsewhere a click
-      // brings the window and the menu waits for the right button.
+    if (Platform.isMacOS) {
+      // The menu bar opens its menu on a click. The native icon does nothing on
+      // a click by default, and installs its click handling only once somebody
+      // listens, so both are needed: the trigger, and a listener (which has
+      // nothing to do, the menu opens by itself).
+      icon
+        ..setContextMenuTrigger(ContextMenuTrigger.clicked)
+        ..addListener((_) {});
+    } else {
+      // Elsewhere a click brings the window and the menu waits for the right
+      // button.
       icon
         ..setContextMenuTrigger(ContextMenuTrigger.rightClicked)
         ..addListener((event) {

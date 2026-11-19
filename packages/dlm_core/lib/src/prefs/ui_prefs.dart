@@ -170,6 +170,10 @@ abstract final class UiPrefs {
   /// Ask before deleting downloads.
   static const confirmDelete = Pref<bool>.plain('ui.confirmDelete', true);
 
+  /// Whether deleting a download deletes its files too (the dialog's box starts
+  /// ticked; with the question off, the files go without asking).
+  static const deleteFiles = Pref<bool>.plain('ui.deleteFiles', false);
+
   /// Notify when a download finishes or fails.
   static const notifyOnFinish = Pref<bool>.plain('ui.notifyOnFinish', true);
 

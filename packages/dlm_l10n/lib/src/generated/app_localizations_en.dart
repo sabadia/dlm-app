@@ -3820,6 +3820,110 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sv_use_local => 'Use this computer';
+
+  @override
+  String get nav_archive => 'Archive';
+
+  @override
+  String get task_archive => 'Move to archive';
+
+  @override
+  String get task_unarchive => 'Move out of archive';
+
+  @override
+  String archive_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Moved $count downloads to the archive',
+      one: 'Moved 1 download to the archive',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String unarchive_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Moved $count downloads out of the archive',
+      one: 'Moved 1 download out of the archive',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String archive_failed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count downloads could not be archived',
+      one: '1 download could not be archived',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String selection_all_matching(int count) {
+    return 'All $count downloads are selected';
+  }
+
+  @override
+  String selection_select_all_matching(int count) {
+    return 'Select all $count';
+  }
+
+  @override
+  String get selection_clear => 'Clear selection';
+
+  @override
+  String get selection_loading_all => 'Collecting every download…';
+
+  @override
+  String add_duplicate_archived(String name) {
+    return 'Already in the archive: $name';
+  }
+
+  @override
+  String get toast_copied => 'Copied to clipboard';
+
+  @override
+  String get br_not_a_page =>
+      'This address is a file, not a web page. Add it as a download instead.';
+
+  @override
+  String get br_add_as_download => 'Add as download';
+
+  @override
+  String get pref_delete_files => 'Delete the files too';
+
+  @override
+  String get pref_delete_files_desc =>
+      'The delete dialog starts with \"Also delete the files\" ticked; with the question switched off, deleting removes the files as well.';
+
+  @override
+  String get restart_app => 'Restart DLM';
+
+  @override
+  String get restart_needed_title => 'A restart is needed';
+
+  @override
+  String get restart_needed_message =>
+      'Some of the changes you saved take effect only after DLM restarts.';
+
+  @override
+  String get restart_needed_action => 'Restart DLM';
+
+  @override
+  String get restart_failed =>
+      'DLM could not restart itself. Quit it and open it again.';
+
+  @override
+  String get settings_invalid_text => 'This value is not valid.';
+
+  @override
+  String get settings_fix_invalid =>
+      'Fix the fields marked in red before saving.';
 }
 
 /// The translations for English (`en_XA`).
@@ -7686,4 +7790,108 @@ class AppLocalizationsEnXa extends AppLocalizationsEn {
 
   @override
   String get sv_use_local => '[Ûšé thîš çômpûtér~~~~~~]';
+
+  @override
+  String get nav_archive => '[Ârçhîvé~~~]';
+
+  @override
+  String get task_archive => '[Môvé tô àrçhîvé~~~~~]';
+
+  @override
+  String get task_unarchive => '[Môvé ôût ôf àrçhîvé~~~~~~]';
+
+  @override
+  String archive_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Môvéd $count dôwñlôàdš tô thé àrçhîvé',
+      one: 'Môvéd 1 dôwñlôàd tô thé àrçhîvé',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String unarchive_done(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Môvéd $count dôwñlôàdš ôût ôf thé àrçhîvé',
+      one: 'Môvéd 1 dôwñlôàd ôût ôf thé àrçhîvé',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String archive_failed(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count dôwñlôàdš çôûld ñôt bé àrçhîvéd',
+      one: '1 dôwñlôàd çôûld ñôt bé àrçhîvéd',
+    );
+    return '[$_temp0~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+  }
+
+  @override
+  String selection_all_matching(int count) {
+    return '[Âll $count dôwñlôàdš àré šéléçtéd~~~~~~~~~~~]';
+  }
+
+  @override
+  String selection_select_all_matching(int count) {
+    return '[Šéléçt àll $count~~~~~~]';
+  }
+
+  @override
+  String get selection_clear => '[Çléàr šéléçtîôñ~~~~~]';
+
+  @override
+  String get selection_loading_all => '[Çôlléçtîñg évérý dôwñlôàd…~~~~~~~~]';
+
+  @override
+  String add_duplicate_archived(String name) {
+    return '[Âlréàdý îñ thé àrçhîvé: $name~~~~~~~~~]';
+  }
+
+  @override
+  String get toast_copied => '[Çôpîéd tô çlîpbôàrd~~~~~~]';
+
+  @override
+  String get br_not_a_page =>
+      '[Thîš àddréšš îš à fîlé, ñôt à wéb pàgé. Âdd ît àš à dôwñlôàd îñštéàd.~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get br_add_as_download => '[Âdd àš dôwñlôàd~~~~~]';
+
+  @override
+  String get pref_delete_files => '[Délété thé fîléš tôô~~~~~~]';
+
+  @override
+  String get pref_delete_files_desc =>
+      '[Thé délété dîàlôg štàrtš wîth \"Âlšô délété thé fîléš\" tîçkéd; wîth thé qûéštîôñ šwîtçhéd ôff, délétîñg rémôvéš thé fîléš àš wéll.~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get restart_app => '[Réštàrt DLM~~~~]';
+
+  @override
+  String get restart_needed_title => '[Â réštàrt îš ñéédéd~~~~~~]';
+
+  @override
+  String get restart_needed_message =>
+      '[Šômé ôf thé çhàñgéš ýôû šàvéd tàké éfféçt ôñlý àftér DLM réštàrtš.~~~~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get restart_needed_action => '[Réštàrt DLM~~~~]';
+
+  @override
+  String get restart_failed =>
+      '[DLM çôûld ñôt réštàrt îtšélf. Qûît ît àñd ôpéñ ît àgàîñ.~~~~~~~~~~~~~~~~~]';
+
+  @override
+  String get settings_invalid_text => '[Thîš vàlûé îš ñôt vàlîd.~~~~~~~~]';
+
+  @override
+  String get settings_fix_invalid =>
+      '[Fîx thé fîéldš màrkéd îñ réd béfôré šàvîñg.~~~~~~~~~~~~~]';
 }

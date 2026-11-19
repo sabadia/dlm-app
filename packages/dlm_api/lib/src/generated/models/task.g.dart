@@ -19,6 +19,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
   status: json['status'] as String,
   updatedAt: DateTime.parse(json['updatedAt'] as String),
   schema: json[r'$schema'] as String?,
+  archived: json['archived'] as bool?,
   completedAt: json['completedAt'] == null
       ? null
       : DateTime.parse(json['completedAt'] as String),
@@ -41,6 +42,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
   r'$schema': instance.schema,
+  'archived': instance.archived,
   'completedAt': instance.completedAt?.toIso8601String(),
   'createdAt': instance.createdAt.toIso8601String(),
   'dir': instance.dir,

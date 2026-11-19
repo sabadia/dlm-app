@@ -12,11 +12,13 @@ class DuplicateHint {
     required this.name,
     required this.status,
     required this.taskId,
+    this.archived,
   });
 
   factory DuplicateHint.fromJson(Map<String, Object?> json) =>
       _$DuplicateHintFromJson(json);
 
+  final bool? archived;
   final String name;
   final String status;
   final String taskId;

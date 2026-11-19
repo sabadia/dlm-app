@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../platform/app_restart.dart';
 import '../platform/startup.dart';
 import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
@@ -151,6 +152,11 @@ List<ApplicationMenu> buildApplicationMenus(
         ?command('download.add'),
         ?command('queue.new'),
         ?command('app.setup'),
+        ApplicationMenuItem(
+          id: 'app.restart',
+          label: l.restart_app,
+          onSelected: () => unawaited(restartApp(context, ref)),
+        ),
         const ApplicationMenuSeparator(),
         ApplicationMenuItem(
           id: 'download.pauseAll',

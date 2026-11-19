@@ -18,7 +18,10 @@ enum DownloadsFilter {
   completed,
 
   /// Stopped with an error.
-  failed;
+  failed,
+
+  /// Kept, but out of every other list.
+  archive;
 
   /// The statuses the daemon is asked for; empty means all.
   Set<TaskStatus> get statuses => switch (this) {
@@ -32,7 +35,12 @@ enum DownloadsFilter {
     paused => const {TaskStatus.paused},
     completed => const {TaskStatus.completed},
     failed => const {TaskStatus.error},
+    archive => const {},
   };
+
+  /// Whether this is the archive: it lists archived tasks, every other
+  /// filter leaves them out.
+  bool get isArchive => this == archive;
 
   /// The filter named by a path segment, or null.
   static DownloadsFilter? fromSegment(String? segment) {

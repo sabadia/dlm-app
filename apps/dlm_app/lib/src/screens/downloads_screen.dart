@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../prefs/pref_providers.dart';
 import '../routing/app_routes.dart';
+import '../shell/feedback.dart';
 import '../shell/shell_state.dart';
 import '../shell/task_commands.dart';
 import 'list_grouping.dart';
@@ -54,6 +55,7 @@ class DownloadsScreen extends ConsumerWidget {
       sort: options.sort,
       order: options.order,
       engine: options.engine,
+      archived: filter.isArchive,
     );
     final state = ref.watch(taskListProvider(query));
     final list = ref.read(taskListProvider(query).notifier);
@@ -146,6 +148,9 @@ class DownloadsScreen extends ConsumerWidget {
       rowSemanticLabel: (t) =>
           l.task_row_label(taskTitleOf(l, t), statusLabelOf(l, t)),
       selectedIds: selection,
+      // Select all takes every download the list has, not only the pages
+      // loaded so far.
+      onSelectAll: () => unawaited(_selectAll(context, ref, query)),
       onSelectionChanged: (ids) => ref.read(selectionProvider.notifier).set({
         for (final id in ids) id as String,
       }),
@@ -215,5 +220,28 @@ class DownloadsScreen extends ConsumerWidget {
         ],
       ),
     );
+  }
+}
+
+/// Selects every download [query] matches (all pages): the daemon is asked for
+/// them, so a list of thousands is selected whole. What is on screen is
+/// selected at once; the rest follows when the answer arrives.
+Future<void> _selectAll(
+  BuildContext context,
+  WidgetRef ref,
+  TaskQuery query,
+) async {
+  final loaded = ref.read(taskListProvider(query));
+  final selection = ref.read(selectionProvider.notifier)..set({...loaded.ids});
+  if (!loaded.hasMore) return;
+  try {
+    final all = await ref.read(taskRepositoryProvider).tasksMatching(query);
+    if (!context.mounted) return;
+    ref.read(taskStoreProvider).tasks.putAll([
+      for (final t in all) MapEntry(t.id, t),
+    ]);
+    selection.set({for (final t in all) t.id});
+  } on Object catch (e) {
+    if (context.mounted) showFailure(context, ref, e);
   }
 }

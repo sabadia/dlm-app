@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../connection/connection_controller.dart';
+import '../platform/app_restart.dart';
 import '../platform/url_opener.dart';
 import '../refresh/link_requests.dart';
 
@@ -67,20 +68,39 @@ class StatusBanners extends ConsumerWidget {
         ),
       );
     }
-    final waiting = ref.watch(linkRequestsProvider);
-    if (waiting.isNotEmpty) {
-      final first = waiting.first;
+    if (ref.watch(restartNeededProvider)) {
+      banners.add(
+        DlmBanner(
+          tone: DlmTone.warning,
+          title: l.restart_needed_title,
+          message: l.restart_needed_message,
+          actionLabel: l.restart_needed_action,
+          onAction: () => unawaited(restartApp(context, ref)),
+        ),
+      );
+    }
+    // Every download that waits for a new link gets its own banner, the newest
+    // first (the one just asked for), so a second request never hides behind
+    // the first. A long queue of them is cut short.
+    final waiting = ref.watch(linkRequestsProvider).reversed.toList();
+    const shown = 3;
+    for (final request in waiting.take(shown)) {
       banners.add(
         DlmBanner(
           tone: DlmTone.warning,
           title: l.link_wait_title,
-          message: waiting.length == 1
-              ? l.link_wait_message(first.name)
-              : '${l.link_wait_message(first.name)} '
-                    '${l.link_wait_more(waiting.length - 1)}',
+          message: l.link_wait_message(request.name),
           actionLabel: l.link_wait_open,
           onAction: () =>
-              unawaited(ref.read(urlOpenerProvider).open(first.pageUrl)),
+              unawaited(ref.read(urlOpenerProvider).open(request.pageUrl)),
+        ),
+      );
+    }
+    if (waiting.length > shown) {
+      banners.add(
+        DlmBanner(
+          tone: DlmTone.warning,
+          message: l.link_wait_more(waiting.length - shown),
         ),
       );
     }

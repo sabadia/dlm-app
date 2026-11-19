@@ -287,7 +287,11 @@ class _AppShellState extends ConsumerState<AppShell> {
                 id: downloadsSidebarId(f),
                 label: filterLabel(l, f),
                 icon: DlmIcon(filterIcon(f)),
-                count: _positive(counts.count(statuses: f.statuses)),
+                count: _positive(
+                  f.isArchive
+                      ? counts.archived
+                      : counts.count(statuses: f.statuses),
+                ),
               ),
           ],
         ),
@@ -377,6 +381,24 @@ class _AppShellState extends ConsumerState<AppShell> {
                   onPressed: () => stopSeedingTasks(context, ref, [
                     for (final t in selected)
                       if (t.isSeeding) t.id,
+                  ]),
+                ),
+              if (selected.any((t) => t.isArchived))
+                DlmIconButton(
+                  icon: const DlmIcon(DlmIconName.folder),
+                  semanticLabel: l.task_unarchive,
+                  onPressed: () => archiveTasks(context, ref, [
+                    for (final t in selected)
+                      if (t.isArchived) t.id,
+                  ], archived: false),
+                )
+              else if (selected.any((t) => t.statusKind.isFinished))
+                DlmIconButton(
+                  icon: const DlmIcon(DlmIconName.folder),
+                  semanticLabel: l.task_archive,
+                  onPressed: () => archiveTasks(context, ref, [
+                    for (final t in selected)
+                      if (t.statusKind.isFinished) t.id,
                   ]),
                 ),
               DlmIconButton(

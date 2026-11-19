@@ -155,6 +155,21 @@ class SettingsDraft {
   // path -> new value; a null value means "remove the override".
   final Map<String, Object?> _edits = {};
   final Map<String, List<String>> _errors = {};
+  final Set<String> _invalid = {};
+
+  /// Whether a field holds text that is not a valid value. Such text is never
+  /// stored in the draft, so saving would silently keep the old value instead
+  /// of what the user sees; the form does not save while this is true.
+  bool get hasInvalid => _invalid.isNotEmpty;
+
+  /// Records that the field of [path] holds invalid text (or no longer does).
+  void markInvalid(String path, {required bool invalid}) {
+    if (invalid) {
+      _invalid.add(path);
+    } else {
+      _invalid.remove(path);
+    }
+  }
 
   /// Whether anything differs from what is stored.
   bool get isDirty => _edits.isNotEmpty;
@@ -240,6 +255,7 @@ class SettingsDraft {
         draft.set(e.key, value);
       }
     }
+    draft._invalid.addAll(_invalid);
     draft._revision = _revision + 1; // list editors take the values again
     return draft;
   }

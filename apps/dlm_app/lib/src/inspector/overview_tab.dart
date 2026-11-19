@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../format/dlm_format.dart';
+import '../shell/copyable.dart';
 
 /// Status, progress, destination, times and the last error of one download.
 class OverviewTab extends ConsumerWidget {
@@ -53,6 +54,15 @@ class OverviewTab extends ConsumerWidget {
                 '${when(error.at)} · '
                 '${error.retryable ? l.ov_error_retryable : l.ov_error_final}',
           ),
+          Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: DlmButton(
+              label: l.src_copy,
+              icon: const DlmIcon(DlmIconName.copy),
+              onPressed: () =>
+                  copyText(context, ref, '${error.message} (${error.code})'),
+            ),
+          ),
           SizedBox(height: theme.metrics.spacing.md),
         ],
         DlmFormGroup(
@@ -73,7 +83,13 @@ class OverviewTab extends ConsumerWidget {
                 ),
               ),
             ),
-            _row(l.ov_size, context.bytes(size) ?? l.ov_size_unknown, l),
+            _row(
+              l.ov_size,
+              context.bytes(size) == null
+                  ? l.ov_size_unknown
+                  : '${task.hasEstimatedSize ? '≈ ' : ''}${context.bytes(size)}',
+              l,
+            ),
             _row(l.ov_downloaded, context.bytes(downloaded) ?? l.ov_none, l),
             if (running) ...[
               _row(l.ov_speed, context.speed(progress.speed) ?? l.ov_none, l),
@@ -92,7 +108,10 @@ class OverviewTab extends ConsumerWidget {
           children: [
             _row(l.ov_queue, queueName ?? task.queueId, l),
             _row(l.ov_engine, task.engine ?? l.ov_none, l),
-            _row(l.ov_folder, task.dir ?? l.ov_none, l),
+            if (task.dir == null)
+              _row(l.ov_folder, l.ov_none, l)
+            else
+              DlmFormRow(label: l.ov_folder, control: CopyableText(task.dir!)),
             _row(l.ov_priority, _priority(l, task.priority), l),
             if (labels != null && labels.isNotEmpty)
               _row(l.ov_labels, labels.join(', '), l),

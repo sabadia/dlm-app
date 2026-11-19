@@ -601,7 +601,9 @@ Future<AppHarness> pumpApp(
           ),
         ),
       queuesProvider.overrideWith(() => FakeQueues(queues)),
-      queueCountsSourceProvider.overrideWithValue(() async => counts),
+      queueCountsSourceProvider.overrideWithValue(
+        () async => QueueCountsState(counts),
+      ),
       categoriesProvider.overrideWith(() => FakeCategories(categories)),
       credentialsProvider.overrideWith(() => FakeCredentials(logins)),
       cookiesProvider.overrideWith(() => FakeCookies(cookies)),

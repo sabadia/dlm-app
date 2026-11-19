@@ -95,6 +95,15 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
   Widget _control(AppLocalizations l, Entry e, ConfigDraft d) {
     final value = d.valueOf(e.key);
     void set(Object? v) => setState(() => d.set(e.key, v));
+    // Text that does not parse is not stored: Save waits until it does. A
+    // field torn down tells too, mid-frame, so the screen updates after it.
+    void validity(bool valid) {
+      d.markInvalid(e.key, invalid: !valid);
+      scheduleMicrotask(() {
+        if (mounted) setState(() {});
+      });
+    }
+
     final enabled = !e.readOnly;
     switch (e.type) {
       case 'bool':
@@ -111,7 +120,12 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
             invalidText: l.settings_invalid_number,
             semanticLabel: e.key,
             enabled: enabled,
+            // No negative numbers (a limit, a timeout, a port) and no port
+            // beyond 65535: the daemon would refuse them at the next start.
+            min: 0,
+            max: e.key.contains('port') ? 65535 : null,
             onChanged: (v) => set(v?.toInt()),
+            onValidityChanged: validity,
           ),
         );
       case 'list':
@@ -146,6 +160,7 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
             semanticLabel: e.key,
             enabled: enabled,
             onChanged: (t) => set(t ?? ''),
+            onValidityChanged: validity,
           ),
         );
     }
@@ -317,7 +332,7 @@ class _DaemonScreenState extends ConsumerState<DaemonScreen> {
                 DlmButton(
                   label: l.settings_save,
                   variant: DlmButtonVariant.primary,
-                  onPressed: d.isDirty && !_saving
+                  onPressed: d.isDirty && !d.hasInvalid && !_saving
                       ? () => unawaited(_save())
                       : null,
                 ),

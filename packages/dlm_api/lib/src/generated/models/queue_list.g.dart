@@ -14,10 +14,12 @@ QueueList _$QueueListFromJson(Map<String, dynamic> json) => QueueList(
       ?.map((e) => Queue.fromJson(e as Map<String, dynamic>))
       .toList(),
   schema: json[r'$schema'] as String?,
+  archived: (json['archived'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$QueueListToJson(QueueList instance) => <String, dynamic>{
   r'$schema': instance.schema,
+  'archived': instance.archived,
   'counts': instance.counts,
   'queues': instance.queues,
 };
